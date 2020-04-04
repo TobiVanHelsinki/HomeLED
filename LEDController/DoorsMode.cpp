@@ -46,14 +46,14 @@ void DoorsMode::SetDoorPixels(int Start, int End, int CurrentColor)
 	}
 }
 
-void ICACHE_RAM_ATTR DoorsMode::Interrupt(int Pin)
-{
-	auto sensorValue = analogRead(Pin);
-	auto door = PinDoorMap[Pin];
-	Serial.println("Pin " + String(Pin) + "Door" + String(door) + "sensorValue " + String(sensorValue));
-	if (door >=0)
-	{
-		DoorOpen[door] = sensorValue == 1023; //== 1023
-	}
-	SinMode::Interrupt(Pin);
-} 
+//void ICACHE_RAM_ATTR DoorsMode::Interrupt(int Pin)
+//{
+//	auto sensorValue = analogRead(Pin);
+//	auto door = PinDoorMap[Pin];
+//	Serial.println("Pin " + String(Pin) + "Door" + String(door) + "sensorValue " + String(sensorValue));
+//	if (door >=0)
+//	{
+//		DoorOpen[door] = sensorValue == 1023; //== 1023
+//	}
+//	SinMode::Interrupt(Pin);
+//}

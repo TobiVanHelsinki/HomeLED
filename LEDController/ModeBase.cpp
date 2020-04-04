@@ -23,9 +23,9 @@ String ModeBase::Get(String Name)
 	return String();
 }
 
-void ICACHE_RAM_ATTR ModeBase::Interrupt(int Pin)
-{
-}
+//void ICACHE_RAM_ATTR ModeBase::Interrupt(int Pin)
+//{
+//}
 
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.

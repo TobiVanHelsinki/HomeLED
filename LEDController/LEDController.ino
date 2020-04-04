@@ -37,7 +37,7 @@ void setup() {
 	Serial.begin(115200);
 	delay(150);
 	Serial.println("INIT");
-	SetUpInterrupts();
+	//SetUpInterrupts();
 	SetupLeds();
 	SetupWiFi();
 	Serial.println("INIT complete");
@@ -49,7 +49,7 @@ void SetupWiFi() {
 	WiFi.hostname(WIFI_HOSTNAME);
 	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 	WiFi.mode(WIFI_STA);
-#ifdef STATIC_IP  
+#ifdef STATIC_IP
 	WiFi.config(ip, gateway, subnet);
 #endif
 	Serial.print("\tWaiting ");
@@ -95,7 +95,7 @@ void SetupLeds()
 	LoadConfig();
 	if (CurrentMode == NULL)
 	{
-		if(!SetMode(StartMode))
+		if (!SetMode(StartMode))
 		{
 			Serial.println("\tError SetMode");
 		}
@@ -104,25 +104,25 @@ void SetupLeds()
 	LEDsStart();
 }
 
-void SetUpInterrupts()
-{
-	Serial.println("SetupInterrupts");
-	pinMode(D2, INPUT_PULLUP);
-	attachInterrupt(digitalPinToInterrupt(D2), D2Change, CHANGE);
-	pinMode(D3, INPUT_PULLUP);
-	attachInterrupt(digitalPinToInterrupt(D3), D3Change, CHANGE);
-	pinMode(D4, INPUT_PULLUP);
-	attachInterrupt(digitalPinToInterrupt(D4), D4Change, CHANGE);
-	pinMode(D5, INPUT_PULLUP);
-	attachInterrupt(digitalPinToInterrupt(D5), D5Change, CHANGE);
-}
-
-void DeSetUpInterrupts()
-{ 
-	Serial.println("DeSetupInterrupts");
-	detachInterrupt(digitalPinToInterrupt(D2));
-	detachInterrupt(digitalPinToInterrupt(D3));
-}
+//void SetUpInterrupts()
+//{
+//	Serial.println("SetupInterrupts");
+//	pinMode(D2, INPUT_PULLUP);
+//	attachInterrupt(digitalPinToInterrupt(D2), D2Change, CHANGE);
+//	pinMode(D3, INPUT_PULLUP);
+//	attachInterrupt(digitalPinToInterrupt(D3), D3Change, CHANGE);
+//	pinMode(D4, INPUT_PULLUP);
+//	attachInterrupt(digitalPinToInterrupt(D4), D4Change, CHANGE);
+//	pinMode(D5, INPUT_PULLUP);
+//	attachInterrupt(digitalPinToInterrupt(D5), D5Change, CHANGE);
+//}
+//
+//void DeSetUpInterrupts()
+//{
+//	Serial.println("DeSetupInterrupts");
+//	detachInterrupt(digitalPinToInterrupt(D2));
+//	detachInterrupt(digitalPinToInterrupt(D3));
+//}
 
 #pragma endregion
 
@@ -226,7 +226,6 @@ String CurrentConfigToString()
 }
 #pragma endregion
 #pragma region Led Functs
-
 
 void LEDsStart()
 {
@@ -379,14 +378,13 @@ bool UpdateBri(int newbri)
 	return false;
 }
 
-
 #pragma endregion
-#pragma region Interrupt Functs
-void ICACHE_RAM_ATTR D2Change() { if (CurrentMode) { CurrentMode->Interrupt(D2); } }
-void ICACHE_RAM_ATTR D3Change() { if (CurrentMode) { CurrentMode->Interrupt(D3); } }
-void ICACHE_RAM_ATTR D4Change() { if (CurrentMode) { CurrentMode->Interrupt(D4); } }
-void ICACHE_RAM_ATTR D5Change() { if (CurrentMode) { CurrentMode->Interrupt(D5); } }
-#pragma endregion
+//#pragma region Interrupt Functs
+//void ICACHE_RAM_ATTR D2Change() { if (CurrentMode) { CurrentMode->Interrupt(D2); } }
+//void ICACHE_RAM_ATTR D3Change() { if (CurrentMode) { CurrentMode->Interrupt(D3); } }
+//void ICACHE_RAM_ATTR D4Change() { if (CurrentMode) { CurrentMode->Interrupt(D4); } }
+//void ICACHE_RAM_ATTR D5Change() { if (CurrentMode) { CurrentMode->Interrupt(D5); } }
+//#pragma endregion
 
 void loop(void)
 {
@@ -397,7 +395,7 @@ void loop(void)
 	delay(3000);
 }
 
-void RefreshLeds(void *pArg)
+void RefreshLeds(void* pArg)
 {
 	CurrentMode->NextState();
 	leds.show();
@@ -431,8 +429,7 @@ String LoadConfig()
 		auto name = getValue(param, '=', 0);
 		auto value = getValue(param, '=', 1);
 		Ret += SetProperty(name, value);
-	}
-	while (param != "");
+	} while (param != "");
 	return Ret;
 }
 String getValue(String data, char separator, int index)
@@ -470,7 +467,7 @@ String SaveConfig()
 	return "SaveConfig Done\n";
 }
 
-String ClearEEPROM() 
+String ClearEEPROM()
 {
 	EEPROM.begin(512);
 	// write a 0 to all 512 bytes of the EEPROM
@@ -480,6 +477,5 @@ String ClearEEPROM()
 	}
 	EEPROM.end();
 	return "cleared memory\n";
-
 }
 #pragma endregion

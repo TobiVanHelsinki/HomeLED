@@ -13,7 +13,7 @@ public:
 	virtual String GetName(int Number);
 	virtual String Get(String Name);
 	virtual String Set(String Name, String Value);
-	virtual void ICACHE_RAM_ATTR Interrupt(int Pin);
+	//virtual void ICACHE_RAM_ATTR Interrupt(int Pin);
 
 protected:
 	Adafruit_NeoPixel* leds;
