@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:HomeLedApp.Model"
+             x:Class="HomeLedApp.UI.MainPage">
+    <ContentPage.Resources>
+        <OnPlatform x:Key="ImagePosition" x:TypeArguments="x:Int32">
+            <On Platform="UWP" Value="1"/>
+            <On Platform="Android" Value="0"/>
+            <On Platform="iOS">1</On>
+        </OnPlatform>
+        <Style TargetType="Slider" x:Key="SliderStyle">
+            <Setter Property="MinimumTrackColor" Value="Accent"/>
+            <Setter Property="MaximumTrackColor" Value="Black"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="Grid.Column" Value="0"/>
+        </Style>
+        <Style TargetType="Button" x:Key="CIButton" x:Name="CIButton">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="Beige" Padding="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Set parameters here: "/>
+                <Picker Margin="5,0,8,0" x:Name="ModesView" SelectedIndexChanged="Picker_SelectedIndexChanged" ItemsSource="{x:Binding Modes}"/>
+                <Grid HorizontalOptions="Fill" x:Name="SinOptions">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Text="VerticalOffset"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="HorizontalOffset"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Column="1" Grid.Row="0" Minimum="0" Maximum="30" Value="{x:Binding Model.Sin_VerticalOffset, Mode=TwoWay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Column="1" Grid.Row="1" Minimum="0" Maximum="10" Value="{x:Binding Model.Sin_HorizontalOffset, Mode=TwoWay}"/>
+                    <Switch Grid.Column="2" Grid.Row="0" IsToggled="{x:Binding Model.Sin_VerticalOffset_Neg}"/>
+                    <Switch Grid.Column="2" Grid.Row="1" IsToggled="{x:Binding Model.Sin_HorizontalOffset_Neg}"/>
+                </Grid>
+                <Grid HorizontalOptions="Fill" x:Name="RainbowOptions">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Text="Random Mode"/>
+                    <Switch Grid.Column="1" Grid.Row="0" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="1" Text="Hue"/>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="2" Text="Sat"/>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="3" Text="Lum"/>
+                    <Frame CornerRadius="5" Padding="0" Margin="0" Grid.Row="{StaticResource ImagePosition}" Grid.Column="1"
+                           HeightRequest="{Binding Height, Source={x:Reference HueSlider}, Mode=OneWay}">
+                        <Image x:Name="ColorSpectrum" Aspect="Fill"/>
+                    </Frame>
+                    <Slider x:Name="HueSlider" Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="360" Value="{x:Binding Model.Hue, Mode=TwoWay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="100" Value="{x:Binding Model.Saturation, Mode=TwoWay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="3" Minimum="0" Maximum="100" Value="{x:Binding Model.Luminosity, Mode=TwoWay}"/>
+                </Grid>
+                <Grid HorizontalOptions="Fill">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="0" Text="Brigthnes"/>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="1" Text="Speed"/>
+                    <Label Style="{StaticResource LabelStyle}" Grid.Row="2" Text="# of Leds"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="0" Minimum="0" Maximum="255" Value="{x:Binding Model.Brigthnes, Mode=TwoWay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="50" Value="{x:Binding Model.Speed, Mode=TwoWay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="150" Value="{x:Binding Model.Number, Mode=TwoWay}"/>
+                </Grid>
+                <StackLayout x:Name="AvailibleControllerPanel"/>
+                <Grid x:Name="StorageCTRL">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="Permanent Storage" Grid.ColumnSpan="3"/>
+                    <Button Text="Save" Grid.Row="1" Grid.Column="0" Style="{StaticResource CIButton}" Clicked="Save_Click"/>
+                    <Button Text="Load" Grid.Row="1" Grid.Column="1" Style="{StaticResource CIButton}" Clicked="Load_Click"/>
+                    <Button Text="Clear" Grid.Row="1" Grid.Column="2" Style="{StaticResource CIButton}" Clicked="Clear_Click"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <StackLayout Grid.Row="1" x:Name="ControlPanel">
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Send" Clicked="Apply" HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
+                        Style="{StaticResource CIButton}"/>
+                <Button Text="Edit" Clicked="EditURL" Style="{StaticResource CIButton}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="LED Respond:"/>
+                <Label Text="{x:Binding Model.StatusCode}" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap"/>
+                <Button Text="Details" Style="{StaticResource CIButton}" Clicked="ShowDetails"/>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

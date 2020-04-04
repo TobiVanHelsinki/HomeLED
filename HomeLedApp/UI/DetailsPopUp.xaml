@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                x:Class="HomeLedApp.UI.DetailsPopUp">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+                    PositionIn="Center"
+                    PositionOut="Center"
+                    ScaleIn="1.2"
+                    ScaleOut="0.8"
+                    DurationIn="400"
+                    DurationOut="300"
+                    EasingIn="SinOut"
+                    EasingOut="SinIn"
+                    HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Beige">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Margin="10">
+            <Editor Text="{x:Binding MyURLParam, Mode=TwoWay}" AutoSize="TextChanges" IsSpellCheckEnabled="False"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button CornerRadius="5" Text="&amp;" Clicked="AddAmp"/>
+                <Button CornerRadius="5" Text="=" Clicked="AddEqu"/>
+                <Button CornerRadius="5" Text="Debug" Clicked="AddDebug"/>
+                <Button CornerRadius="5" Text="Scale" Clicked="AddScale"/>
+            </StackLayout>
+            <Button CornerRadius="5" Text="Send and Close" HorizontalOptions="Center" Clicked="OK"/>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>
