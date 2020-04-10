@@ -1,44 +1,4 @@
-#include <AutoConnect.h>
-#include <PageStream.h>
-#include <PageBuilder.h>
-#include <ESP8266WebServer.h>
-#include <ESP8266WebServerSecure.h>
-#include <ESP8266SSDP.h>
-#include <AutoConnectCredential.h>
-
-#include "EEPROMHelper.h"
-
-#include "RainbowMode.h"
-#include "OnePixelMode.h"
-#include "SinMode.h"
-#include "ColorMode.h"
-#include "DoorsMode.h"
-
-const auto LEDsPin = D1;
-const auto BuiltInLed = D4;
-const auto interruptPinReset = D7;
-
-auto CurrentNumberOfLeds = 150;
-auto CurrentLEDRefreshTime = 60;
-auto CurrentBrigthnes = 100;
-auto StartMode = "sin";
-
-constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
-constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
-constexpr auto DeviceType = "ImperialHomeLED";
-constexpr auto ModelName = "ImperialHomeLED.V1";
-constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
-constexpr auto ModelNumber = "100";
-constexpr auto SerialNumber = "100-2"; // TODO increase for each new device
-
-constexpr auto HTTPPort = 80;
-const String HomeLEDTitle = "HomeLED-";
-const String DefaultPassword = "moose";
-const auto EEPROMMax = 4096;
-
-const auto ResetPressedTime = 4000;
-
-void ICACHE_RAM_ATTR HandleResetInterrupt();
+#include "LEDController.h"
 
 #pragma region Server Vars
 bool IsServerReady = false;
@@ -82,7 +42,6 @@ void SetupWiFi()
 	Serial.println("SetupWiFi");
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
-	//DiscoverServer.on("", handleDiscovery);
 	//AUTOCONNECT_USE_PREFERENCES; //backward compatibility with ESP2866
 	AutoConnectConfig acConfig;
 	acConfig.autoReconnect = true;
@@ -93,7 +52,6 @@ void SetupWiFi()
 	acConfig.psk = DefaultPassword;
 	Portal.config(acConfig);
 	IsServerReady = Portal.begin();
-	//DiscoverServer.begin();
 	if (IsServerReady)
 	{
 		Serial.println("\tWiFi connected");
@@ -204,11 +162,11 @@ void loop(void)
 {
 	if (IsServerReady)
 	{
+		Portal.host().handleClient();
+		Portal.handleClient();
+		//TODO not sure if both is neccesary
 	}
-	Portal.host().handleClient();
-	Portal.handleClient();
-	//TODO not sure if both is neccesary
-	delay(3000);
+	delay(100);
 }
 
 //Function is called by the timer multiple times a second
@@ -217,7 +175,7 @@ void RefreshLeds(void* pArg)
 	CurrentMode->NextState();
 	leds.show();
 }
-
+//TODO try to extract the following to other files
 #pragma region Led Functs
 
 void LEDsStart()
