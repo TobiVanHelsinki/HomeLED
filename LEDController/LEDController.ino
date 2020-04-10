@@ -2,15 +2,17 @@
 #include <PageStream.h>
 #include <PageBuilder.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266WebServerSecure.h>
+#include <ESP8266SSDP.h>
+#include <AutoConnectCredential.h>
+
+#include "EEPROMHelper.h"
+
 #include "RainbowMode.h"
 #include "OnePixelMode.h"
 #include "SinMode.h"
 #include "ColorMode.h"
 #include "DoorsMode.h"
-#include <EEPROM.h>
-#include <ESP8266WebServerSecure.h>
-#include "LEDController.h"
-#include <AutoConnectCredential.h>
 
 const auto LEDsPin = D1;
 const auto BuiltInLed = D4;
@@ -21,6 +23,15 @@ auto CurrentLEDRefreshTime = 60;
 auto CurrentBrigthnes = 100;
 auto StartMode = "sin";
 
+constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
+constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
+constexpr auto DeviceType = "ImperialHomeLED";
+constexpr auto ModelName = "ImperialHomeLED.V1";
+constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
+constexpr auto ModelNumber = "100";
+constexpr auto SerialNumber = "100-2"; // TODO increase for each new device
+
+constexpr auto HTTPPort = 80;
 const String HomeLEDTitle = "HomeLED-";
 const String DefaultPassword = "moose";
 const auto EEPROMMax = 4096;
@@ -31,7 +42,7 @@ void ICACHE_RAM_ATTR HandleResetInterrupt();
 
 #pragma region Server Vars
 bool IsServerReady = false;
-ESP8266WebServer Server(80);
+ESP8266WebServer Server(HTTPPort);
 AutoConnect Portal(Server);
 #pragma endregion
 
@@ -44,16 +55,18 @@ bool LEDsStarted = false;
 
 #pragma region Setups
 
-void setup() {
+void setup()
+{
 	noInterrupts();
 	Serial.begin(115200);
 	delay(50);
 	Serial.println("------------------");
 	Serial.println("INIT");
-	EEPROM.begin(EEPROMMax);
+	InitEEPROM(EEPROMMax);
 	SetupResetProcedures();
 	SetupLeds();
 	SetupWiFi();
+	SetupSSDP();
 	Serial.println("INIT complete");
 	interrupts();
 }
@@ -64,10 +77,12 @@ void SetupResetProcedures()
 	attachInterrupt(digitalPinToInterrupt(interruptPinReset), HandleResetInterrupt, CHANGE);
 }
 
-void SetupWiFi() {
-	Serial.print("SetupWiFi");
+void SetupWiFi()
+{
+	Serial.println("SetupWiFi");
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
+	//DiscoverServer.on("", handleDiscovery);
 	//AUTOCONNECT_USE_PREFERENCES; //backward compatibility with ESP2866
 	AutoConnectConfig acConfig;
 	acConfig.autoReconnect = true;
@@ -78,17 +93,48 @@ void SetupWiFi() {
 	acConfig.psk = DefaultPassword;
 	Portal.config(acConfig);
 	IsServerReady = Portal.begin();
+	//DiscoverServer.begin();
 	if (IsServerReady)
 	{
-		Serial.println("\tWiFi connected, WebServer Started");
+		Serial.println("\tWiFi connected");
+		Serial.print("\tSSID: ");
+		Serial.println(WiFi.SSID());
 		Serial.print("\tIP address: ");
 		Serial.println(WiFi.localIP());
 		Serial.print("\tHostname: ");
 		Serial.println(wifi_station_get_hostname());
+		Serial.println("\tWebServer Started");
 	}
 	else
 	{
 		Serial.println("WebServer NOT ready, unknown error.");
+	}
+}
+
+void SetupSSDP()
+{
+	Serial.println("SetupSSDP");
+	//https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266SSDP/examples/SSDP/SSDP.ino
+	Server.on("/index.html", HTTP_GET, []() { Server.send(200, "text/plain", "Hello World!"); });
+	Server.on("/description.xml", HTTP_GET, []() { Serial.println("\tSSDP Request"); SSDP.schema(Server.client()); });
+	SSDP.setURL("index.html");
+	SSDP.setSchemaURL("description.xml");
+	SSDP.setHTTPPort(HTTPPort);
+	SSDP.setManufacturer(Manufactor);
+	SSDP.setManufacturerURL(ManufacturerURL);
+	SSDP.setDeviceType(DeviceType);
+	SSDP.setModelName(ModelName);
+	SSDP.setModelURL(ModelURL);
+	SSDP.setModelNumber(ModelNumber);
+	SSDP.setSerialNumber(SerialNumber);
+	SSDP.setName(wifi_station_get_hostname());
+	if (SSDP.begin())
+	{
+		Serial.println("\tSSDP started");
+	}
+	else
+	{
+		Serial.println("\tERROR starting SSDP");
 	}
 }
 
@@ -467,77 +513,6 @@ String ClearConfigMemory()
 		return "ERROR storing Config";
 	}
 }
-#pragma endregion
-
-#pragma region Generic EEPROM Methods
-/// <summary>
-/// Retrieves content from memory until a 0 occures and converts the bytes into a string.
-/// </summary>
-/// <param name="startadress">The startadress.</param>
-/// <returns>The red string</returns>
-String ReadEEPROM(int startadress)
-{
-	auto redString = String();
-	for (size_t i = 0; i < ConfigEndAdress; i++)
-	{
-		auto red = (char)EEPROM.read(startadress + i);
-		if (red != 0)
-		{
-			redString.concat(red);
-		}
-		else
-		{
-			break;
-		}
-	}
-	return redString;
-}
-
-/// <summary>
-/// Writes the string to the eeprom and terminates the sequence with 0.
-/// </summary>
-/// <param name="startadress">The startadress.</param>
-/// <param name="text">The text to be written.</param>
-/// <returns>true if all is ok, false othwerwise</returns>
-bool WriteEEPROM(int startadress, String text)
-{
-	auto length = text.length();
-	char* textbytes = new char[length];
-	text.toCharArray(textbytes, length + 1);
-	for (size_t i = 0; i < length; i++)
-	{
-		EEPROM.write(startadress + i, textbytes[i]);
-	}
-	EEPROM.write(startadress + length + 1, 0);
-	auto result = EEPROM.commit();
-	if (!result)
-	{
-		Serial.println("ERROR! EEPROM commit failed");
-	}
-	return result;
-}
-
-/// <summary>
-/// Writes 0 to the eeprom.
-/// </summary>
-/// <param name="startAdress">The start adress.</param>
-/// <param name="length">The length to be cleared</param>
-/// <returns>true if all is ok, false othwerwise</returns>
-bool ClearEEPROM(int startAdress, int length)
-{
-	auto endAdress = startAdress + length;
-	for (int i = startAdress; i < endAdress; i++)
-	{
-		EEPROM.write(i, 0);
-	}
-	auto result = EEPROM.commit();
-	if (!result)
-	{
-		Serial.println("ERROR! EEPROM commit failed");
-	}
-	return result;
-}
-
 #pragma endregion
 
 #pragma region HW Reset
