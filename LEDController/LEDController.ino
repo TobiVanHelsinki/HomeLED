@@ -84,8 +84,13 @@ void SetupSSDP()
 	SSDP.setModelName(ModelName);
 	SSDP.setModelURL(ModelURL);
 	SSDP.setModelNumber(ModelNumber);
-	SSDP.setSerialNumber(SerialNumber);
+	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
+	SSDP.setSerialNumber(serialNo);
 	SSDP.setName(wifi_station_get_hostname());
+	Serial.print("\t");
+	Serial.print(ModelName);
+	Serial.print("--");
+	Serial.println(serialNo);
 	if (SSDP.begin())
 	{
 		Serial.println("\tSSDP started");

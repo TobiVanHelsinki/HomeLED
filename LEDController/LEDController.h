@@ -30,7 +30,6 @@ constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelName = "ImperialHomeLED.V1";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
 constexpr auto ModelNumber = "100";
-constexpr auto SerialNumber = "100-2"; // TODO increase for each new device
 
 constexpr auto HTTPPort = 80;
 const String HomeLEDTitle = "HomeLED-";
