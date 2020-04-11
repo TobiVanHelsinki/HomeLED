@@ -6,6 +6,11 @@ ColorMode::ColorMode(Adafruit_NeoPixel* leds) : ModeBase(leds)
 
 void ColorMode::NextState()
 {
+	auto color = leds->Color(
+		(int)(CurrentColor_r),
+		(int)(CurrentColor_g),
+		(int)(CurrentColor_b)
+	);
 	for (uint16_t i = 0; i < leds->numPixels(); i++)
 	{
 		leds->setPixelColor(i, CurrentColor);
@@ -25,7 +30,11 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_r != newval)
 		{
 			CurrentColor_r = newval;
-			CurrentColor |= leds->Color(newval, 0, 0);
+			CurrentColor = leds->Color(
+				(int)(CurrentColor_r),
+				(int)(CurrentColor_g),
+				(int)(CurrentColor_b)
+			);
 			return "Set red to  " + String(CurrentColor_r) + "\n";
 		}
 	}
@@ -35,7 +44,11 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_g != newval)
 		{
 			CurrentColor_g = newval;
-			CurrentColor |= leds->Color(0, newval, 0);
+			CurrentColor = leds->Color(
+				(int)(CurrentColor_r),
+				(int)(CurrentColor_g),
+				(int)(CurrentColor_b)
+			);
 			return "Set green to " + String(CurrentColor_g) + "\n";
 		}
 	}
@@ -45,7 +58,11 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_b != newval)
 		{
 			CurrentColor_b = newval;
-			CurrentColor |= leds->Color(0, 0, newval);
+			CurrentColor = leds->Color(
+				(int)(CurrentColor_r),
+				(int)(CurrentColor_g),
+				(int)(CurrentColor_b)
+			);
 			return "Set blue to " + String(CurrentColor_b) + "\n";
 		}
 	}
