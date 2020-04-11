@@ -93,7 +93,7 @@ namespace HomeLedApp.UI
             }
         }
 
-        private void Refresh(object sender, EventArgs e) => SSDPInstance.SearchForDevices();
+        private void Refresh(object sender, EventArgs e) => SSDPInstance.SearchForDevicesAsync();
 
         private void DisAndEnableButtons(bool Enable)
         {
@@ -146,10 +146,6 @@ namespace HomeLedApp.UI
             {
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
             }
-        }
-
-        private void ViewCell_Appearing(object sender, EventArgs e)
-        {
         }
     }
 }

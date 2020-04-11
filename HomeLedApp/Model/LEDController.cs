@@ -209,7 +209,7 @@ namespace HomeLedApp.Model
         LEDDevice _CurrentDevice;
         public LEDDevice CurrentDevice
         {
-            get { return _CurrentDevice; }
+            get { return _CurrentDevice ?? SSDP.Instance.DiscoveredDevices.FirstOrDefault(); }
             set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); RefreshURL(); } }
         }
 

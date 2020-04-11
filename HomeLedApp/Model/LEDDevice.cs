@@ -45,6 +45,10 @@ namespace HomeLedApp.Model
             set { if (_IsUpToDate != value) { _IsUpToDate = value; NotifyPropertyChanged(); } }
         }
 
-        public string Urlbase => "http://" + IP.ToString() + "?";
+        /// <summary>
+        /// Urlbase
+        /// </summary>
+        /// <exception cref="System.Net.Sockets.SocketException">Get.</exception>
+        public string Urlbase => "http://" + (IP == IPAddress.None ? HostName : IP.ToString()) + "?";
     }
 }

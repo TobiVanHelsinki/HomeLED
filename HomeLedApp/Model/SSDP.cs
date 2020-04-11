@@ -86,7 +86,7 @@ namespace HomeLedApp.Model
             PropertyChanged += SSDP_PropertyChanged;
             try
             {
-                _DeviceLocator.SearchAsync().ContinueWith(x => RefreshTimer.Start());
+                SearchForDevicesAsync().ContinueWith(x => RefreshTimer.Start());
             }
             catch (Exception ex)
             {
@@ -111,17 +111,7 @@ namespace HomeLedApp.Model
             //Handled at Instance
         }
 
-        private void RefreshTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                _ = SearchForDevices();
-            }
-            catch (Exception ex)
-            {
-                Log.Write("Could not search for devices", ex, logType: LogType.Error);
-            }
-        }
+        private void RefreshTimer_Elapsed(object sender, ElapsedEventArgs e) => _ = SearchForDevicesAsync();
 
         private void SSDP_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -135,7 +125,17 @@ namespace HomeLedApp.Model
         {
             if (device.DeviceType == DeviceTypeName)
             {
-                AddToDevices(device.FriendlyName, IPAddress.None);
+                if (device is SsdpRootDevice rootDevice)
+                {
+                    if (IPAddress.TryParse(rootDevice.UrlBase.Host, out var ip))
+                    {
+                        AddToDevices(device.FriendlyName, ip);
+                    }
+                }
+                else
+                {
+                    AddToDevices(device.FriendlyName, IPAddress.None);
+                }
             }
         }
 
@@ -148,7 +148,7 @@ namespace HomeLedApp.Model
                 {
                     DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
                 }
-                else if (element.IP != ipAddress)
+                else if (element.IP.GetHashCode() != ipAddress.GetHashCode())
                 {
                     element.IP = ipAddress;
                     element.IsUpToDate = true;
@@ -191,38 +191,26 @@ namespace HomeLedApp.Model
         /// SearchForDevices
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="System.IO.IOException"></exception>
-        public async Task<IEnumerable<LEDDevice>> SearchForDevices()
+        public async Task<IEnumerable<LEDDevice>> SearchForDevicesAsync()
         {
             if (_SearchinProgress)
             {
                 return Array.Empty<LEDDevice>();
             }
             _SearchinProgress = true;
+            Log.Write("Searching for Devices Now");
             foreach (var item in DiscoveredDevices)
             {
                 item.IsUpToDate = false;
             }
             try
             {
-                _ = _DeviceLocator.SearchAsync(); //TODO check ob das das selbe macht wie der restliche code
-            }
-            catch (Exception ex)
-            {
-                Log.Write("Could not search async", ex, logType: LogType.Error);
-            }
-            _SearchinProgress = false;
-            return DiscoveredDevices;
-            using (var deviceLocator = new SsdpDeviceLocator())
-            {
-                var foundDevices = await (string.IsNullOrEmpty(SearchTarget) ? deviceLocator.SearchAsync() : deviceLocator.SearchAsync(SearchTarget)); // Can pass search arguments here (device type, uuid). No arguments means all devices.
-
-                foreach (var foundDevice in foundDevices)
+                foreach (var foundDevice in await _DeviceLocator.SearchAsync())
+                //TODO check ob das das selbe macht wie der restliche code
                 {
                     try
                     {
-                        var fullDevice = await foundDevice.GetDeviceInfo();
-                        AddToDevices(fullDevice);
+                        AddToDevices(await foundDevice.GetDeviceInfo());
                     }
                     catch (Exception ex)
                     {
@@ -230,6 +218,75 @@ namespace HomeLedApp.Model
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Write("Could not search async", ex, logType: LogType.Error);
+            }
+            //using (var deviceLocator = new SsdpDeviceLocator())
+            //{
+            //    var foundDevices = await (string.IsNullOrEmpty(SearchTarget) ? deviceLocator.SearchAsync() : deviceLocator.SearchAsync(SearchTarget)); // Can pass search arguments here (device type, uuid). No arguments means all devices.
+
+            //    foreach (var foundDevice in foundDevices)
+            //    {
+            //        try
+            //        {
+            //            var fullDevice = await foundDevice.GetDeviceInfo();
+            //            PrintFullDevice(fullDevice);
+            //            AddToDevices(fullDevice);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Log.Write("Could not GetDeviceInfo", ex, logType: LogType.Error);
+            //        }
+            //    }
+            //}
+
+            _SearchinProgress = false;
+            return DiscoveredDevices;
+        }
+
+        /// <summary>
+        /// PrintFoundDevice
+        /// </summary>
+        /// <param name="foundDevice"></param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.IOException"></exception>
+        /// <exception cref="Exception"></exception>
+        private static async Task<SsdpDevice> GetAndPrintFoundDevice(DiscoveredSsdpDevice foundDevice)
+        {
+            var fullDevice = await foundDevice.GetDeviceInfo();
+            PrintFullDevice(fullDevice);
+            return fullDevice;
+        }
+
+        /// <summary>
+        /// PrintDevice
+        /// </summary>
+        /// <param name="fullDevice"></param>
+        /// <exception cref="System.IO.IOException"></exception>
+        private static SsdpDevice PrintFullDevice(SsdpDevice fullDevice)
+        {
+            foreach (var property in fullDevice.GetType().GetProperties())
+            {
+                var value = property.GetValue(fullDevice);
+                if (value is string s)
+                {
+                    Log.Write(property.Name + ":--" + s + "--");
+                }
+                else if (value is System.Collections.IEnumerable set)
+                {
+                    foreach (var item in set)
+                    {
+                        Log.Write(property.Name + ":--" + item + "--");
+                    }
+                }
+                else
+                {
+                    Log.Write(property.Name + ":--" + value + "--");
+                }
+            }
+            Log.Write("--");
+            return fullDevice;
         }
     }
 }
