@@ -2,6 +2,7 @@
 
 using HomeLedApp.Model;
 using HomeLedApp.UI;
+using TLIB;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,10 +19,21 @@ namespace HomeLedApp
         /// <exception cref="System.InvalidOperationException"></exception>
         public App()
         {
+            Log.IsInMemoryLogEnabled = true;
+            Log.IsFileLogEnabled = false;
+            Log.Mode = LogMode.Verbose;
+            Log.NewLogArrived += Log_NewLogArrived;
+
             SSDP.Instance.CreateInstance();
+
             InitializeComponent();
 
             MainPage = new MainPage();
+        }
+
+        private void Log_NewLogArrived(LogMessage logmessage)
+        {
+            System.Diagnostics.Debug.WriteLine(logmessage.CombinedMessage);
         }
 
         protected override void OnStart()

@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Timers;
 using Rssdp;
+using TLIB;
 using Xamarin.Essentials;
 
 namespace HomeLedApp.Model
@@ -76,14 +77,21 @@ namespace HomeLedApp.Model
                 _DeviceLocator.DeviceUnavailable += async (sender, e) => RemoveFromDevices(await e.DiscoveredDevice.GetDeviceInfo());
                 _DeviceLocator.StartListeningForNotifications();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO Log
+                Log.Write("Could not start listening", ex, logType: LogType.Error);
             }
             RefreshTimer.Interval = TimerInterval;
             RefreshTimer.Elapsed += RefreshTimer_Elapsed;
             PropertyChanged += SSDP_PropertyChanged;
-            _DeviceLocator.SearchAsync().ContinueWith(x => RefreshTimer.Start());
+            try
+            {
+                _DeviceLocator.SearchAsync().ContinueWith(x => RefreshTimer.Start());
+            }
+            catch (Exception ex)
+            {
+                Log.Write("Could not search async and start timer", ex, logType: LogType.Error);
+            }
         }
 
         ~SSDP()
@@ -92,9 +100,9 @@ namespace HomeLedApp.Model
             {
                 _DeviceLocator.StopListeningForNotifications();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO Log
+                Log.Write("Could not stop listening", ex, logType: LogType.Error);
             }
         }
 
@@ -109,9 +117,9 @@ namespace HomeLedApp.Model
             {
                 _ = SearchForDevices();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO Log
+                Log.Write("Could not search for devices", ex, logType: LogType.Error);
             }
         }
 
@@ -199,9 +207,9 @@ namespace HomeLedApp.Model
             {
                 _ = _DeviceLocator.SearchAsync(); //TODO check ob das das selbe macht wie der restliche code
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO Log
+                Log.Write("Could not search async", ex, logType: LogType.Error);
             }
             _SearchinProgress = false;
             return DiscoveredDevices;
@@ -218,7 +226,7 @@ namespace HomeLedApp.Model
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Ex: " + ex.Message);
+                        Log.Write("Could not GetDeviceInfo", ex, logType: LogType.Error);
                     }
                 }
             }
