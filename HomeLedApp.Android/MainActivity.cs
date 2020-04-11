@@ -1,10 +1,7 @@
-﻿using System;
+﻿//Author: Tobi van Helsinki
 
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace HomeLedApp.Droid
@@ -19,12 +16,15 @@ namespace HomeLedApp.Droid
 
             base.OnCreate(savedInstanceState);
 
+            #region Init libs
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState); // add this line to your code, it may also be called: bundle
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-
+            #endregion Init libs
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
+
         public override void OnBackPressed()
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
@@ -35,6 +35,13 @@ namespace HomeLedApp.Droid
             {
                 // Do something if there are not any pages in the `PopupStack`
             }
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

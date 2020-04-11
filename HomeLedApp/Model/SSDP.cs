@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Timers;
 using Rssdp;
+using Xamarin.Essentials;
 
 namespace HomeLedApp.Model
 {
@@ -79,11 +80,10 @@ namespace HomeLedApp.Model
             {
                 //TODO Log
             }
-            _DeviceLocator.SearchAsync();
             RefreshTimer.Interval = TimerInterval;
             RefreshTimer.Elapsed += RefreshTimer_Elapsed;
-            RefreshTimer.Start();
             PropertyChanged += SSDP_PropertyChanged;
+            _DeviceLocator.SearchAsync().ContinueWith(x => RefreshTimer.Start());
         }
 
         ~SSDP()
@@ -134,14 +134,25 @@ namespace HomeLedApp.Model
         private void AddToDevices(string hostName, IPAddress ipAddress)
         {
             var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
-            if (element is null)
+            void AlterOnMainThread()
             {
-                DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
+                if (element is null)
+                {
+                    DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
+                }
+                else if (element.IP != ipAddress)
+                {
+                    element.IP = ipAddress;
+                    element.IsUpToDate = true;
+                }
             }
-            else if (element.IP != ipAddress)
+            if (MainThread.IsMainThread)
             {
-                element.IP = ipAddress;
-                element.IsUpToDate = true;
+                AlterOnMainThread();
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread(AlterOnMainThread);
             }
         }
 
@@ -149,11 +160,24 @@ namespace HomeLedApp.Model
 
         private void RemoveFromDevices(string hostName)
         {
-            foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName).ToArray())
+            void AlterOnMainThread()
             {
-                DiscoveredDevices.Remove(item);
+                foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName).ToArray())
+                {
+                    DiscoveredDevices.Remove(item);
+                }
+            }
+            if (MainThread.IsMainThread)
+            {
+                AlterOnMainThread();
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread(AlterOnMainThread);
             }
         }
+
+        private bool _SearchinProgress;
 
         /// <summary>
         /// SearchForDevices
@@ -162,6 +186,11 @@ namespace HomeLedApp.Model
         /// <exception cref="System.IO.IOException"></exception>
         public async Task<IEnumerable<LEDDevice>> SearchForDevices()
         {
+            if (_SearchinProgress)
+            {
+                return Array.Empty<LEDDevice>();
+            }
+            _SearchinProgress = true;
             foreach (var item in DiscoveredDevices)
             {
                 item.IsUpToDate = false;
@@ -174,6 +203,8 @@ namespace HomeLedApp.Model
             {
                 //TODO Log
             }
+            _SearchinProgress = false;
+            return DiscoveredDevices;
             using (var deviceLocator = new SsdpDeviceLocator())
             {
                 var foundDevices = await (string.IsNullOrEmpty(SearchTarget) ? deviceLocator.SearchAsync() : deviceLocator.SearchAsync(SearchTarget)); // Can pass search arguments here (device type, uuid). No arguments means all devices.
@@ -191,7 +222,6 @@ namespace HomeLedApp.Model
                     }
                 }
             }
-            return DiscoveredDevices;
         }
     }
 }

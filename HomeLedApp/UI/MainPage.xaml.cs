@@ -50,7 +50,6 @@ namespace HomeLedApp.UI
                  let custname = (attributes[0] as VisibleAttribute).Name
                  select custname
                 ).ToList();
-            ;
             InitializeComponent();
             BindingContext = this;
             Model = new LEDController();
@@ -147,6 +146,10 @@ namespace HomeLedApp.UI
             {
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
             }
+        }
+
+        private void ViewCell_Appearing(object sender, EventArgs e)
+        {
         }
     }
 }

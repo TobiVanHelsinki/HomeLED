@@ -105,18 +105,18 @@
                     <Slider Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="50" Value="{x:Binding Model.Speed, Mode=TwoWay}"/>
                     <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="150" Value="{x:Binding Model.Number, Mode=TwoWay}"/>
                 </Grid>
-                <ListView BackgroundColor="Red" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                <ListView ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
                           SelectedItem="{x:Binding Model.CurrentDevice}">
                     <ListView.HeaderTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Button Text="Refresh" Clicked="Refresh"/>
-                            </ViewCell>
+                            <!--<ViewCell>-->
+                            <Button Text="Refresh" Clicked="Refresh"/>
+                            <!--</ViewCell>-->
                         </DataTemplate>
                     </ListView.HeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LEDDevice">
-                            <ViewCell IsEnabled="{x:Binding IsUpToDate}">
+                            <ViewCell IsEnabled="{x:Binding IsUpToDate}" Appearing="ViewCell_Appearing">
                                 <Label Text="{x:Binding HostName}" HorizontalOptions="Center"/>
                             </ViewCell>
                         </DataTemplate>
