@@ -107,7 +107,7 @@
                 </Grid>
                 <Button Text="Refresh" Clicked="Refresh"/>
                 <ListView ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
-                          SelectedItem="{x:Binding Model.CurrentDevice}" HeightRequest="200">
+                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" HeightRequest="200">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:LEDDevice">
                             <ViewCell IsEnabled="{x:Binding IsUpToDate}">

@@ -1,7 +1,6 @@
 ﻿//Author: Tobi van Helsinki
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,10 +14,7 @@ namespace HomeLedApp.Model
 {
     public class VisibleAttribute : Attribute
     {
-        public VisibleAttribute(string name)
-        {
-            Name = name;
-        }
+        public VisibleAttribute(string name) => Name = name;
         public string Name { get; internal set; }
     }
 
@@ -59,29 +55,26 @@ namespace HomeLedApp.Model
             clear
         }
 
-        Modes _CurrentMode;
+        private Modes _CurrentMode;
         [LedServerRelevant("m")]
         public Modes CurrentMode
         {
-            get { return _CurrentMode; }
+            get => _CurrentMode;
             set { if (_CurrentMode != value) { _CurrentMode = value; NotifyPropertyChanged(); } }
         }
 
-        string _Config;
+        private string _Config;
         [LedServerRelevant("config")]
         public string Config
         {
-            get { return _Config; }
+            get => _Config;
             set { if (_Config != value) { _Config = value; NotifyPropertyChanged(); } }
         }
 
-        Color _Color = new Color(0.9, 0.5, 0);
+        private Color _Color = new Color(0.9, 0.5, 0);
         public Color CurrentColor
         {
-            get
-            {
-                return _Color;
-            }
+            get => _Color;
             set
             {
                 _Color = value;
@@ -98,47 +91,47 @@ namespace HomeLedApp.Model
         public double Hue
         {
             get => CurrentColor.Hue * 360.0;
-            set { CurrentColor = CurrentColor.WithHue(value / 360.0); }
+            set => CurrentColor = CurrentColor.WithHue(value / 360.0);
         }
 
         public double Saturation
         {
             get => CurrentColor.Saturation * 100.0;
-            set { CurrentColor = CurrentColor.WithSaturation(value / 100.0); }
+            set => CurrentColor = CurrentColor.WithSaturation(value / 100.0);
         }
 
         public double Luminosity
         {
             get => CurrentColor.Luminosity * 100.0;
-            set { CurrentColor = CurrentColor.WithLuminosity(value / 100.0); }
+            set => CurrentColor = CurrentColor.WithLuminosity(value / 100.0);
         }
 
         [LedServerRelevant("r")]
         public int R
         {
             get => (int)(CurrentColor.R * 255);
-            set { CurrentColor = new Color(value / 255.0, CurrentColor.G, CurrentColor.B); }
+            set => CurrentColor = new Color(value / 255.0, CurrentColor.G, CurrentColor.B);
         }
 
         [LedServerRelevant("g")]
         public int G
         {
             get => (int)(CurrentColor.G * 255);
-            set { CurrentColor = new Color(CurrentColor.R, value / 255.0, CurrentColor.B); }
+            set => CurrentColor = new Color(CurrentColor.R, value / 255.0, CurrentColor.B);
         }
 
         [LedServerRelevant("b")]
         public int B
         {
             get => (int)(CurrentColor.B * 255);
-            set { CurrentColor = new Color(CurrentColor.R, CurrentColor.G, value / 255.0); }
+            set => CurrentColor = new Color(CurrentColor.R, CurrentColor.G, value / 255.0);
         }
 
-        int _Brigthnes = 50;
+        private int _Brigthnes = 50;
         [LedServerRelevant("br")]
         public int Brigthnes
         {
-            get { return _Brigthnes; }
+            get => _Brigthnes;
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
@@ -146,15 +139,15 @@ namespace HomeLedApp.Model
         public int _Speed = 62;
         public int Speed
         {
-            get { return (int)(1000.0 / _Speed); }
+            get => (int)(1000.0 / _Speed);
             set { if (_Speed != value) { _Speed = value < 1 ? 1000 : (int)(1000.0 / value); NotifyPropertyChanged(); } }
         }
 
-        int _Number = 150;
+        private int _Number = 150;
         [LedServerRelevant("n")]
         public int Number
         {
-            get { return _Number; }
+            get => _Number;
             set { if (_Number != value) { _Number = value; NotifyPropertyChanged(); } }
         }
 
@@ -162,14 +155,14 @@ namespace HomeLedApp.Model
         public int _Sin_VerticalOffset = 5;
         public int Sin_VerticalOffset
         {
-            get { return (_Sin_VerticalOffset < 0 ? -1 : 1) * _Sin_VerticalOffset; }
+            get => (_Sin_VerticalOffset < 0 ? -1 : 1) * _Sin_VerticalOffset;
             set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = (Sin_VerticalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
 
-        bool _Sin_VerticalOffset_Neg;
+        private bool _Sin_VerticalOffset_Neg;
         public bool Sin_VerticalOffset_Neg
         {
-            get { return _Sin_VerticalOffset_Neg; }
+            get => _Sin_VerticalOffset_Neg;
             set { if (_Sin_VerticalOffset_Neg != value) { _Sin_VerticalOffset_Neg = value; NotifyPropertyChanged(); _Sin_VerticalOffset *= -1; NotifyPropertyChanged(nameof(Sin_VerticalOffset)); } }
         }
 
@@ -177,14 +170,14 @@ namespace HomeLedApp.Model
         public int _Sin_HorizontalOffset = 2;
         public int Sin_HorizontalOffset
         {
-            get { return (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset; }
+            get => (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset;
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = (Sin_HorizontalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
 
-        bool _Sin_HorizontalOffset_Neg;
+        private bool _Sin_HorizontalOffset_Neg;
         public bool Sin_HorizontalOffset_Neg
         {
-            get { return _Sin_HorizontalOffset_Neg; }
+            get => _Sin_HorizontalOffset_Neg;
             set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset *= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
         }
 
@@ -192,51 +185,50 @@ namespace HomeLedApp.Model
         public int _Rainbow_Rand;
         public bool Rainbow_Rand
         {
-            get { return _Rainbow_Rand == 1 ? true : false; }
+            get => _Rainbow_Rand == 1 ? true : false;
             set { if (_Rainbow_Rand != (value ? 1 : 0)) { _Rainbow_Rand = value ? 1 : 0; NotifyPropertyChanged(); } }
         }
 
         #endregion Params
 
         #region Server Communication
-        ObservableCollection<LEDDevice> _AvailibleControllers = new ObservableCollection<LEDDevice>();
+        private ObservableCollection<LEDDevice> _AvailibleControllers = new ObservableCollection<LEDDevice>();
         public ObservableCollection<LEDDevice> AvailibleControllers
         {
-            get { return _AvailibleControllers; }
+            get => _AvailibleControllers;
             private set { if (_AvailibleControllers != value) { _AvailibleControllers = value; NotifyPropertyChanged(); } }
         }
 
-        LEDDevice _CurrentDevice;
+        private LEDDevice _CurrentDevice;
         public LEDDevice CurrentDevice
         {
-            get { return _CurrentDevice ?? SSDP.Instance.DiscoveredDevices.FirstOrDefault(); }
-            set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); RefreshURL(); } }
+            get => _CurrentDevice;
+            set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); } }
         }
 
-        string _Status = "---";
+        private string _Status = "---";
         public string Status
         {
-            get { return _Status; }
+            get => _Status;
             set { if (_Status != value) { _Status = value; NotifyPropertyChanged(); } }
         }
 
-        string _StatusCode;
+        private string _StatusCode;
         public string StatusCode
         {
-            get { return _StatusCode; }
+            get => _StatusCode;
             set { if (_StatusCode != value) { _StatusCode = value; NotifyPropertyChanged(); } }
         }
 
-        string _URLParam;
+        private string _URLParam;
         public string URLParam
         {
-            get { return _URLParam; }
+            get => _URLParam;
             set { if (_URLParam != value) { _URLParam = value; NotifyPropertyChanged(); } }
         }
 
-        static readonly HttpClient client = new HttpClient();
-
-        bool SendInProgress;
+        private static readonly HttpClient client = new HttpClient();
+        private bool SendInProgress;
 
         internal async Task Send(string myurlparam = null)
         {
@@ -273,7 +265,28 @@ namespace HomeLedApp.Model
 
         public LEDController()
         {
-            PropertyChanged += (s, e) => RefreshURL();
+            PropertyChanged += LEDController_PropertyChanged;
+            SSDP.Instance.DiscoveredDevices.CollectionChanged += DiscoveredDevices_CollectionChanged;
+            SetCurrentDeviceIfNull();
+        }
+
+        private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SetCurrentDeviceIfNull();
+        }
+
+        private void LEDController_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RefreshURL();
+            SetCurrentDeviceIfNull();
+        }
+
+        private void SetCurrentDeviceIfNull()
+        {
+            if (CurrentDevice is null && SSDP.Instance.DiscoveredDevices.FirstOrDefault() is LEDDevice d)
+            {
+                CurrentDevice = d;
+            }
         }
 
         private void RefreshURL()
@@ -291,7 +304,10 @@ namespace HomeLedApp.Model
             }
             catch (Exception)
             {
-                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
             }
         }
     }

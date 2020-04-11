@@ -125,12 +125,9 @@ namespace HomeLedApp.Model
         {
             if (device.DeviceType == DeviceTypeName)
             {
-                if (device is SsdpRootDevice rootDevice)
+                if (device is SsdpRootDevice rootDevice && IPAddress.TryParse(rootDevice.UrlBase.Host, out var ip))
                 {
-                    if (IPAddress.TryParse(rootDevice.UrlBase.Host, out var ip))
-                    {
-                        AddToDevices(device.FriendlyName, ip);
-                    }
+                    AddToDevices(device.FriendlyName, ip);
                 }
                 else
                 {
@@ -141,9 +138,9 @@ namespace HomeLedApp.Model
 
         private void AddToDevices(string hostName, IPAddress ipAddress)
         {
-            var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
             void AlterOnMainThread()
             {
+                var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
                 if (element is null)
                 {
                     DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
