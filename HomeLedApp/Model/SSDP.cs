@@ -1,33 +1,179 @@
 ﻿//Author: Tobi van Helsinki
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Net;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using Rssdp;
 
 namespace HomeLedApp.Model
 {
-    public class SSDP
+    public class SSDP : INotifyPropertyChanged
     {
-        //https://github.com/Yortw/RSSDP
-        private const string SearchTarget = "";
-        private const string DeviceTypeName = "ImperialHomeLED";
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion NotifyPropertyChanged
+
+        //https://github.com/Yortw/RSSDP
+        private const string SearchTarget = null;
+        private const string DeviceTypeName = "ImperialHomeLED";
         //private const string SearchTarget = "urn:schemas-upnp-org:device:Basic:1";
         //private const string SearchTarget = "urn:schemas-upnp-org:device:ImperialHomeLED:1";
+
+        protected static SSDP _Instance;
+        public static SSDP Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                {
+                    _Instance = new SSDP();
+                }
+                return _Instance;
+            }
+        }
+
+        private ObservableCollection<LEDDevice> _DiscoveredDevices = new ObservableCollection<LEDDevice>();
+        public ObservableCollection<LEDDevice> DiscoveredDevices
+        {
+            get => _DiscoveredDevices;
+            set { if (_DiscoveredDevices != value) { _DiscoveredDevices = value; NotifyPropertyChanged(); } }
+        }
+
+        // Define _DeviceLocator as a field so it doesn't get GCed after the method ends, and it can
+        // continue to listen for notifications until it is explicitly stopped (with a call to _DeviceLocator.StopListeningForNotifications();)
+        private readonly SsdpDeviceLocator _DeviceLocator;
+
+        private double _TimerInterval = 30_000;
+        public double TimerInterval
+        {
+            get => _TimerInterval;
+            set { if (_TimerInterval != value) { _TimerInterval = value; NotifyPropertyChanged(); } }
+        }
+
+        private readonly Timer RefreshTimer = new Timer();
+
+        public SSDP()
+        {
+            _DeviceLocator = new SsdpDeviceLocator
+            {
+                NotificationFilter = SearchTarget
+            };
+            try
+            {
+                _DeviceLocator.DeviceAvailable += async (sender, e) => AddToDevices(await e.DiscoveredDevice.GetDeviceInfo());
+                _DeviceLocator.DeviceUnavailable += async (sender, e) => RemoveFromDevices(await e.DiscoveredDevice.GetDeviceInfo());
+                _DeviceLocator.StartListeningForNotifications();
+            }
+            catch (Exception)
+            {
+                //TODO Log
+            }
+            _DeviceLocator.SearchAsync();
+            RefreshTimer.Interval = TimerInterval;
+            RefreshTimer.Elapsed += RefreshTimer_Elapsed;
+            RefreshTimer.Start();
+            PropertyChanged += SSDP_PropertyChanged;
+        }
+
+        ~SSDP()
+        {
+            try
+            {
+                _DeviceLocator.StopListeningForNotifications();
+            }
+            catch (Exception)
+            {
+                //TODO Log
+            }
+        }
+
+        public void CreateInstance()
+        {
+            //Handled at Instance
+        }
+
+        private void RefreshTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                _ = SearchForDevices();
+            }
+            catch (Exception)
+            {
+                //TODO Log
+            }
+        }
+
+        private void SSDP_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TimerInterval))
+            {
+                RefreshTimer.Interval = TimerInterval;
+            }
+        }
+
+        private void AddToDevices(SsdpDevice device)
+        {
+            if (device.DeviceType == DeviceTypeName)
+            {
+                AddToDevices(device.FriendlyName, IPAddress.None);
+            }
+        }
+
+        private void AddToDevices(string hostName, IPAddress ipAddress)
+        {
+            var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
+            if (element is null)
+            {
+                DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
+            }
+            else if (element.IP != ipAddress)
+            {
+                element.IP = ipAddress;
+                element.IsUpToDate = true;
+            }
+        }
+
+        private void RemoveFromDevices(SsdpDevice device) => RemoveFromDevices(device.FriendlyName);
+
+        private void RemoveFromDevices(string hostName)
+        {
+            foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName).ToArray())
+            {
+                DiscoveredDevices.Remove(item);
+            }
+        }
 
         /// <summary>
         /// SearchForDevices
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.IO.IOException"></exception>
-        public static async Task<IEnumerable<string>> SearchForDevices()
+        public async Task<IEnumerable<LEDDevice>> SearchForDevices()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Searching For Devices now!");
-            Console.ForegroundColor = ConsoleColor.White;
-            var devices = new List<string>();
+            foreach (var item in DiscoveredDevices)
+            {
+                item.IsUpToDate = false;
+            }
+            try
+            {
+                _ = _DeviceLocator.SearchAsync(); //TODO check ob das das selbe macht wie der restliche code
+            }
+            catch (Exception)
+            {
+                //TODO Log
+            }
             using (var deviceLocator = new SsdpDeviceLocator())
             {
                 var foundDevices = await (string.IsNullOrEmpty(SearchTarget) ? deviceLocator.SearchAsync() : deviceLocator.SearchAsync(SearchTarget)); // Can pass search arguments here (device type, uuid). No arguments means all devices.
@@ -36,11 +182,8 @@ namespace HomeLedApp.Model
                 {
                     try
                     {
-                        var fullDevice = await GetAndPrintFoundDevice(foundDevice);
-                        if (fullDevice.DeviceType == DeviceTypeName)
-                        {
-                            devices.Add(fullDevice.FriendlyName);
-                        }
+                        var fullDevice = await foundDevice.GetDeviceInfo();
+                        AddToDevices(fullDevice);
                     }
                     catch (Exception ex)
                     {
@@ -48,105 +191,7 @@ namespace HomeLedApp.Model
                     }
                 }
             }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Finito. Type enter to repeat");
-            Console.ForegroundColor = ConsoleColor.White;
-            return devices;
-        }
-
-        // Define _DeviceLocator as a field so it doesn't get GCed after the method ends, and it can
-        // continue to listen for notifications until it is explicitly stopped (with a call to _DeviceLocator.StopListeningForNotifications();)
-        private static SsdpDeviceLocator _DeviceLocator;
-
-        /// <summary>
-        /// BeginSearch
-        /// </summary>
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="Exception"></exception>
-        public static void BeginSearch()
-        {
-            _DeviceLocator = new SsdpDeviceLocator
-            {
-                NotificationFilter = SearchTarget
-            };
-            _DeviceLocator.DeviceAvailable += DeviceLocator_DeviceAvailable;
-            _DeviceLocator.DeviceUnavailable += DeviceLocator_DeviceUnavailable;
-            _DeviceLocator.StartListeningForNotifications();
-            _DeviceLocator.SearchAsync();
-        }
-
-        /// <summary>
-        /// DeviceLocator_DeviceUnavailable
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="Exception"></exception>
-        private static async void DeviceLocator_DeviceUnavailable(object sender, DeviceUnavailableEventArgs e)
-        {
-            Console.WriteLine("Discovered Device LogOff");
-            await GetAndPrintFoundDevice(e.DiscoveredDevice);
-        }
-
-        /// <summary>
-        /// DeviceLocator_DeviceAvailable
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="Exception"></exception>
-        private static async void DeviceLocator_DeviceAvailable(object sender, DeviceAvailableEventArgs e)
-        {
-            Console.WriteLine("Discovered Device LogOn");
-            await GetAndPrintFoundDevice(e.DiscoveredDevice);
-        }
-
-        /// <summary>
-        /// PrintFoundDevice
-        /// </summary>
-        /// <param name="foundDevice"></param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="Exception"></exception>
-        private static async Task<SsdpDevice> GetAndPrintFoundDevice(DiscoveredSsdpDevice foundDevice)
-        {
-            var fullDevice = await foundDevice.GetDeviceInfo();
-            PrintFullDevice(fullDevice);
-            return fullDevice;
-        }
-
-        /// <summary>
-        /// PrintDevice
-        /// </summary>
-        /// <param name="fullDevice"></param>
-        /// <exception cref="System.IO.IOException"></exception>
-        private static void PrintFullDevice(SsdpDevice fullDevice)
-        {
-            if (fullDevice.DeviceType == DeviceTypeName)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-            foreach (var property in fullDevice.GetType().GetProperties())
-            {
-                var value = property.GetValue(fullDevice);
-                if (value is string s)
-                {
-                    Console.WriteLine(property.Name + ":--" + s + "--");
-                }
-                else if (value is IEnumerable set)
-                {
-                    foreach (var item in set)
-                    {
-                        Console.WriteLine(property.Name + ":--" + item + "--");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(property.Name + ":--" + value + "--");
-                }
-            }
-            Console.WriteLine("--");
-            Console.ForegroundColor = ConsoleColor.White;
+            return DiscoveredDevices;
         }
     }
 }

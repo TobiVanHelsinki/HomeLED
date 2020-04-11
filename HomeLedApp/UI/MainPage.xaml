@@ -105,7 +105,23 @@
                     <Slider Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="50" Value="{x:Binding Model.Speed, Mode=TwoWay}"/>
                     <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="150" Value="{x:Binding Model.Number, Mode=TwoWay}"/>
                 </Grid>
-                <StackLayout x:Name="AvailibleControllerPanel"/>
+                <ListView BackgroundColor="Red" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                          SelectedItem="{x:Binding Model.CurrentDevice}">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Button Text="Refresh" Clicked="Refresh"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:LEDDevice">
+                            <ViewCell IsEnabled="{x:Binding IsUpToDate}">
+                                <Label Text="{x:Binding HostName}" HorizontalOptions="Center"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Grid x:Name="StorageCTRL">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

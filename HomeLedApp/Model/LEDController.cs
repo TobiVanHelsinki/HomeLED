@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author: Tobi van Helsinki
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,29 +21,37 @@ namespace HomeLedApp.Model
         }
         public string Name { get; internal set; }
     }
+
     public class LEDController : INotifyPropertyChanged
-	{
+    {
         #region NotifyPropertyChanged
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+        #endregion NotifyPropertyChanged
+
         #region Params
 
         public enum Modes
         {
             [VisibleAttribute("On")]
             on,
+
             [VisibleAttribute("Off")]
             off,
+
             [VisibleAttribute("Sin")]
             sin,
+
             [VisibleAttribute("Rainbow")]
             rainbow,
+
             [VisibleAttribute("1 Color")]
             color,
+
             [VisibleAttribute("1 Pixel")]
             pixel,
             save,
@@ -56,6 +66,7 @@ namespace HomeLedApp.Model
             get { return _CurrentMode; }
             set { if (_CurrentMode != value) { _CurrentMode = value; NotifyPropertyChanged(); } }
         }
+
         string _Config;
         [LedServerRelevant("config")]
         public string Config
@@ -63,6 +74,7 @@ namespace HomeLedApp.Model
             get { return _Config; }
             set { if (_Config != value) { _Config = value; NotifyPropertyChanged(); } }
         }
+
         Color _Color = new Color(0.9, 0.5, 0);
         public Color CurrentColor
         {
@@ -82,33 +94,39 @@ namespace HomeLedApp.Model
                 NotifyPropertyChanged(nameof(B));
             }
         }
+
         public double Hue
         {
             get => CurrentColor.Hue * 360.0;
             set { CurrentColor = CurrentColor.WithHue(value / 360.0); }
         }
+
         public double Saturation
         {
             get => CurrentColor.Saturation * 100.0;
             set { CurrentColor = CurrentColor.WithSaturation(value / 100.0); }
         }
+
         public double Luminosity
         {
             get => CurrentColor.Luminosity * 100.0;
             set { CurrentColor = CurrentColor.WithLuminosity(value / 100.0); }
         }
+
         [LedServerRelevant("r")]
         public int R
         {
             get => (int)(CurrentColor.R * 255);
             set { CurrentColor = new Color(value / 255.0, CurrentColor.G, CurrentColor.B); }
         }
+
         [LedServerRelevant("g")]
         public int G
         {
             get => (int)(CurrentColor.G * 255);
             set { CurrentColor = new Color(CurrentColor.R, value / 255.0, CurrentColor.B); }
         }
+
         [LedServerRelevant("b")]
         public int B
         {
@@ -162,11 +180,12 @@ namespace HomeLedApp.Model
             get { return (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset; }
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = (Sin_HorizontalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
+
         bool _Sin_HorizontalOffset_Neg;
         public bool Sin_HorizontalOffset_Neg
         {
             get { return _Sin_HorizontalOffset_Neg; }
-            set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset*= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
+            set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset *= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
         }
 
         [LedServerRelevant("rand")]
@@ -176,27 +195,22 @@ namespace HomeLedApp.Model
             get { return _Rainbow_Rand == 1 ? true : false; }
             set { if (_Rainbow_Rand != (value ? 1 : 0)) { _Rainbow_Rand = value ? 1 : 0; NotifyPropertyChanged(); } }
         }
-        #endregion
+
+        #endregion Params
+
         #region Server Communication
-        ObservableCollection<Controller> _AvailibleControllers = new ObservableCollection<Controller>();
-        public ObservableCollection<Controller> AvailibleControllers
+        ObservableCollection<LEDDevice> _AvailibleControllers = new ObservableCollection<LEDDevice>();
+        public ObservableCollection<LEDDevice> AvailibleControllers
         {
             get { return _AvailibleControllers; }
             private set { if (_AvailibleControllers != value) { _AvailibleControllers = value; NotifyPropertyChanged(); } }
         }
 
-        Controller _CurrentController;
-        public Controller CurrentController
+        LEDDevice _CurrentDevice;
+        public LEDDevice CurrentDevice
         {
-            get { return _CurrentController; }
-            set { if (_CurrentController != value) { _CurrentController = value; NotifyPropertyChanged(); RefreshURL(); } }
-        }
-
-        public void SearchCOntroller()
-        {
-            AvailibleControllers.Clear();
-            AvailibleControllers.Add(new Controller ("http://ledserver?", "Bett"));
-            AvailibleControllers.Add(new Controller ("http://ledserver2?", "Phil TV"));
+            get { return _CurrentDevice; }
+            set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); RefreshURL(); } }
         }
 
         string _Status = "---";
@@ -223,6 +237,7 @@ namespace HomeLedApp.Model
         static readonly HttpClient client = new HttpClient();
 
         bool SendInProgress;
+
         internal async Task Send(string myurlparam = null)
         {
             if (myurlparam is null)
@@ -237,7 +252,7 @@ namespace HomeLedApp.Model
             SendInProgress = true;
             try
             {
-                var mess = await client.GetAsync(CurrentController.Urlbase + myurlparam);
+                var mess = await client.GetAsync(CurrentDevice.Urlbase + myurlparam);
                 var time = DateTime.Now.ToString("hh:mm:ss ");
                 StatusCode = time + mess.StatusCode.ToString();
                 Status = time + await mess.Content.ReadAsStringAsync();
@@ -254,7 +269,7 @@ namespace HomeLedApp.Model
             }
             SendInProgress = false;
         }
-        #endregion
+        #endregion Server Communication
 
         public LEDController()
         {
@@ -263,7 +278,7 @@ namespace HomeLedApp.Model
 
         private void RefreshURL()
         {
-            if (CurrentController is null)
+            if (CurrentDevice is null)
             {
                 return;
             }
@@ -271,7 +286,7 @@ namespace HomeLedApp.Model
             {
                 var props = GetType().GetProperties().Where(x => x.CustomAttributes.FirstOrDefault(y => y.AttributeType == typeof(LedServerRelevantAttribute)) != null);
                 var fields = GetType().GetFields().Where(x => x.CustomAttributes.FirstOrDefault(y => y.AttributeType == typeof(LedServerRelevantAttribute)) != null);
-                var both = props.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())).Concat(fields.Select(x => (x.GetCustomAttribute< LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())));
+                var both = props.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())).Concat(fields.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())));
                 URLParam = both.Aggregate("", (a, c) => a += "&" + c.Item1 + (string.IsNullOrEmpty(c.Item2) ? "" : ("=" + c.Item2))).Replace("?&", "?");
             }
             catch (Exception)
