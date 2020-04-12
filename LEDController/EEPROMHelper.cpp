@@ -38,10 +38,15 @@ String ReadEEPROM(int startadress)
 /// </summary>
 /// <param name="startadress">The startadress.</param>
 /// <param name="text">The text to be written.</param>
+/// <param name="andAdress">A limit for storage usage. -1 for auto.</param>
 /// <returns>true if all is ok, false othwerwise</returns>
-bool WriteEEPROM(int startadress, String text)
+bool WriteEEPROM(int startadress, String text, int andAdress)
 {
 	auto length = text.length();
+	if (andAdress != -1 && length > andAdress)
+	{
+		length = andAdress;
+	}
 	char* textbytes = new char[length];
 	text.toCharArray(textbytes, length + 1);
 	for (size_t i = 0; i < length; i++)
@@ -63,9 +68,8 @@ bool WriteEEPROM(int startadress, String text)
 /// <param name="startAdress">The start adress.</param>
 /// <param name="length">The length to be cleared</param>
 /// <returns>true if all is ok, false othwerwise</returns>
-bool ClearEEPROM(int startAdress, int length)
+bool ClearEEPROM(int startAdress, int endAdress)
 {
-	auto endAdress = startAdress + length;
 	for (int i = startAdress; i < endAdress; i++)
 	{
 		EEPROM.write(i, 0);

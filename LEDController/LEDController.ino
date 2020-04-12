@@ -22,7 +22,7 @@ void setup()
 	delay(50);
 	Serial.println("------------------");
 	Serial.println("INIT");
-	InitEEPROM(EEPROMMax);
+	InitEEPROM(StorageAdress_EEPROMMax);
 	SetupResetProcedures();
 	SetupLeds();
 	SetupWiFi();
@@ -46,9 +46,10 @@ void SetupWiFi()
 	AutoConnectConfig acConfig;
 	acConfig.autoReconnect = true;
 	acConfig.ticker = true;
+	acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = HomeLEDTitle + "Menu";
-	acConfig.apid = HomeLEDTitle + String(ESP.getChipId(), HEX);
-	acConfig.hostName = acConfig.apid;
+	acConfig.apid = GenerateDefaultHostname();
+	acConfig.hostName = ReadValidHostname();
 	acConfig.psk = DefaultPassword;
 	Portal.config(acConfig);
 	IsServerReady = Portal.begin();
@@ -86,11 +87,14 @@ void SetupSSDP()
 	SSDP.setModelNumber(ModelNumber);
 	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
 	SSDP.setSerialNumber(serialNo);
-	SSDP.setName(wifi_station_get_hostname());
+	SSDP.setName(ReadValidHostname());
 	Serial.print("\t");
-	Serial.print(ModelName);
-	Serial.print("--");
+	Serial.print("Model: ");
+	Serial.println(ModelName);
+	Serial.print("Serial: ");
 	Serial.println(serialNo);
+	Serial.print("Name: ");
+	Serial.println(ReadValidHostname());
 	if (SSDP.begin())
 	{
 		Serial.println("\tSSDP started");
@@ -146,6 +150,10 @@ void handleRoot()
 			{
 				Return += ClearConfigMemory();
 			}
+		}
+		else if (argName == "setHostname")
+		{
+			StoreHostname(argVal);
 		}
 		else
 		{
@@ -443,19 +451,14 @@ String GetValue(String data, char separator, int index)
 
 #pragma region Config IO
 
-const auto ConfigStartAdress = 200;
-const auto ConfigEndAdress = 400;
-const auto ConfigUsableMemory = ConfigEndAdress - ConfigStartAdress - 1;
-const auto OverallUsableMemory = ConfigUsableMemory + 1;
-
 String RestoreConfig()
 {
-	return String2CurrentConfig(ReadEEPROM(ConfigStartAdress));
+	return String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 }
 
 String StoreConfig()
 {
-	if (WriteEEPROM(ConfigStartAdress, CurrentConfig2String()))
+	if (WriteEEPROM(StorageAdress_Start_Configuration, CurrentConfig2String(), StorageAdress_End_Configuration))
 	{
 		return "SUCCESS storing Config";
 	}
@@ -467,13 +470,50 @@ String StoreConfig()
 
 String ClearConfigMemory()
 {
-	if (ClearEEPROM(ConfigStartAdress, ConfigUsableMemory))
+	if (ClearEEPROM(StorageAdress_Start_Configuration, StorageAdress_End_Configuration))
 	{
 		return "SUCCESS storing Config";
 	}
 	else
 	{
 		return "ERROR storing Config";
+	}
+}
+
+String GenerateDefaultHostname()
+{
+	return HomeLEDTitle + String(ESP.getChipId(), HEX);
+}
+
+String ReadValidHostname()
+{
+	auto hostname = ReadEEPROM(StorageAdress_Start_Configuration);
+	if (hostname.isEmpty())
+	{
+		Serial.println("Stored Hostname was empty");
+		hostname = GenerateDefaultHostname();
+	}
+	return hostname;
+}
+
+String StoreHostname(String hostname)
+{
+	Serial.print("storing new hostname: ");
+	Serial.println(hostname);
+	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
+	{
+		auto customHostname = ReadEEPROM(StorageAdress_Start_Hostname);
+		//SetupSSDP();
+		//SetupWiFi();
+		SSDP.end();
+		SSDP.setName(customHostname);
+		SSDP.begin();
+		//acConfig.hostName = customHostname;
+		return "SUCCESS storing Hostname, restarted SSDP Server";
+	}
+	else
+	{
+		return "ERROR storing Hostname";
 	}
 }
 #pragma endregion
@@ -489,7 +529,7 @@ void HandleResetInterrupt()
 		{
 			Serial.println("Reset Button released after time. Reset and cleaning memory now!");
 			//ClearConfigMemory();
-			ClearEEPROM(0, EEPROMMax); //geht auch nicht
+			ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
 			//auto credential = AutoConnectCredential(0);
 			//AutoConnect::;
 			AutoConnectCredential credential;

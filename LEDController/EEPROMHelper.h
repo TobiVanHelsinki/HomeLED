@@ -21,8 +21,9 @@ String ReadEEPROM(int startadress);
 /// </summary>
 /// <param name="startadress">The startadress.</param>
 /// <param name="text">The text to be written.</param>
+/// <param name="andAdress">A limit for storage usage. -1 for auto.</param>
 /// <returns>true if all is ok, false othwerwise</returns>
-bool WriteEEPROM(int startadress, String text);
+bool WriteEEPROM(int startadress, String text, int andAdress);
 
 /// <summary>
 /// Writes 0 to the eeprom.

@@ -34,7 +34,13 @@ constexpr auto ModelNumber = "100";
 constexpr auto HTTPPort = 80;
 const String HomeLEDTitle = "HomeLED-";
 const String DefaultPassword = "moose";
-const auto EEPROMMax = 4096;
+
+const auto StorageAdress_Start_Hostname = 0;
+const auto StorageAdress_End_Hostname = 17;
+const auto StorageAdress_Start_Configuration = 100;
+const auto StorageAdress_End_Configuration = 500;
+const auto StorageAdress_AutoConnect = 3500;
+const auto StorageAdress_EEPROMMax = 4096;
 
 const auto ResetPressedTime = 4000;
 

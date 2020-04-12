@@ -71,10 +71,10 @@ namespace HomeLedApp.Model
             {
                 NotificationFilter = SearchTarget
             };
+            _DeviceLocator.DeviceAvailable += async (sender, e) => AddToDevices(await GetDeviceOrNull(e.DiscoveredDevice));
+            _DeviceLocator.DeviceUnavailable += async (sender, e) => RemoveFromDevices(await GetDeviceOrNull(e.DiscoveredDevice));
             try
             {
-                _DeviceLocator.DeviceAvailable += async (sender, e) => AddToDevices(await e.DiscoveredDevice.GetDeviceInfo());
-                _DeviceLocator.DeviceUnavailable += async (sender, e) => RemoveFromDevices(await e.DiscoveredDevice.GetDeviceInfo());
                 _DeviceLocator.StartListeningForNotifications();
             }
             catch (Exception ex)
@@ -123,6 +123,10 @@ namespace HomeLedApp.Model
 
         private void AddToDevices(SsdpDevice device)
         {
+            if (device is null)
+            {
+                return;
+            }
             if (device.DeviceType == DeviceTypeName)
             {
                 if (device is SsdpRootDevice rootDevice && IPAddress.TryParse(rootDevice.UrlBase.Host, out var ip))
@@ -203,57 +207,34 @@ namespace HomeLedApp.Model
             try
             {
                 foreach (var foundDevice in await _DeviceLocator.SearchAsync())
-                //TODO check ob das das selbe macht wie der restliche code
                 {
-                    try
-                    {
-                        AddToDevices(await foundDevice.GetDeviceInfo());
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Write("Could not GetDeviceInfo", ex, logType: LogType.Error);
-                    }
+                    AddToDevices(await GetDeviceOrNull(foundDevice));
                 }
             }
             catch (Exception ex)
             {
-                Log.Write("Could not search async", ex, logType: LogType.Error);
+                Log.Write("Could not search devices", ex, logType: LogType.Error);
             }
-            //using (var deviceLocator = new SsdpDeviceLocator())
-            //{
-            //    var foundDevices = await (string.IsNullOrEmpty(SearchTarget) ? deviceLocator.SearchAsync() : deviceLocator.SearchAsync(SearchTarget)); // Can pass search arguments here (device type, uuid). No arguments means all devices.
-
-            //    foreach (var foundDevice in foundDevices)
-            //    {
-            //        try
-            //        {
-            //            var fullDevice = await foundDevice.GetDeviceInfo();
-            //            PrintFullDevice(fullDevice);
-            //            AddToDevices(fullDevice);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Log.Write("Could not GetDeviceInfo", ex, logType: LogType.Error);
-            //        }
-            //    }
-            //}
-
             _SearchinProgress = false;
             return DiscoveredDevices;
         }
 
         /// <summary>
-        /// PrintFoundDevice
+        /// Gets the device or null in error case.
         /// </summary>
-        /// <param name="foundDevice"></param>
+        /// <param name="device">The device.</param>
         /// <returns></returns>
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="Exception"></exception>
-        private static async Task<SsdpDevice> GetAndPrintFoundDevice(DiscoveredSsdpDevice foundDevice)
+        private static async Task<SsdpDevice> GetDeviceOrNull(DiscoveredSsdpDevice device)
         {
-            var fullDevice = await foundDevice.GetDeviceInfo();
-            PrintFullDevice(fullDevice);
-            return fullDevice;
+            try
+            {
+                return await device.GetDeviceInfo();
+            }
+            catch (Exception ex)
+            {
+                Log.Write("Could not get Device Info", ex, logType: LogType.Error);
+                return null;
+            }
         }
 
         /// <summary>

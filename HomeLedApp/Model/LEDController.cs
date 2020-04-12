@@ -55,6 +55,11 @@ namespace HomeLedApp.Model
             clear
         }
 
+        internal async void UpdateHostname(string hostname)
+        {
+            await Send("setHostname=" + hostname);
+        }
+
         private Modes _CurrentMode;
         [LedServerRelevant("m")]
         public Modes CurrentMode

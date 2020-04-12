@@ -147,5 +147,20 @@ namespace HomeLedApp.UI
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
             }
         }
+
+        private async void RenameHost(object sender, EventArgs e)
+        {
+            if (sender is BindableObject b && b.BindingContext is LEDDevice led)
+            {
+                try
+                {
+                    PopupNavigation.Instance.PushAsync(new Rename(Model, led));
+                }
+                catch (Exception)
+                {
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                }
+            }
+        }
     }
 }

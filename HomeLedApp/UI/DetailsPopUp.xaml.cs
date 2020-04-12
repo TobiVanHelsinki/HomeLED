@@ -31,7 +31,8 @@ namespace HomeLedApp.UI
             MyURLParam = Model.URLParam;
             InitializeComponent();
             BindingContext = this;
-		}
+            editor.Focus();
+        }
 
         async void OK(object sender, System.EventArgs e)
         {
