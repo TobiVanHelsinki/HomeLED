@@ -487,7 +487,7 @@ String GenerateDefaultHostname()
 
 String ReadValidHostname()
 {
-	auto hostname = ReadEEPROM(StorageAdress_Start_Configuration);
+	auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
 	if (hostname.isEmpty())
 	{
 		Serial.println("Stored Hostname was empty");
@@ -502,11 +502,10 @@ String StoreHostname(String hostname)
 	Serial.println(hostname);
 	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
 	{
-		auto customHostname = ReadEEPROM(StorageAdress_Start_Hostname);
 		//SetupSSDP();
 		//SetupWiFi();
 		SSDP.end();
-		SSDP.setName(customHostname);
+		SSDP.setName(ReadValidHostname());
 		SSDP.begin();
 		//acConfig.hostName = customHostname;
 		return "SUCCESS storing Hostname, restarted SSDP Server";
