@@ -1,7 +1,7 @@
 #pragma once
 
-#define HARDWARE_IS_ANALOG
-//#define HARDWARE_IS_NEOPIXEL
+//#define HARDWARE_IS_ANALOG
+#define HARDWARE_IS_NEOPIXEL
 
 #include <AutoConnect.h>
 #include <PageStream.h>
@@ -58,4 +58,6 @@ constexpr auto StorageAdress_EEPROMMax = 4096;
 
 constexpr auto ResetPressedTime = 4000;
 
-void ICACHE_RAM_ATTR HandleResetInterrupt();
+void ICACHE_RAM_ATTR ProcessResetInterrupt();
+
+void ResetSystem();

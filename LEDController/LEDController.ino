@@ -24,9 +24,11 @@ bool IsLEDStarted = false;
 void setup()
 {
 	Serial.begin(115200);
-	Serial.println("------------------");
+	delayMicroseconds(500);
+	Serial.println("-------------- --------------");
 	Serial.println("INIT");
 	InitEEPROM(StorageAdress_EEPROMMax);
+	//ResetSystem();
 	SetupResetProcedures();
 	SetupLeds();
 	SetupWiFi();
@@ -37,7 +39,7 @@ void setup()
 void SetupResetProcedures()
 {
 	pinMode(interruptPinReset, INPUT_PULLUP);
-	attachInterrupt(digitalPinToInterrupt(interruptPinReset), HandleResetInterrupt, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(interruptPinReset), ProcessResetInterrupt, CHANGE);
 }
 
 void SetupWiFi()
@@ -89,14 +91,15 @@ void SetupSSDP()
 	SSDP.setModelNumber(ModelNumber);
 	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
 	SSDP.setSerialNumber(serialNo);
-	SSDP.setName(ReadValidHostname());
+	auto name = ReadValidHostname();
+	SSDP.setName(name);
 	Serial.print("\t");
 	Serial.print("Model: ");
 	Serial.println(ModelName);
 	Serial.print("Serial: ");
 	Serial.println(serialNo);
 	Serial.print("Name: ");
-	Serial.println(ReadValidHostname());
+	Serial.println(name);
 	if (SSDP.begin())
 	{
 		Serial.println("\tSSDP started");
@@ -521,33 +524,15 @@ String StoreHostname(String hostname)
 
 #pragma region HW Reset
 unsigned long ResetInitiatedAt = 0;
-void HandleResetInterrupt()
+void ProcessResetInterrupt()
 {
 	if (digitalRead(interruptPinReset) == HIGH) //released
 	{
 		auto pressedTime = millis() - ResetInitiatedAt;
 		if (pressedTime > ResetPressedTime)
 		{
-			Serial.println("Reset Button released after time. Reset and cleaning memory now!");
-			//ClearConfigMemory();
-			ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
-			//auto credential = AutoConnectCredential(0);
-			//AutoConnect::;
-			AutoConnectCredential credential;
-			station_config_t config;
-			uint8_t ent = credential.entries();
-			Serial.print("Test10: ");
-			Serial.println(ent); //TODO geht noch nicht. gibt 0 zurück
-			//https://hieromon.github.io/AutoConnect/credit.html#constructors
-			while (ent > 0)
-			{
-				credential.load((int8_t)0, &config);
-				Serial.print("Clearing WiFi Credentials for:");
-				Serial.println((const char*)&config.ssid[0]);
-				credential.del((const char*)&config.ssid[0]);
-				ent--;
-			}
-			ESP.restart(); // macht millis() unbrauchbar
+			Serial.print("Reset Button released after time.");
+			ResetSystem();
 		}
 		else
 		{
@@ -559,6 +544,31 @@ void HandleResetInterrupt()
 		Serial.println("Reset Button pressed. Releasing it in more then 4 sec will reset the module.");
 		ResetInitiatedAt = millis();
 	}
+}
+
+void ResetSystem()
+{
+	Serial.println("Reset and cleaning memory now!");
+	//ClearConfigMemory();
+	ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
+											 //auto credential = AutoConnectCredential(0);
+											 //AutoConnect::;
+	Serial.println("Remove AutoConnectCredential now!");
+	AutoConnectCredential credential;
+	station_config_t config;
+	uint8_t ent = credential.entries();
+	Serial.print("Count of stored credentials: ");
+	Serial.println(ent); //TODO geht noch nicht. gibt 0 zurück
+						 //https://hieromon.github.io/AutoConnect/credit.html#constructors
+	while (ent > 0)
+	{
+		credential.load((int8_t)0, &config);
+		Serial.print("Clearing WiFi Credentials for:");
+		Serial.println((const char*)&config.ssid[0]);
+		credential.del((const char*)&config.ssid[0]);
+		ent--;
+	}
+	ESP.restart(); // macht millis() unbrauchbar
 }
 
 #pragma endregion
