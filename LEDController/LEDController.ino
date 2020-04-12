@@ -23,9 +23,7 @@ bool IsLEDStarted = false;
 
 void setup()
 {
-	noInterrupts();
 	Serial.begin(115200);
-	delay(50);
 	Serial.println("------------------");
 	Serial.println("INIT");
 	InitEEPROM(StorageAdress_EEPROMMax);
@@ -34,7 +32,6 @@ void setup()
 	SetupWiFi();
 	SetupSSDP();
 	Serial.println("INIT complete");
-	interrupts();
 }
 
 void SetupResetProcedures()
@@ -48,7 +45,6 @@ void SetupWiFi()
 	Serial.println("SetupWiFi");
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
-	//AUTOCONNECT_USE_PREFERENCES; //backward compatibility with ESP2866
 	AutoConnectConfig acConfig;
 	acConfig.autoReconnect = true;
 	acConfig.ticker = true;
@@ -181,7 +177,6 @@ void loop(void)
 {
 	if (IsServerReady)
 	{
-		Serial.println("loop");
 		Portal.host().handleClient();
 		Portal.handleClient();
 		//TODO not sure if both is neccesary

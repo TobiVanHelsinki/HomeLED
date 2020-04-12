@@ -2,7 +2,6 @@
 
 LEDProvider_Analog::LEDProvider_Analog(uint8_t r, uint8_t g, uint8_t b)
 {
-	Serial.println("analog ctor");
 	_PinR = r;
 	_PinG = g;
 	_PinB = b;
@@ -10,7 +9,6 @@ LEDProvider_Analog::LEDProvider_Analog(uint8_t r, uint8_t g, uint8_t b)
 
 void LEDProvider_Analog::begin(void)
 {
-	Serial.println("begin");
 	pinMode(_PinR, OUTPUT);
 	pinMode(_PinG, OUTPUT);
 	pinMode(_PinB, OUTPUT);
@@ -30,7 +28,6 @@ uint16_t LEDProvider_Analog::numPixels(void)
 
 void LEDProvider_Analog::setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b)
 {
-	Serial.println("setPixelColor_rgb");
 	analogWrite(_PinR, r);
 	analogWrite(_PinG, g);
 	analogWrite(_PinB, b);
