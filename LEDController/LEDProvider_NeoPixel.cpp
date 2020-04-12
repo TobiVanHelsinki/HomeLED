@@ -12,10 +12,6 @@ void LEDProvider_NeoPixel::show(void)
 {
 	return _Adaptee->show();
 }
-void LEDProvider_NeoPixel::setPin(uint16_t p)
-{
-	return _Adaptee->setPin(p);
-}
 void LEDProvider_NeoPixel::setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b)
 {
 	return _Adaptee->setPixelColor(n, r, g, b);

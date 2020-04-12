@@ -8,7 +8,6 @@ public:
 
 	void              begin(void);
 	void              show(void);
-	void              setPin(uint16_t p);
 	uint16_t          numPixels(void);
 	void              setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b);
 	void              setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b, uint8_t w);
@@ -23,4 +22,6 @@ protected:
 	uint8_t _PinR;
 	uint8_t _PinG;
 	uint8_t _PinB;
+	bool _IsActive = false;
+	uint8_t _CurrentBrightness = 255;
 };

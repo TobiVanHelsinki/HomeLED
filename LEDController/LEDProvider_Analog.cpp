@@ -15,12 +15,10 @@ void LEDProvider_Analog::begin(void)
 }
 void LEDProvider_Analog::show(void)
 {
-	//TODO implement
+	_IsActive = true;
+	setPixelColor(0, 0, 0, 0);
 }
-void LEDProvider_Analog::setPin(uint16_t p)
-{
-	//TODO implement
-}
+
 uint16_t LEDProvider_Analog::numPixels(void)
 {
 	return 1;
@@ -28,9 +26,18 @@ uint16_t LEDProvider_Analog::numPixels(void)
 
 void LEDProvider_Analog::setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b)
 {
-	analogWrite(_PinR, r);
-	analogWrite(_PinG, g);
-	analogWrite(_PinB, b);
+	if (_IsActive)
+	{
+		analogWrite(_PinR, (uint8_t)(r * _CurrentBrightness));
+		analogWrite(_PinG, (uint8_t)(g * _CurrentBrightness));
+		analogWrite(_PinB, (uint8_t)(b * _CurrentBrightness));
+	}
+	else
+	{
+		analogWrite(_PinR, 0);
+		analogWrite(_PinG, 0);
+		analogWrite(_PinB, 0);
+	}
 }
 void LEDProvider_Analog::setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b, uint8_t w)
 {
@@ -42,21 +49,28 @@ void LEDProvider_Analog::setPixelColor(uint16_t n, uint32_t c)
 }
 void LEDProvider_Analog::fill(uint32_t c, uint16_t first, uint16_t count)
 {
-	//TODO implement
+	setPixelColor(1, c);
 }
 void LEDProvider_Analog::setBrightness(uint8_t b)
 {
-	//TODO implement
+	_CurrentBrightness = b;
+	setPixelColor(0, 0, 0, 0);
 }
 void LEDProvider_Analog::clear(void)
 {
-	Serial.println("clear");
-	analogWrite(_PinR, 0);
-	analogWrite(_PinG, 0);
-	analogWrite(_PinB, 0);
+	_IsActive = false;
+	setPixelColor(0, 0, 0, 0);
 }
 void LEDProvider_Analog::updateLength(uint16_t n)
 {
+	if (n == 0)
+	{
+		clear();
+	}
+	else
+	{
+		show();
+	}
 }
 void LEDProvider_Analog::updateType(neoPixelType t)
 {

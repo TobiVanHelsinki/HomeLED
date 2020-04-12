@@ -5,7 +5,6 @@ class ILEDProvider
 public:
 	virtual void              begin(void) {};
 	virtual void              show(void) {};
-	virtual void              setPin(uint16_t p) {};
 	virtual uint16_t          numPixels(void) { return 0; };
 	virtual void              setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b) {};
 	virtual void              setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b, uint8_t w) {};
