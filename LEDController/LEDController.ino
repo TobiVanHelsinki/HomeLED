@@ -12,7 +12,7 @@ ILEDProvider* leds =
 new LEDProvider_NeoPixel(new Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800));
 #endif
 #ifdef HARDWARE_IS_ANALOG
-new LEDProvider_Analog(HARDWARE_3WIRE_Pin_R, HARDWARE_3WIRE_Pin_G, HARDWARE_3WIRE_Pin_B);
+new LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B);
 #endif
 ModeBase* CurrentMode;
 os_timer_t ShowTimer;
@@ -53,7 +53,7 @@ void SetupWiFi()
 	acConfig.autoReconnect = true;
 	acConfig.ticker = true;
 	acConfig.boundaryOffset = StorageAdress_AutoConnect;
-	acConfig.title = HomeLEDTitle + "Menu";
+	acConfig.title = HomeLEDTitle + String("Menu");
 	acConfig.apid = GenerateDefaultHostname();
 	acConfig.hostName = ReadValidHostname();
 	acConfig.psk = DefaultPassword;
