@@ -7,10 +7,16 @@ AutoConnect Portal(Server);
 #pragma endregion
 
 #pragma region Led Vars
-Adafruit_NeoPixel leds = Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800);
+ILEDProvider* leds =
+#ifdef HARDWARE_IS_NEOPIXEL
+new LEDProvider_NeoPixel(new Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800));
+#endif
+#ifdef HARDWARE_IS_ANALOG
+new LEDProvider_Analog(HARDWARE_3WIRE_Pin_R, HARDWARE_3WIRE_Pin_G, HARDWARE_3WIRE_Pin_B);
+#endif
 ModeBase* CurrentMode;
 os_timer_t ShowTimer;
-bool LEDsStarted = false;
+bool IsLEDStarted = false;
 #pragma endregion
 
 #pragma region Setups
@@ -108,9 +114,9 @@ void SetupSSDP()
 void SetupLeds()
 {
 	Serial.println("SetupLeds");
-	leds.begin();
-	leds.clear();
-	leds.show();
+	leds->begin();
+	leds->clear();
+	leds->show();
 	RestoreConfig();
 	if (CurrentMode == NULL)
 	{
@@ -175,6 +181,7 @@ void loop(void)
 {
 	if (IsServerReady)
 	{
+		Serial.println("loop");
 		Portal.host().handleClient();
 		Portal.handleClient();
 		//TODO not sure if both is neccesary
@@ -186,14 +193,14 @@ void loop(void)
 void RefreshLeds(void* pArg)
 {
 	CurrentMode->NextState();
-	leds.show();
+	leds->show();
 }
 //TODO try to extract the following to other files
 #pragma region Led Functs
 
 void LEDsStart()
 {
-	if (LEDsStarted)
+	if (IsLEDStarted)
 	{
 		return;
 	}
@@ -203,21 +210,21 @@ void LEDsStart()
 	os_timer_setfn(&ShowTimer, RefreshLeds, NULL);
 	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
 	Serial.println("LEDs started");
-	LEDsStarted = true;
+	IsLEDStarted = true;
 }
 
 void LEDsStop()
 {
-	if (!LEDsStarted)
+	if (!IsLEDStarted)
 	{
 		return;
 	}
 	os_timer_disarm(&ShowTimer);
 	delayMicroseconds(CurrentLEDRefreshTime + 20);
 	Serial.println("LEDs stopped");
-	leds.clear();
-	leds.show();
-	LEDsStarted = false;
+	leds->clear();
+	leds->show();
+	IsLEDStarted = false;
 }
 
 bool SetMode(String s)
@@ -239,21 +246,21 @@ bool SetMode(String s)
 	}
 	else if (s == "rainbow")
 	{
-		CurrentMode = new RainbowMode(&leds);
+		CurrentMode = new RainbowMode(leds);
 	}
 	else if (s == "color")
 	{
-		CurrentMode = new ColorMode(&leds);
+		CurrentMode = new ColorMode(leds);
 	}
 	else if (s == "sin")
 	{
-		CurrentMode = new SinMode(&leds);
+		CurrentMode = new SinMode(leds);
 		CurrentMode->Set("svo", "20");
 		CurrentMode->Set("sv", "3");
 	}
 	else if (s == "pixel")
 	{
-		CurrentMode = new OnePixelMode(&leds);
+		CurrentMode = new OnePixelMode(leds);
 	}
 	else if (s == "doors")
 	{
@@ -269,7 +276,7 @@ bool SetMode(String s)
 		PinDoorMap[D3] = 1;
 		PinDoorMap[D4] = 2;
 		PinDoorMap[D5] = 3;
-		CurrentMode = new DoorsMode(&leds, 4, PinDoorMap);
+		CurrentMode = new DoorsMode(leds, 4, PinDoorMap);
 	}
 	else
 	{
@@ -312,11 +319,11 @@ bool UpdateNumOfLeds(int newnum)
 	if (CurrentNumberOfLeds != newnum)
 	{
 		CurrentNumberOfLeds = newnum;
-		leds.clear();
-		leds.updateLength(CurrentNumberOfLeds);
+		leds->clear();
+		leds->updateLength(CurrentNumberOfLeds);
 		for (size_t i = newnum; i < 150; i++)
 		{
-			leds.setPixelColor(0, 0);
+			leds->setPixelColor(0, 0);
 		}
 		return true;
 	}
@@ -336,7 +343,7 @@ bool UpdateBri(int newbri)
 	if (CurrentBrigthnes != newbri)
 	{
 		CurrentBrigthnes = newbri;
-		leds.setBrightness(newbri);
+		leds->setBrightness(newbri);
 		return true;
 	}
 	return false;

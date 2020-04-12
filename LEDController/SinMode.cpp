@@ -1,6 +1,6 @@
 #include "SinMode.h"
 #include <math.h>
-SinMode::SinMode(Adafruit_NeoPixel* leds) : ColorMode(leds)
+SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 {
 	BuildTable(DebugOutput);
 }
@@ -14,7 +14,7 @@ void SinMode::NextState()
 	for (int i = 0; i < leds->numPixels(); i++)
 	{
 		float scale = SinTable[positive_modulo(VerticalOffset * i + j, SinTabelSize)];
-		auto color = leds->Color(
+		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
 			(int)(CurrentColor_b * scale)
@@ -62,8 +62,8 @@ String SinMode::Set(String Name, String Value)
 		auto newval = Value.toInt();
 		if (newval != HorizontalOffset)
 		{
-			 HorizontalOffset = newval;
-			 return "Set HorizontalOffset to " + String(HorizontalOffset) + "\n";
+			HorizontalOffset = newval;
+			return "Set HorizontalOffset to " + String(HorizontalOffset) + "\n";
 		}
 	}
 	else if (Name == "vo")
@@ -140,4 +140,3 @@ String SinMode::Get(String Name)
 		return ColorMode::Get(Name);
 	}
 }
-

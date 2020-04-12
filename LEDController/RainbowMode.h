@@ -4,7 +4,7 @@ class RainbowMode :
 	public ModeBase
 {
 public:
-	RainbowMode(Adafruit_NeoPixel* leds);
+	RainbowMode(ILEDProvider* leds);
 
 	void NextState();
 	String ID();
@@ -15,6 +15,4 @@ public:
 private:
 	bool DisturbingMode = false;
 	int j = 0;
-
 };
-

@@ -1,6 +1,6 @@
 #include "ModeBase.h"
 
-ModeBase::ModeBase(Adafruit_NeoPixel* ledstouse)
+ModeBase::ModeBase(ILEDProvider* ledstouse)
 {
 	delay(1);
 	leds = ledstouse;
@@ -32,12 +32,12 @@ String ModeBase::Get(String Name)
 uint32_t ModeBase::Wheel(byte WheelPos) {
 	WheelPos = 255 - WheelPos;
 	if (WheelPos < 85) {
-		return leds->Color(255 - WheelPos * 3, 0, WheelPos * 3);
+		return Adafruit_NeoPixel::Color(255 - WheelPos * 3, 0, WheelPos * 3);
 	}
 	if (WheelPos < 170) {
 		WheelPos -= 85;
-		return leds->Color(0, WheelPos * 3, 255 - WheelPos * 3);
+		return Adafruit_NeoPixel::Color(0, WheelPos * 3, 255 - WheelPos * 3);
 	}
 	WheelPos -= 170;
-	return leds->Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+	return Adafruit_NeoPixel::Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 }

@@ -5,7 +5,7 @@ class SinMode :
 	public ColorMode
 {
 public:
-	SinMode(Adafruit_NeoPixel* leds);
+	SinMode(ILEDProvider* leds);
 	virtual void NextState();
 	String ID();
 	int NumberofParams() override;
@@ -24,4 +24,3 @@ protected:
 	int SinTabelSize = 256;
 	float* SinTable;
 };
-

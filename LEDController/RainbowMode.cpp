@@ -1,6 +1,6 @@
 #include "RainbowMode.h"
 
-RainbowMode::RainbowMode(Adafruit_NeoPixel* leds) : ModeBase(leds)
+RainbowMode::RainbowMode(ILEDProvider* leds) : ModeBase(leds)
 {
 }
 

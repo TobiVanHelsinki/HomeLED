@@ -5,7 +5,7 @@ String DoorsMode::ID()
 	return "doors";
 }
 
-DoorsMode::DoorsMode(Adafruit_NeoPixel* leds, int doorcount, int* pinDoorMap) : SinMode(leds)
+DoorsMode::DoorsMode(ILEDProvider* leds, int doorcount, int* pinDoorMap) : SinMode(leds)
 {
 	DoorCount = doorcount;
 	DoorOpen = new bool[DoorCount];
@@ -37,7 +37,7 @@ void DoorsMode::SetDoorPixels(int Start, int End, int CurrentColor)
 	for (int i = 0; i < SinTabelSize; i++)
 	{
 		float scale = SinTable[i];
-		auto color = leds->Color(
+		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
 			(int)(CurrentColor_b * scale)

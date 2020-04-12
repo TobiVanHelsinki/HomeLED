@@ -1,10 +1,11 @@
 #pragma once
+#include "ILEDProvider.h"
 #include <Adafruit_NeoPixel.h>
 
 class ModeBase
 {
 public:
-	ModeBase(Adafruit_NeoPixel* ledstouse);
+	ModeBase(ILEDProvider* ledstouse);
 
 	virtual String ID() = 0;
 	virtual void NextState() = 0;
@@ -16,6 +17,6 @@ public:
 	//virtual void ICACHE_RAM_ATTR Interrupt(int Pin);
 
 protected:
-	Adafruit_NeoPixel* leds;
+	ILEDProvider* leds;
 	uint32_t Wheel(byte WheelPos);
 };

@@ -117,10 +117,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LEDProvider_Analog.h" />
     <ClInclude Include="ColorMode.h" />
     <ClInclude Include="DoorsMode.h" />
     <ClInclude Include="EEPROMHelper.h" />
+    <ClInclude Include="ILEDProvider.h" />
     <ClInclude Include="LEDController.h" />
+    <ClInclude Include="LEDProvider_NeoPixel.h" />
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="OnePixelMode.h" />
     <ClInclude Include="RainbowMode.h" />
@@ -128,13 +131,16 @@
     <ClInclude Include="__vm\.LEDController.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LEDProvider_Analog.cpp" />
     <ClCompile Include="ColorMode.cpp" />
     <ClCompile Include="DoorsMode.cpp" />
     <ClCompile Include="EEPROMHelper.cpp" />
+    <ClCompile Include="LEDProvider_NeoPixel.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="OnePixelMode.cpp" />
     <ClCompile Include="RainbowMode.cpp" />
     <ClCompile Include="SinMode.cpp" />
+    <ClCompile Include="Tyke.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,6 +9,20 @@
 
 #include "EEPROMHelper.h"
 
+#include "ILEDProvider.h"
+#define HARDWARE_IS_ANALOG
+//#define HARDWARE_IS_NEOPIXEL
+
+#ifdef HARDWARE_IS_NEOPIXEL
+#include "LEDProvider_NeoPixel.h"
+#endif
+#ifdef HARDWARE_IS_ANALOG
+#include "LEDProvider_Analog.h"
+const auto HARDWARE_3WIRE_Pin_R = D1;
+const auto HARDWARE_3WIRE_Pin_G = D3;
+const auto HARDWARE_3WIRE_Pin_B = D2;
+#endif
+
 #include "RainbowMode.h"
 #include "OnePixelMode.h"
 #include "SinMode.h"

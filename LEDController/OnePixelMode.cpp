@@ -1,6 +1,6 @@
 #include "OnePixelMode.h"
 
-OnePixelMode::OnePixelMode(Adafruit_NeoPixel* leds) : ColorMode(leds)
+OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds)
 {
 	Serial.println("pixel");
 }

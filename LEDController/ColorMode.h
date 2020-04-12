@@ -1,12 +1,11 @@
 #pragma once
 #include "ModeBase.h"
 
-
 class ColorMode :
 	public ModeBase
 {
 public:
-	ColorMode(Adafruit_NeoPixel* leds);
+	ColorMode(ILEDProvider* leds);
 	String ID();
 	void NextState();
 	int NumberofParams() override;

@@ -4,7 +4,7 @@
 class DoorsMode : public SinMode
 {
 public:
-	DoorsMode(Adafruit_NeoPixel* leds, int pin, int* doorPinMap);
+	DoorsMode(ILEDProvider* leds, int pin, int* doorPinMap);
 	void NextState();
 	String ID();
 	//virtual void ICACHE_RAM_ATTR Interrupt(int Pin) override;

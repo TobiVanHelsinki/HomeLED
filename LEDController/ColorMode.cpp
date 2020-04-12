@@ -1,16 +1,11 @@
 #include "ColorMode.h"
 
-ColorMode::ColorMode(Adafruit_NeoPixel* leds) : ModeBase(leds)
+ColorMode::ColorMode(ILEDProvider* leds) : ModeBase(leds)
 {
 }
 
 void ColorMode::NextState()
 {
-	auto color = leds->Color(
-		(int)(CurrentColor_r),
-		(int)(CurrentColor_g),
-		(int)(CurrentColor_b)
-	);
 	for (uint16_t i = 0; i < leds->numPixels(); i++)
 	{
 		leds->setPixelColor(i, CurrentColor);
@@ -30,7 +25,7 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_r != newval)
 		{
 			CurrentColor_r = newval;
-			CurrentColor = leds->Color(
+			CurrentColor = Adafruit_NeoPixel::Color(
 				(int)(CurrentColor_r),
 				(int)(CurrentColor_g),
 				(int)(CurrentColor_b)
@@ -44,7 +39,7 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_g != newval)
 		{
 			CurrentColor_g = newval;
-			CurrentColor = leds->Color(
+			CurrentColor = Adafruit_NeoPixel::Color(
 				(int)(CurrentColor_r),
 				(int)(CurrentColor_g),
 				(int)(CurrentColor_b)
@@ -58,7 +53,7 @@ String ColorMode::Set(String Name, String Value)
 		if (CurrentColor_b != newval)
 		{
 			CurrentColor_b = newval;
-			CurrentColor = leds->Color(
+			CurrentColor = Adafruit_NeoPixel::Color(
 				(int)(CurrentColor_r),
 				(int)(CurrentColor_g),
 				(int)(CurrentColor_b)
