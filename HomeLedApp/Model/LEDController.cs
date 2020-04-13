@@ -266,6 +266,8 @@ namespace HomeLedApp.Model
                 var time = DateTime.Now.ToString("hh:mm:ss ");
                 StatusCode = time + "XXX";
                 Status = time + "Exception Communitcating with LEDs: " + ex.Message;
+                CurrentDevice.IsUpToDate = false;
+                SSDP.Instance.UpdateDeviceList(CurrentDevice);
             }
             finally
             {

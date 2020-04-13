@@ -52,6 +52,13 @@ namespace HomeLedApp.Model
             set { if (_DiscoveredDevices != value) { _DiscoveredDevices = value; NotifyPropertyChanged(); } }
         }
 
+        private bool _IsSearching;
+        public bool IsSearching
+        {
+            get => _IsSearching;
+            set { if (_IsSearching != value) { _IsSearching = value; NotifyPropertyChanged(); } }
+        }
+
         // Define _DeviceLocator as a field so it doesn't get GCed after the method ends, and it can
         // continue to listen for notifications until it is explicitly stopped (with a call to _DeviceLocator.StopListeningForNotifications();)
         private readonly SsdpDeviceLocator _DeviceLocator;
@@ -153,6 +160,12 @@ namespace HomeLedApp.Model
                 {
                     element.IP = ipAddress;
                     element.IsUpToDate = true;
+                    UpdateDeviceList(element);
+                }
+                else
+                {
+                    element.IsUpToDate = true;
+                    UpdateDeviceList(element);
                 }
             }
             if (MainThread.IsMainThread)
@@ -167,11 +180,23 @@ namespace HomeLedApp.Model
 
         private void RemoveFromDevices(SsdpDevice device) => RemoveFromDevices(device.FriendlyName);
 
-        private void RemoveFromDevices(string hostName)
+        private void RemoveFromDevices(string hostName = null, string ip = null)
         {
+            if (string.IsNullOrEmpty(hostName) && string.IsNullOrEmpty(ip))
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(hostName))
+            {
+                hostName = "?"; // prevent it from search
+            }
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = "?"; // prevent it from search
+            }
             void AlterOnMainThread()
             {
-                foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName).ToArray())
+                foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName || x.IPString == ip).ToArray())
                 {
                     DiscoveredDevices.Remove(item);
                 }
@@ -186,23 +211,22 @@ namespace HomeLedApp.Model
             }
         }
 
-        private bool _SearchinProgress;
-
         /// <summary>
         /// SearchForDevices
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<LEDDevice>> SearchForDevicesAsync()
         {
-            if (_SearchinProgress)
+            if (IsSearching)
             {
                 return Array.Empty<LEDDevice>();
             }
-            _SearchinProgress = true;
+            IsSearching = true;
             Log.Write("Searching for Devices Now");
-            foreach (var item in DiscoveredDevices)
+            foreach (var item in DiscoveredDevices.ToArray())
             {
                 item.IsUpToDate = false;
+                UpdateDeviceList(item);
             }
             try
             {
@@ -215,7 +239,7 @@ namespace HomeLedApp.Model
             {
                 Log.Write("Could not search devices", ex, logType: LogType.Error);
             }
-            _SearchinProgress = false;
+            IsSearching = false;
             return DiscoveredDevices;
         }
 
@@ -224,7 +248,7 @@ namespace HomeLedApp.Model
         /// </summary>
         /// <param name="device">The device.</param>
         /// <returns></returns>
-        private static async Task<SsdpDevice> GetDeviceOrNull(DiscoveredSsdpDevice device)
+        private async Task<SsdpDevice> GetDeviceOrNull(DiscoveredSsdpDevice device)
         {
             try
             {
@@ -232,6 +256,16 @@ namespace HomeLedApp.Model
             }
             catch (Exception ex)
             {
+                try
+                {
+                    if (DiscoveredDevices.FirstOrDefault(x => x.IPString == device.DescriptionLocation.Host) is LEDDevice led)
+                    {
+                        led.IsUpToDate = false;
+                    }
+                }
+                catch (Exception)
+                {
+                }
                 Log.Write("Could not get Device Info", ex, logType: LogType.Error);
                 return null;
             }
@@ -265,6 +299,19 @@ namespace HomeLedApp.Model
             }
             Log.Write("--");
             return fullDevice;
+        }
+
+        internal void UpdateDeviceList(LEDDevice currentDevice)
+        {
+            try
+            {
+                DiscoveredDevices.Remove(currentDevice);
+                DiscoveredDevices.Add(currentDevice);
+            }
+            catch (Exception ex)
+            {
+                Log.Write("Could not Refresh Devices List", ex, logType: LogType.Error);
+            }
         }
     }
 }

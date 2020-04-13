@@ -4,6 +4,8 @@ using System.Net;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using HomeLedApp.Strings;
+using System;
+using TLIB;
 
 namespace HomeLedApp.Model
 {
@@ -49,12 +51,27 @@ namespace HomeLedApp.Model
         /// <summary>
         /// Urlbase
         /// </summary>
-        /// <exception cref="System.Net.Sockets.SocketException">Get.</exception>
-        public string Urlbase => "http://" + (IP == IPAddress.None ? HostName : IP.ToString()) + "?";
+        public string Urlbase => "http://" + (IP == IPAddress.None ? HostName : IPString) + "?";
+
+        public string IPString
+        {
+            get
+            {
+                try
+                {
+                    return IP.ToString();
+                }
+                catch (Exception ex)
+                {
+                    Log.Write("Could not get IP", ex, logType: LogType.Error);
+                    return string.Empty;
+                }
+            }
+        }
 
         public override string ToString()
         {
-            return HostName + (IsUpToDate ? "" : "(" + AppResources.NotUpToDate + ")");
+            return HostName + (IsUpToDate ? "" : " (" + AppResources.NotUpToDate + ")");
         }
     }
 }

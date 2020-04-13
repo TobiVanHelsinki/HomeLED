@@ -7,6 +7,7 @@
         <On Platform="iOS" Value="Font Awesome 5 Free"/>
     </OnPlatform>
     <ui:IO_ModesToString x:Key="IO_ModesToString"/>
+    <ui:IO_BoolInvert x:Key="IO_BoolInvert"/>
 
     <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="MinimumTrackColor" Value="Accent"/>
