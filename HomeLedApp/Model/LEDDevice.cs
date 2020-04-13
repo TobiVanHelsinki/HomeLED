@@ -71,6 +71,7 @@ namespace HomeLedApp.Model
 
         public override string ToString()
         {
+            return HostName;
             return HostName + (IsUpToDate ? "" : " (" + AppResources.NotUpToDate + ")");
         }
     }

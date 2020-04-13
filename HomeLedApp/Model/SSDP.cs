@@ -305,8 +305,8 @@ namespace HomeLedApp.Model
         {
             try
             {
-                DiscoveredDevices.Remove(currentDevice);
-                DiscoveredDevices.Add(currentDevice);
+                //DiscoveredDevices.Remove(currentDevice);
+                //DiscoveredDevices.Add(currentDevice);
             }
             catch (Exception ex)
             {
