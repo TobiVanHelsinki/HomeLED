@@ -84,13 +84,6 @@
                     <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay, Converter={StaticResource IO_ModesToString}}" ItemsSource="{x:Binding ModesList}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                 </Grid>
                 <Grid x:Name="Panel_MainParameter" RowSpacing="0">
-                    <Grid.Resources>
-                        <OnPlatform x:Key="ImagePosition" x:TypeArguments="x:Int32">
-                            <On Platform="UWP" Value="1"/>
-                            <On Platform="Android" Value="2"/>
-                            <On Platform="iOS" Value="1"/>
-                        </OnPlatform>
-                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -107,7 +100,7 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30">
+                    <Frame Grid.Row="1" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
                     <ui:SliderElement Grid.Row="1" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
@@ -127,7 +120,7 @@
                     </StackLayout>
                     <ui:SliderElement TitleResource="Speed" Property="Model.Speed"/>
                 </StackLayout>
-                <Grid x:Name="Panel_SinParameter">
+                <Grid x:Name="Panel_SinParameter" IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -152,7 +145,7 @@
                     <Switch Grid.Row="1" Grid.Column="1" IsToggled="{x:Binding Model.Sin_VerticalOffset_Neg}"/>
                     <Switch Grid.Row="2" Grid.Column="1" IsToggled="{x:Binding Model.Sin_HorizontalOffset_Neg}"/>
                 </Grid>
-                <Grid x:Name="Panel_RainbowParameter">
+                <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
