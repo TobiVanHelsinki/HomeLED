@@ -221,6 +221,9 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Randomized" xml:space="preserve">
     <value>Zufällig</value>
   </data>
+  <data name="RenameDevice_Info" xml:space="preserve">
+    <value>Erstelle hier einen neuen Namen für das Gerät. Maximal 16 Zeichen. Unter umständen wird das Gerät erst nach einem neustart der LED angezeigt. Das Gerät ist möglicherweise noch unter dem alten Namen sichtbar, bis die App neu gestartet wurde.</value>
+  </data>
   <data name="Saturation" xml:space="preserve">
     <value>Sättigung</value>
   </data>
@@ -229,6 +232,9 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   </data>
   <data name="Send" xml:space="preserve">
     <value>Senden</value>
+  </data>
+  <data name="SendAndClose" xml:space="preserve">
+    <value>Senden und schließen</value>
   </data>
   <data name="SinParameter_Headline" xml:space="preserve">
     <value>Sinuswellen Parameter</value>

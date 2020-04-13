@@ -222,6 +222,9 @@
   <data name="Randomized" xml:space="preserve">
     <value />
   </data>
+  <data name="RenameDevice_Info" xml:space="preserve">
+    <value>Set new name for the device here. Maximal 16 characters allowed. LED device may need a restart. </value>
+  </data>
   <data name="Saturation" xml:space="preserve">
     <value>Saturation</value>
   </data>
@@ -230,6 +233,9 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
+  </data>
+  <data name="SendAndClose" xml:space="preserve">
+    <value>Send and close</value>
   </data>
   <data name="SinParameter_Headline" xml:space="preserve">
     <value />

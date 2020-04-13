@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:resx="clr-namespace:HomeLedApp.Strings"
                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
                 x:Class="HomeLedApp.UI.Rename">
@@ -18,9 +19,9 @@
     </pages:PopupPage.Animation>
     <Frame CornerRadius="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Beige">
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Margin="10">
-            <Label Text="Set new Hostname here. Max 16 chars. Restart of LED may be needed"/>
+            <Label Text="{resx:AppResources RenameDevice_Info}"/>
             <Editor x:Name="editor" Text="{x:Binding Hostname, Mode=TwoWay}" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaxLength="16"/>
-            <Button CornerRadius="5" Text="Send and Close" HorizontalOptions="Center" Clicked="OK"/>
+            <Button CornerRadius="5" Text="{resx:AppResources SendAndClose}" HorizontalOptions="Center" Clicked="OK"/>
         </StackLayout>
     </Frame>
 </pages:PopupPage>

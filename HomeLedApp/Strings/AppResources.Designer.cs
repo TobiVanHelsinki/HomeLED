@@ -376,6 +376,15 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Set new name for the device here. Maximal 16 characters allowed. LED device may need a restart.  ähnelt.
+        /// </summary>
+        public static string RenameDevice_Info {
+            get {
+                return ResourceManager.GetString("RenameDevice_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Saturation ähnelt.
         /// </summary>
         public static string Saturation {
@@ -399,6 +408,15 @@ namespace HomeLedApp.Strings {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Send and close ähnelt.
+        /// </summary>
+        public static string SendAndClose {
+            get {
+                return ResourceManager.GetString("SendAndClose", resourceCulture);
             }
         }
         
