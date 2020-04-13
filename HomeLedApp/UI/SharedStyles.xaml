@@ -8,17 +8,11 @@
     </OnPlatform>
     <!-- <resources:IO_NuYen x:Key="IO_NuYen"/> -->
 
-    <Style TargetType="Slider" x:Key="SliderStyle">
+    <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="MinimumTrackColor" Value="Accent"/>
         <Setter Property="MaximumTrackColor" Value="Black"/>
-        <Setter Property="VerticalOptions" Value="Start"/>
-        <Setter Property="Grid.Column" Value="1"/>
     </Style>
 
-    <Style TargetType="Button" x:Key="CIButton">
-        <Setter Property="CornerRadius" Value="5"/>
-    </Style>
-    <!--alt-->
     <Style x:Key="STDText" TargetType="Label">
         <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="LineBreakMode" Value="CharacterWrap"/>

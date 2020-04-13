@@ -26,7 +26,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -62,9 +61,9 @@
                         </Label>
                     </StackLayout>
                     <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}"/>
-                    <Picker Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
-                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}"/>
-                    <Button Text="&#xf044;" Grid.Row="2" Grid.Column="2" Clicked="RenameHost" Style="{StaticResource IconButton}"/>
+                    <Picker Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <Button Text="&#xf044;" Grid.Row="1" Grid.Column="2" Clicked="RenameHost" Style="{StaticResource IconButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                 </Grid>
                 <Grid x:Name="Panel_Modes">
                     <Grid.RowDefinitions>
@@ -83,7 +82,7 @@
                             <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Modes_Info}"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay}" ItemsSource="{x:Binding Modes}" IsEnabled="{x:Binding Model.LockControls}" Margin="5,0,8,0"/>
+                    <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay}" ItemsSource="{x:Binding Modes}" IsEnabled="{x:Binding Model.ControlsEnable}" Margin="5,0,8,0"/>
                 </Grid>
                 <Grid HorizontalOptions="Fill" x:Name="SinOptions">
                     <Grid.RowDefinitions>
@@ -127,7 +126,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0,0,0,5" HeightRequest="30">
+                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
                     <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
@@ -139,7 +138,7 @@
                     <ui:SliderElement TitleResource="Speed" Property="Model.Speed"/>
                     <ui:SliderElement TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
                 </StackLayout>
-                <Grid x:Name="StorageCTRL">
+                <Grid x:Name="Panel_Storage">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -150,9 +149,9 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Text="Permanent Storage" Grid.ColumnSpan="3"/>
-                    <Button Text="Save" Grid.Row="1" Grid.Column="0" Style="{StaticResource CIButton}" Clicked="Save_Click"/>
-                    <Button Text="Load" Grid.Row="1" Grid.Column="1" Style="{StaticResource CIButton}" Clicked="Load_Click"/>
-                    <Button Text="Clear" Grid.Row="1" Grid.Column="2" Style="{StaticResource CIButton}" Clicked="Clear_Click"/>
+                    <Button Text="Save" Grid.Row="1" Grid.Column="0" Style="{StaticResource STDButton}" Clicked="Save_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <Button Text="Load" Grid.Row="1" Grid.Column="1" Style="{StaticResource STDButton}" Clicked="Load_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <Button Text="Clear" Grid.Row="1" Grid.Column="2" Style="{StaticResource STDButton}" Clicked="Clear_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                 </Grid>
             </StackLayout>
         </ScrollView>
@@ -160,13 +159,13 @@
             <StackLayout Orientation="Horizontal">
                 <Button Text="Send" Clicked="Apply" HorizontalOptions="FillAndExpand"
                         BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
-                        Style="{StaticResource CIButton}" IsEnabled="{x:Binding Model.LockControls}"/>
-                <Button Text="Edit" Clicked="EditURL" Style="{StaticResource CIButton}"/>
+                        Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                <Button Text="Edit" Clicked="EditURL" Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="LED Respond:"/>
                 <Label Text="{x:Binding Model.StatusCode}" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap"/>
-                <Button Text="Details" Style="{StaticResource CIButton}" Clicked="ShowDetails"/>
+                <Button Text="Details" Style="{StaticResource STDButton}" Clicked="ShowDetails"/>
             </StackLayout>
         </StackLayout>
     </Grid>

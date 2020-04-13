@@ -12,11 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <local:SharedStyles/>
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="Slider" x:Key="SliderStyle">
-                <Setter Property="MinimumTrackColor" Value="Accent"/>
-                <Setter Property="MaximumTrackColor" Value="Black"/>
-                <Setter Property="VerticalOptions" Value="Start"/>
-            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>

@@ -3,6 +3,7 @@
 using System.Net;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using HomeLedApp.Strings;
 
 namespace HomeLedApp.Model
 {
@@ -53,7 +54,7 @@ namespace HomeLedApp.Model
 
         public override string ToString()
         {
-            return HostName;
+            return HostName + (IsUpToDate ? "" : "(" + AppResources.NotUpToDate + ")");
         }
     }
 }

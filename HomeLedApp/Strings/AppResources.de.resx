@@ -176,6 +176,9 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Mode_sin" xml:space="preserve">
     <value>Sinuswellen</value>
   </data>
+  <data name="NotUpToDate" xml:space="preserve">
+    <value>Nicht aktuell</value>
+  </data>
   <data name="NumberOfLeds" xml:space="preserve">
     <value>Leds</value>
   </data>

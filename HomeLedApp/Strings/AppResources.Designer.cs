@@ -241,6 +241,15 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not up to date ähnelt.
+        /// </summary>
+        public static string NotUpToDate {
+            get {
+                return ResourceManager.GetString("NotUpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         public static string NumberOfLeds {

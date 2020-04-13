@@ -177,6 +177,9 @@
   <data name="Notification_NewVersion" xml:space="preserve">
     <value>Welcome to the new version: {0}. Check out a list of new features here!</value>
   </data>
+  <data name="NotUpToDate" xml:space="preserve">
+    <value>Not up to date</value>
+  </data>
   <data name="NumberOfLeds" xml:space="preserve">
     <value />
   </data>

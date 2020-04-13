@@ -23,13 +23,13 @@ namespace HomeLedApp.Model
         }
         #endregion NotifyPropertyChanged
 
-        public bool LockControls => !_NetworkCommunicationInProgress;
+        public bool ControlsEnable => CurrentDevice != null && !_NetworkCommunicationInProgress;
 
         private bool _NetworkCommunicationInProgress;
         public bool NetworkCommunicationInProgress
         {
             get => _NetworkCommunicationInProgress;
-            set { if (_NetworkCommunicationInProgress != value) { _NetworkCommunicationInProgress = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(LockControls)); } }
+            set { if (_NetworkCommunicationInProgress != value) { _NetworkCommunicationInProgress = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(ControlsEnable)); } }
         }
 
         #region Params
@@ -50,7 +50,7 @@ namespace HomeLedApp.Model
             await Send("setHostname=" + hostname);
         }
 
-        private Modes _CurrentMode;
+        private Modes _CurrentMode = Modes.sin;
         [LedServerRelevant("m")]
         public Modes CurrentMode
         {
@@ -271,7 +271,14 @@ namespace HomeLedApp.Model
             {
                 RefreshURL();
             }
-            NetworkCommunicationInProgress = false;
+            if (Xamarin.Essentials.MainThread.IsMainThread)
+            {
+                NetworkCommunicationInProgress = false;
+            }
+            else
+            {
+                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => NetworkCommunicationInProgress = false);
+            }
         }
         #endregion Server Communication
 
