@@ -24,6 +24,7 @@ constexpr auto AnalogPin_B = D2;
 #endif
 
 #include "RainbowMode.h"
+#include "PulseMode.h"
 #include "OnePixelMode.h"
 #include "SinMode.h"
 #include "ColorMode.h"

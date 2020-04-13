@@ -46,6 +46,7 @@ void SetupWiFi()
 {
 	Serial.println("SetupWiFi");
 	Server.on("/", handleRoot);
+	WiFi.begin("None", "None");
 	Server.on("", handleRoot);
 	AutoConnectConfig acConfig;
 	acConfig.autoReconnect = true;
@@ -253,12 +254,15 @@ bool SetMode(String s)
 	else if (s == "sin")
 	{
 		CurrentMode = new SinMode(leds);
-		CurrentMode->Set("svo", "20");
-		CurrentMode->Set("sv", "3");
+	}
+	else if (s == "pulse")
+	{
+		CurrentMode = new PulseMode(leds);
 	}
 	else if (s == "pixel")
 	{
 		CurrentMode = new OnePixelMode(leds);
+		CurrentMode->ID();
 	}
 	else if (s == "doors")
 	{

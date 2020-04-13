@@ -114,11 +114,11 @@ String SinMode::GetName(int Number)
 	auto lastno = ColorMode::NumberofParams();
 	if (Number == 0 + lastno)
 	{
-		return "so";
+		return "ho";
 	}
 	else if (Number == 1 + lastno)
 	{
-		return "svo";
+		return "vo";
 	}
 	else
 	{
@@ -127,11 +127,11 @@ String SinMode::GetName(int Number)
 }
 String SinMode::Get(String Name)
 {
-	if (Name == "so")
+	if (Name == "ho")
 	{
 		return String(HorizontalOffset);
 	}
-	else if (Name == "svo")
+	else if (Name == "vo")
 	{
 		return String(VerticalOffset);
 	}

@@ -59,7 +59,7 @@ String RainbowMode::GetName(int Number)
 	}
 	else
 	{
-		return "Err";
+		return ModeBase::GetName(Number);
 	}
 }
 String RainbowMode::Get(String Name)

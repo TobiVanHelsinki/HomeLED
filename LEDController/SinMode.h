@@ -13,8 +13,8 @@ public:
 	String Get(String Name) override;
 	String Set(String Name, String Value) override;
 protected:
-	int HorizontalOffset = 2;
-	int VerticalOffset = 5;
+	int HorizontalOffset = 3;
+	int VerticalOffset = 20;
 	float Scaling = 0.45;
 	void BuildTable(bool Verbose);
 	int j = 0;
