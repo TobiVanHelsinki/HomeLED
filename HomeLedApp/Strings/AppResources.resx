@@ -123,14 +123,26 @@
   <data name="Brigthnes_Info" xml:space="preserve">
     <value />
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="Devices_Headline" xml:space="preserve">
     <value />
   </data>
   <data name="Devices_Info" xml:space="preserve">
     <value>Availible Devices</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Headline_Modes" xml:space="preserve">
     <value>Set and send Mode</value>
+  </data>
+  <data name="HorizontalOffset" xml:space="preserve">
+    <value>Horizontal offset</value>
+  </data>
+  <data name="HorizontalOffset_Info" xml:space="preserve">
+    <value />
   </data>
   <data name="Hue" xml:space="preserve">
     <value>Hue</value>
@@ -141,11 +153,26 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="LEDRespond" xml:space="preserve">
+    <value>LED-Device Respond</value>
+  </data>
   <data name="Luminosity" xml:space="preserve">
     <value>Luminosity</value>
   </data>
   <data name="Luminosity_Info" xml:space="preserve">
     <value>Luminosity is an absolute measure of radiated electromagnetic power (light), the radiant power emitted by a light-emitting object. (Wikipedia)</value>
+  </data>
+  <data name="MainParameter_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ModeParameter_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ModeParameter_Info" xml:space="preserve">
+    <value />
   </data>
   <data name="Modes_Headline" xml:space="preserve">
     <value />
@@ -186,16 +213,52 @@
   <data name="NumberOfLeds_Info" xml:space="preserve">
     <value />
   </data>
+  <data name="RainbowParameter_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RainbowParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Randomized" xml:space="preserve">
+    <value />
+  </data>
   <data name="Saturation" xml:space="preserve">
     <value>Saturation</value>
   </data>
   <data name="Saturation_Info" xml:space="preserve">
     <value>Hue is one of the main properties (called color appearance parameters) of a color, defined technically (in the CIECAM02 model), as "the degree to which a stimulus can be described as similar to or different from stimuli that are described as red, green, blue, and yellow"[1] (which in certain theories of color vision are called unique hues). Hue can typically be represented quantitatively by a single number, often corresponding to an angular position around a central or neutral point or axis on a colorspace coordinate diagram (such as a chromaticity diagram) or color wheel, or by its dominant wavelength or that of its complementary color. The other color appearance parameters are colorfulness, saturation (also known as intensity or chroma)[2], lightness, and brightness.</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SinParameter_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SinParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SinReverseParameter_Headline" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
   <data name="Speed" xml:space="preserve">
     <value />
   </data>
   <data name="Speed_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StorageClear" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StorageLoad" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StorageSave" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Storage_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Storage_Info" xml:space="preserve">
     <value />
   </data>
   <data name="VersionHistory" xml:space="preserve">
@@ -238,5 +301,11 @@ Version 1.7.4:
 [new] complete English translation
 [new] Drag and Drop between categories
     </value>
+  </data>
+  <data name="VerticalOffset" xml:space="preserve">
+    <value>Vertical offset</value>
+  </data>
+  <data name="VerticalOffset_Info" xml:space="preserve">
+    <value />
   </data>
 </root>

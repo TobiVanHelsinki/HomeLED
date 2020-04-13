@@ -35,7 +35,7 @@ namespace HomeLedApp.UI
             set { if (_Model != value) { _Model = value; NotifyPropertyChanged(); } }
         }
 
-        public List<string> Modes { get; set; }
+        public List<string> ModesList { get; set; }
 
         /// <summary>
         /// ctor
@@ -45,24 +45,22 @@ namespace HomeLedApp.UI
         public MainPage()
         {
             Instance = this;
-            Modes =
-                (from name in typeof(LEDController.Modes).GetEnumNames()
-                 let custname = AppResources.ResourceManager.GetStringSafe("Mode_" + name)
-                 select custname
-                ).ToList();
+            ModesList = ModesExtension.GetModesDisplayNames().ToList();
             InitializeComponent();
             BindingContext = this;
             Model = new LEDController();
             Model.PropertyChanged += Model_PropertyChanged;
+            Model.SetDefaultValues();
             ColorSpectrum.Source = ImageSource.FromResource(nameof(HomeLedApp) + "." + "Assets.HueScale.png", typeof(MainPage).GetTypeInfo().Assembly);
-            SinOptions.IsVisible = true;
-            RainbowOptions.IsVisible = false;
         }
 
         private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            SinOptions.IsVisible = Model.CurrentMode == LEDController.Modes.sin;
-            RainbowOptions.IsVisible = Model.CurrentMode == LEDController.Modes.rainbow;
+            if (e.PropertyName == nameof(Model.CurrentMode))
+            {
+                Panel_SinParameter.IsVisible = Model.CurrentMode == Modes.sin;
+                Panel_RainbowParameter.IsVisible = Model.CurrentMode == Modes.rainbow;
+            }
         }
 
         private void Refresh(object sender, EventArgs e) => _ = SSDPInstance.SearchForDevicesAsync();

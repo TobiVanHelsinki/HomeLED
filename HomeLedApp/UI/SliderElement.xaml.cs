@@ -54,13 +54,6 @@ namespace HomeLedApp.UI
 
         public SliderElement() => InitializeComponent();
 
-        //private void Info_Tapped(object sender, EventArgs e)
-        //{
-        //    var info = AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info");
-        //    var popup = new Rg.Plugins.Popup.Pages.PopupPage() { Content = new Label() { Text = info } };
-        //    _ = Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
-        //}
-
         private void Info_Tapped(object sender, EventArgs e)
         {
             MainPage.Instance.DisplayAlert(AppResources.Info, AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info"), "OK");

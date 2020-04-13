@@ -123,14 +123,26 @@
   <data name="Brigthnes_Info" xml:space="preserve">
     <value>Ein nach der Farbkalkulation angewendeter Parameter, um die Gesamthelligkeit zu beeinflussen.</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="Devices_Headline" xml:space="preserve">
     <value>Verfügbare Geräte</value>
   </data>
   <data name="Devices_Info" xml:space="preserve">
     <value>Diese Liste zeigt die im Netzwerk gefunden Geräte an.</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
   <data name="Headline_Modes" xml:space="preserve">
     <value>Modus einstellen und senden</value>
+  </data>
+  <data name="HorizontalOffset" xml:space="preserve">
+    <value>Horizontale Verschiebung</value>
+  </data>
+  <data name="HorizontalOffset_Info" xml:space="preserve">
+    <value />
   </data>
   <data name="Hue" xml:space="preserve">
     <value>Farbton</value>
@@ -143,11 +155,26 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="LEDRespond" xml:space="preserve">
+    <value>Antwort des LED Gerätes</value>
+  </data>
   <data name="Luminosity" xml:space="preserve">
     <value>Leuchtkraft</value>
   </data>
   <data name="Luminosity_Info" xml:space="preserve">
     <value>Die Leuchtkraft L ist eine vor allem in der Astronomie verwendete Bezeichnung für die abgestrahlte Leistung (Energie pro Zeit). Wenn die über alle Bereiche des elektromagnetischen Spektrums summierte abgestrahlte Leistung betrachtet wird, ist die Leuchtkraft ein Synonym für „Strahlungsleistung“.  (Wikipedia)</value>
+  </data>
+  <data name="MainParameter_Headline" xml:space="preserve">
+    <value>Hauptparameter</value>
+  </data>
+  <data name="MainParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ModeParameter_Headline" xml:space="preserve">
+    <value>Modusspezifische Parameter</value>
+  </data>
+  <data name="ModeParameter_Info" xml:space="preserve">
+    <value />
   </data>
   <data name="Modes_Headline" xml:space="preserve">
     <value>Modi</value>
@@ -185,17 +212,53 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="NumberOfLeds_Info" xml:space="preserve">
     <value>Hiermit kann die Anzahl der angesprochenen Leds verringert werden</value>
   </data>
+  <data name="RainbowParameter_Headline" xml:space="preserve">
+    <value>Regenbogen Parameter</value>
+  </data>
+  <data name="RainbowParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Randomized" xml:space="preserve">
+    <value>Zufällig</value>
+  </data>
   <data name="Saturation" xml:space="preserve">
     <value>Sättigung</value>
   </data>
   <data name="Saturation_Info" xml:space="preserve">
     <value>Die Farbsättigung ist ein Farbmerkmal. Neben dem Farbton und der Helligkeit gehört die Sättigung zu den drei vom Menschen als grundlegend empfundenen Merkmalen bzw. Eigenschaften einer Farbe. Sie beschreibt die Qualität der Farbnuance, ob sie eher den bunten oder unbunten Farben zuneigt. (Wikipedia)</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Senden</value>
+  </data>
+  <data name="SinParameter_Headline" xml:space="preserve">
+    <value>Sinuswellen Parameter</value>
+  </data>
+  <data name="SinParameter_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SinReverseParameter_Headline" xml:space="preserve">
+    <value>Umkehren</value>
+  </data>
   <data name="Speed" xml:space="preserve">
     <value>Geschwindigkeit</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>Die Rate, mit der die Leds aktualisiert werden. in x/Sekunde</value>
+  </data>
+  <data name="StorageClear" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="StorageLoad" xml:space="preserve">
+    <value>Laden</value>
+  </data>
+  <data name="StorageSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Storage_Headline" xml:space="preserve">
+    <value>Dauerhafter Speicher</value>
+  </data>
+  <data name="Storage_Info" xml:space="preserve">
+    <value>Speichert die aktuelle Konfiguration des Gerätes, sodass diese beim nächsten Start automatisch geladen wird.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
     <value>Version 1.9.8
@@ -237,5 +300,11 @@ Version 1.7.4:
 [new] komplette englische Übersetzung
 [new] Drag and Drop zwischen Kategorien
 </value>
+  </data>
+  <data name="VerticalOffset" xml:space="preserve">
+    <value>Vertikale Verschiebung</value>
+  </data>
+  <data name="VerticalOffset_Info" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -79,6 +79,15 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Details ähnelt.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         public static string Devices_Headline {
@@ -97,11 +106,38 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Edit ähnelt.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Set and send Mode ähnelt.
         /// </summary>
         public static string Headline_Modes {
             get {
                 return ResourceManager.GetString("Headline_Modes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Horizontal offset ähnelt.
+        /// </summary>
+        public static string HorizontalOffset {
+            get {
+                return ResourceManager.GetString("HorizontalOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string HorizontalOffset_Info {
+            get {
+                return ResourceManager.GetString("HorizontalOffset_Info", resourceCulture);
             }
         }
         
@@ -133,6 +169,15 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die LED-Device Respond ähnelt.
+        /// </summary>
+        public static string LEDRespond {
+            get {
+                return ResourceManager.GetString("LEDRespond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Luminosity ähnelt.
         /// </summary>
         public static string Luminosity {
@@ -147,6 +192,24 @@ namespace HomeLedApp.Strings {
         public static string Luminosity_Info {
             get {
                 return ResourceManager.GetString("Luminosity_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string MainParameter_Headline {
+            get {
+                return ResourceManager.GetString("MainParameter_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string MainParameter_Info {
+            get {
+                return ResourceManager.GetString("MainParameter_Info", resourceCulture);
             }
         }
         
@@ -216,6 +279,24 @@ namespace HomeLedApp.Strings {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
+        public static string ModeParameter_Headline {
+            get {
+                return ResourceManager.GetString("ModeParameter_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string ModeParameter_Info {
+            get {
+                return ResourceManager.GetString("ModeParameter_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
         public static string Modes_Headline {
             get {
                 return ResourceManager.GetString("Modes_Headline", resourceCulture);
@@ -268,6 +349,33 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string RainbowParameter_Headline {
+            get {
+                return ResourceManager.GetString("RainbowParameter_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string RainbowParameter_Info {
+            get {
+                return ResourceManager.GetString("RainbowParameter_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Randomized {
+            get {
+                return ResourceManager.GetString("Randomized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Saturation ähnelt.
         /// </summary>
         public static string Saturation {
@@ -282,6 +390,42 @@ namespace HomeLedApp.Strings {
         public static string Saturation_Info {
             get {
                 return ResourceManager.GetString("Saturation_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Send ähnelt.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string SinParameter_Headline {
+            get {
+                return ResourceManager.GetString("SinParameter_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string SinParameter_Info {
+            get {
+                return ResourceManager.GetString("SinParameter_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reverse ähnelt.
+        /// </summary>
+        public static string SinReverseParameter_Headline {
+            get {
+                return ResourceManager.GetString("SinReverseParameter_Headline", resourceCulture);
             }
         }
         
@@ -304,6 +448,51 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Storage_Headline {
+            get {
+                return ResourceManager.GetString("Storage_Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Storage_Info {
+            get {
+                return ResourceManager.GetString("Storage_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string StorageClear {
+            get {
+                return ResourceManager.GetString("StorageClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string StorageLoad {
+            get {
+                return ResourceManager.GetString("StorageLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string StorageSave {
+            get {
+                return ResourceManager.GetString("StorageSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Version 1.9.8
         ///[fix] Input of . or , was not possible
         ///Version 1.9.7
@@ -319,6 +508,24 @@ namespace HomeLedApp.Strings {
         public static string VersionHistory {
             get {
                 return ResourceManager.GetString("VersionHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vertical offset ähnelt.
+        /// </summary>
+        public static string VerticalOffset {
+            get {
+                return ResourceManager.GetString("VerticalOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string VerticalOffset_Info {
+            get {
+                return ResourceManager.GetString("VerticalOffset_Info", resourceCulture);
             }
         }
     }

@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resx="clr-namespace:HomeLedApp.Strings"
-             xmlns:model="clr-namespace:HomeLedApp.Model"
-             xmlns:local="clr-namespace:HomeLedApp" xmlns:ui="clr-namespace:HomeLedApp.UI"
+             xmlns:local="clr-namespace:HomeLedApp"
+             xmlns:ui="clr-namespace:HomeLedApp.UI"
              x:Class="HomeLedApp.UI.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid BackgroundColor="Beige" Padding="6">
+    <Grid BackgroundColor="Beige" Padding="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollView>
-            <StackLayout>
+            <StackLayout Padding="0,0,15,0">
                 <Grid x:Name="Panel_Devices">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -74,7 +74,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="{resx:AppResources Modes_Headline}" Style="{StaticResource HeadLineText}"/>
                     <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpLabel}">
@@ -82,42 +81,14 @@
                             <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Modes_Info}"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay}" ItemsSource="{x:Binding Modes}" IsEnabled="{x:Binding Model.ControlsEnable}" Margin="5,0,8,0"/>
+                    <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay, Converter={StaticResource IO_ModesToString}}" ItemsSource="{x:Binding ModesList}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                 </Grid>
-                <Grid HorizontalOptions="Fill" x:Name="SinOptions">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Text="VerticalOffset"/>
-                    <Label Grid.Column="0" Grid.Row="1" Text="HorizontalOffset"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Column="1" Grid.Row="0" Minimum="0" Maximum="30" Value="{x:Binding Model.Sin_VerticalOffset, Mode=TwoWay}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Column="1" Grid.Row="1" Minimum="0" Maximum="10" Value="{x:Binding Model.Sin_HorizontalOffset, Mode=TwoWay}"/>
-                    <Switch Grid.Column="2" Grid.Row="0" IsToggled="{x:Binding Model.Sin_VerticalOffset_Neg}"/>
-                    <Switch Grid.Column="2" Grid.Row="1" IsToggled="{x:Binding Model.Sin_HorizontalOffset_Neg}"/>
-                </Grid>
-                <Grid HorizontalOptions="Fill" x:Name="RainbowOptions">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Text="Random Mode"/>
-                    <Switch Grid.Column="1" Grid.Row="0" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>
-                </Grid>
-                <Grid RowSpacing="0">
+                <Grid x:Name="Panel_MainParameter" RowSpacing="0">
                     <Grid.Resources>
                         <OnPlatform x:Key="ImagePosition" x:TypeArguments="x:Int32">
-                            <On Platform="UWP" Value="0"/>
-                            <On Platform="Android" Value="1"/>
-                            <On Platform="iOS" Value="0"/>
+                            <On Platform="UWP" Value="1"/>
+                            <On Platform="Android" Value="2"/>
+                            <On Platform="iOS" Value="1"/>
                         </OnPlatform>
                     </Grid.Resources>
                     <Grid.RowDefinitions>
@@ -125,48 +96,124 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{resx:AppResources MainParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources MainParameter_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
                     <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
-                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation"/>
-                    <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
+                    <ui:SliderElement Grid.Row="3" TitleResource="Saturation" Property="Model.Saturation"/>
+                    <ui:SliderElement Grid.Row="4" TitleResource="Luminosity" Property="Model.Luminosity"/>
+                    <ui:SliderElement Grid.Row="5" TitleResource="Brigthnes" Property="Model.Brigthnes"/>
+                    <ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
                 </Grid>
-                <StackLayout Spacing="0">
-                    <ui:SliderElement TitleResource="Brigthnes" Property="Model.Brigthnes"/>
+                <StackLayout x:Name="Panel_ModeParameter" Spacing="0">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{resx:AppResources ModeParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources ModeParameter_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
                     <ui:SliderElement TitleResource="Speed" Property="Model.Speed"/>
-                    <ui:SliderElement TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
                 </StackLayout>
-                <Grid x:Name="Panel_Storage">
+                <Grid x:Name="Panel_SinParameter">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Label Text="{resx:AppResources SinParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources SinParameter_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset"/>
+
+                    <Label Grid.Row="0" Grid.Column="1" Text="{resx:AppResources SinReverseParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                    <Switch Grid.Row="1" Grid.Column="1" IsToggled="{x:Binding Model.Sin_VerticalOffset_Neg}"/>
+                    <Switch Grid.Row="2" Grid.Column="1" IsToggled="{x:Binding Model.Sin_HorizontalOffset_Neg}"/>
+                </Grid>
+                <Grid x:Name="Panel_RainbowParameter">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Text="Permanent Storage" Grid.ColumnSpan="3"/>
-                    <Button Text="Save" Grid.Row="1" Grid.Column="0" Style="{StaticResource STDButton}" Clicked="Save_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-                    <Button Text="Load" Grid.Row="1" Grid.Column="1" Style="{StaticResource STDButton}" Clicked="Load_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-                    <Button Text="Clear" Grid.Row="1" Grid.Column="2" Style="{StaticResource STDButton}" Clicked="Clear_Click" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Label Text="{resx:AppResources RainbowParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources RainbowParameter_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <Label Grid.Column="0" Grid.Row="1" Text="{resx:AppResources Randomized}"/>
+                    <Switch Grid.Column="1" Grid.Row="1" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>
                 </Grid>
+                <StackLayout x:Name="Panel_Storage" Spacing="0">
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Label Text="{resx:AppResources Storage_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Storage_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="{resx:AppResources StorageSave}" Style="{StaticResource STDButton}" Clicked="Save_Click" IsEnabled="{x:Binding Model.ControlsEnable}" HorizontalOptions="FillAndExpand"/>
+                        <Button Text="{resx:AppResources StorageLoad}" Style="{StaticResource STDButton}" Clicked="Load_Click" IsEnabled="{x:Binding Model.ControlsEnable}" HorizontalOptions="FillAndExpand"/>
+                        <Button Text="{resx:AppResources StorageClear}" Style="{StaticResource STDButton}" Clicked="Clear_Click" IsEnabled="{x:Binding Model.ControlsEnable}" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
-        <StackLayout Grid.Row="1" x:Name="ControlPanel">
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Send" Clicked="Apply" HorizontalOptions="FillAndExpand"
+        <Grid x:Name="ControlPanel" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="{resx:AppResources Send}" Grid.Row="0" Grid.Column="0" Clicked="Apply" HorizontalOptions="FillAndExpand"
                         BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
                         Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-                <Button Text="Edit" Clicked="EditURL" Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="LED Respond:"/>
-                <Label Text="{x:Binding Model.StatusCode}" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap"/>
-                <Button Text="Details" Style="{StaticResource STDButton}" Clicked="ShowDetails"/>
-            </StackLayout>
-        </StackLayout>
+            <Button Text="{resx:AppResources Edit}" Grid.Row="0" Grid.Column="1" Clicked="EditURL" Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+            <Label Style="{StaticResource STDText}" Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="{resx:AppResources LEDRespond}"/>
+                            <Span Text=": "/>
+                            <Span Text="{x:Binding Model.StatusCode}"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Button Text="{resx:AppResources Details}" Grid.Row="1" Grid.Column="1" Style="{StaticResource STDButton}" Clicked="ShowDetails"/>
+        </Grid>
     </Grid>
 </ContentPage>

@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.Model
 {
-    public class LEDController : INotifyPropertyChanged
+    public partial class LEDController : INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,23 +34,19 @@ namespace HomeLedApp.Model
 
         #region Params
 
-        public enum Modes
-        {
-            on,
-            off,
-            sin,
-            rainbow,
-            color,
-            pixel,
-            pulse,
-        }
-
         internal async void UpdateHostname(string hostname)
         {
             await Send("setHostname=" + hostname);
         }
 
-        private Modes _CurrentMode = Modes.sin;
+        private int _CurrentModeIndex;
+        public int CurrentModeIndex
+        {
+            get => _CurrentModeIndex;
+            set { if (_CurrentModeIndex != value) { _CurrentModeIndex = value; NotifyPropertyChanged(); } }
+        }
+
+        private Modes _CurrentMode;
         [LedServerRelevant("m")]
         public Modes CurrentMode
         {
@@ -66,7 +62,7 @@ namespace HomeLedApp.Model
             set { if (_Config != value) { _Config = value; NotifyPropertyChanged(); } }
         }
 
-        private Color _Color = new Color(0.9, 0.5, 0);
+        private Color _Color;
         public Color CurrentColor
         {
             get => _Color;
@@ -130,7 +126,7 @@ namespace HomeLedApp.Model
             set => CurrentColor = new Color(CurrentColor.R, CurrentColor.G, value / 255.0);
         }
 
-        private int _Brigthnes = 50;
+        private int _Brigthnes;
         [LedServerRelevant("br")]
         public int Brigthnes
         {
@@ -142,7 +138,7 @@ namespace HomeLedApp.Model
         public double Brigthnes_Min => 0;
 
         [LedServerRelevant("v")]
-        public int _Speed = 62;
+        public int _Speed;
         public int Speed
         {
             get => (int)(1000.0 / _Speed);
@@ -152,7 +148,7 @@ namespace HomeLedApp.Model
         public double Speed_Max => 50;
         public double Speed_Min => 0;
 
-        private int _NumberOfLeds = 150;
+        private int _NumberOfLeds;
         [LedServerRelevant("n")]
         public int NumberOfLeds
         {
@@ -164,13 +160,15 @@ namespace HomeLedApp.Model
         public double NumberOfLeds_Min => 0;
 
         [LedServerRelevant("vo")]
-        public int _Sin_VerticalOffset = 5;
+        public int _Sin_VerticalOffset;
         public int Sin_VerticalOffset
         {
             get => (_Sin_VerticalOffset < 0 ? -1 : 1) * _Sin_VerticalOffset;
             set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = (Sin_VerticalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
 
+        public double Sin_VerticalOffset_Max => 30;
+        public double Sin_VerticalOffset_Min => 0;
         private bool _Sin_VerticalOffset_Neg;
         public bool Sin_VerticalOffset_Neg
         {
@@ -179,12 +177,15 @@ namespace HomeLedApp.Model
         }
 
         [LedServerRelevant("ho")]
-        public int _Sin_HorizontalOffset = 2;
+        public int _Sin_HorizontalOffset;
         public int Sin_HorizontalOffset
         {
             get => (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset;
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = (Sin_HorizontalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
+
+        public double Sin_HorizontalOffset_Max => 10;
+        public double Sin_HorizontalOffset_Min => 0;
 
         private bool _Sin_HorizontalOffset_Neg;
         public bool Sin_HorizontalOffset_Neg
@@ -215,7 +216,7 @@ namespace HomeLedApp.Model
         public LEDDevice CurrentDevice
         {
             get => _CurrentDevice;
-            set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); } }
+            set { if (_CurrentDevice != value) { _CurrentDevice = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(ControlsEnable)); } }
         }
 
         private string _Status = "---";
@@ -243,7 +244,6 @@ namespace HomeLedApp.Model
 
         internal async Task Send(string myurlparam = null)
         {
-            NetworkCommunicationInProgress = true;
             if (myurlparam is null)
             {
                 myurlparam = URLParam;
@@ -287,6 +287,19 @@ namespace HomeLedApp.Model
             PropertyChanged += LEDController_PropertyChanged;
             SSDP.Instance.DiscoveredDevices.CollectionChanged += DiscoveredDevices_CollectionChanged;
             SetCurrentDeviceIfNull();
+        }
+
+        public void SetDefaultValues()
+        {
+            NetworkCommunicationInProgress = true;
+            CurrentMode = Modes.sin;
+            CurrentColor = new Color(0.9, 0.5, 0);
+            Brigthnes = 50;
+            Speed = 62;
+            NumberOfLeds = 150;
+            Sin_VerticalOffset = 5;
+            Sin_HorizontalOffset = 2;
+            NetworkCommunicationInProgress = false;
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
