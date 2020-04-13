@@ -62,6 +62,21 @@ namespace HomeLedApp.Model
             set { if (_Config != value) { _Config = value; NotifyPropertyChanged(); } }
         }
 
+        public Color CurrentColorInverse
+        {
+            get
+            {
+                try
+                {
+                    return CurrentColor.WithSaturation((_Color.Saturation + 0.5) % 1).WithLuminosity((_Color.Luminosity + 0.5) % 1).WithHue((_Color.Hue + 0.5) % 1);
+                }
+                catch
+                {
+                    return Color.Default;
+                }
+            }
+        }
+
         private Color _Color;
         public Color CurrentColor
         {
@@ -76,6 +91,7 @@ namespace HomeLedApp.Model
                 NotifyPropertyChanged(nameof(R));
                 NotifyPropertyChanged(nameof(G));
                 NotifyPropertyChanged(nameof(B));
+                NotifyPropertyChanged(nameof(CurrentColorInverse));
             }
         }
 
