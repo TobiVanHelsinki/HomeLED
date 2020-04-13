@@ -194,7 +194,7 @@
             <Button Text="{resx:AppResources Send}" Grid.Row="0" Grid.Column="0" Clicked="Apply" HorizontalOptions="FillAndExpand"
                         BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
                         Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-            <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{x:Binding Model.NetworkCommunicationInProgress}"/>
+            <ActivityIndicator Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" IsVisible="{x:Binding Model.NetworkCommunicationInProgress}" IsRunning="{x:Binding Model.NetworkCommunicationInProgress}"/>
             <Button Text="{resx:AppResources Edit}" Grid.Row="0" Grid.Column="1" Clicked="EditURL" Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
             <Label Style="{StaticResource STDText}" Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap">
                 <Label.FormattedText>
