@@ -1,5 +1,6 @@
 ﻿//Author: Tobi van Helsinki
 
+using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -11,9 +12,6 @@ namespace HomeLedApp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            //TabLayoutResource = Resource.Layout.Tabbar;
-            //ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
 
             #region Init libs
@@ -37,7 +35,7 @@ namespace HomeLedApp.Droid
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
