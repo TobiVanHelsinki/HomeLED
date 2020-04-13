@@ -61,578 +61,110 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die You played with  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Activity_PlayedWith {
+        public static string Brigthnes {
             get {
-                return ResourceManager.GetString("Activity_PlayedWith", resourceCulture);
+                return ResourceManager.GetString("Brigthnes", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The import of the following settings or files failed. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string AppImportErrors {
+        public static string Brigthnes_Info {
             get {
-                return ResourceManager.GetString("AppImportErrors", resourceCulture);
+                return ResourceManager.GetString("Brigthnes_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The import was successful. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string AppImportNoErrors {
+        public static string Devices_Headline {
             get {
-                return ResourceManager.GetString("AppImportNoErrors", resourceCulture);
+                return ResourceManager.GetString("Devices_Headline", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die selection ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Availible Devices ähnelt.
         /// </summary>
-        public static string AuswahlDialog {
+        public static string Devices_Info {
             get {
-                return ResourceManager.GetString("AuswahlDialog", resourceCulture);
+                return ResourceManager.GetString("Devices_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Set and send Mode ähnelt.
         /// </summary>
-        public static string Cancel {
+        public static string Headline_Modes {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("Headline_Modes", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Close ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hue ähnelt.
         /// </summary>
-        public static string Close {
+        public static string Hue {
             get {
-                return ResourceManager.GetString("Close", resourceCulture);
+                return ResourceManager.GetString("Hue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Copy ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Colorfulness, chroma and saturation are attributes of perceived color relating to chromatic intensity. As defined formally by the International Commission on Illumination (CIE) they respectively describe three different aspects of chromatic intensity, but the terms are often used loosely and interchangeably in contexts where these aspects are not clearly distinguished. The precise meanings of the terms vary by what other functions they are dependent on. (Wikipedia) ähnelt.
         /// </summary>
-        public static string CopiedFileName {
+        public static string Hue_Info {
             get {
-                return ResourceManager.GetString("CopiedFileName", resourceCulture);
+                return ResourceManager.GetString("Hue_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Fehler: Konnte nicht (alle) Dateien an neuen Ort kopieren. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info ähnelt.
         /// </summary>
-        public static string Error_CopyFiles {
+        public static string Info {
             get {
-                return ResourceManager.GetString("Error_CopyFiles", resourceCulture);
+                return ResourceManager.GetString("Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error, couldn&apos;t get folder. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Luminosity ähnelt.
         /// </summary>
-        public static string Error_GetFolder {
+        public static string Luminosity {
             get {
-                return ResourceManager.GetString("Error_GetFolder", resourceCulture);
+                return ResourceManager.GetString("Luminosity", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error reading the char directory. Reset the external folder. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Luminosity is an absolute measure of radiated electromagnetic power (light), the radiant power emitted by a light-emitting object. (Wikipedia) ähnelt.
         /// </summary>
-        public static string Error_LoadCharFolder {
+        public static string Luminosity_Info {
             get {
-                return ResourceManager.GetString("Error_LoadCharFolder", resourceCulture);
+                return ResourceManager.GetString("Luminosity_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error: Could not load your purchases ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Error_LoadPurchases {
+        public static string Modes_Headline {
             get {
-                return ResourceManager.GetString("Error_LoadPurchases", resourceCulture);
+                return ResourceManager.GetString("Modes_Headline", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not copy all ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Error_ObjectCopy {
+        public static string Modes_Info {
             get {
-                return ResourceManager.GetString("Error_ObjectCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not restore link item: {0}  ähnelt.
-        /// </summary>
-        public static string Error_RepairLinkList {
-            get {
-                return ResourceManager.GetString("Error_RepairLinkList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Example Char ähnelt.
-        /// </summary>
-        public static string ExampleChar {
-            get {
-                return ResourceManager.GetString("ExampleChar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die more ähnelt.
-        /// </summary>
-        public static string FurtherSettings {
-            get {
-                return ResourceManager.GetString("FurtherSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Items (e. g. weapons, CyberDecks, normal items) can be &quot;active&quot;. This means that they are taken into automatic calculations. For example, the limit value  of an &quot;shooting&quot;-action can be linked to the precision of the active weapon. If the active weapon is changed, the dependent values change automatically. ähnelt.
-        /// </summary>
-        public static string Help1 {
-            get {
-                return ResourceManager.GetString("Help1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Active Items ähnelt.
-        /// </summary>
-        public static string Help1_ActiveItems {
-            get {
-                return ResourceManager.GetString("Help1_ActiveItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Some default values are updated automatically. Essence begins at 6, from which all the values of the essence entered in augmentation are deducted. Under &quot;Person&quot; there is an &quot;Essence Mod&quot; field. The value there is added to the calculated value. So if you make out with vampires, you will probably enter a negative value in this field. ähnelt.
-        /// </summary>
-        public static string Help2 {
-            get {
-                return ResourceManager.GetString("Help2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Automatic calculations ähnelt.
-        /// </summary>
-        public static string Help2_AutoCalc {
-            get {
-                return ResourceManager.GetString("Help2_AutoCalc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die For actions and skills, all other things can be linked. In this way, your dice pool can be automatically calculated from other values. If the linked values change, dependent values change automatically. Categories such as weapons, armour, vehicles, comlinks and decks cannot be selected individually, but each property can be selected individually. See &quot;Active Items&quot;. ähnelt.
-        /// </summary>
-        public static string Help3 {
-            get {
-                return ResourceManager.GetString("Help3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Linked entries ähnelt.
-        /// </summary>
-        public static string Help3_LinkedItems {
-            get {
-                return ResourceManager.GetString("Help3_LinkedItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die With this app you can manage several ShadowRun Chars. All stored chars are displayed in the list. This list is usually an internal folder, but you can choose any folder. In the options there are different settings for this. ähnelt.
-        /// </summary>
-        public static string Help4 {
-            get {
-                return ResourceManager.GetString("Help4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Char administration ähnelt.
-        /// </summary>
-        public static string Help4_CharAdministration {
-            get {
-                return ResourceManager.GetString("Help4_CharAdministration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die There are two options for saving a char. By default, the file name is used to store the char. If the option &quot;Progress&quot; is selected, the filename will contain the number of runs and karma - so a versioning is possible. In addition, the &quot;Time&quot; option can be used to add the exact time to the filename. ähnelt.
-        /// </summary>
-        public static string Help5 {
-            get {
-                return ResourceManager.GetString("Help5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Char administration - Filenames ähnelt.
-        /// </summary>
-        public static string Help5_CharAdministration_FileName {
-            get {
-                return ResourceManager.GetString("Help5_CharAdministration_FileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die In this database you will find predefined entries. Click on an entry to select it. With the commands below you can then apply this selection to your current character. If you already have an entry with the same name in the same category, your entry will not be overwritten. For database entries with links to other entries, the system tries to link your entries. If this fails, the linked entry is also copied. ähnelt.
-        /// </summary>
-        public static string HelpDBIntro {
-            get {
-                return ResourceManager.GetString("HelpDBIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Purchase not successful ähnelt.
-        /// </summary>
-        public static string IAP_Error {
-            get {
-                return ResourceManager.GetString("IAP_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Purchase Successful ähnelt.
-        /// </summary>
-        public static string IAP_Succeeded {
-            get {
-                return ResourceManager.GetString("IAP_Succeeded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Lifetime no Ads ähnelt.
-        /// </summary>
-        public static string IAP_TXT_ADS {
-            get {
-                return ResourceManager.GetString("IAP_TXT_ADS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die No Ads for one year ähnelt.
-        /// </summary>
-        public static string IAP_TXT_ADS_365 {
-            get {
-                return ResourceManager.GetString("IAP_TXT_ADS_365", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Add Premium-Badge ähnelt.
-        /// </summary>
-        public static string IAP_TXT_TEE {
-            get {
-                return ResourceManager.GetString("IAP_TXT_TEE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die A Char was loaded from file ähnelt.
-        /// </summary>
-        public static string Notification_Char_Loaded_File {
-            get {
-                return ResourceManager.GetString("Notification_Char_Loaded_File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die A Char was automaticly loaded ähnelt.
-        /// </summary>
-        public static string Notification_Char_Loaded_Start {
-            get {
-                return ResourceManager.GetString("Notification_Char_Loaded_Start", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Intern Error - AllList was Empty ähnelt.
-        /// </summary>
-        public static string Notification_Error_AllListChooser {
-            get {
-                return ResourceManager.GetString("Notification_Error_AllListChooser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error: Some linked items were not found ähnelt.
-        /// </summary>
-        public static string Notification_Error_AuswahlToLess {
-            get {
-                return ResourceManager.GetString("Notification_Error_AuswahlToLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die could not store ähnelt.
-        /// </summary>
-        public static string Notification_Error_Converter_Error1 {
-            get {
-                return ResourceManager.GetString("Notification_Error_Converter_Error1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die CSV Export failed ähnelt.
-        /// </summary>
-        public static string Notification_Error_CSVExportFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_CSVExportFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die CVS Import failed ähnelt.
-        /// </summary>
-        public static string Notification_Error_CSVImportFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_CSVImportFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not delete all ähnelt.
-        /// </summary>
-        public static string Notification_Error_DelAllFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_DelAllFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not delete current character ähnelt.
-        /// </summary>
-        public static string Notification_Error_DelCurrentFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_DelCurrentFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not delete ähnelt.
-        /// </summary>
-        public static string Notification_Error_DelFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_DelFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Display can not stay activated ähnelt.
-        /// </summary>
-        public static string Notification_Error_DisplayRequest {
-            get {
-                return ResourceManager.GetString("Notification_Error_DisplayRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Wrong Enum value ähnelt.
-        /// </summary>
-        public static string Notification_Error_Enum {
-            get {
-                return ResourceManager.GetString("Notification_Error_Enum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error: Could not read file ähnelt.
-        /// </summary>
-        public static string Notification_Error_FileActivation {
-            get {
-                return ResourceManager.GetString("Notification_Error_FileActivation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Could not export ähnelt.
-        /// </summary>
-        public static string Notification_Error_FileExportFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_FileExportFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Fileimport failed ähnelt.
-        /// </summary>
-        public static string Notification_Error_FileImportFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_FileImportFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Some Error ähnelt.
-        /// </summary>
-        public static string Notification_Error_General {
-            get {
-                return ResourceManager.GetString("Notification_Error_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error while importing ähnelt.
-        /// </summary>
-        public static string Notification_Error_Import {
-            get {
-                return ResourceManager.GetString("Notification_Error_Import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Reading file failed ähnelt.
-        /// </summary>
-        public static string Notification_Error_IO_Deserialize {
-            get {
-                return ResourceManager.GetString("Notification_Error_IO_Deserialize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die unknown fileversion ähnelt.
-        /// </summary>
-        public static string Notification_Error_IO_FileVersion {
-            get {
-                return ResourceManager.GetString("Notification_Error_IO_FileVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die could not find and create folder ähnelt.
-        /// </summary>
-        public static string Notification_Error_IO_FolderNotFoundOrNotCreated {
-            get {
-                return ResourceManager.GetString("Notification_Error_IO_FolderNotFoundOrNotCreated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die userdecision was throwing this error ähnelt.
-        /// </summary>
-        public static string Notification_Error_IO_UserDecision {
-            get {
-                return ResourceManager.GetString("Notification_Error_IO_UserDecision", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die There was an Error during loading you char. More information at the Notifications. ähnelt.
-        /// </summary>
-        public static string Notification_Error_Loader_Error1 {
-            get {
-                return ResourceManager.GetString("Notification_Error_Loader_Error1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Loading failed ähnelt.
-        /// </summary>
-        public static string Notification_Error_LoadFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_LoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Programlogic-error ähnelt.
-        /// </summary>
-        public static string Notification_Error_LogicFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_LogicFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die AutoFix Error ähnelt.
-        /// </summary>
-        public static string Notification_Error_RepairFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_RepairFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error during saving. Try to export your char and restart the App. ähnelt.
-        /// </summary>
-        public static string Notification_Error_SaveFail {
-            get {
-                return ResourceManager.GetString("Notification_Error_SaveFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Saving not possible, an other operation is in progress ähnelt.
-        /// </summary>
-        public static string Notification_Error_SaveFail_OPInProgress {
-            get {
-                return ResourceManager.GetString("Notification_Error_SaveFail_OPInProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error reading folder ähnelt.
-        /// </summary>
-        public static string Notification_Error_SummorysREfresh {
-            get {
-                return ResourceManager.GetString("Notification_Error_SummorysREfresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die A unknown Error occured. You char was saved with a &quot;Emergency&quot; prefix. ähnelt.
-        /// </summary>
-        public static string Notification_Error_Unknown {
-            get {
-                return ResourceManager.GetString("Notification_Error_Unknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die This file is a old version. It will now be converted to the most recent file version. Because of that, it might not be full readable at old versions of the app. ähnelt.
-        /// </summary>
-        public static string Notification_Info_ConvertFromPrevious {
-            get {
-                return ResourceManager.GetString("Notification_Info_ConvertFromPrevious", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die This Fileversion is outdated. If you want to upgrade this char, please contact support. ähnelt.
-        /// </summary>
-        public static string Notification_Info_NotSupportedVersion {
-            get {
-                return ResourceManager.GetString("Notification_Info_NotSupportedVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Your char was upgraded to the newest version. you cannot open it in older app versions properly. ähnelt.
-        /// </summary>
-        public static string Notification_Info_UpgradedChar {
-            get {
-                return ResourceManager.GetString("Notification_Info_UpgradedChar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Your char was upgraded to the newest version. you cannot open it in older app versions properly. ähnelt.
-        /// </summary>
-        public static string Notification_Info_UpgradedChar_1_5_to_1_6 {
-            get {
-                return ResourceManager.GetString("Notification_Info_UpgradedChar_1_5_to_1_6", resourceCulture);
+                return ResourceManager.GetString("Modes_Info", resourceCulture);
             }
         }
         
@@ -646,318 +178,56 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Char was successfully imported and is now available at the current saveplace ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Notification_Success_Import {
+        public static string NumberOfLeds {
             get {
-                return ResourceManager.GetString("Notification_Success_Import", resourceCulture);
+                return ResourceManager.GetString("NumberOfLeds", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Info: Reference wasn&apos;t added ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Notification_Warning_NotAddLinkedEntry {
+        public static string NumberOfLeds_Info {
             get {
-                return ResourceManager.GetString("Notification_Warning_NotAddLinkedEntry", resourceCulture);
+                return ResourceManager.GetString("NumberOfLeds_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die of ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saturation ähnelt.
         /// </summary>
-        public static string of {
+        public static string Saturation {
             get {
-                return ResourceManager.GetString("of", resourceCulture);
+                return ResourceManager.GetString("Saturation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die OK ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hue is one of the main properties (called color appearance parameters) of a color, defined technically (in the CIECAM02 model), as &quot;the degree to which a stimulus can be described as similar to or different from stimuli that are described as red, green, blue, and yellow&quot;[1] (which in certain theories of color vision are called unique hues). Hue can typically be represented quantitatively by a single number, often corresponding to an angular position around a central or neutral point or axis on a colorspace  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        public static string OK {
+        public static string Saturation_Info {
             get {
-                return ResourceManager.GetString("OK", resourceCulture);
+                return ResourceManager.GetString("Saturation_Info", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die order item ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string Order {
+        public static string Speed {
             get {
-                return ResourceManager.GetString("Order", resourceCulture);
+                return ResourceManager.GetString("Speed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Database charakter ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
-        public static string PreDBChar {
+        public static string Speed_Info {
             get {
-                return ResourceManager.GetString("PreDBChar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Yes ähnelt.
-        /// </summary>
-        public static string Request_AppImport {
-            get {
-                return ResourceManager.GetString("Request_AppImport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Really delete! ähnelt.
-        /// </summary>
-        public static string Request_Delete {
-            get {
-                return ResourceManager.GetString("Request_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Really delete! ähnelt.
-        /// </summary>
-        public static string Request_DeleteAll {
-            get {
-                return ResourceManager.GetString("Request_DeleteAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
-        /// </summary>
-        public static string Request_NotSave {
-            get {
-                return ResourceManager.GetString("Request_NotSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die * ähnelt.
-        /// </summary>
-        public static string SymbolChanges {
-            get {
-                return ResourceManager.GetString("SymbolChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Windows sometimes closes apps due to lack of resources. Try the autosave option if you want to avoid data loss. ähnelt.
-        /// </summary>
-        public static string Tip1 {
-            get {
-                return ResourceManager.GetString("Tip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The damage menu is located at the top right. I hope you don&apos;t have to use it too much. ähnelt.
-        /// </summary>
-        public static string Tip10 {
-            get {
-                return ResourceManager.GetString("Tip10", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die If you want to show your character sheet to someone who doesn&apos;t have the app, you can export it as csv. ähnelt.
-        /// </summary>
-        public static string Tip11 {
-            get {
-                return ResourceManager.GetString("Tip11", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Tip gone too fast? Tap on it! ähnelt.
-        /// </summary>
-        public static string Tip12 {
-            get {
-                return ResourceManager.GetString("Tip12", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Use Drag&apos;N&apos;Drop to copy / move objects between categories. ähnelt.
-        /// </summary>
-        public static string Tip13 {
-            get {
-                return ResourceManager.GetString("Tip13", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Since the latest Windows update, you can have the app open several times. ähnelt.
-        /// </summary>
-        public static string Tip14 {
-            get {
-                return ResourceManager.GetString("Tip14", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Use Drag&apos;N&apos;Drop to copy / move objects between apps. ähnelt.
-        /// </summary>
-        public static string Tip15 {
-            get {
-                return ResourceManager.GetString("Tip15", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The app can be used under several Windows versions, but may not have the full range of functions. Keep your Windows up to date. ähnelt.
-        /// </summary>
-        public static string Tip16 {
-            get {
-                return ResourceManager.GetString("Tip16", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Keep your character sheet backups up to date and you&apos;ll be safe from data corruption. ähnelt.
-        /// </summary>
-        public static string Tip17 {
-            get {
-                return ResourceManager.GetString("Tip17", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Do you like the App? Give a rating at the Store! ähnelt.
-        /// </summary>
-        public static string Tip18 {
-            get {
-                return ResourceManager.GetString("Tip18", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Use a cloud folder as an external storage folder. So your chars are safe ähnelt.
-        /// </summary>
-        public static string Tip2 {
-            get {
-                return ResourceManager.GetString("Tip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Categories you don&apos;t need can be hidden from the Character Bow menu. ähnelt.
-        /// </summary>
-        public static string Tip3 {
-            get {
-                return ResourceManager.GetString("Tip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die At the top left of your character sheet is the character sheet menu. Take a look inside. ähnelt.
-        /// </summary>
-        public static string Tip4 {
-            get {
-                return ResourceManager.GetString("Tip4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Are links sometimes no longer updated? Try &quot;Repair&quot; in the charactersheet-menu. ähnelt.
-        /// </summary>
-        public static string Tip5 {
-            get {
-                return ResourceManager.GetString("Tip5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die You can set in the options that chars are saved with the current progress (Karma and Runs). This makes versioning possible. ähnelt.
-        /// </summary>
-        public static string Tip6 {
-            get {
-                return ResourceManager.GetString("Tip6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Objects that can be set to &quot;Active&quot; are only included in calculations if they are active. ähnelt.
-        /// </summary>
-        public static string Tip7 {
-            get {
-                return ResourceManager.GetString("Tip7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The default value of the essence is 6, from which essence values from implants are subtracted. ähnelt.
-        /// </summary>
-        public static string Tip8 {
-            get {
-                return ResourceManager.GetString("Tip8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Damage maxima are displayed at the top of the damage menu. ähnelt.
-        /// </summary>
-        public static string Tip9 {
-            get {
-                return ResourceManager.GetString("Tip9", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Welcome to ShadowRunHelper!
-        ///
-        ///This tutorial will explain the essential elements of the app.
-        ///
-        ///If the tutorial covers the whole screen (on small displays) you can make it transparent through the eye-button. ähnelt.
-        /// </summary>
-        public static string Tut_State_01 {
-            get {
-                return ResourceManager.GetString("Tut_State_01", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The main navigation. These 3 buttons are always visible. Switch with them between 
-        ///    1. the current character sheet 
-        ///    2. the list of all character sheets 
-        ///    3. settings, imprint, help ähnelt.
-        /// </summary>
-        public static string Tut_State_02 {
-            get {
-                return ResourceManager.GetString("Tut_State_02", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die In the current view you manage all saved character sheets.
-        ///
-        ///The red highlighted list shows all your saved characters. 
-        ///By default, chars are saved within the app. In the options you can choose whether they should be synchronized via your account. You can also choose a different folder as the location. ähnelt.
-        /// </summary>
-        public static string Tut_State_03 {
-            get {
-                return ResourceManager.GetString("Tut_State_03", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die That&apos;s it with the tutorial. You can create a new character, but it&apos;s better to look at the example character first. ähnelt.
-        /// </summary>
-        public static string Tut_State_04 {
-            get {
-                return ResourceManager.GetString("Tut_State_04", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die App introduction ähnelt.
-        /// </summary>
-        public static string Tut_TitleState_00 {
-            get {
-                return ResourceManager.GetString("Tut_TitleState_00", resourceCulture);
+                return ResourceManager.GetString("Speed_Info", resourceCulture);
             }
         }
         

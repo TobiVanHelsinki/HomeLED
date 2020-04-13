@@ -50,5 +50,10 @@ namespace HomeLedApp.Model
         /// </summary>
         /// <exception cref="System.Net.Sockets.SocketException">Get.</exception>
         public string Urlbase => "http://" + (IP == IPAddress.None ? HostName : IP.ToString()) + "?";
+
+        public override string ToString()
+        {
+            return HostName;
+        }
     }
 }

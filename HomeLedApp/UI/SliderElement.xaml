@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:HomeLedApp"
+             mc:Ignorable="d"
+             x:Class="HomeLedApp.UI.SliderElement"
+             VerticalOptions="Center">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:SharedStyles/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Slider" x:Key="SliderStyle">
+                <Setter Property="MinimumTrackColor" Value="Accent"/>
+                <Setter Property="MaximumTrackColor" Value="Black"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="TitleLabel" Grid.Row="0" Grid.Column="1" Style="{StaticResource STDText}"/>
+            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource STDText}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="("/>
+                            <Span x:Name="ValueSpan"/>
+                            <Span Text=")"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Grid.Row="0" Grid.Column="3" Style="{StaticResource HelpLabel}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Info_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Slider x:Name="ValueSlider" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource SliderStyle}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

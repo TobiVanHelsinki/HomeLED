@@ -1,29 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resx="clr-namespace:HomeLedApp.Strings"
              xmlns:model="clr-namespace:HomeLedApp.Model"
+             xmlns:local="clr-namespace:HomeLedApp" xmlns:ui="clr-namespace:HomeLedApp.UI"
              x:Class="HomeLedApp.UI.MainPage">
     <ContentPage.Resources>
-        <OnPlatform x:Key="ImagePosition" x:TypeArguments="x:Int32">
-            <On Platform="UWP" Value="1"/>
-            <On Platform="Android" Value="0"/>
-            <On Platform="iOS">1</On>
-        </OnPlatform>
-        <Style TargetType="Slider" x:Key="SliderStyle">
-            <Setter Property="MinimumTrackColor" Value="Accent"/>
-            <Setter Property="MaximumTrackColor" Value="Black"/>
-            <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Grid.Column" Value="1"/>
-        </Style>
-        <Style TargetType="Label" x:Key="LabelStyle">
-            <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="Margin" Value="0,4,0,0"/>
-            <Setter Property="Grid.Column" Value="0"/>
-        </Style>
-        <Style TargetType="Button" x:Key="CIButton" x:Name="CIButton">
-            <Setter Property="CornerRadius" Value="5"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:SharedStyles/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ContentPage.Resources>
     <Grid BackgroundColor="Beige" Padding="6">
         <Grid.RowDefinitions>
@@ -35,8 +22,127 @@
         </Grid.ColumnDefinitions>
         <ScrollView>
             <StackLayout>
-                <Label Text="Set parameters here: "/>
-                <Picker Margin="5,0,8,0" x:Name="ModesView" SelectedIndexChanged="Picker_SelectedIndexChanged" ItemsSource="{x:Binding Modes}"/>
+                <Grid x:Name="Panel_Devices">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource HeadLineText}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="{resx:AppResources Devices_Headline}"/>
+                                        <Span Text=":"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource HeadLineText}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="("/>
+                                        <Span Text="{x:Binding SSDPInstance.DiscoveredDevices.Count}"/>
+                                        <Span Text=")"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Devices_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}"/>
+                    <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" HeightRequest="50">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:LEDDevice">
+                                <ViewCell IsEnabled="{x:Binding IsUpToDate}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{x:Binding HostName}" HorizontalOptions="Center"/>
+                                        <Button Text="&#xf044;" Grid.Row="0" Grid.Column="1" Clicked="RenameHost" Style="{StaticResource IconButton}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Grid x:Name="Panel_Devices2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource HeadLineText}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="{resx:AppResources Devices_Headline}"/>
+                                        <Span Text=":"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource HeadLineText}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="("/>
+                                        <Span Text="{x:Binding SSDPInstance.DiscoveredDevices.Count}"/>
+                                        <Span Text=")"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Devices_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}"/>
+                    <Picker Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}"/>
+                    <Button Text="&#xf044;" Grid.Row="2" Grid.Column="2" Clicked="RenameHost" Style="{StaticResource IconButton}"/>
+                </Grid>
+                <Grid x:Name="Panel_Modes">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="{resx:AppResources Modes_Headline}" Style="{StaticResource HeadLineText}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpLabel}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Modes_Info}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Picker x:Name="ModesView" Grid.Row="1" Grid.ColumnSpan="3" SelectedIndexChanged="Picker_SelectedIndexChanged" ItemsSource="{x:Binding Modes}" Margin="5,0,8,0"/>
+                </Grid>
                 <Grid HorizontalOptions="Fill" x:Name="SinOptions">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -65,64 +171,33 @@
                     <Label Grid.Column="0" Grid.Row="0" Text="Random Mode"/>
                     <Switch Grid.Column="1" Grid.Row="0" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>
                 </Grid>
-                <Grid>
+                <Grid RowSpacing="0">
+                    <Grid.Resources>
+                        <OnPlatform x:Key="ImagePosition" x:TypeArguments="x:Int32">
+                            <On Platform="UWP" Value="0"/>
+                            <On Platform="Android" Value="1"/>
+                            <On Platform="iOS" Value="0"/>
+                        </OnPlatform>
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="1" Text="Hue"/>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="2" Text="Sat"/>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="3" Text="Lum"/>
-                    <Frame CornerRadius="5" Padding="0" Margin="0" Grid.Row="{StaticResource ImagePosition}" Grid.Column="1"
+                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0,5,0,5"
                            HeightRequest="{Binding Height, Source={x:Reference HueSlider}, Mode=OneWay}">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
-                    <Slider x:Name="HueSlider" Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="360" Value="{x:Binding Model.Hue, Mode=TwoWay}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="100" Value="{x:Binding Model.Saturation, Mode=TwoWay}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="3" Minimum="0" Maximum="100" Value="{x:Binding Model.Luminosity, Mode=TwoWay}"/>
+                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider" HeightRequest="65"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation"/>
+                    <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity"/>
                 </Grid>
-                <Grid HorizontalOptions="Fill">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="0" Text="Brigthnes"/>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="1" Text="Speed"/>
-                    <Label Style="{StaticResource LabelStyle}" Grid.Row="2" Text="# of Leds"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="0" Minimum="0" Maximum="255" Value="{x:Binding Model.Brigthnes, Mode=TwoWay}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="1" Minimum="0" Maximum="50" Value="{x:Binding Model.Speed, Mode=TwoWay}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Grid.Row="2" Minimum="0" Maximum="150" Value="{x:Binding Model.Number, Mode=TwoWay}"/>
-                </Grid>
-                <Button Text="Refresh" Clicked="Refresh"/>
-                <ListView ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
-                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" HeightRequest="200">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:LEDDevice">
-                            <ViewCell IsEnabled="{x:Binding IsUpToDate}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="50"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Text="{x:Binding HostName}" HorizontalOptions="Center"/>
-                                    <Button Grid.Column="1" Text="..." Clicked="RenameHost"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackLayout Spacing="0">
+                    <ui:SliderElement TitleResource="Brigthnes" Property="Model.Brigthnes"/>
+                    <ui:SliderElement TitleResource="Speed" Property="Model.Speed"/>
+                    <ui:SliderElement TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
+                </StackLayout>
                 <Grid x:Name="StorageCTRL">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

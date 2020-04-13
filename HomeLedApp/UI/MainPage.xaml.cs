@@ -1,15 +1,15 @@
 ﻿//Author: Tobi van Helsinki
 
-using HomeLedApp.Model;
-using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using HomeLedApp.Model;
+using HomeLedApp.Strings;
+using Rg.Plugins.Popup.Services;
+using TLIB;
 using Xamarin.Forms;
 
 namespace HomeLedApp.UI
@@ -17,7 +17,7 @@ namespace HomeLedApp.UI
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -25,10 +25,10 @@ namespace HomeLedApp.UI
         }
         #endregion NotifyPropertyChanged
 
-        LEDController _Model;
+        private LEDController _Model;
         public LEDController Model
         {
-            get { return _Model; }
+            get => _Model;
             set { if (_Model != value) { _Model = value; NotifyPropertyChanged(); } }
         }
 
@@ -59,7 +59,7 @@ namespace HomeLedApp.UI
         }
         public List<string> Modes { get; set; }
 
-        bool ModeUpdateInProgess;
+        private bool ModeUpdateInProgess;
 
         /// <summary>
         /// Picker_SelectedIndexChanged
@@ -93,7 +93,10 @@ namespace HomeLedApp.UI
             }
         }
 
-        private void Refresh(object sender, EventArgs e) => SSDPInstance.SearchForDevicesAsync();
+        private void Refresh(object sender, EventArgs e)
+        {
+            SSDPInstance.SearchForDevicesAsync();
+        }
 
         private void DisAndEnableButtons(bool Enable)
         {
@@ -140,26 +143,40 @@ namespace HomeLedApp.UI
         {
             try
             {
-                PopupNavigation.Instance.PushAsync(new DetailsPopUp(Model));
+                _ = PopupNavigation.Instance.PushAsync(new DetailsPopUp(Model));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                Log.Write("Could not display popup", ex, logType: LogType.Error);
             }
         }
 
-        private async void RenameHost(object sender, EventArgs e)
+        private void RenameHost(object sender, EventArgs e)
         {
-            if (sender is BindableObject b && b.BindingContext is LEDDevice led)
+            if (sender is BindableObject b)
             {
                 try
                 {
-                    PopupNavigation.Instance.PushAsync(new Rename(Model, led));
+                    _ = PopupNavigation.Instance.PushAsync(
+                        new Rename(Model, b.BindingContext switch
+                        {
+                            LEDDevice led => led,
+                            MainPage currentPage => currentPage.Model.CurrentDevice,
+                            _ => null
+                        }));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                    Log.Write("Could not PopUp", ex, logType: LogType.Error);
                 }
+            }
+        }
+
+        private void Info_Tapped(object sender, EventArgs e)
+        {
+            if (e is TappedEventArgs te && te.Parameter is string s)
+            {
+                DisplayAlert(AppResources.Info, s, "OK");
             }
         }
     }

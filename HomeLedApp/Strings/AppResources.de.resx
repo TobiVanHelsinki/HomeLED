@@ -117,6 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Brigthnes" xml:space="preserve">
+    <value>Helligkeit</value>
+  </data>
+  <data name="Brigthnes_Info" xml:space="preserve">
+    <value>Ein nach der Farbkalkulation angewendeter Parameter, um die Gesamthelligkeit zu beeinflussen.</value>
+  </data>
+  <data name="Devices_Headline" xml:space="preserve">
+    <value>Verfügbare Geräte</value>
+  </data>
+  <data name="Devices_Info" xml:space="preserve">
+    <value>Diese Liste zeigt die im Netzwerk gefunden Geräte an.</value>
+  </data>
+  <data name="Headline_Modes" xml:space="preserve">
+    <value>Modus einstellen und senden</value>
+  </data>
+  <data name="Hue" xml:space="preserve">
+    <value>Farbton</value>
+  </data>
+  <data name="Hue_Info" xml:space="preserve">
+    <value>Der Farbton (auch Buntart, Buntton, Farbrichtung, englisch hue) ist ein Farbmerkmal. Neben der Helligkeit und der Farbsättigung gehört der Farbton zu den drei vom Menschen als grundlegend empfundenen Merkmalen bzw. Eigenschaften einer Farbe.
+
+Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempfindungen nach beispielsweise Rot, Gelb oder Grün unterscheidet. Eine Farbe desselben Farbtons kann entweder in der Farbsättigung variieren, wie Graublau gegenüber Blau, oder in der Helligkeit, beispielsweise Rosa gegenüber Rot. (Wikipedia)</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Luminosity" xml:space="preserve">
+    <value>Leuchtkraft</value>
+  </data>
+  <data name="Luminosity_Info" xml:space="preserve">
+    <value>Die Leuchtkraft L ist eine vor allem in der Astronomie verwendete Bezeichnung für die abgestrahlte Leistung (Energie pro Zeit). Wenn die über alle Bereiche des elektromagnetischen Spektrums summierte abgestrahlte Leistung betrachtet wird, ist die Leuchtkraft ein Synonym für „Strahlungsleistung“.  (Wikipedia)</value>
+  </data>
+  <data name="Modes_Headline" xml:space="preserve">
+    <value>Modi</value>
+  </data>
+  <data name="Modes_Info" xml:space="preserve">
+    <value>Die Led Modi einstellen</value>
+  </data>
+  <data name="NumberOfLeds" xml:space="preserve">
+    <value>Leds</value>
+  </data>
+  <data name="NumberOfLeds_Info" xml:space="preserve">
+    <value>Hiermit kann die Anzahl der angesprochenen Leds verringert werden</value>
+  </data>
+  <data name="Saturation" xml:space="preserve">
+    <value>Sättigung</value>
+  </data>
+  <data name="Saturation_Info" xml:space="preserve">
+    <value>Die Farbsättigung ist ein Farbmerkmal. Neben dem Farbton und der Helligkeit gehört die Sättigung zu den drei vom Menschen als grundlegend empfundenen Merkmalen bzw. Eigenschaften einer Farbe. Sie beschreibt die Qualität der Farbnuance, ob sie eher den bunten oder unbunten Farben zuneigt. (Wikipedia)</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Geschwindigkeit</value>
+  </data>
+  <data name="Speed_Info" xml:space="preserve">
+    <value>Die Rate, mit der die Leds aktualisiert werden. in x/Sekunde</value>
+  </data>
   <data name="VersionHistory" xml:space="preserve">
     <value>Version 1.9.8
 [fix] Eingabe von . oder , führte zu Fehlern

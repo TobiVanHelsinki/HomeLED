@@ -50,6 +50,9 @@ namespace HomeLedApp.Model
 
             [VisibleAttribute("1 Pixel")]
             pixel,
+
+            [VisibleAttribute("Pulsar")]
+            pulse,
             save,
             load,
             clear
@@ -99,17 +102,25 @@ namespace HomeLedApp.Model
             set => CurrentColor = CurrentColor.WithHue(value / 360.0);
         }
 
+        public double Hue_Max => 360;
+        public double Hue_Min => 0;
+
         public double Saturation
         {
             get => CurrentColor.Saturation * 100.0;
             set => CurrentColor = CurrentColor.WithSaturation(value / 100.0);
         }
 
+        public double Saturation_Max => 100;
+        public double Saturation_Min => 0;
         public double Luminosity
         {
             get => CurrentColor.Luminosity * 100.0;
             set => CurrentColor = CurrentColor.WithLuminosity(value / 100.0);
         }
+
+        public double Luminosity_Max => 100;
+        public double Luminosity_Min => 0;
 
         [LedServerRelevant("r")]
         public int R
@@ -140,6 +151,9 @@ namespace HomeLedApp.Model
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
+        public double Brigthnes_Max => 255;
+        public double Brigthnes_Min => 0;
+
         [LedServerRelevant("v")]
         public int _Speed = 62;
         public int Speed
@@ -148,13 +162,19 @@ namespace HomeLedApp.Model
             set { if (_Speed != value) { _Speed = value < 1 ? 1000 : (int)(1000.0 / value); NotifyPropertyChanged(); } }
         }
 
-        private int _Number = 150;
+        public double Speed_Max => 50;
+        public double Speed_Min => 0;
+
+        private int _NumberOfLeds = 150;
         [LedServerRelevant("n")]
-        public int Number
+        public int NumberOfLeds
         {
-            get => _Number;
-            set { if (_Number != value) { _Number = value; NotifyPropertyChanged(); } }
+            get => _NumberOfLeds;
+            set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
         }
+
+        public double NumberOfLeds_Max => 150;
+        public double NumberOfLeds_Min => 0;
 
         [LedServerRelevant("vo")]
         public int _Sin_VerticalOffset = 5;

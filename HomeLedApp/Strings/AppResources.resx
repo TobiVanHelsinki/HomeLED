@@ -117,8 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Brigthnes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Brigthnes_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Devices_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Devices_Info" xml:space="preserve">
+    <value>Availible Devices</value>
+  </data>
+  <data name="Headline_Modes" xml:space="preserve">
+    <value>Set and send Mode</value>
+  </data>
+  <data name="Hue" xml:space="preserve">
+    <value>Hue</value>
+  </data>
+  <data name="Hue_Info" xml:space="preserve">
+    <value>Colorfulness, chroma and saturation are attributes of perceived color relating to chromatic intensity. As defined formally by the International Commission on Illumination (CIE) they respectively describe three different aspects of chromatic intensity, but the terms are often used loosely and interchangeably in contexts where these aspects are not clearly distinguished. The precise meanings of the terms vary by what other functions they are dependent on. (Wikipedia)</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Luminosity" xml:space="preserve">
+    <value>Luminosity</value>
+  </data>
+  <data name="Luminosity_Info" xml:space="preserve">
+    <value>Luminosity is an absolute measure of radiated electromagnetic power (light), the radiant power emitted by a light-emitting object. (Wikipedia)</value>
+  </data>
+  <data name="Modes_Headline" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Modes_Info" xml:space="preserve">
+    <value />
+  </data>
   <data name="Notification_NewVersion" xml:space="preserve">
     <value>Welcome to the new version: {0}. Check out a list of new features here!</value>
+  </data>
+  <data name="NumberOfLeds" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NumberOfLeds_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="Saturation_Info" xml:space="preserve">
+    <value>Hue is one of the main properties (called color appearance parameters) of a color, defined technically (in the CIECAM02 model), as "the degree to which a stimulus can be described as similar to or different from stimuli that are described as red, green, blue, and yellow"[1] (which in certain theories of color vision are called unique hues). Hue can typically be represented quantitatively by a single number, often corresponding to an angular position around a central or neutral point or axis on a colorspace coordinate diagram (such as a chromaticity diagram) or color wheel, or by its dominant wavelength or that of its complementary color. The other color appearance parameters are colorfulness, saturation (also known as intensity or chroma)[2], lightness, and brightness.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Speed_Info" xml:space="preserve">
+    <value />
   </data>
   <data name="VersionHistory" xml:space="preserve">
     <value>Version 1.9.8

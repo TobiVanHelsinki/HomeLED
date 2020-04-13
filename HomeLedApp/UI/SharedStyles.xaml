@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:resources="clr-namespace:HomeLedApp.UI"
-                    xmlns:sfbtn="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
                     x:Class="HomeLedApp.SharedStyles">
     <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
         <On Platform="UWP, WinRT, WinPhone" Value="/Assets/Fonts/iconize-fontawesome-solid.ttf#Font Awesome 5 Free Solid"/>
@@ -10,59 +8,56 @@
     </OnPlatform>
     <!-- <resources:IO_NuYen x:Key="IO_NuYen"/> -->
 
-    <OnPlatform x:Key="ButtonSize" x:TypeArguments="x:Double">
-        <On Platform="Android" Value="45"/>
-        <On Platform="UWP, WinRT, WinPhone" Value="-1"/>
-    </OnPlatform>
-
-    <Style x:Key="STDText" TargetType="Label">
+    <Style TargetType="Slider" x:Key="SliderStyle">
+        <Setter Property="MinimumTrackColor" Value="Accent"/>
+        <Setter Property="MaximumTrackColor" Value="Black"/>
         <Setter Property="VerticalOptions" Value="Start"/>
-        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Grid.Column" Value="1"/>
+    </Style>
+
+    <Style TargetType="Button" x:Key="CIButton">
+        <Setter Property="CornerRadius" Value="5"/>
+    </Style>
+    <!--alt-->
+    <Style x:Key="STDText" TargetType="Label">
+        <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="LineBreakMode" Value="CharacterWrap"/>
         <Setter Property="MaxLines" Value="2"/>
     </Style>
+
+    <Style x:Key="HeadLineText" TargetType="Label" BasedOn="{StaticResource STDText}">
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        <Setter Property="MaxLines" Value="1"/>
+        <!--<Setter Property="FontSize" Value="Medium"/>-->
+        <Setter Property="FontAttributes" Value="Bold"/>
+    </Style>
+    <Style x:Key="SubTitle" TargetType="Label" BasedOn="{StaticResource STDText}">
+        <Setter Property="FontSize" Value="Medium"/>
+    </Style>
+
+    <Style x:Key="IconLabel" TargetType="Label" BasedOn="{StaticResource STDText}">
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+    </Style>
+    <Style x:Key="HelpLabel" TargetType="Label" BasedOn="{StaticResource IconLabel}">
+        <Setter Property="Text" Value="&#xf05a;"/>
+    </Style>
+
     <Style x:Key="STDButton" TargetType="Button">
         <Setter Property="CornerRadius" Value="3"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="0"/>
+        <Setter Property="TextColor" Value="FloralWhite"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
     </Style>
     <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource STDButton}">
         <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"/>
         <Setter Property="FontSize" Value="Small"/>
-        <Setter Property="TextColor" Value="FloralWhite"/>
-        <Setter Property="VerticalOptions" Value="Center"/>
-        <Setter Property="HorizontalOptions" Value="Center"/>
-        <Setter Property="WidthRequest" Value="{StaticResource ButtonSize}"/>
-    </Style>
-    <Style x:Key="IconLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"/>
-        <Setter Property="VerticalOptions" Value="Center"/>
-        <Setter Property="HorizontalOptions" Value="Center"/>
+        <!--<Setter Property="WidthRequest" Value="{StaticResource ButtonSize}"/>-->
     </Style>
     <Style x:Key="LabelForSfButtonSTD" TargetType="Label" BasedOn="{StaticResource STDText}">
         <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="HorizontalOptions" Value="Center"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="0"/>
         <Setter Property="Grid.Column" Value="1"/>
-    </Style>
-    <Style x:Key="SfButtonSTD" TargetType="sfbtn:SfButton">
-        <Setter Property="CornerRadius" Value="3"/>
-        <Setter Property="BackgroundColor" Value="#D8D6D7"/>
-        <Setter Property="Margin" Value="3"/>
-        <Setter Property="Padding" Value="3"/>
-    </Style>
-    <Style x:Key="HeadLineText" TargetType="Label" BasedOn="{StaticResource STDText}">
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="LineBreakMode" Value="TailTruncation"/>
-        <Setter Property="MaxLines" Value="1"/>
-    </Style>
-    <Style x:Key="STDTextCenter" TargetType="Label" BasedOn="{StaticResource STDText}">
-        <Setter Property="HorizontalTextAlignment" Value="Center"/>
-    </Style>
-    <Style x:Key="SubTitle" TargetType="Label" BasedOn="{StaticResource STDText}">
-        <Setter Property="HorizontalOptions" Value="Center"/>
-        <Setter Property="VerticalOptions" Value="Center"/>
-        <Setter Property="FontSize" Value="Medium"/>
     </Style>
 </ResourceDictionary>
