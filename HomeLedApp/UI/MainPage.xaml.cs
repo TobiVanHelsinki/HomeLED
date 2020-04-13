@@ -58,6 +58,42 @@ namespace HomeLedApp.UI
         {
             if (e.PropertyName == nameof(Model.CurrentMode))
             {
+                HueFrame.IsVisible = true;
+                HueSlider.IsVisible = true;
+                LumSlider.IsVisible = true;
+                SatSlider.IsVisible = true;
+                BriSlider.IsVisible = true;
+                SpeedSlider.IsVisible = true;
+                switch (Model.CurrentMode)
+                {
+                    case Modes.on:
+                        break;
+                    case Modes.off:
+                        HueFrame.IsVisible = false;
+                        HueSlider.IsVisible = false;
+                        LumSlider.IsVisible = false;
+                        SatSlider.IsVisible = false;
+                        BriSlider.IsVisible = false;
+                        SpeedSlider.IsVisible = false;
+                        break;
+                    case Modes.sin:
+                        break;
+                    case Modes.rainbow:
+                        HueFrame.IsVisible = false;
+                        HueSlider.IsVisible = false;
+                        LumSlider.IsVisible = false;
+                        SatSlider.IsVisible = false;
+                        break;
+                    case Modes.color:
+                        SpeedSlider.IsVisible = false;
+                        break;
+                    case Modes.pixel:
+                        break;
+                    case Modes.pulse:
+                        break;
+                    default:
+                        break;
+                }
                 Panel_SinParameter.IsVisible = Model.CurrentMode == Modes.sin;
                 Panel_RainbowParameter.IsVisible = Model.CurrentMode == Modes.rainbow;
             }

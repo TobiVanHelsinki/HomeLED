@@ -327,12 +327,12 @@ namespace HomeLedApp.Model
 
         private void LEDController_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            SetCurrentDeviceIfNull();
+            RefreshURL();
             if (e.PropertyName == nameof(CurrentMode))
             {
                 _ = Send();
             }
-            RefreshURL();
-            SetCurrentDeviceIfNull();
         }
 
         private void SetCurrentDeviceIfNull()

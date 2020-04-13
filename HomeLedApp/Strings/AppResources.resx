@@ -220,7 +220,7 @@
     <value />
   </data>
   <data name="Randomized" xml:space="preserve">
-    <value />
+    <value>Disturbing</value>
   </data>
   <data name="RenameDevice_Info" xml:space="preserve">
     <value>Set new name for the device here. Maximal 16 characters allowed. LED device may need a restart. </value>

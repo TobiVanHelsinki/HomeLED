@@ -367,7 +367,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Disturbing ähnelt.
         /// </summary>
         public static string Randomized {
             get {
