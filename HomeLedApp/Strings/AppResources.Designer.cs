@@ -153,6 +153,69 @@ namespace HomeLedApp.Strings {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
+        public static string Mode_color {
+            get {
+                return ResourceManager.GetString("Mode_color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_off {
+            get {
+                return ResourceManager.GetString("Mode_off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_on {
+            get {
+                return ResourceManager.GetString("Mode_on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_pixel {
+            get {
+                return ResourceManager.GetString("Mode_pixel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_pulse {
+            get {
+                return ResourceManager.GetString("Mode_pulse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_rainbow {
+            get {
+                return ResourceManager.GetString("Mode_rainbow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string Mode_sin {
+            get {
+                return ResourceManager.GetString("Mode_sin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
         public static string Modes_Headline {
             get {
                 return ResourceManager.GetString("Modes_Headline", resourceCulture);

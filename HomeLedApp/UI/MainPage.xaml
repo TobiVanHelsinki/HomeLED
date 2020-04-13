@@ -62,64 +62,6 @@
                         </Label>
                     </StackLayout>
                     <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}"/>
-                    <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
-                          SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" HeightRequest="50">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="model:LEDDevice">
-                                <ViewCell IsEnabled="{x:Binding IsUpToDate}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="50"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="{x:Binding HostName}" HorizontalOptions="Center"/>
-                                        <Button Text="&#xf044;" Grid.Row="0" Grid.Column="1" Clicked="RenameHost" Style="{StaticResource IconButton}"/>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-                <Grid x:Name="Panel_Devices2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource HeadLineText}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <FormattedString.Spans>
-                                        <Span Text="{resx:AppResources Devices_Headline}"/>
-                                        <Span Text=":"/>
-                                    </FormattedString.Spans>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label Style="{StaticResource HeadLineText}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <FormattedString.Spans>
-                                        <Span Text="("/>
-                                        <Span Text="{x:Binding SSDPInstance.DiscoveredDevices.Count}"/>
-                                        <Span Text=")"/>
-                                    </FormattedString.Spans>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label Style="{StaticResource HelpLabel}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Devices_Info}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}"/>
                     <Picker Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
                           SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}"/>
                     <Button Text="&#xf044;" Grid.Row="2" Grid.Column="2" Clicked="RenameHost" Style="{StaticResource IconButton}"/>
@@ -141,7 +83,7 @@
                             <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources Modes_Info}"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Picker x:Name="ModesView" Grid.Row="1" Grid.ColumnSpan="3" SelectedIndexChanged="Picker_SelectedIndexChanged" ItemsSource="{x:Binding Modes}" Margin="5,0,8,0"/>
+                    <Picker Grid.Row="1" Grid.ColumnSpan="3" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay}" ItemsSource="{x:Binding Modes}" IsEnabled="{x:Binding Model.LockControls}" Margin="5,0,8,0"/>
                 </Grid>
                 <Grid HorizontalOptions="Fill" x:Name="SinOptions">
                     <Grid.RowDefinitions>
@@ -185,11 +127,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0,5,0,5"
-                           HeightRequest="{Binding Height, Source={x:Reference HueSlider}, Mode=OneWay}">
+                    <Frame Grid.Row="{StaticResource ImagePosition}" CornerRadius="10" Margin="0" Padding="0,0,0,5" HeightRequest="30">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
-                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider" HeightRequest="65"/>
+                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity"/>
                 </Grid>
@@ -219,7 +160,7 @@
             <StackLayout Orientation="Horizontal">
                 <Button Text="Send" Clicked="Apply" HorizontalOptions="FillAndExpand"
                         BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
-                        Style="{StaticResource CIButton}"/>
+                        Style="{StaticResource CIButton}" IsEnabled="{x:Binding Model.LockControls}"/>
                 <Button Text="Edit" Clicked="EditURL" Style="{StaticResource CIButton}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">

@@ -153,6 +153,27 @@
   <data name="Modes_Info" xml:space="preserve">
     <value />
   </data>
+  <data name="Mode_color" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_off" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_on" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_pixel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_pulse" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_rainbow" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mode_sin" xml:space="preserve">
+    <value />
+  </data>
   <data name="Notification_NewVersion" xml:space="preserve">
     <value>Welcome to the new version: {0}. Check out a list of new features here!</value>
   </data>

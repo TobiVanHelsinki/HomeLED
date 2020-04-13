@@ -44,7 +44,7 @@ namespace HomeLedApp.UI
                 if (_Property != value)
                 {
                     _Property = value; NotifyPropertyChanged();
-                    ValueSlider.SetBinding(Slider.ValueProperty, _Property, BindingMode.OneWay);
+                    ValueSlider.SetBinding(Slider.ValueProperty, _Property, BindingMode.TwoWay); //TODO Verursacht löschen der std werte
                     ValueSlider.SetBinding(Slider.MinimumProperty, _Property + "_Min");
                     ValueSlider.SetBinding(Slider.MaximumProperty, _Property + "_Max");
                     ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, "{0:0}");
@@ -54,11 +54,16 @@ namespace HomeLedApp.UI
 
         public SliderElement() => InitializeComponent();
 
+        //private void Info_Tapped(object sender, EventArgs e)
+        //{
+        //    var info = AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info");
+        //    var popup = new Rg.Plugins.Popup.Pages.PopupPage() { Content = new Label() { Text = info } };
+        //    _ = Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
+        //}
+
         private void Info_Tapped(object sender, EventArgs e)
         {
-            var info = AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info");
-            var popup = new Rg.Plugins.Popup.Pages.PopupPage() { Content = new Label() { Text = info } };
-            _ = Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
+            MainPage.Instance.DisplayAlert(AppResources.Info, AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info"), "OK");
         }
     }
 }

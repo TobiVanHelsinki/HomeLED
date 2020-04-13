@@ -155,6 +155,27 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Modes_Info" xml:space="preserve">
     <value>Die Led Modi einstellen</value>
   </data>
+  <data name="Mode_color" xml:space="preserve">
+    <value>Einfarbig</value>
+  </data>
+  <data name="Mode_off" xml:space="preserve">
+    <value>LED-Anzeige deaktivieren</value>
+  </data>
+  <data name="Mode_on" xml:space="preserve">
+    <value>LED-Anzeige aktivieren</value>
+  </data>
+  <data name="Mode_pixel" xml:space="preserve">
+    <value>Pixeldurchlauf</value>
+  </data>
+  <data name="Mode_pulse" xml:space="preserve">
+    <value>Pulsierend</value>
+  </data>
+  <data name="Mode_rainbow" xml:space="preserve">
+    <value>Regenbogen</value>
+  </data>
+  <data name="Mode_sin" xml:space="preserve">
+    <value>Sinuswellen</value>
+  </data>
   <data name="NumberOfLeds" xml:space="preserve">
     <value>Leds</value>
   </data>

@@ -12,12 +12,6 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.Model
 {
-    public class VisibleAttribute : Attribute
-    {
-        public VisibleAttribute(string name) => Name = name;
-        public string Name { get; internal set; }
-    }
-
     public class LEDController : INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
@@ -29,33 +23,26 @@ namespace HomeLedApp.Model
         }
         #endregion NotifyPropertyChanged
 
+        public bool LockControls => !_NetworkCommunicationInProgress;
+
+        private bool _NetworkCommunicationInProgress;
+        public bool NetworkCommunicationInProgress
+        {
+            get => _NetworkCommunicationInProgress;
+            set { if (_NetworkCommunicationInProgress != value) { _NetworkCommunicationInProgress = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(LockControls)); } }
+        }
+
         #region Params
 
         public enum Modes
         {
-            [VisibleAttribute("On")]
             on,
-
-            [VisibleAttribute("Off")]
             off,
-
-            [VisibleAttribute("Sin")]
             sin,
-
-            [VisibleAttribute("Rainbow")]
             rainbow,
-
-            [VisibleAttribute("1 Color")]
             color,
-
-            [VisibleAttribute("1 Pixel")]
             pixel,
-
-            [VisibleAttribute("Pulsar")]
             pulse,
-            save,
-            load,
-            clear
         }
 
         internal async void UpdateHostname(string hostname)
@@ -253,20 +240,20 @@ namespace HomeLedApp.Model
         }
 
         private static readonly HttpClient client = new HttpClient();
-        private bool SendInProgress;
 
         internal async Task Send(string myurlparam = null)
         {
+            NetworkCommunicationInProgress = true;
             if (myurlparam is null)
             {
                 myurlparam = URLParam;
             }
             RefreshURL();
-            if (SendInProgress)
+            if (NetworkCommunicationInProgress)
             {
                 return;
             }
-            SendInProgress = true;
+            NetworkCommunicationInProgress = true;
             try
             {
                 var mess = await client.GetAsync(CurrentDevice.Urlbase + myurlparam);
@@ -284,7 +271,7 @@ namespace HomeLedApp.Model
             {
                 RefreshURL();
             }
-            SendInProgress = false;
+            NetworkCommunicationInProgress = false;
         }
         #endregion Server Communication
 
@@ -302,6 +289,10 @@ namespace HomeLedApp.Model
 
         private void LEDController_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == nameof(CurrentMode))
+            {
+                _ = Send();
+            }
             RefreshURL();
             SetCurrentDeviceIfNull();
         }
