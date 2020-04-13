@@ -48,7 +48,6 @@ constexpr auto ModelNumber = "100";
 
 constexpr auto HTTPPort = 80;
 constexpr auto HomeLEDTitle = "HomeLED-";
-constexpr auto DefaultPassword = "moose";
 
 constexpr auto StorageAdress_Start_Hostname = 0;
 constexpr auto StorageAdress_End_Hostname = 17;

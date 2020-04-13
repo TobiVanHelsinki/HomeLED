@@ -46,17 +46,15 @@ void SetupWiFi()
 {
 	Serial.println("SetupWiFi");
 	Server.on("/", handleRoot);
-	WiFi.begin("None", "None");
 	Server.on("", handleRoot);
 	AutoConnectConfig acConfig;
-	acConfig.autoReconnect = true;
-	acConfig.ticker = true;
 	acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = HomeLEDTitle + String("Menu");
 	acConfig.apid = GenerateDefaultHostname();
 	acConfig.hostName = ReadValidHostname();
-	acConfig.psk = DefaultPassword;
 	Portal.config(acConfig);
+	Portal.onDetect(startCP);
+	Serial.println("\tPortal.begin");
 	IsServerReady = Portal.begin();
 	if (IsServerReady)
 	{
@@ -73,6 +71,12 @@ void SetupWiFi()
 	{
 		Serial.println("WebServer NOT ready, unknown error.");
 	}
+}
+
+bool startCP(IPAddress ip)
+{
+	Serial.println("C.P. started, IP:" + WiFi.localIP().toString());
+	return true;
 }
 
 void SetupSSDP()
@@ -181,9 +185,7 @@ void loop(void)
 {
 	if (IsServerReady)
 	{
-		Portal.host().handleClient();
 		Portal.handleClient();
-		//TODO not sure if both is neccesary
 	}
 	delay(100);
 }
