@@ -61,7 +61,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Brigthnes ähnelt.
         /// </summary>
         public static string Brigthnes {
             get {
@@ -70,7 +70,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die A parameter used after color calculation to influence the overall brightness. ähnelt.
         /// </summary>
         public static string Brigthnes_Info {
             get {
@@ -88,7 +88,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Available devices ähnelt.
         /// </summary>
         public static string Devices_Headline {
             get {
@@ -97,7 +97,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Availible Devices ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die This list shows the devices found on the network. ähnelt.
         /// </summary>
         public static string Devices_Info {
             get {
@@ -133,7 +133,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Extends the sine wave to the width. Why don&apos;t you play around with this parameter a bit? ähnelt.
         /// </summary>
         public static string HorizontalOffset_Info {
             get {
@@ -196,7 +196,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Main parameter ähnelt.
         /// </summary>
         public static string MainParameter_Headline {
             get {
@@ -205,7 +205,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die These parameters are relevant for many modes. The first three parameters represent the color. The other parameters determine the behaviour of the LED chain as a whole. ähnelt.
         /// </summary>
         public static string MainParameter_Info {
             get {
@@ -214,7 +214,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Monochrome ähnelt.
         /// </summary>
         public static string Mode_color {
             get {
@@ -223,7 +223,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Disable LED display ähnelt.
         /// </summary>
         public static string Mode_off {
             get {
@@ -232,7 +232,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Activate LED display ähnelt.
         /// </summary>
         public static string Mode_on {
             get {
@@ -241,7 +241,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pixel Scroll ähnelt.
         /// </summary>
         public static string Mode_pixel {
             get {
@@ -250,7 +250,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pulsating ähnelt.
         /// </summary>
         public static string Mode_pulse {
             get {
@@ -259,7 +259,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rainbow ähnelt.
         /// </summary>
         public static string Mode_rainbow {
             get {
@@ -268,7 +268,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sine Waves ähnelt.
         /// </summary>
         public static string Mode_sin {
             get {
@@ -277,25 +277,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
-        /// </summary>
-        public static string ModeParameter_Headline {
-            get {
-                return ResourceManager.GetString("ModeParameter_Headline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
-        /// </summary>
-        public static string ModeParameter_Info {
-            get {
-                return ResourceManager.GetString("ModeParameter_Info", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Modes ähnelt.
         /// </summary>
         public static string Modes_Headline {
             get {
@@ -304,7 +286,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Set the Led modes ähnelt.
         /// </summary>
         public static string Modes_Info {
             get {
@@ -331,7 +313,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die LED number ähnelt.
         /// </summary>
         public static string NumberOfLeds {
             get {
@@ -340,7 +322,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hereby the number of addressed LEDs can be reduced ähnelt.
         /// </summary>
         public static string NumberOfLeds_Info {
             get {
@@ -349,7 +331,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rainbow Parameter ähnelt.
         /// </summary>
         public static string RainbowParameter_Headline {
             get {
@@ -358,7 +340,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Set special parameters for the rainbow here. ähnelt.
         /// </summary>
         public static string RainbowParameter_Info {
             get {
@@ -421,7 +403,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sine wave parameters ähnelt.
         /// </summary>
         public static string SinParameter_Headline {
             get {
@@ -430,7 +412,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Here you can set special parameters for the curve of the sine wave. ähnelt.
         /// </summary>
         public static string SinParameter_Info {
             get {
@@ -448,7 +430,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speed ähnelt.
         /// </summary>
         public static string Speed {
             get {
@@ -457,7 +439,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The rate at which the leds are updated. in x/sec ähnelt.
         /// </summary>
         public static string Speed_Info {
             get {
@@ -466,7 +448,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Permanent memory ähnelt.
         /// </summary>
         public static string Storage_Headline {
             get {
@@ -475,7 +457,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saves the current configuration of the device so that it will be loaded automatically at the next start. ähnelt.
         /// </summary>
         public static string Storage_Info {
             get {
@@ -484,7 +466,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delete ähnelt.
         /// </summary>
         public static string StorageClear {
             get {
@@ -493,7 +475,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Load ähnelt.
         /// </summary>
         public static string StorageLoad {
             get {
@@ -502,7 +484,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Store ähnelt.
         /// </summary>
         public static string StorageSave {
             get {
@@ -511,17 +493,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Version 1.9.8
-        ///[fix] Input of . or , was not possible
-        ///Version 1.9.7
-        ///[new] Indicator Icons for minimized Header
-        ///[fix] Template for drones
-        ///[fix] Windows &quot;open with&quot; Dialog
-        ///Version 1.9.5Version 1.9.5
-        ///[new] New Char have more Contents
-        ///[new] Category is: Drones
-        ///Version 1.9.1
-        ///[new] BackUp Versioning: The options to append time or progress to a saved char led to too many errors and exceptions. Therefore, they have been removed. Instead, there is now a BackUp versioning that combines both options and makes [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         public static string VersionHistory {
             get {
@@ -539,7 +511,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Raises the sine wave. Why don&apos;t you play around with this parameter a little? ähnelt.
         /// </summary>
         public static string VerticalOffset_Info {
             get {

@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Brigthnes" xml:space="preserve">
-    <value />
+    <value>Brigthnes</value>
   </data>
   <data name="Brigthnes_Info" xml:space="preserve">
-    <value />
+    <value>A parameter used after color calculation to influence the overall brightness.</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
   <data name="Devices_Headline" xml:space="preserve">
-    <value />
+    <value>Available devices</value>
   </data>
   <data name="Devices_Info" xml:space="preserve">
-    <value>Availible Devices</value>
+    <value>This list shows the devices found on the network.</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -142,7 +142,7 @@
     <value>Horizontal offset</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
-    <value />
+    <value>Extends the sine wave to the width. Why don't you play around with this parameter a bit?</value>
   </data>
   <data name="Hue" xml:space="preserve">
     <value>Hue</value>
@@ -163,43 +163,37 @@
     <value>Luminosity is an absolute measure of radiated electromagnetic power (light), the radiant power emitted by a light-emitting object. (Wikipedia)</value>
   </data>
   <data name="MainParameter_Headline" xml:space="preserve">
-    <value />
+    <value>Main parameter</value>
   </data>
   <data name="MainParameter_Info" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ModeParameter_Headline" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ModeParameter_Info" xml:space="preserve">
-    <value />
+    <value>These parameters are relevant for many modes. The first three parameters represent the color. The other parameters determine the behaviour of the LED chain as a whole.</value>
   </data>
   <data name="Modes_Headline" xml:space="preserve">
-    <value />
+    <value>Modes</value>
   </data>
   <data name="Modes_Info" xml:space="preserve">
-    <value />
+    <value>Set the Led modes</value>
   </data>
   <data name="Mode_color" xml:space="preserve">
-    <value />
+    <value>Monochrome</value>
   </data>
   <data name="Mode_off" xml:space="preserve">
-    <value />
+    <value>Disable LED display</value>
   </data>
   <data name="Mode_on" xml:space="preserve">
-    <value />
+    <value>Activate LED display</value>
   </data>
   <data name="Mode_pixel" xml:space="preserve">
-    <value />
+    <value>Pixel Scroll</value>
   </data>
   <data name="Mode_pulse" xml:space="preserve">
-    <value />
+    <value>Pulsating</value>
   </data>
   <data name="Mode_rainbow" xml:space="preserve">
-    <value />
+    <value>Rainbow</value>
   </data>
   <data name="Mode_sin" xml:space="preserve">
-    <value />
+    <value>Sine Waves</value>
   </data>
   <data name="Notification_NewVersion" xml:space="preserve">
     <value>Welcome to the new version: {0}. Check out a list of new features here!</value>
@@ -208,16 +202,16 @@
     <value>Not up to date</value>
   </data>
   <data name="NumberOfLeds" xml:space="preserve">
-    <value />
+    <value>LED number</value>
   </data>
   <data name="NumberOfLeds_Info" xml:space="preserve">
-    <value />
+    <value>Hereby the number of addressed LEDs can be reduced</value>
   </data>
   <data name="RainbowParameter_Headline" xml:space="preserve">
-    <value />
+    <value>Rainbow Parameter</value>
   </data>
   <data name="RainbowParameter_Info" xml:space="preserve">
-    <value />
+    <value>Set special parameters for the rainbow here.</value>
   </data>
   <data name="Randomized" xml:space="preserve">
     <value>Disturbing</value>
@@ -238,80 +232,42 @@
     <value>Send and close</value>
   </data>
   <data name="SinParameter_Headline" xml:space="preserve">
-    <value />
+    <value>Sine wave parameters</value>
   </data>
   <data name="SinParameter_Info" xml:space="preserve">
-    <value />
+    <value>Here you can set special parameters for the curve of the sine wave.</value>
   </data>
   <data name="SinReverseParameter_Headline" xml:space="preserve">
     <value>Reverse</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value />
+    <value>Speed</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
-    <value />
+    <value>The rate at which the leds are updated. in x/sec</value>
   </data>
   <data name="StorageClear" xml:space="preserve">
-    <value />
+    <value>Delete</value>
   </data>
   <data name="StorageLoad" xml:space="preserve">
-    <value />
+    <value>Load</value>
   </data>
   <data name="StorageSave" xml:space="preserve">
-    <value />
+    <value>Store</value>
   </data>
   <data name="Storage_Headline" xml:space="preserve">
-    <value />
+    <value>Permanent memory</value>
   </data>
   <data name="Storage_Info" xml:space="preserve">
-    <value />
+    <value>Saves the current configuration of the device so that it will be loaded automatically at the next start.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
-    <value>Version 1.9.8
-[fix] Input of . or , was not possible
-Version 1.9.7
-[new] Indicator Icons for minimized Header
-[fix] Template for drones
-[fix] Windows "open with" Dialog
-Version 1.9.5Version 1.9.5
-[new] New Char have more Contents
-[new] Category is: Drones
-Version 1.9.1
-[new] BackUp Versioning: The options to append time or progress to a saved char led to too many errors and exceptions. Therefore, they have been removed. Instead, there is now a BackUp versioning that combines both options and makes more sense.
-new] Redesigned Char Page header.
-Version 1.8.5
-[fix] Aus Datei geladene Chars wurden nicht gespeichert, wenn die Optionen Fortschritt oder Zeit aktiv waren
-Version 1.8.4:
-[new] Lifestyle cost button
-Version 1.8.3:
-[new] Track your favorites
-[new] Contextmenu for Things
-[new] Copy, Cut, Paste Things (Contextmenu)
-[new] Char name in taskbar
-Version 1.7.6:
-[new] Seperators
-Version 1.7.4:
-[new] Category options (Sort, Export,...)
-[new] Technomancer Categories
-[new] Own categories for calculated values
-[new] Links are now possible for attributes and battle items
-[new] Links are now possible with every item
-[new] Example Character
-[new] Multi-window option (for Windows April Update)
-[new] Drag and Drop between different windows (for Windows April Update)
-[new] TimeLine Integration (for Windows April Update)
-[new] notifications
-[new] no more reloading to apply char options
-[new] added many tooltips for buttons
-[new] complete English translation
-[new] Drag and Drop between categories
-    </value>
+    <value />
   </data>
   <data name="VerticalOffset" xml:space="preserve">
     <value>Vertical offset</value>
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
-    <value />
+    <value>Raises the sine wave. Why don't you play around with this parameter a little?</value>
   </data>
 </root>

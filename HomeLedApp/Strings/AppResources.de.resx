@@ -142,7 +142,7 @@
     <value>Horizontale Verschiebung</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
-    <value />
+    <value>Streckt den Sinus in die Breite. Spielen Sie mit diesem Parameter doch ein wenig.</value>
   </data>
   <data name="Hue" xml:space="preserve">
     <value>Farbton</value>
@@ -168,13 +168,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Hauptparameter</value>
   </data>
   <data name="MainParameter_Info" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ModeParameter_Headline" xml:space="preserve">
-    <value>Modusspezifische Parameter</value>
-  </data>
-  <data name="ModeParameter_Info" xml:space="preserve">
-    <value />
+    <value>Diese Parameter sind für viele Modi relevant. Die ersten drei Parameter reräsentieren die Farbe. Die weiteren das Verhalten der LED Kette als gesamtes.</value>
   </data>
   <data name="Modes_Headline" xml:space="preserve">
     <value>Modi</value>
@@ -207,7 +201,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Nicht aktuell</value>
   </data>
   <data name="NumberOfLeds" xml:space="preserve">
-    <value>Leds</value>
+    <value>LED Anzahl</value>
   </data>
   <data name="NumberOfLeds_Info" xml:space="preserve">
     <value>Hiermit kann die Anzahl der angesprochenen Leds verringert werden</value>
@@ -216,7 +210,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Regenbogen Parameter</value>
   </data>
   <data name="RainbowParameter_Info" xml:space="preserve">
-    <value />
+    <value>Stellen Sie hier spezielle Parameter für den Regenbogen ein.</value>
   </data>
   <data name="Randomized" xml:space="preserve">
     <value>Verstörend</value>
@@ -240,7 +234,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Sinuswellen Parameter</value>
   </data>
   <data name="SinParameter_Info" xml:space="preserve">
-    <value />
+    <value>Stellen Sie hier spezielle Parameter für den Kurvenverlauf des Sinus' ein.</value>
   </data>
   <data name="SinReverseParameter_Headline" xml:space="preserve">
     <value>Umkehren</value>
@@ -267,50 +261,12 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Speichert die aktuelle Konfiguration des Gerätes, sodass diese beim nächsten Start automatisch geladen wird.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
-    <value>Version 1.9.8
-[fix] Eingabe von . oder , führte zu Fehlern
-Version 1.9.7
-[new] Icons bei minimierten Headern
-[fix] Template für Drohnes
-[fix] Windows "öffnen mit" Dialog
-Version 1.9.5
-[new] Neue Chars haben mehr Eigenschaften
-[new] Category is: Drones
-Version 1.9.1
-[new] BackUp Versionierung: Die Optionen, an einen gespeicherten Char Zeit oder Fortschritt anzuhängen führten zu zu vielen Fehlern und Ausnahmen. Daher wurden sie entfernt. Stattdessen gibt es nun eine BackUp Versionierung, die beide Optionen zusammenfasst und sinnvoller ist.
-[new] Neu gestalteter Header für die Char-Page.
-Version 1.8.5
-[fix] Aus Datei geladene Chars wurden nicht gespeichert, wenn die Optionen Fortschritt oder Zeit aktiv waren
-Version 1.8.4:
-[new] Lebensstilkosten Button
-Version 1.8.3:
-[new] Favoriten
-[new] Kontextmenü
-[new] Copy, Cut und Paste! (Kontextmenu)
-[new] Char-Name in der Taskbar
-Version 1.7.6:
-[new] Seperatoren
-Version 1.7.4:
-[new] Kategorieoptionen (Sortieren, Exportieren, ...)
-[new] Technomancer Kategorien
-[new] Eigene Kategorien für berechnete Werte
-[new] Verlinkungen sind jetzt möglich für Attribute und Kampfitems
-[new] Verlinkungen sind jetzt mit jedem Item möglich
-[new] Beispiel Charakter
-[new] Multifenster Option (für Windows April Update)
-[new] Drag and Drop zwischen verschiedenen Fenstern (für Windows April Update)
-[new] TimeLine Integration (für Windows April Update)
-[new] Benachrichtigungen
-[new] kein Neuladen mehr zum Anwenden der Char-Optionen
-[new] viele Tooltips für Buttons hinzugefügt
-[new] komplette englische Übersetzung
-[new] Drag and Drop zwischen Kategorien
-</value>
+    <value />
   </data>
   <data name="VerticalOffset" xml:space="preserve">
     <value>Vertikale Verschiebung</value>
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
-    <value />
+    <value>Streckt den Sinus in die Höhe. Spielen Sie mit diesem Parameter doch ein wenig.</value>
   </data>
 </root>
