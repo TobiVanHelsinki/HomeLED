@@ -1,7 +1,7 @@
 #pragma once
 
-//#define HARDWARE_IS_ANALOG
-#define HARDWARE_IS_NEOPIXEL
+#define HARDWARE_IS_ANALOG
+//#define HARDWARE_IS_NEOPIXEL
 
 #include <AutoConnect.h>
 #include <PageStream.h>
@@ -10,11 +10,13 @@
 #include <ESP8266WebServerSecure.h>
 #include <ESP8266SSDP.h>
 #include <AutoConnectCredential.h>
+#include <pins_arduino.h>
 
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
 #ifdef HARDWARE_IS_NEOPIXEL
 #include "LEDProvider_NeoPixel.h"
+constexpr auto LEDsPin = D1;
 #endif
 #ifdef HARDWARE_IS_ANALOG
 #include "LEDProvider_Analog.h"
@@ -23,6 +25,9 @@ constexpr auto AnalogPin_G = D3;
 constexpr auto AnalogPin_B = D2;
 #endif
 
+constexpr auto BuiltInLed = D4;
+constexpr auto interruptPinReset = D7;
+
 #include "RainbowMode.h"
 #include "PulseMode.h"
 #include "OnePixelMode.h"
@@ -30,9 +35,6 @@ constexpr auto AnalogPin_B = D2;
 #include "ColorMode.h"
 #include "DoorsMode.h"
 
-constexpr auto LEDsPin = D1;
-constexpr auto BuiltInLed = D4;
-constexpr auto interruptPinReset = D7;
 
 auto CurrentNumberOfLeds = 150;
 auto CurrentLEDRefreshTime = 60;
