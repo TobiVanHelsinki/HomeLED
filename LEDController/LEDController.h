@@ -52,10 +52,14 @@ constexpr auto HomeLEDTitle = "HomeLED-";
 
 constexpr auto StorageAdress_Start_Hostname = 0;
 constexpr auto StorageAdress_End_Hostname = 17;
-constexpr auto StorageAdress_Start_Configuration = 100;
-constexpr auto StorageAdress_End_Configuration = 500;
+//constexpr auto StorageAdress_Start_Configuration = 100;
+//constexpr auto StorageAdress_End_Configuration = 500;
+//constexpr auto StorageAdress_AutoConnect = 3500;
+//constexpr auto StorageAdress_EEPROMMax = 4096;
+constexpr auto StorageAdress_Start_Configuration = 50;
+constexpr auto StorageAdress_End_Configuration = 250;
 constexpr auto StorageAdress_AutoConnect = 3500;
-constexpr auto StorageAdress_EEPROMMax = 4096;
+constexpr auto StorageAdress_EEPROMMax = 512;
 
 constexpr auto ResetPressedTime = 4000;
 
