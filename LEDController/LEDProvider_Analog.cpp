@@ -16,7 +16,7 @@ void LEDProvider_Analog::begin(void)
 void LEDProvider_Analog::show(void)
 {
 	_IsActive = true;
-	setPixelColor(0, 0, 0, 0);
+	setPixelColor(0, _CurrentColor_R, _CurrentColor_G, _CurrentColor_B);
 }
 
 uint16_t LEDProvider_Analog::numPixels(void)
@@ -26,8 +26,11 @@ uint16_t LEDProvider_Analog::numPixels(void)
 
 void LEDProvider_Analog::setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b)
 {
-	if (_IsActive)
+	if (_IsActive && n == 0)
 	{
+		_CurrentColor_R = r;
+		_CurrentColor_G = g;
+		_CurrentColor_B = b;
 		analogWrite(_PinR, (uint8_t)(r * _CurrentBrightness));
 		analogWrite(_PinG, (uint8_t)(g * _CurrentBrightness));
 		analogWrite(_PinB, (uint8_t)(b * _CurrentBrightness));
@@ -54,7 +57,7 @@ void LEDProvider_Analog::fill(uint32_t c, uint16_t first, uint16_t count)
 void LEDProvider_Analog::setBrightness(uint8_t b)
 {
 	_CurrentBrightness = b;
-	setPixelColor(0, 0, 0, 0);
+	setPixelColor(0, _CurrentColor_R, _CurrentColor_G, _CurrentColor_B);
 }
 void LEDProvider_Analog::clear(void)
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#define HARDWARE_IS_ANALOG
-//#define HARDWARE_IS_NEOPIXEL
+//#define HARDWARE_IS_ANALOG
+#define HARDWARE_IS_NEOPIXEL
 
 #include <AutoConnect.h>
 #include <PageStream.h>
@@ -34,7 +34,6 @@ constexpr auto interruptPinReset = D7;
 #include "SinMode.h"
 #include "ColorMode.h"
 #include "DoorsMode.h"
-
 
 auto CurrentNumberOfLeds = 150;
 auto CurrentLEDRefreshTime = 60;
