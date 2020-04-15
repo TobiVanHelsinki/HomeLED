@@ -88,8 +88,6 @@ void LEDProvider_Analog::Update()
 		analogWrite(_PinR, r);
 		analogWrite(_PinG, g);
 		analogWrite(_PinB, b);
-		//analogWrite(_PinG, (uint8_t)(_CurrentColor_G * _CurrentBrightness));
-		//analogWrite(_PinB, (uint8_t)(_CurrentColor_B * _CurrentBrightness));
 	}
 	else
 	{
