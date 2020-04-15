@@ -25,10 +25,10 @@ protected:
 
 	bool _IsActive = false;
 
-	uint8_t _CurrentColor_R = 40;
-	uint8_t _CurrentColor_G = 40;
-	uint8_t _CurrentColor_B = 40;
-	uint8_t _CurrentBrightness = 255;
+	uint8_t _CurrentColor_R = 0;
+	uint8_t _CurrentColor_G = 0;
+	uint8_t _CurrentColor_B = 0;
+	uint8_t _CurrentBrightness = 0;
 
 	void Update();
 };
