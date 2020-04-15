@@ -23,10 +23,12 @@ protected:
 	uint8_t _PinG;
 	uint8_t _PinB;
 
-	uint8_t _CurrentColor_R;
-	uint8_t _CurrentColor_G;
-	uint8_t _CurrentColor_B;
-
 	bool _IsActive = false;
+
+	uint8_t _CurrentColor_R = 40;
+	uint8_t _CurrentColor_G = 40;
+	uint8_t _CurrentColor_B = 40;
 	uint8_t _CurrentBrightness = 255;
+
+	void Update();
 };
