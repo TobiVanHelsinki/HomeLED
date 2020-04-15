@@ -16,7 +16,8 @@
 #include "ILEDProvider.h"
 #ifdef HARDWARE_IS_NEOPIXEL
 #include "LEDProvider_NeoPixel.h"
-constexpr auto LEDsPin = D1;
+//constexpr auto LEDsPin = D1;
+constexpr auto LEDsPin = D6;
 #endif
 #ifdef HARDWARE_IS_ANALOG
 #include "LEDProvider_Analog.h"
