@@ -1,7 +1,7 @@
 #pragma once
 
-//#define HARDWARE_IS_ANALOG
-#define HARDWARE_IS_NEOPIXEL
+#define HARDWARE_IS_ANALOG
+//#define HARDWARE_IS_NEOPIXEL
 
 #include <AutoConnect.h>
 #include <PageStream.h>
