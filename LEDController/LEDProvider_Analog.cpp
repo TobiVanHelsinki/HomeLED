@@ -78,9 +78,9 @@ void LEDProvider_Analog::Update()
 {
 	if (_IsActive)
 	{
-		auto r = (uint8_t)(_CurrentColor_R * _CurrentBrightness);
-		auto g = (uint8_t)(_CurrentColor_G * _CurrentBrightness);
-		auto b = (uint8_t)(_CurrentColor_B * _CurrentBrightness);
+		auto r = (uint8_t)(_CurrentColor_R * _CurrentBrightness / 255.0);
+		auto g = (uint8_t)(_CurrentColor_G * _CurrentBrightness / 255.0);
+		auto b = (uint8_t)(_CurrentColor_B * _CurrentBrightness / 255.0);
 		Serial.println("Update Leds (r,g,b):");
 		Serial.println(r);
 		Serial.println(g);
