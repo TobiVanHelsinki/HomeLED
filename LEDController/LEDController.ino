@@ -264,7 +264,6 @@ bool SetMode(String s)
 	else if (s == "pixel")
 	{
 		CurrentMode = new OnePixelMode(leds);
-		CurrentMode->ID();
 	}
 	else if (s == "doors")
 	{
@@ -290,19 +289,25 @@ bool SetMode(String s)
 	return true;
 }
 
-bool UpdateSpeed(int newspeed)
+static int CropAtBounds(int newVal, int minVal, int maxVal)
 {
-	if (newspeed < 20)
+	if (newVal < minVal)
 	{
-		newspeed = 20;
+		newVal = minVal;
 	}
-	else if (newspeed > 10000)
+	else if (newVal > maxVal)
 	{
-		newspeed = 10000;
+		newVal = maxVal;
 	}
-	if (newspeed != CurrentLEDRefreshTime)
+	return newVal;
+}
+
+bool UpdateSpeed(int newValue)
+{
+	newValue = CropAtBounds(newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
+	if (newValue != CurrentLEDRefreshTime)
 	{
-		CurrentLEDRefreshTime = newspeed;
+		CurrentLEDRefreshTime = newValue;
 		LEDsStop();
 		LEDsStart();
 		return true;
@@ -310,44 +315,26 @@ bool UpdateSpeed(int newspeed)
 	return false;
 }
 
-bool UpdateNumOfLeds(int newnum)
+bool UpdateNumOfLeds(int newValue)
 {
-	if (newnum < 1)
+	newValue = CropAtBounds(newValue, MinNumberOfLeds, MaxNumberOfLeds);
+	if (CurrentNumberOfLeds != newValue)
 	{
-		newnum = 1;
-	}
-	else if (newnum > 150)
-	{
-		newnum = 150;
-	}
-	if (CurrentNumberOfLeds != newnum)
-	{
-		CurrentNumberOfLeds = newnum;
+		CurrentNumberOfLeds = newValue;
 		leds->clear();
 		leds->updateLength(CurrentNumberOfLeds);
-		for (size_t i = newnum; i < 150; i++)
-		{
-			leds->setPixelColor(0, 0);
-		}
 		return true;
 	}
 	return false;
 }
 
-bool UpdateBri(int newbri)
+bool UpdateBri(int newValue)
 {
-	if (newbri < 1)
+	newValue = CropAtBounds(newValue, MinBrigthnes, MaxBrigthnes);
+	if (CurrentBrigthnes != newValue)
 	{
-		newbri = 1;
-	}
-	else if (newbri > 255)
-	{
-		newbri = 255;
-	}
-	if (CurrentBrigthnes != newbri)
-	{
-		CurrentBrigthnes = newbri;
-		leds->setBrightness(newbri);
+		CurrentBrigthnes = newValue;
+		leds->setBrightness(newValue);
 		return true;
 	}
 	return false;

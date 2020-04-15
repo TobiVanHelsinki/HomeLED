@@ -16,8 +16,8 @@
 #include "ILEDProvider.h"
 #ifdef HARDWARE_IS_NEOPIXEL
 #include "LEDProvider_NeoPixel.h"
-//constexpr auto LEDsPin = D1;
-constexpr auto LEDsPin = D6;
+//constexpr auto LEDsPin = D1; //Tobi
+constexpr auto LEDsPin = D6; //Tyke
 #endif
 #ifdef HARDWARE_IS_ANALOG
 #include "LEDProvider_Analog.h"
@@ -36,9 +36,19 @@ constexpr auto interruptPinReset = D7;
 #include "ColorMode.h"
 #include "DoorsMode.h"
 
-auto CurrentNumberOfLeds = 150;
+constexpr auto MinNumberOfLeds = 1;
+constexpr auto MinLEDRefreshTime = 20;
+constexpr auto MinBrigthnes = 0;
+
+constexpr auto MaxNumberOfLeds = 252; //Tyke
+//constexpr auto MaxNumberOfLeds = 150; //Tobi
+constexpr auto MaxLEDRefreshTime = 10000;
+constexpr auto MaxBrigthnes = 255;
+
+auto CurrentNumberOfLeds = MaxNumberOfLeds;
 auto CurrentLEDRefreshTime = 60;
 auto CurrentBrigthnes = 100;
+
 constexpr auto StartMode = "sin";
 
 constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
@@ -53,11 +63,11 @@ constexpr auto HomeLEDTitle = "HomeLED-";
 
 constexpr auto StorageAdress_Start_Hostname = 0;
 constexpr auto StorageAdress_End_Hostname = 17;
-//constexpr auto StorageAdress_Start_Configuration = 100;
+//constexpr auto StorageAdress_Start_Configuration = 100; //Tobi
 //constexpr auto StorageAdress_End_Configuration = 500;
 //constexpr auto StorageAdress_AutoConnect = 3500;
 //constexpr auto StorageAdress_EEPROMMax = 4096;
-constexpr auto StorageAdress_Start_Configuration = 50;
+constexpr auto StorageAdress_Start_Configuration = 50; //Tyke
 constexpr auto StorageAdress_End_Configuration = 250;
 constexpr auto StorageAdress_AutoConnect = 3500;
 constexpr auto StorageAdress_EEPROMMax = 512;
