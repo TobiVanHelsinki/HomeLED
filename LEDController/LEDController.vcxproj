@@ -117,6 +117,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KnightRiderMode.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
     <ClInclude Include="ColorMode.h" />
     <ClInclude Include="DoorsMode.h" />
@@ -129,20 +130,24 @@
     <ClInclude Include="PulseMode.h" />
     <ClInclude Include="RainbowMode.h" />
     <ClInclude Include="SinMode.h" />
+    <ClInclude Include="TykeMode.h" />
     <ClInclude Include="__vm\.LEDController.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KnightRiderMode.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />
     <ClCompile Include="ColorMode.cpp" />
     <ClCompile Include="DoorsMode.cpp" />
     <ClCompile Include="EEPROMHelper.cpp" />
     <ClCompile Include="LEDProvider_NeoPixel.cpp" />
+    <ClCompile Include="MK.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="OnePixelMode.cpp" />
     <ClCompile Include="PulseMode.cpp" />
     <ClCompile Include="RainbowMode.cpp" />
     <ClCompile Include="SinMode.cpp" />
     <ClCompile Include="Tyke.cpp" />
+    <ClCompile Include="TykeMode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

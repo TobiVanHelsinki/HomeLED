@@ -35,6 +35,8 @@ constexpr auto interruptPinReset = D7;
 #include "SinMode.h"
 #include "ColorMode.h"
 #include "DoorsMode.h"
+#include "KnightRiderMode.h"
+#include "TykeMode.h"
 
 constexpr auto MinNumberOfLeds = 1;
 constexpr auto MinLEDRefreshTime = 20;

@@ -265,6 +265,14 @@ bool SetMode(String s)
 	{
 		CurrentMode = new OnePixelMode(leds);
 	}
+	else if (s == "knigthrider")
+	{
+		CurrentMode = new KnightRiderMode(leds);
+	}
+	else if (s == "tyke")
+	{
+		CurrentMode = new TykeMode(leds);
+	}
 	else if (s == "doors")
 	{
 		int maxpin = D2 > D3 ? D2 : D3;
