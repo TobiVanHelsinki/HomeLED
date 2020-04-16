@@ -57,54 +57,34 @@ String ColorMode::Set(String Name, String Value)
 {
 	if (Name == "r")
 	{
-		auto newval = Value.toInt();
-		if (CurrentColor_r != newval)
-		{
-			CurrentColor_r = newval;
-			CurrentColor = Adafruit_NeoPixel::Color(
-				(int)(CurrentColor_r),
-				(int)(CurrentColor_g),
-				(int)(CurrentColor_b)
-			);
-			return "Set red to  " + String(CurrentColor_r) + "\n";
-		}
+		auto result = SetinBoundsAndReport(&CurrentColor_r, "Red", Value);
+		RefreshColor();
+		return result;
 	}
 	else if (Name == "g")
 	{
-		auto newval = Value.toInt();
-		if (CurrentColor_g != newval)
-		{
-			CurrentColor_g = newval;
-			CurrentColor = Adafruit_NeoPixel::Color(
-				(int)(CurrentColor_r),
-				(int)(CurrentColor_g),
-				(int)(CurrentColor_b)
-			);
-			return "Set green to " + String(CurrentColor_g) + "\n";
-		}
+		auto result = SetinBoundsAndReport(&CurrentColor_g, "Green", Value);
+		RefreshColor();
+		return result;
 	}
 	else if (Name == "b")
 	{
-		auto newval = Value.toInt();
-		if (CurrentColor_b != newval)
-		{
-			CurrentColor_b = newval;
-			CurrentColor = Adafruit_NeoPixel::Color(
-				(int)(CurrentColor_r),
-				(int)(CurrentColor_g),
-				(int)(CurrentColor_b)
-			);
-			return "Set blue to " + String(CurrentColor_b) + "\n";
-		}
+		auto result = SetinBoundsAndReport(&CurrentColor_b, "Blue", Value);
+		RefreshColor();
+		return result;
 	}
 	else if (Name == "col")
 	{
-		auto newval = Value.toInt();
-		if (CurrentColor != newval)
-		{
-			CurrentColor = newval;
-			return "Set col to " + String(CurrentColor) + "\n";
-		}
+		return SetinBoundsAndReport(&CurrentColor, "Color", Value);
 	}
 	return ModeBase::Set(Name, Value);
+}
+
+void ColorMode::RefreshColor()
+{
+	CurrentColor = Adafruit_NeoPixel::Color(
+		(int)(CurrentColor_r),
+		(int)(CurrentColor_g),
+		(int)(CurrentColor_b)
+	);
 }

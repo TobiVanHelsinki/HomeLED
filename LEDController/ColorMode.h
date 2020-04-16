@@ -17,4 +17,5 @@ protected:
 	uint32_t CurrentColor_r = 229;
 	uint32_t CurrentColor_g = 130;
 	uint32_t CurrentColor_b = 0;
+	void RefreshColor();
 };

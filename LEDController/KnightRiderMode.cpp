@@ -9,7 +9,7 @@ void KnightRiderMode::NextState()
 	{
 		if (PositionForward < leds->numPixels())
 		{
-			PositionForward = ColorLeft;
+			PositionForward = Width;
 			Direction = !Direction;
 		}
 		else
@@ -17,7 +17,7 @@ void KnightRiderMode::NextState()
 			PositionForward++;
 		}
 		for (int k = PositionForward; k >= 0; k--) {
-			if (k > PositionForward - ColorLeft) {
+			if (k > PositionForward - Width) {
 				leds->setPixelColor(k, CurrentColor);
 			}
 			else {
@@ -29,7 +29,7 @@ void KnightRiderMode::NextState()
 	{
 		if (PositionBackward >= 0)
 		{
-			PositionBackward = leds->numPixels() - ColorLeft - 1;
+			PositionBackward = leds->numPixels() - Width - 1;
 			Direction = !Direction;
 		}
 		else
@@ -37,7 +37,7 @@ void KnightRiderMode::NextState()
 			PositionBackward--;
 		}
 		for (int k = PositionBackward; k < leds->numPixels(); k++) {
-			if (k < PositionBackward + ColorLeft) {
+			if (k < PositionBackward + Width) {
 				leds->setPixelColor(k, CurrentColor);
 			}
 			else {
@@ -96,11 +96,11 @@ String KnightRiderMode::Get(String Name)
 {
 	if (Name == "width")
 	{
-		return String(ColorLeft);
+		return String(Width);
 	}
 	else if (Name == "fringe")
 	{
-		return String(ColorRight);
+		return String(Fringe);
 	}
 	else
 	{
@@ -112,21 +112,11 @@ String KnightRiderMode::Set(String Name, String Value)
 {
 	if (Name == "width")
 	{
-		auto newval = Value.toInt();
-		if (newval != ColorLeft)
-		{
-			ColorLeft = newval;
-			return "Set Width to " + String(ColorLeft) + "\n";
-		}
+		return SetinBoundsAndReport(&Width, "Width", Value);
 	}
 	else if (Name == "fringe")
 	{
-		auto newval = Value.toInt();
-		if (newval != ColorRight)
-		{
-			ColorRight = newval;
-			return "Set Fringe to " + String(ColorRight) + "\n";
-		}
+		return SetinBoundsAndReport(&Fringe, "Fringe", Value);
 	}
 	return ColorMode::Set(Name, Value);
 }

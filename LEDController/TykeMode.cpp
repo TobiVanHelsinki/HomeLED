@@ -57,21 +57,11 @@ String TykeMode::Set(String Name, String Value)
 {
 	if (Name == "ColorLeft")
 	{
-		auto newval = Value.toInt();
-		if (newval != ColorLeft)
-		{
-			ColorLeft = newval;
-			return "Set ColorLeft to " + String(ColorLeft) + "\n";
-		}
+		return SetinBoundsAndReport(&ColorLeft, "ColorLeft", Value);
 	}
 	else if (Name == "ColorRight")
 	{
-		auto newval = Value.toInt();
-		if (newval != ColorRight)
-		{
-			ColorRight = newval;
-			return "Set ColorRight to " + String(ColorRight) + "\n";
-		}
+		return SetinBoundsAndReport(&ColorRight, "ColorRight", Value);
 	}
 	return ColorMode::Set(Name, Value);
 }

@@ -15,6 +15,6 @@ protected:
 	int Direction = false;
 	int PositionForward = 0;
 	int PositionBackward = 0;
-	int ColorLeft = 10;
-	int ColorRight = 0;
+	int Width = 10;
+	int Fringe = 0;
 };

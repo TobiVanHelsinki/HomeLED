@@ -21,6 +21,76 @@ String ModeBase::Set(String Name, String Value)
 	return String();
 }
 
+String ModeBase::SetinBoundsAndReport(int* savePlace, String name, String parameter, int min, int max)
+{
+	auto newVal = parameter.toInt();
+	if (newVal != (*savePlace))
+	{
+		if (newVal > max)
+		{
+			newVal = max;
+		}
+		else if (newVal < min)
+		{
+			newVal = min;
+		}
+		(*savePlace) = newVal;
+		return "Set " + name + " to " + String(newVal) + "\n";
+	}
+	else
+	{
+		return String();
+	}
+}
+
+String ModeBase::SetinBoundsAndReport(uint32_t* savePlace, String name, String parameter, uint32_t min, uint32_t max)
+{
+	auto newVal = parameter.toInt();
+	if (newVal != (*savePlace))
+	{
+		if (newVal > max)
+		{
+			newVal = max;
+		}
+		else if (newVal < min)
+		{
+			newVal = min;
+		}
+		(*savePlace) = newVal;
+		return "Set " + name + " to " + String(newVal) + "\n";
+	}
+	else
+	{
+		return String();
+	}
+}
+String ModeBase::SetinBoundsAndReport(float* savePlace, String name, String parameter, float min, float max)
+{
+	auto newVal = parameter.toFloat();
+	if (newVal != (*savePlace))
+	{
+		if (newVal > max)
+		{
+			newVal = max;
+		}
+		else if (newVal < min)
+		{
+			newVal = min;
+		}
+		(*savePlace) = newVal;
+		return "Set " + name + " to " + String(newVal) + "\n";
+	}
+	else
+	{
+		return String();
+	}
+}
+String ModeBase::SetinBoundsAndReport(bool* savePlace, String name, String parameter)
+{
+	(*savePlace) = parameter.toInt();
+	return ((*savePlace) ? "Set " : "Unset ") + name + " Mode";
+}
+
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
 uint32_t ModeBase::Wheel(byte WheelPos) {

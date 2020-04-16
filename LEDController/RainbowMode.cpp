@@ -57,15 +57,7 @@ String RainbowMode::Set(String Name, String Value)
 {
 	if (Name == "rand")
 	{
-		DisturbingMode = Value.toInt();
-		if (DisturbingMode)
-		{
-			return "Set Random Mode";
-		}
-		else
-		{
-			return "Unset Random Mode";
-		}
+		return SetinBoundsAndReport(&DisturbingMode, "DisturbingMode", Value);
 	}
 	else
 	{

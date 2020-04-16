@@ -97,44 +97,21 @@ String SinMode::Set(String Name, String Value)
 {
 	if (Name == "ho")
 	{
-		auto newval = Value.toInt();
-		if (newval != HorizontalOffset)
-		{
-			HorizontalOffset = newval;
-			return "Set HorizontalOffset to " + String(HorizontalOffset) + "\n";
-		}
+		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, 0, 50);
 	}
 	else if (Name == "vo")
 	{
-		auto newval = Value.toInt();
-		if (newval != VerticalOffset)
-		{
-			VerticalOffset = newval;
-			return "Set VerticalOffset to " + String(VerticalOffset) + "\n";
-		}
+		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, 0, 50);
 	}
 	else if (Name == "scale")
 	{
-		auto value = Value.toFloat();
-		if (value > 0.5)
-		{
-			Scaling = 0.5;
-		}
-		else if (value < 0.0)
-		{
-			Scaling = 0.0;
-		}
-		else
-		{
-			Scaling = value;
-		}
+		auto result = SetinBoundsAndReport(&Scaling, "Scale", Value, 0.0, 0.5);
 		BuildTable(true);
-		return "Set Scaling to " + String(Scaling);
+		return result;
 	}
 	else if (Name == "debug")
 	{
-		DebugOutput = Value.toInt();
-		return DebugOutput ? "Debug active" : "Debug inactive";
+		return SetinBoundsAndReport(&DebugOutput, "Debug", Value);
 	}
 	else if (Name == "build")
 	{
