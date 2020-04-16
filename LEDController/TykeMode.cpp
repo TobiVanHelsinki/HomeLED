@@ -5,7 +5,7 @@ TykeMode::TykeMode(ILEDProvider* leds) : ColorMode(leds)
 
 void TykeMode::NextState()
 {
-	if (Position < leds->numPixels())
+	if (Position > leds->numPixels())
 	{
 		Position = 0;
 	}

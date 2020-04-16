@@ -1,13 +1,15 @@
 #include "KnightRiderMode.h"
 KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 {
+	CurrentColor = Adafruit_NeoPixel::Color(255, 0, 0);
 }
 
 void KnightRiderMode::NextState()
 {
+	leds->clear();
 	if (Direction)
 	{
-		if (PositionForward < leds->numPixels())
+		if (PositionForward >= leds->numPixels())
 		{
 			PositionForward = Width;
 			Direction = !Direction;
@@ -27,7 +29,7 @@ void KnightRiderMode::NextState()
 	}
 	else
 	{
-		if (PositionBackward >= 0)
+		if (PositionBackward < 0)
 		{
 			PositionBackward = leds->numPixels() - Width - 1;
 			Direction = !Direction;
