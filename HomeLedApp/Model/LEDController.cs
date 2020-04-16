@@ -172,7 +172,7 @@ namespace HomeLedApp.Model
             set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
         }
 
-        public double NumberOfLeds_Max => 150;
+        public double NumberOfLeds_Max => 300;
         public double NumberOfLeds_Min => 0;
 
         private int _Sin_VerticalOffset;
