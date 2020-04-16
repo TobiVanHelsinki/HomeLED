@@ -79,6 +79,35 @@ String KnightRiderMode::GetID()
 	return ID;
 }
 
+std::vector<String> KnightRiderMode::ParameterNames()
+{
+	std::vector<String> names;
+	names.push_back("width");
+	names.push_back("fringe");
+	auto baseNames = ColorMode::ParameterNames();
+	for (size_t i = 0; i < baseNames.size(); i++)
+	{
+		names.push_back(baseNames.at(i));
+	}
+	return names;
+}
+
+String KnightRiderMode::Get(String Name)
+{
+	if (Name == "width")
+	{
+		return String(ColorLeft);
+	}
+	else if (Name == "fringe")
+	{
+		return String(ColorRight);
+	}
+	else
+	{
+		return ColorMode::Get(Name);
+	}
+}
+
 String KnightRiderMode::Set(String Name, String Value)
 {
 	if (Name == "width")
@@ -100,39 +129,4 @@ String KnightRiderMode::Set(String Name, String Value)
 		}
 	}
 	return ColorMode::Set(Name, Value);
-}
-int KnightRiderMode::NumberofParams()
-{
-	return 2 + ColorMode::NumberofParams();
-}
-String KnightRiderMode::GetName(int Number)
-{
-	auto lastno = ColorMode::NumberofParams();
-	if (Number == 0 + lastno)
-	{
-		return "width";
-	}
-	else if (Number == 1 + lastno)
-	{
-		return "fringe";
-	}
-	else
-	{
-		return ColorMode::GetName(Number);
-	}
-}
-String KnightRiderMode::Get(String Name)
-{
-	if (Name == "width")
-	{
-		return String(ColorLeft);
-	}
-	else if (Name == "fringe")
-	{
-		return String(ColorRight);
-	}
-	else
-	{
-		return ColorMode::Get(Name);
-	}
 }

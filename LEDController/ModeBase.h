@@ -1,5 +1,6 @@
 #pragma once
 #include "ILEDProvider.h"
+#include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
 
 class ModeBase
@@ -10,11 +11,9 @@ public:
 	virtual String GetID() = 0;
 	virtual void NextState() = 0;
 
-	virtual int NumberofParams();
-	virtual String GetName(int Number);
+	virtual std::vector<String> ParameterNames();
 	virtual String Get(String Name);
 	virtual String Set(String Name, String Value);
-	//virtual void ICACHE_RAM_ATTR Interrupt(int Pin);
 
 protected:
 	ILEDProvider* leds;

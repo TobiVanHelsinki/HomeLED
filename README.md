@@ -10,8 +10,7 @@ Project to manage NeoPixel Leds with an ESP8266 and control them by an xamarin A
 
 
 Needed Libs:
-* AutoConnect
-* PageBuilder
-* ArduinoJson
+* AutoConnect https://github.com/Hieromon/AutoConnect
+** PageBuilder https://github.com/Hieromon/PageBuilder
+** ArduinoJson https://github.com/bblanchon/ArduinoJson
 * Adafruit NeoPixel
-* Adafruit GFX Library

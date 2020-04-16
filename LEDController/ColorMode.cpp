@@ -11,11 +11,46 @@ void ColorMode::NextState()
 		leds->setPixelColor(i, CurrentColor);
 	}
 }
+
 String ColorMode::ID = "color";
 
 String ColorMode::GetID()
 {
 	return ID;
+}
+
+std::vector<String> ColorMode::ParameterNames()
+{
+	std::vector<String> names;
+	names.push_back("r");
+	names.push_back("g");
+	names.push_back("b");
+	auto baseNames = ModeBase::ParameterNames();
+	for (size_t i = 0; i < baseNames.size(); i++)
+	{
+		names.push_back(baseNames.at(i));
+	}
+	return names;
+}
+
+String ColorMode::Get(String Name)
+{
+	if (Name == "r")
+	{
+		return String(CurrentColor_r);
+	}
+	else if (Name == "g")
+	{
+		return String(CurrentColor_g);
+	}
+	else if (Name == "b")
+	{
+		return String(CurrentColor_b);
+	}
+	else
+	{
+		return ModeBase::Get(Name);
+	}
 }
 
 String ColorMode::Set(String Name, String Value)
@@ -72,47 +107,4 @@ String ColorMode::Set(String Name, String Value)
 		}
 	}
 	return ModeBase::Set(Name, Value);
-}
-int ColorMode::NumberofParams()
-{
-	return 3 + ModeBase::NumberofParams();
-}
-String ColorMode::GetName(int Number)
-{
-	auto lastno = ModeBase::NumberofParams();
-	if (Number == 0 + lastno)
-	{
-		return "r";
-	}
-	else if (Number == 1 + lastno)
-	{
-		return "g";
-	}
-	else if (Number == 2 + lastno)
-	{
-		return "b";
-	}
-	else
-	{
-		return ModeBase::GetName(Number);
-	}
-}
-String ColorMode::Get(String Name)
-{
-	if (Name == "r")
-	{
-		return String(CurrentColor_r);
-	}
-	else if (Name == "g")
-	{
-		return String(CurrentColor_g);
-	}
-	else if (Name == "b")
-	{
-		return String(CurrentColor_b);
-	}
-	else
-	{
-		return ModeBase::Get(Name);
-	}
 }

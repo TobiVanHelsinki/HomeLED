@@ -386,10 +386,9 @@ String SetProperty(String argName, String argVal)
 	}
 	else if (argName == "m" || argName == "mode")
 	{
-		String s = argVal;
-		if (SetMode(s))
+		if (SetMode(argVal))
 		{
-			Return += "Changed Mode to: " + s + "\n";
+			Return += "Changed Mode to: " + CurrentMode->GetID() + "\n";
 		}
 	}
 	else
@@ -409,9 +408,10 @@ String CurrentConfig2String()
 	Return += "n=" + String(CurrentNumberOfLeds) + "&";
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
 	Return += "m=" + String(CurrentMode->GetID()) + "&";
-	for (size_t i = 0; i < CurrentMode->NumberofParams(); i++)
+	auto names = CurrentMode->ParameterNames();
+	for (size_t i = 0; i < names.size(); i++)
 	{
-		auto parname = CurrentMode->GetName(i);
+		auto parname = names.at(i);
 		Return += String(parname) + "=" + String(CurrentMode->Get(parname)) + "&";
 	}
 	return Return;

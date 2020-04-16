@@ -3,6 +3,7 @@
 RainbowMode::RainbowMode(ILEDProvider* leds) : ModeBase(leds)
 {
 }
+
 String RainbowMode::ID = "rainbow";
 
 String RainbowMode::GetID()
@@ -28,6 +29,30 @@ void RainbowMode::NextState()
 	j = (j + 1) % 256;
 }
 
+std::vector<String> RainbowMode::ParameterNames()
+{
+	std::vector<String> names;
+	names.push_back("rand");
+	auto baseNames = ModeBase::ParameterNames();
+	for (size_t i = 0; i < baseNames.size(); i++)
+	{
+		names.push_back(baseNames.at(i));
+	}
+	return names;
+}
+
+String RainbowMode::Get(String Name)
+{
+	if (Name == "rand")
+	{
+		return String(DisturbingMode);
+	}
+	else
+	{
+		return ModeBase::Get(Name);
+	}
+}
+
 String RainbowMode::Set(String Name, String Value)
 {
 	if (Name == "rand")
@@ -45,34 +70,5 @@ String RainbowMode::Set(String Name, String Value)
 	else
 	{
 		return ModeBase::Set(Name, Value);
-	}
-}
-
-int RainbowMode::NumberofParams()
-{
-	return 1 + ModeBase::NumberofParams();
-}
-String RainbowMode::GetName(int Number)
-{
-	if (Number == 0)
-	{
-		return "rand";
-	}
-	else
-	{
-		return ModeBase::GetName(Number);
-	}
-}
-String RainbowMode::Get(String Name)
-{
-	char s[10];
-	if (Name == "rand")
-	{
-		sprintf(s, "$d", DisturbingMode);
-		return s;
-	}
-	else
-	{
-		return ModeBase::Get(Name);
 	}
 }

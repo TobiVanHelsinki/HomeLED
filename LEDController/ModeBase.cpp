@@ -6,26 +6,20 @@ ModeBase::ModeBase(ILEDProvider* ledstouse)
 	leds = ledstouse;
 }
 
-String ModeBase::Set(String Name, String Value)
+std::vector<String> ModeBase::ParameterNames()
 {
-	return "";
+	return std::vector<String>();
 }
-int ModeBase::NumberofParams()
-{
-	return 0;
-}
-String ModeBase::GetName(int Number)
-{
-	return "";
-}
+
 String ModeBase::Get(String Name)
 {
 	return String();
 }
 
-//void ICACHE_RAM_ATTR ModeBase::Interrupt(int Pin)
-//{
-//}
+String ModeBase::Set(String Name, String Value)
+{
+	return String();
+}
 
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.

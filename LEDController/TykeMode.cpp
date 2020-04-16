@@ -24,6 +24,35 @@ String TykeMode::GetID()
 	return ID;
 }
 
+std::vector<String> TykeMode::ParameterNames()
+{
+	std::vector<String> names;
+	names.push_back("ColorLeft");
+	names.push_back("ColorRight");
+	auto baseNames = ColorMode::ParameterNames();
+	for (size_t i = 0; i < baseNames.size(); i++)
+	{
+		names.push_back(baseNames.at(i));
+	}
+	return names;
+}
+
+String TykeMode::Get(String Name)
+{
+	if (Name == "ColorLeft")
+	{
+		return String(ColorLeft);
+	}
+	else if (Name == "ColorRight")
+	{
+		return String(ColorRight);
+	}
+	else
+	{
+		return ColorMode::Get(Name);
+	}
+}
+
 String TykeMode::Set(String Name, String Value)
 {
 	if (Name == "ColorLeft")
@@ -45,39 +74,4 @@ String TykeMode::Set(String Name, String Value)
 		}
 	}
 	return ColorMode::Set(Name, Value);
-}
-int TykeMode::NumberofParams()
-{
-	return 2 + ColorMode::NumberofParams();
-}
-String TykeMode::GetName(int Number)
-{
-	auto lastno = ColorMode::NumberofParams();
-	if (Number == 0 + lastno)
-	{
-		return "ColorLeft";
-	}
-	else if (Number == 1 + lastno)
-	{
-		return "ColorRight";
-	}
-	else
-	{
-		return ColorMode::GetName(Number);
-	}
-}
-String TykeMode::Get(String Name)
-{
-	if (Name == "ColorLeft")
-	{
-		return String(ColorLeft);
-	}
-	else if (Name == "ColorRight")
-	{
-		return String(ColorRight);
-	}
-	else
-	{
-		return ColorMode::Get(Name);
-	}
 }

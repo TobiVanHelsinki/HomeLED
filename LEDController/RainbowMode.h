@@ -10,8 +10,7 @@ public:
 	void NextState();
 	static String ID;
 	String GetID();
-	int NumberofParams() override;
-	String GetName(int Number) override;
+	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
 	String Set(String Name, String Value) override;
 private:

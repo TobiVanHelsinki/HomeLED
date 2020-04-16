@@ -57,6 +57,42 @@ String SinMode::GetID()
 	return ID;
 }
 
+std::vector<String> SinMode::ParameterNames()
+{
+	std::vector<String> names;
+	names.push_back("ho");
+	names.push_back("vo");
+	names.push_back("scale");
+	names.push_back("debug");
+	names.push_back("build");
+	auto baseNames = ColorMode::ParameterNames();
+	for (size_t i = 0; i < baseNames.size(); i++)
+	{
+		names.push_back(baseNames.at(i));
+	}
+	return names;
+}
+
+String SinMode::Get(String Name)
+{
+	if (Name == "ho")
+	{
+		return String(HorizontalOffset);
+	}
+	else if (Name == "vo")
+	{
+		return String(VerticalOffset);
+	}
+	else if (Name == "scale")
+	{
+		return String(Scaling);
+	}
+	else
+	{
+		return ColorMode::Get(Name);
+	}
+}
+
 String SinMode::Set(String Name, String Value)
 {
 	if (Name == "ho")
@@ -106,39 +142,4 @@ String SinMode::Set(String Name, String Value)
 		return "Rebuild Table";
 	}
 	return ColorMode::Set(Name, Value);
-}
-int SinMode::NumberofParams()
-{
-	return 2 + ColorMode::NumberofParams();
-}
-String SinMode::GetName(int Number)
-{
-	auto lastno = ColorMode::NumberofParams();
-	if (Number == 0 + lastno)
-	{
-		return "ho";
-	}
-	else if (Number == 1 + lastno)
-	{
-		return "vo";
-	}
-	else
-	{
-		return ColorMode::GetName(Number);
-	}
-}
-String SinMode::Get(String Name)
-{
-	if (Name == "ho")
-	{
-		return String(HorizontalOffset);
-	}
-	else if (Name == "vo")
-	{
-		return String(VerticalOffset);
-	}
-	else
-	{
-		return ColorMode::Get(Name);
-	}
 }
