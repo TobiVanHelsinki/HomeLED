@@ -241,11 +241,11 @@ bool SetMode(String s)
 		LEDsStop();
 		return true;
 	}
-	else if (CurrentMode != NULL && s == CurrentMode->ID())
+	else if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;
 	}
-	else if (s == "rainbow")
+	else if (s == RainbowMode::ID)
 	{
 		CurrentMode = new RainbowMode(leds);
 	}
@@ -408,7 +408,7 @@ String CurrentConfig2String()
 	Return += "br=" + String(CurrentBrigthnes) + "&";
 	Return += "n=" + String(CurrentNumberOfLeds) + "&";
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
-	Return += "m=" + String(CurrentMode->ID()) + "&";
+	Return += "m=" + String(CurrentMode->GetID()) + "&";
 	for (size_t i = 0; i < CurrentMode->NumberofParams(); i++)
 	{
 		auto parname = CurrentMode->GetName(i);

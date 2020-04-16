@@ -3,8 +3,9 @@
 RainbowMode::RainbowMode(ILEDProvider* leds) : ModeBase(leds)
 {
 }
+String RainbowMode::ID = "d";
 
-String RainbowMode::ID()
+String RainbowMode::GetID()
 {
 	return "rainbow";
 }

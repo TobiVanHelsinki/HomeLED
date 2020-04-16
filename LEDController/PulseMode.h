@@ -6,7 +6,7 @@ class PulseMode :
 public:
 	PulseMode(ILEDProvider* leds);
 
-	String ID();
+	String GetID();
 	String Set(String Name, String Value) override;
 private:
 };

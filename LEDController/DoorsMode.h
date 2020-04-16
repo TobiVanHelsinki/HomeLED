@@ -6,7 +6,7 @@ class DoorsMode : public SinMode
 public:
 	DoorsMode(ILEDProvider* leds, int pin, int* doorPinMap);
 	void NextState();
-	String ID();
+	String GetID();
 	//virtual void ICACHE_RAM_ATTR Interrupt(int Pin) override;
 private:
 	void SetDoorPixels(int Start, int End, int CurrentColor);

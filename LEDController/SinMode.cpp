@@ -50,7 +50,7 @@ void SinMode::BuildTable(bool Verbose)
 	}
 }
 
-String SinMode::ID()
+String SinMode::GetID()
 {
 	return "sin";
 }

@@ -72,7 +72,7 @@ void KnightRiderMode::NextState()
 	//}
 }
 
-String KnightRiderMode::ID()
+String KnightRiderMode::GetID()
 {
 	return "knightrider";
 }

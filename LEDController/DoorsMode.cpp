@@ -1,6 +1,6 @@
 #include "DoorsMode.h"
 
-String DoorsMode::ID()
+String DoorsMode::GetID()
 {
 	return "doors";
 }

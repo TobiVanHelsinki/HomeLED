@@ -6,7 +6,7 @@ class ColorMode :
 {
 public:
 	ColorMode(ILEDProvider* leds);
-	String ID();
+	String GetID();
 	void NextState();
 	int NumberofParams() override;
 	String GetName(int Number) override;

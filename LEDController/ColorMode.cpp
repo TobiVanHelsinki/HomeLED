@@ -12,7 +12,7 @@ void ColorMode::NextState()
 	}
 }
 
-String ColorMode::ID()
+String ColorMode::GetID()
 {
 	return "color";
 }

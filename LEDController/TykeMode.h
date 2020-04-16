@@ -6,7 +6,7 @@ class TykeMode :
 public:
 	TykeMode(ILEDProvider* leds);
 	virtual void NextState();
-	String ID();
+	String GetID();
 	int NumberofParams() override;
 	String GetName(int Number) override;
 	String Get(String Name) override;

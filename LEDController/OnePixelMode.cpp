@@ -5,7 +5,7 @@ OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds)
 	Serial.println("pixel");
 }
 
-String OnePixelMode::ID()
+String OnePixelMode::GetID()
 {
 	return "pixel";
 }
