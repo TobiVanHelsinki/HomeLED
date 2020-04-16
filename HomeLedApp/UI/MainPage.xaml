@@ -104,12 +104,13 @@
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
                     <ui:SliderElement Grid.Row="1" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider"/>
-                    <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider"/>
-                    <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider"/>
-                    <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider"/>
-                    <ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
                 </Grid>
+                <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider"/>
+                <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider"/>
+                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider"/>
+                <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider"/>
+                <ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>
+                <ui:SliderElement Grid.Row="1" TitleResource="Width" Property="Model.Width" x:Name="WidthSlider"/>
                 <Grid x:Name="Panel_SinParameter" IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

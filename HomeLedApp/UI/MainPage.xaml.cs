@@ -64,6 +64,7 @@ namespace HomeLedApp.UI
                 SatSlider.IsVisible = true;
                 BriSlider.IsVisible = true;
                 SpeedSlider.IsVisible = true;
+                WidthSlider.IsVisible = false;
                 switch (Model.CurrentMode)
                 {
                     case Modes.on:
@@ -90,6 +91,15 @@ namespace HomeLedApp.UI
                     case Modes.pixel:
                         break;
                     case Modes.pulse:
+                        break;
+                    case Modes.tyke:
+                        HueFrame.IsVisible = false;
+                        HueSlider.IsVisible = false;
+                        LumSlider.IsVisible = false;
+                        SatSlider.IsVisible = false;
+                        break;
+                    case Modes.knightrider:
+                        WidthSlider.IsVisible = true;
                         break;
                     default:
                         break;

@@ -15,6 +15,8 @@ namespace HomeLedApp.Model
         color,
         pixel,
         pulse,
+        tyke,
+        knightrider,
     }
 
     public static class ModesExtension

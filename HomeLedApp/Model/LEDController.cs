@@ -153,8 +153,8 @@ namespace HomeLedApp.Model
         public double Brigthnes_Max => 255;
         public double Brigthnes_Min => 0;
 
+        private int _Speed;
         [LedServerRelevant("v")]
-        public int _Speed;
         public int Speed
         {
             get => (int)(1000.0 / _Speed);
@@ -175,8 +175,8 @@ namespace HomeLedApp.Model
         public double NumberOfLeds_Max => 150;
         public double NumberOfLeds_Min => 0;
 
+        private int _Sin_VerticalOffset;
         [LedServerRelevant("vo")]
-        public int _Sin_VerticalOffset;
         public int Sin_VerticalOffset
         {
             get => (_Sin_VerticalOffset < 0 ? -1 : 1) * _Sin_VerticalOffset;
@@ -192,8 +192,8 @@ namespace HomeLedApp.Model
             set { if (_Sin_VerticalOffset_Neg != value) { _Sin_VerticalOffset_Neg = value; NotifyPropertyChanged(); _Sin_VerticalOffset *= -1; NotifyPropertyChanged(nameof(Sin_VerticalOffset)); } }
         }
 
-        [LedServerRelevant("ho")]
         public int _Sin_HorizontalOffset;
+        [LedServerRelevant("ho")]
         public int Sin_HorizontalOffset
         {
             get => (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset;
@@ -210,8 +210,19 @@ namespace HomeLedApp.Model
             set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset *= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
         }
 
+        public double Width_Max => 10;
+        public double Width_Min => 0;
+
+        private double _Width;
+        [LedServerRelevant("width")]
+        public double Width
+        {
+            get => _Width;
+            set { if (_Width != value) { _Width = value; NotifyPropertyChanged(); } }
+        }
+
+        private int _Rainbow_Rand;
         [LedServerRelevant("rand")]
-        public int _Rainbow_Rand;
         public bool Rainbow_Rand
         {
             get => _Rainbow_Rand == 1 ? true : false;
@@ -318,6 +329,7 @@ namespace HomeLedApp.Model
             Sin_VerticalOffset = 5;
             Sin_HorizontalOffset = 2;
             NetworkCommunicationInProgress = false;
+            Width = 6;
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -352,9 +364,8 @@ namespace HomeLedApp.Model
             try
             {
                 var props = GetType().GetProperties().Where(x => x.CustomAttributes.FirstOrDefault(y => y.AttributeType == typeof(LedServerRelevantAttribute)) != null);
-                var fields = GetType().GetFields().Where(x => x.CustomAttributes.FirstOrDefault(y => y.AttributeType == typeof(LedServerRelevantAttribute)) != null);
-                var both = props.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())).Concat(fields.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString())));
-                URLParam = both.Aggregate("", (a, c) => a += "&" + c.Item1 + (string.IsNullOrEmpty(c.Item2) ? "" : ("=" + c.Item2))).Replace("?&", "?");
+                var attributes = props.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString()));
+                URLParam = attributes.Aggregate("", (a, c) => a += "&" + c.Item1 + (string.IsNullOrEmpty(c.Item2) ? "" : ("=" + c.Item2))).Replace("?&", "?");
             }
             catch (Exception)
             {
