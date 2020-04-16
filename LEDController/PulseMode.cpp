@@ -5,9 +5,11 @@ PulseMode::PulseMode(ILEDProvider* leds) : SinMode(leds)
 	SinMode::Set("vo", "0");
 }
 
+String PulseMode::ID = "pulse";
+
 String PulseMode::GetID()
 {
-	return "pulse";
+	return ID;
 }
 
 String PulseMode::Set(String Name, String Value)

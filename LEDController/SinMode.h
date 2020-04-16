@@ -7,6 +7,7 @@ class SinMode :
 public:
 	SinMode(ILEDProvider* leds);
 	virtual void NextState();
+	static String ID;
 	String GetID();
 	int NumberofParams() override;
 	String GetName(int Number) override;

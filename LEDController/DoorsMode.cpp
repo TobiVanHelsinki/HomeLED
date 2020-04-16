@@ -1,10 +1,11 @@
 #include "DoorsMode.h"
 
+String DoorsMode::ID = "doors";
+
 String DoorsMode::GetID()
 {
-	return "doors";
+	return ID;
 }
-
 DoorsMode::DoorsMode(ILEDProvider* leds, int doorcount, int* pinDoorMap) : SinMode(leds)
 {
 	DoorCount = doorcount;

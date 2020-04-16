@@ -11,10 +11,11 @@ void ColorMode::NextState()
 		leds->setPixelColor(i, CurrentColor);
 	}
 }
+String ColorMode::ID = "color";
 
 String ColorMode::GetID()
 {
-	return "color";
+	return ID;
 }
 
 String ColorMode::Set(String Name, String Value)

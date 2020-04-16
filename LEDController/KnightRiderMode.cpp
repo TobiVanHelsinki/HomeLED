@@ -72,9 +72,11 @@ void KnightRiderMode::NextState()
 	//}
 }
 
+String KnightRiderMode::ID = "knightrider";
+
 String KnightRiderMode::GetID()
 {
-	return "knightrider";
+	return ID;
 }
 
 String KnightRiderMode::Set(String Name, String Value)

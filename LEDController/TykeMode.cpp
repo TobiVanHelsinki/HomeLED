@@ -17,9 +17,11 @@ void TykeMode::NextState()
 	leds->setPixelColor(leds->numPixels() - Position, ColorRight);        //  Set pixel's color (in RAM)
 }
 
+String TykeMode::ID = "tyke";
+
 String TykeMode::GetID()
 {
-	return "tyke";
+	return ID;
 }
 
 String TykeMode::Set(String Name, String Value)

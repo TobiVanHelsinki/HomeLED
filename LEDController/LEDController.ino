@@ -249,31 +249,31 @@ bool SetMode(String s)
 	{
 		CurrentMode = new RainbowMode(leds);
 	}
-	else if (s == "color")
+	else if (s == ColorMode::ID)
 	{
 		CurrentMode = new ColorMode(leds);
 	}
-	else if (s == "sin")
+	else if (s == SinMode::ID)
 	{
 		CurrentMode = new SinMode(leds);
 	}
-	else if (s == "pulse")
+	else if (s == PulseMode::ID)
 	{
 		CurrentMode = new PulseMode(leds);
 	}
-	else if (s == "pixel")
+	else if (s == OnePixelMode::ID)
 	{
 		CurrentMode = new OnePixelMode(leds);
 	}
-	else if (s == "knigthrider")
+	else if (s == KnightRiderMode::ID)
 	{
 		CurrentMode = new KnightRiderMode(leds);
 	}
-	else if (s == "tyke")
+	else if (s == TykeMode::ID)
 	{
 		CurrentMode = new TykeMode(leds);
 	}
-	else if (s == "doors")
+	else if (s == DoorsMode::ID)
 	{
 		int maxpin = D2 > D3 ? D2 : D3;
 		maxpin = maxpin > D4 ? maxpin : D4;

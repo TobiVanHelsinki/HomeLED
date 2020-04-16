@@ -6,9 +6,9 @@ class RainbowMode :
 	public ModeBase
 {
 public:
-	const static String ID;
 	RainbowMode(ILEDProvider* leds);
 	void NextState();
+	static String ID;
 	String GetID();
 	int NumberofParams() override;
 	String GetName(int Number) override;

@@ -6,6 +6,7 @@ class OnePixelMode :
 {
 public:
 	OnePixelMode(ILEDProvider* leds);
+	static String ID;
 	String GetID();
 	void NextState();
 private:
