@@ -7,7 +7,7 @@ KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 
 void KnightRiderMode::NextState()
 {
-	//auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 128);
+	//auto BackgroundColor = Adafruit_NeoPixel::Color(0, 10, 90);
 	auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 0);
 	if (CurrentPosition >= leds->numPixels())
 	{
