@@ -43,7 +43,49 @@ String ModeBase::SetinBoundsAndReport(int* savePlace, String name, String parame
 	}
 }
 
+String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String parameter, uint8_t min, uint8_t max)
+{
+	auto newVal = parameter.toInt();
+	if (newVal != (*savePlace))
+	{
+		if (newVal > max)
+		{
+			newVal = max;
+		}
+		else if (newVal < min)
+		{
+			newVal = min;
+		}
+		(*savePlace) = newVal;
+		return "Set " + name + " to " + String(newVal) + "\n";
+	}
+	else
+	{
+		return String();
+	}
+}
 String ModeBase::SetinBoundsAndReport(uint32_t* savePlace, String name, String parameter, uint32_t min, uint32_t max)
+{
+	auto newVal = parameter.toInt();
+	if (newVal != (*savePlace))
+	{
+		if (newVal > max)
+		{
+			newVal = max;
+		}
+		else if (newVal < min)
+		{
+			newVal = min;
+		}
+		(*savePlace) = newVal;
+		return "Set " + name + " to " + String(newVal) + "\n";
+	}
+	else
+	{
+		return String();
+	}
+}
+String ModeBase::SetinBoundsAndReport(uint16_t* savePlace, String name, String parameter, uint16_t min, uint16_t max)
 {
 	auto newVal = parameter.toInt();
 	if (newVal != (*savePlace))

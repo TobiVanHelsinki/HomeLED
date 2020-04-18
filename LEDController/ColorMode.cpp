@@ -22,9 +22,9 @@ String ColorMode::GetID()
 std::vector<String> ColorMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("r");
-	names.push_back("g");
-	names.push_back("b");
+	names.push_back("color_h");
+	names.push_back("color_s");
+	names.push_back("color_v");
 	auto baseNames = ModeBase::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
@@ -35,17 +35,17 @@ std::vector<String> ColorMode::ParameterNames()
 
 String ColorMode::Get(String Name)
 {
-	if (Name == "r")
+	if (Name == "color_h")
 	{
-		return String(CurrentColor_r);
+		return String(CurrentColor_h);
 	}
-	else if (Name == "g")
+	else if (Name == "color_s")
 	{
-		return String(CurrentColor_g);
+		return String(CurrentColor_s);
 	}
-	else if (Name == "b")
+	else if (Name == "color_v")
 	{
-		return String(CurrentColor_b);
+		return String(CurrentColor_v);
 	}
 	else
 	{
@@ -55,36 +55,31 @@ String ColorMode::Get(String Name)
 
 String ColorMode::Set(String Name, String Value)
 {
-	if (Name == "r")
+	if (Name == "color_h")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor_r, "Red", Value);
+		auto result = SetinBoundsAndReport(&CurrentColor_h, "Hue", Value);
 		RefreshColor();
 		return result;
 	}
-	else if (Name == "g")
+	else if (Name == "color_s")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor_g, "Green", Value);
+		auto result = SetinBoundsAndReport(&CurrentColor_s, "Saturation", Value);
 		RefreshColor();
 		return result;
 	}
-	else if (Name == "b")
+	else if (Name == "color_v")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor_b, "Blue", Value);
+		auto result = SetinBoundsAndReport(&CurrentColor_v, "Value ", Value);
 		RefreshColor();
 		return result;
-	}
-	else if (Name == "col")
-	{
-		return SetinBoundsAndReport(&CurrentColor, "Color", Value);
 	}
 	return ModeBase::Set(Name, Value);
 }
 
 void ColorMode::RefreshColor()
 {
-	CurrentColor = Adafruit_NeoPixel::Color(
-		(int)(CurrentColor_r),
-		(int)(CurrentColor_g),
-		(int)(CurrentColor_b)
-	);
+	CurrentColor = Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, CurrentColor_h);
+	CurrentColor_r = CurrentColor << 16;
+	CurrentColor_g = CurrentColor << 8;
+	CurrentColor_b = CurrentColor << 0;
 }

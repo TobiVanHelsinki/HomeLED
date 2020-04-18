@@ -18,6 +18,6 @@ protected:
 	int CurrentDirection = false;
 	int CurrentPosition = 0;
 	int PositionBackward = 0;
-	int Width = 10;
-	int Fringe = 0;
+	int Width = 30;
+	int Fringe = 10;
 };

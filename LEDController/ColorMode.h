@@ -14,8 +14,11 @@ public:
 	String Set(String Name, String Value) override;
 protected:
 	uint32_t CurrentColor = 0xE58200;
-	uint32_t CurrentColor_r = 229;
-	uint32_t CurrentColor_g = 130;
-	uint32_t CurrentColor_b = 0;
+	uint8_t CurrentColor_r = 229;
+	uint8_t CurrentColor_g = 130;
+	uint8_t CurrentColor_b = 0;
+	uint16_t CurrentColor_h = 154;
+	uint8_t CurrentColor_s = 255;
+	uint8_t CurrentColor_v = 229;
 	void RefreshColor();
 };
