@@ -5,6 +5,9 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.Model
 {
+    /// <summary>
+    /// as from https://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+    /// </summary>
     public static class HSVColorExtension
     {
         public static void ToHSV(this Color color, out double hue, out double saturation, out double value)

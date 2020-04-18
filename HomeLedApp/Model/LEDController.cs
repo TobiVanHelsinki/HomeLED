@@ -92,56 +92,55 @@ namespace HomeLedApp.Model
             }
         }
 
+        public double Hue_Min => 0;
+        public double Hue_Max => 360;
         public double Hue
         {
             get => CurrentColor.Hue * 360.0;
             set => CurrentColor = CurrentColor.WithHue(value / 360.0);
         }
 
-        public double Hue_Max => 360;
-        public double Hue_Min => 0;
-
+        public double Saturation_Min => 0;
+        public double Saturation_Max => 100;
         public double Saturation
         {
             get => CurrentColor.Saturation * 100.0;
             set => CurrentColor = CurrentColor.WithSaturation(value / 100.0);
         }
 
-        public double Saturation_Max => 100;
-        public double Saturation_Min => 0;
+        public double Luminosity_Min => 0;
+        public double Luminosity_Max => 100;
         public double Luminosity
         {
             get => CurrentColor.Luminosity * 100.0;
             set => CurrentColor = CurrentColor.WithLuminosity(value / 100.0);
         }
 
-        public double Luminosity_Max => 100;
-        public double Luminosity_Min => 0;
-
         [LedServerRelevant("color_h")]
-        public short Controller_HSV_Hue
+        public ushort Controller_HSV_Hue
         {
-            get => (short)(CurrentColor.Hue * short.MaxValue);
-            set => CurrentColor = CurrentColor.WithHue(value / short.MaxValue);
+            get => (ushort)(CurrentColor.Hue * ushort.MaxValue);
+            set => CurrentColor = CurrentColor.WithHue(value / ushort.MaxValue);
         }
 
         [LedServerRelevant("color_s")]
         public byte Controller_HSV_Saturation
         {
             get => (byte)(CurrentColor.Saturation_HSV() * byte.MaxValue);
-            set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / short.MaxValue, value / byte.MaxValue, Controller_HSV_Value / byte.MaxValue); } }
+            set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / ushort.MaxValue, value / byte.MaxValue, Controller_HSV_Value / byte.MaxValue); } }
         }
 
+        public double Value_Min => 0;
+        public double Value_Max => 100;
         [LedServerRelevant("color_v")]
         public byte Controller_HSV_Value
         {
             get => (byte)(CurrentColor.Value_HSV() * byte.MaxValue);
-            set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / short.MaxValue, Controller_HSV_Saturation / byte.MaxValue, value / byte.MaxValue); } }
+            set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / ushort.MaxValue, Controller_HSV_Saturation / byte.MaxValue, value / byte.MaxValue); } }
         }
 
-        public double Value_Max => 100;
-        public double Value_Min => 0;
-
+        public double Brigthnes_Min => 0;
+        public double Brigthnes_Max => 255;
         private int _Brigthnes;
         [LedServerRelevant("br")]
         public int Brigthnes
@@ -150,20 +149,18 @@ namespace HomeLedApp.Model
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
-        public double Brigthnes_Max => 255;
-        public double Brigthnes_Min => 0;
-
+        public double Speed_Min => 0;
+        public double Speed_Max => 50;
         private int _Speed;
         [LedServerRelevant("v")]
         public int Speed
         {
-            get => (int)(1000.0 / _Speed);
-            set { if (_Speed != value) { _Speed = value < 1 ? 1000 : (int)(1000.0 / value); NotifyPropertyChanged(); } }
+            get => _Speed;
+            set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
 
-        public double Speed_Max => 50;
-        public double Speed_Min => 0;
-
+        public double NumberOfLeds_Min => 0;
+        public double NumberOfLeds_Max => 300;
         private int _NumberOfLeds;
         [LedServerRelevant("n")]
         public int NumberOfLeds
@@ -172,9 +169,8 @@ namespace HomeLedApp.Model
             set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
         }
 
-        public double NumberOfLeds_Max => 300;
-        public double NumberOfLeds_Min => 0;
-
+        public double Sin_VerticalOffset_Min => 0;
+        public double Sin_VerticalOffset_Max => 30;
         private int _Sin_VerticalOffset;
         [LedServerRelevant("vo")]
         public int Sin_VerticalOffset
@@ -183,8 +179,6 @@ namespace HomeLedApp.Model
             set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = (Sin_VerticalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
 
-        public double Sin_VerticalOffset_Max => 30;
-        public double Sin_VerticalOffset_Min => 0;
         private bool _Sin_VerticalOffset_Neg;
         public bool Sin_VerticalOffset_Neg
         {
@@ -192,6 +186,8 @@ namespace HomeLedApp.Model
             set { if (_Sin_VerticalOffset_Neg != value) { _Sin_VerticalOffset_Neg = value; NotifyPropertyChanged(); _Sin_VerticalOffset *= -1; NotifyPropertyChanged(nameof(Sin_VerticalOffset)); } }
         }
 
+        public double Sin_HorizontalOffset_Min => 0;
+        public double Sin_HorizontalOffset_Max => 10;
         public int _Sin_HorizontalOffset;
         [LedServerRelevant("ho")]
         public int Sin_HorizontalOffset
@@ -200,9 +196,6 @@ namespace HomeLedApp.Model
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = (Sin_HorizontalOffset_Neg ? -1 : 1) * value; NotifyPropertyChanged(); } }
         }
 
-        public double Sin_HorizontalOffset_Max => 10;
-        public double Sin_HorizontalOffset_Min => 0;
-
         private bool _Sin_HorizontalOffset_Neg;
         public bool Sin_HorizontalOffset_Neg
         {
@@ -210,15 +203,25 @@ namespace HomeLedApp.Model
             set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset *= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
         }
 
-        public double Width_Max => 100;
         public double Width_Min => 0;
-
+        public double Width_Max => NumberOfLeds_Max;
         private double _Width;
         [LedServerRelevant("width")]
         public double Width
         {
             get => _Width;
             set { if (_Width != value) { _Width = value; NotifyPropertyChanged(); } }
+        }
+
+        public double Fringe_Min => 0;
+        public double Fringe_Max => Width_Max;
+
+        private double _Fringe;
+        [LedServerRelevant("fringe")]
+        public double Fringe
+        {
+            get => _Fringe;
+            set { if (_Fringe != value) { _Fringe = value; NotifyPropertyChanged(); } }
         }
 
         private int _Rainbow_Rand;
@@ -324,12 +327,13 @@ namespace HomeLedApp.Model
             CurrentMode = Modes.sin;
             CurrentColor = new Color(0.9, 0.5, 0);
             Brigthnes = 50;
-            Speed = 62;
+            Speed = 16;
             NumberOfLeds = 150;
             Sin_VerticalOffset = 5;
             Sin_HorizontalOffset = 2;
-            NetworkCommunicationInProgress = false;
             Width = 50;
+            Fringe = 10;
+            NetworkCommunicationInProgress = false;
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
