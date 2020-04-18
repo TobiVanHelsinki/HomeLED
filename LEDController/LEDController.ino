@@ -205,9 +205,6 @@ void LEDsStart()
 	{
 		return;
 	}
-	UpdateNumOfLeds(CurrentNumberOfLeds);
-	UpdateBri(CurrentBrigthnes);
-	UpdateSpeed(CurrentLEDRefreshTime);
 	os_timer_setfn(&ShowTimer, RefreshLeds, NULL);
 	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
 	Serial.println("LEDs started");
@@ -301,18 +298,23 @@ static int CropAtBounds(int newVal, int minVal, int maxVal)
 {
 	if (newVal < minVal)
 	{
-		newVal = minVal;
+		return minVal;
 	}
 	else if (newVal > maxVal)
 	{
-		newVal = maxVal;
+		return maxVal;
 	}
 	return newVal;
 }
 
+// Hz Value from 1 to 50
 bool UpdateSpeed(int newValue)
 {
-	newValue = CropAtBounds(newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
+	if (newValue == 0)
+	{
+		newValue = 1;
+	}
+	newValue = CropAtBounds(1000 / newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
 	if (newValue != CurrentLEDRefreshTime)
 	{
 		CurrentLEDRefreshTime = newValue;
@@ -478,11 +480,11 @@ String ClearConfigMemory()
 {
 	if (ClearEEPROM(StorageAdress_Start_Configuration, StorageAdress_End_Configuration))
 	{
-		return "SUCCESS storing Config";
+		return "SUCCESS cleaning Config";
 	}
 	else
 	{
-		return "ERROR storing Config";
+		return "ERROR cleaning Config";
 	}
 }
 

@@ -16,8 +16,8 @@
 #include "ILEDProvider.h"
 #ifdef HARDWARE_IS_NEOPIXEL
 #include "LEDProvider_NeoPixel.h"
-//constexpr auto LEDsPin = D1; //Tobi
-constexpr auto LEDsPin = D6; //Tyke
+constexpr auto LEDsPin = D1; //Tobi
+//constexpr auto LEDsPin = D6; //Tyke
 #endif
 #ifdef HARDWARE_IS_ANALOG
 #include "LEDProvider_Analog.h"
@@ -42,13 +42,13 @@ constexpr auto MinNumberOfLeds = 1;
 constexpr auto MinLEDRefreshTime = 20;
 constexpr auto MinBrigthnes = 0;
 
-constexpr auto MaxNumberOfLeds = 252; //Tyke
-//constexpr auto MaxNumberOfLeds = 150; //Tobi
+constexpr auto MaxNumberOfLeds = 150; //Tobi
+//constexpr auto MaxNumberOfLeds = 252; //Tyke
 constexpr auto MaxLEDRefreshTime = 10000;
 constexpr auto MaxBrigthnes = 255;
 
 auto CurrentNumberOfLeds = MaxNumberOfLeds;
-auto CurrentLEDRefreshTime = 60;
+auto CurrentLEDRefreshTime = 16;
 auto CurrentBrigthnes = 100;
 
 constexpr auto StartMode = "sin";
