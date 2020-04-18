@@ -1,7 +1,7 @@
 #pragma once
-#include "ColorMode.h"
+#include "TwoColorMode.h"
 class KnightRiderMode :
-	public ColorMode
+	public TwoColorMode
 {
 public:
 	KnightRiderMode(ILEDProvider* leds);
@@ -19,5 +19,5 @@ protected:
 	int CurrentPosition = 0;
 	int PositionBackward = 0;
 	int Width = 30;
-	int Fringe = 10;
+	int Fringe = 25;
 };

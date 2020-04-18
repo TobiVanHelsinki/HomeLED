@@ -1,14 +1,13 @@
 #include "KnightRiderMode.h"
 #include "math.h"
-KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
+KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : TwoColorMode(leds)
 {
 	CurrentColor = Adafruit_NeoPixel::Color(255, 0, 0);
+	SecondColor = Adafruit_NeoPixel::Color(255, 0, 0);
 }
 
 void KnightRiderMode::NextState()
 {
-	//auto BackgroundColor = Adafruit_NeoPixel::Color(0, 10, 90);
-	auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 0);
 	if (CurrentPosition >= leds->numPixels())
 	{
 		CurrentDirection = !CurrentDirection;
@@ -16,7 +15,7 @@ void KnightRiderMode::NextState()
 	}
 	for (size_t i = 0; i < leds->numPixels(); i++)
 	{
-		leds->setPixelColor(i, BackgroundColor);
+		leds->setPixelColor(i, SecondColor);
 	}
 	PrintTail(CurrentPosition);
 	CurrentPosition++;
@@ -75,7 +74,7 @@ std::vector<String> KnightRiderMode::ParameterNames()
 	std::vector<String> names;
 	names.push_back("width");
 	names.push_back("fringe");
-	auto baseNames = ColorMode::ParameterNames();
+	auto baseNames = TwoColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
 		names.push_back(baseNames.at(i));
@@ -95,7 +94,7 @@ String KnightRiderMode::Get(String Name)
 	}
 	else
 	{
-		return ColorMode::Get(Name);
+		return TwoColorMode::Get(Name);
 	}
 }
 
@@ -117,5 +116,5 @@ String KnightRiderMode::Set(String Name, String Value)
 		}
 		return SetinBoundsAndReport(&Fringe, "Fringe", Value);
 	}
-	return ColorMode::Set(Name, Value);
+	return TwoColorMode::Set(Name, Value);
 }
