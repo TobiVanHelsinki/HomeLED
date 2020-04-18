@@ -12,8 +12,11 @@ public:
 	String Get(String Name) override;
 	String Set(String Name, String Value) override;
 protected:
-	int Direction = false;
-	int PositionForward = 0;
+	void PrintTail(size_t pos);
+	uint32_t CalculateFringedColor(size_t pos);
+	size_t CalculateMirroredPosition(size_t pos);
+	int CurrentDirection = false;
+	int CurrentPosition = 0;
 	int PositionBackward = 0;
 	int Width = 10;
 	int Fringe = 0;

@@ -1,4 +1,5 @@
 #include "KnightRiderMode.h"
+#include "math.h"
 KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 {
 	CurrentColor = Adafruit_NeoPixel::Color(255, 0, 0);
@@ -6,72 +7,50 @@ KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 
 void KnightRiderMode::NextState()
 {
-	//leds->clear();
-	if (Direction)
+	auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 128);
+	if (CurrentPosition >= leds->numPixels())
 	{
-		if (PositionForward >= leds->numPixels())
+		CurrentDirection = !CurrentDirection;
+		CurrentPosition = 0;
+	}
+	for (size_t i = 0; i < leds->numPixels(); i++)
+	{
+		leds->setPixelColor(i, BackgroundColor);
+	}
+	PrintTail(CurrentPosition);
+	CurrentPosition++;
+}
+
+void KnightRiderMode::PrintTail(size_t startPos)
+{
+	auto max = leds->numPixels();
+	for (size_t i = 0; i < Width; i++)
+	{
+		auto pixelpos = startPos + i;
+		if (pixelpos >= max)
 		{
-			PositionForward = Width;
-			Direction = !Direction;
+			pixelpos = max - (pixelpos - max);
 		}
-		else
-		{
-			PositionForward++;
-		}
-		for (int k = PositionForward; k >= 0; k--) {
-			if (k > PositionForward - Width) {
-				leds->setPixelColor(k, CurrentColor);
-			}
-			else {
-				leds->setPixelColor(k, 0);
-			}
-		}
+		leds->setPixelColor(CalculateMirroredPosition(pixelpos), CalculateFringedColor(i));
+	}
+}
+uint32_t KnightRiderMode::CalculateFringedColor(size_t innerPos)
+{
+	auto max = CurrentColor_v;
+	auto intense = 0.0f;
+	if (Fringe <= 0 || innerPos >= Fringe)
+	{
+		intense = max;
 	}
 	else
 	{
-		if (PositionBackward < 0)
-		{
-			PositionBackward = leds->numPixels() - Width - 1;
-			Direction = !Direction;
-		}
-		else
-		{
-			PositionBackward--;
-		}
-		for (int k = PositionBackward; k < leds->numPixels(); k++) {
-			if (k < PositionBackward + Width) {
-				leds->setPixelColor(k, CurrentColor);
-			}
-			else {
-				leds->setPixelColor(k, 0);
-			}
-		}
+		intense = Fringe * max / (float)innerPos;
 	}
-
-	//for (int PositionForward = Width; PositionForward < leds->numPixels(); PositionForward++) { // For each pixel in strip...
-	//	for (int k = PositionForward; k >= 0; k--) {
-	//		if (k > PositionForward - Width) {
-	//			leds->setPixelColor(k, CurrentColor);
-	//		}
-	//		else {
-	//			leds->setPixelColor(k, 0);
-	//		}
-	//	}
-	//	leds->show();                          //  Update strip to match
-	//	delay(wait);                           //  Pause for a moment
-	//}
-	//for (int PositionBackward = leds->numPixels() - Width - 1; PositionBackward >= 0; PositionBackward--) { // For each pixel in strip...
-	//	for (int k = PositionBackward; k < leds->numPixels(); k++) {
-	//		if (k < PositionBackward + Width) {
-	//			leds->setPixelColor(k, CurrentColor);
-	//		}
-	//		else {
-	//			leds->setPixelColor(k, 0);
-	//		}
-	//	}
-	//	leds->show();                          //  Update strip to match
-	//	delay(wait);                           //  Pause for a moment
-	//}
+	return Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, (uint16_t)CurrentColor_v * intense);
+}
+size_t KnightRiderMode::CalculateMirroredPosition(size_t pos)
+{
+	return CurrentDirection ? pos : leds->numPixels() - 1 - pos;
 }
 
 String KnightRiderMode::ID = "knightrider";
