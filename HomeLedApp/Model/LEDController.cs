@@ -210,7 +210,7 @@ namespace HomeLedApp.Model
             set { if (_Sin_HorizontalOffset_Neg != value) { _Sin_HorizontalOffset_Neg = value; NotifyPropertyChanged(); _Sin_HorizontalOffset *= -1; NotifyPropertyChanged(nameof(Sin_HorizontalOffset)); } }
         }
 
-        public double Width_Max => 10;
+        public double Width_Max => 100;
         public double Width_Min => 0;
 
         private double _Width;
@@ -329,7 +329,7 @@ namespace HomeLedApp.Model
             Sin_VerticalOffset = 5;
             Sin_HorizontalOffset = 2;
             NetworkCommunicationInProgress = false;
-            Width = 6;
+            Width = 50;
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
