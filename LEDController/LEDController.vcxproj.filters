@@ -83,9 +83,6 @@
     <ClCompile Include="EEPROMHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tyke.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LEDProvider_Analog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PulseMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TykeMode.cpp">
