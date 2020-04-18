@@ -35,7 +35,7 @@ String ModeBase::SetinBoundsAndReport(int* savePlace, String name, String parame
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		return "Set " + name + " to " + String(newVal) + "\n";
+		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else
 	{
@@ -57,7 +57,7 @@ String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String pa
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		return "Set " + name + " to " + String(newVal) + "\n";
+		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else
 	{
@@ -78,7 +78,7 @@ String ModeBase::SetinBoundsAndReport(uint32_t* savePlace, String name, String p
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		return "Set " + name + " to " + String(newVal) + "\n";
+		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else
 	{
@@ -99,7 +99,7 @@ String ModeBase::SetinBoundsAndReport(uint16_t* savePlace, String name, String p
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		return "Set " + name + " to " + String(newVal) + "\n";
+		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else
 	{
@@ -120,7 +120,7 @@ String ModeBase::SetinBoundsAndReport(float* savePlace, String name, String para
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		return "Set " + name + " to " + String(newVal) + "\n";
+		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else
 	{

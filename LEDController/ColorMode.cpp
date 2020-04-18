@@ -69,7 +69,7 @@ String ColorMode::Set(String Name, String Value)
 	}
 	else if (Name == "color_v")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor_v, "Value ", Value);
+		auto result = SetinBoundsAndReport(&CurrentColor_v, "Value", Value);
 		RefreshColor();
 		return result;
 	}
@@ -78,8 +78,8 @@ String ColorMode::Set(String Name, String Value)
 
 void ColorMode::RefreshColor()
 {
-	CurrentColor = Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, CurrentColor_h);
-	CurrentColor_r = CurrentColor << 16;
-	CurrentColor_g = CurrentColor << 8;
-	CurrentColor_b = CurrentColor << 0;
+	CurrentColor = Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, CurrentColor_v);
+	CurrentColor_r = CurrentColor >> 16;
+	CurrentColor_g = CurrentColor >> 8;
+	CurrentColor_b = CurrentColor >> 0;
 }
