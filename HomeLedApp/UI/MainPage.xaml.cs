@@ -68,6 +68,7 @@ namespace HomeLedApp.UI
                 BriSlider.IsVisible = true;
                 SpeedSlider.IsVisible = true;
                 WidthSlider.IsVisible = false;
+                FringeSlider.IsVisible = false;
                 switch (Model.CurrentMode)
                 {
                     case Modes.on:
@@ -103,6 +104,7 @@ namespace HomeLedApp.UI
                         break;
                     case Modes.knightrider:
                         WidthSlider.IsVisible = true;
+                        FringeSlider.IsVisible = true;
                         break;
                     default:
                         break;
