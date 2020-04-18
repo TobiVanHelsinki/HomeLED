@@ -18,7 +18,6 @@ protected:
 	float Scaling = 0.45;
 	void BuildTable(bool Verbose);
 	int j = 0;
-	bool DebugOutput = false;
 	inline int positive_modulo(int i, int n);
 
 	int SinTabelSize = 256;

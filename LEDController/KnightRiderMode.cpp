@@ -7,7 +7,8 @@ KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 
 void KnightRiderMode::NextState()
 {
-	auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 128);
+	//auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 128);
+	auto BackgroundColor = Adafruit_NeoPixel::Color(0, 0, 0);
 	if (CurrentPosition >= leds->numPixels())
 	{
 		CurrentDirection = !CurrentDirection;
@@ -34,19 +35,28 @@ void KnightRiderMode::PrintTail(size_t startPos)
 		leds->setPixelColor(CalculateMirroredPosition(pixelpos), CalculateFringedColor(i));
 	}
 }
+
+//innerPos from 0 to Width
 uint32_t KnightRiderMode::CalculateFringedColor(size_t innerPos)
 {
 	auto max = CurrentColor_v;
-	auto intense = 0.0f;
+	auto relative_v = 0.0f;
 	if (Fringe <= 0 || innerPos >= Fringe)
 	{
-		intense = max;
+		relative_v = max;
 	}
 	else
 	{
-		intense = Fringe * max / (float)innerPos;
+		relative_v = max * (float)innerPos / Fringe;
 	}
-	return Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, (uint16_t)CurrentColor_v * intense);
+	if (DebugOutput)
+	{
+		Serial.print("relative_v at ");
+		Serial.print(innerPos);
+		Serial.print(":");
+		Serial.println(relative_v);
+	}
+	return Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, (uint16_t)relative_v);
 }
 size_t KnightRiderMode::CalculateMirroredPosition(size_t pos)
 {
@@ -93,10 +103,18 @@ String KnightRiderMode::Set(String Name, String Value)
 {
 	if (Name == "width")
 	{
+		if (Fringe > Value.toInt())
+		{
+			Fringe = Value.toInt();
+		}
 		return SetinBoundsAndReport(&Width, "Width", Value);
 	}
 	else if (Name == "fringe")
 	{
+		if (Value.toInt() > Width)
+		{
+			Value = String(Width);
+		}
 		return SetinBoundsAndReport(&Fringe, "Fringe", Value);
 	}
 	return ColorMode::Set(Name, Value);

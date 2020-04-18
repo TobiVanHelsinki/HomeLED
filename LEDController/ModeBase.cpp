@@ -8,17 +8,33 @@ ModeBase::ModeBase(ILEDProvider* ledstouse)
 
 std::vector<String> ModeBase::ParameterNames()
 {
-	return std::vector<String>();
+	std::vector<String> names;
+	names.push_back("debug");
+	return names;
 }
 
 String ModeBase::Get(String Name)
 {
-	return String();
+	if (Name == "debug")
+	{
+		return String(DebugOutput);
+	}
+	else
+	{
+		return String();
+	}
 }
 
 String ModeBase::Set(String Name, String Value)
 {
-	return String();
+	if (Name == "debug")
+	{
+		return SetinBoundsAndReport(&DebugOutput, "Debug", Value);
+	}
+	else
+	{
+		return String();
+	}
 }
 
 String ModeBase::SetinBoundsAndReport(int* savePlace, String name, String parameter, int min, int max)

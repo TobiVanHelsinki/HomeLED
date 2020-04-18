@@ -63,7 +63,6 @@ std::vector<String> SinMode::ParameterNames()
 	names.push_back("ho");
 	names.push_back("vo");
 	names.push_back("scale");
-	names.push_back("debug");
 	names.push_back("build");
 	auto baseNames = ColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
@@ -108,10 +107,6 @@ String SinMode::Set(String Name, String Value)
 		auto result = SetinBoundsAndReport(&Scaling, "Scale", Value, 0.0, 0.5);
 		BuildTable(true);
 		return result;
-	}
-	else if (Name == "debug")
-	{
-		return SetinBoundsAndReport(&DebugOutput, "Debug", Value);
 	}
 	else if (Name == "build")
 	{
