@@ -135,6 +135,12 @@
   <data name="Edit" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="Fringe" xml:space="preserve">
+    <value>Fransen</value>
+  </data>
+  <data name="Fringe_Info" xml:space="preserve">
+    <value>Stellt ein, wie breit die Ausfransung des aktuellen Elements ist. Hierdurch können Übergänge erzeugt werden.</value>
+  </data>
   <data name="Headline_Modes" xml:space="preserve">
     <value>Modus einstellen und senden</value>
   </data>
@@ -240,7 +246,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Umkehren</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Geschwindigkeit</value>
+    <value>Geschwindigkeit in Hz</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>Die Rate, mit der die Leds aktualisiert werden. in x/Sekunde</value>
@@ -268,5 +274,11 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
     <value>Streckt den Sinus in die Höhe. Spielen Sie mit diesem Parameter doch ein wenig.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+  </data>
+  <data name="Width_Info" xml:space="preserve">
+    <value>Stellt die aktuell relevante Breite ein.</value>
   </data>
 </root>

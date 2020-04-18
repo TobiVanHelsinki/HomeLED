@@ -135,6 +135,12 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Fringe" xml:space="preserve">
+    <value>Fringe</value>
+  </data>
+  <data name="Fringe_Info" xml:space="preserve">
+    <value>Adjusts how wide the fraying of the current element is. This can be used to create transitions.</value>
+  </data>
   <data name="Headline_Modes" xml:space="preserve">
     <value>Set and send Mode</value>
   </data>
@@ -241,7 +247,7 @@
     <value>Reverse</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
+    <value>Speed in Hz</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>The rate at which the leds are updated. in x/sec</value>
@@ -269,5 +275,11 @@
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
     <value>Raises the sine wave. Why don't you play around with this parameter a little?</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="Width_Info" xml:space="preserve">
+    <value>Sets the currently relevant width.</value>
   </data>
 </root>

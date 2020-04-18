@@ -115,6 +115,24 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fringe ähnelt.
+        /// </summary>
+        public static string Fringe {
+            get {
+                return ResourceManager.GetString("Fringe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Adjusts how wide the fraying of the current element is. This can be used to create transitions. ähnelt.
+        /// </summary>
+        public static string Fringe_Info {
+            get {
+                return ResourceManager.GetString("Fringe_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Set and send Mode ähnelt.
         /// </summary>
         public static string Headline_Modes {
@@ -430,7 +448,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Speed ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speed in Hz ähnelt.
         /// </summary>
         public static string Speed {
             get {
@@ -516,6 +534,24 @@ namespace HomeLedApp.Strings {
         public static string VerticalOffset_Info {
             get {
                 return ResourceManager.GetString("VerticalOffset_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Width ähnelt.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sets the currently relevant width. ähnelt.
+        /// </summary>
+        public static string Width_Info {
+            get {
+                return ResourceManager.GetString("Width_Info", resourceCulture);
             }
         }
     }
