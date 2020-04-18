@@ -88,9 +88,6 @@ namespace HomeLedApp.Model
                 NotifyPropertyChanged(nameof(Hue));
                 NotifyPropertyChanged(nameof(Saturation));
                 NotifyPropertyChanged(nameof(Luminosity));
-                NotifyPropertyChanged(nameof(R));
-                NotifyPropertyChanged(nameof(G));
-                NotifyPropertyChanged(nameof(B));
                 NotifyPropertyChanged(nameof(CurrentColorInverse));
             }
         }
@@ -121,26 +118,29 @@ namespace HomeLedApp.Model
         public double Luminosity_Max => 100;
         public double Luminosity_Min => 0;
 
-        [LedServerRelevant("r")]
-        public int R
+        [LedServerRelevant("color_h")]
+        public short Controller_HSV_Hue
         {
-            get => (int)(CurrentColor.R * 255);
-            set => CurrentColor = new Color(value / 255.0, CurrentColor.G, CurrentColor.B);
+            get => (short)(CurrentColor.Hue * short.MaxValue);
+            set => CurrentColor = CurrentColor.WithHue(value / short.MaxValue);
         }
 
-        [LedServerRelevant("g")]
-        public int G
+        [LedServerRelevant("color_s")]
+        public byte Controller_HSV_Saturation
         {
-            get => (int)(CurrentColor.G * 255);
-            set => CurrentColor = new Color(CurrentColor.R, value / 255.0, CurrentColor.B);
+            get => (byte)(CurrentColor.Saturation_HSV() * byte.MaxValue);
+            set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / short.MaxValue, value / byte.MaxValue, Controller_HSV_Value / byte.MaxValue); } }
         }
 
-        [LedServerRelevant("b")]
-        public int B
+        [LedServerRelevant("color_v")]
+        public byte Controller_HSV_Value
         {
-            get => (int)(CurrentColor.B * 255);
-            set => CurrentColor = new Color(CurrentColor.R, CurrentColor.G, value / 255.0);
+            get => (byte)(CurrentColor.Value_HSV() * byte.MaxValue);
+            set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / short.MaxValue, Controller_HSV_Saturation / byte.MaxValue, value / byte.MaxValue); } }
         }
+
+        public double Value_Max => 100;
+        public double Value_Min => 0;
 
         private int _Brigthnes;
         [LedServerRelevant("br")]
