@@ -6,7 +6,7 @@ KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : ColorMode(leds)
 
 void KnightRiderMode::NextState()
 {
-	leds->clear();
+	//leds->clear();
 	if (Direction)
 	{
 		if (PositionForward >= leds->numPixels())

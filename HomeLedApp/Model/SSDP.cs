@@ -63,7 +63,7 @@ namespace HomeLedApp.Model
         // continue to listen for notifications until it is explicitly stopped (with a call to _DeviceLocator.StopListeningForNotifications();)
         private readonly SsdpDeviceLocator _DeviceLocator;
 
-        private double _TimerInterval = 30_000;
+        private double _TimerInterval = 45_000;
         public double TimerInterval
         {
             get => _TimerInterval;
@@ -76,7 +76,7 @@ namespace HomeLedApp.Model
         {
             _DeviceLocator = new SsdpDeviceLocator
             {
-                NotificationFilter = SearchTarget
+                NotificationFilter = SearchTarget,
             };
             _DeviceLocator.DeviceAvailable += async (sender, e) => AddToDevices(await GetDeviceOrNull(e.DiscoveredDevice));
             _DeviceLocator.DeviceUnavailable += async (sender, e) => RemoveFromDevices(await GetDeviceOrNull(e.DiscoveredDevice));
@@ -151,30 +151,44 @@ namespace HomeLedApp.Model
         {
             void AlterOnMainThread()
             {
-                var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
-                if (element is null)
+                try
                 {
-                    DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
+                    var element = DiscoveredDevices.FirstOrDefault(x => x.HostName == hostName);
+                    if (element is null)
+                    {
+                        DiscoveredDevices.Add(new LEDDevice(hostName, ipAddress));
+                    }
+                    else if (element.IP.GetHashCode() != ipAddress.GetHashCode())
+                    {
+                        element.IP = ipAddress;
+                        element.IsUpToDate = true;
+                        UpdateDeviceList(element);
+                    }
+                    else
+                    {
+                        element.IsUpToDate = true;
+                        UpdateDeviceList(element);
+                    }
                 }
-                else if (element.IP.GetHashCode() != ipAddress.GetHashCode())
+                catch (Exception ex)
                 {
-                    element.IP = ipAddress;
-                    element.IsUpToDate = true;
-                    UpdateDeviceList(element);
+                    Log.Write("Unexpected Error", ex, logType: LogType.Error);
+                }
+            }
+            try
+            {
+                if (MainThread.IsMainThread)
+                {
+                    AlterOnMainThread();
                 }
                 else
                 {
-                    element.IsUpToDate = true;
-                    UpdateDeviceList(element);
+                    MainThread.BeginInvokeOnMainThread(AlterOnMainThread);
                 }
             }
-            if (MainThread.IsMainThread)
+            catch (Exception ex)
             {
-                AlterOnMainThread();
-            }
-            else
-            {
-                MainThread.BeginInvokeOnMainThread(AlterOnMainThread);
+                Log.Write("Unexpected Error", ex, logType: LogType.Error);
             }
         }
 
@@ -196,9 +210,16 @@ namespace HomeLedApp.Model
             }
             void AlterOnMainThread()
             {
-                foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName || x.IPString == ip).ToArray())
+                try
                 {
-                    DiscoveredDevices.Remove(item);
+                    foreach (var item in DiscoveredDevices.Where(x => x.HostName == hostName || x.IPString == ip).ToArray())
+                    {
+                        DiscoveredDevices.Remove(item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Write("Unexpected Error", ex, logType: LogType.Error);
                 }
             }
             if (MainThread.IsMainThread)

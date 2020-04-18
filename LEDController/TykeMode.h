@@ -15,5 +15,5 @@ protected:
 
 	int Position = 0;
 	uint32_t ColorLeft = Adafruit_NeoPixel::Color(0, 0, 255);
-	uint32_t ColorRight = Adafruit_NeoPixel::Color(0, 152, 20);
+	uint32_t ColorRight = Adafruit_NeoPixel::Color(255, 0, 0);
 };

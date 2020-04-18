@@ -45,6 +45,7 @@ namespace HomeLedApp.UI
         public MainPage()
         {
             Instance = this;
+            Log.DisplayMessageRequested += Log_DisplayMessageRequested;
             ModesList = ModesExtension.GetModesDisplayNames().ToList();
             InitializeComponent();
             BindingContext = this;
@@ -53,6 +54,8 @@ namespace HomeLedApp.UI
             Model.SetDefaultValues();
             ColorSpectrum.Source = ImageSource.FromResource(nameof(HomeLedApp) + "." + "Assets.HueScale.png", typeof(MainPage).GetTypeInfo().Assembly);
         }
+
+        private void Log_DisplayMessageRequested(LogMessage logmessage) => DisplayAlert(logmessage.LogType.ToString(), logmessage.CombinedMessage, "OK");
 
         private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
