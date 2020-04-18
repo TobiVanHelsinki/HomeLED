@@ -448,7 +448,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Speed in Hz ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speed ähnelt.
         /// </summary>
         public static string Speed {
             get {
@@ -457,7 +457,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The rate at which the leds are updated. in x/sec ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The rate at which the leds are updated in Hz. ähnelt.
         /// </summary>
         public static string Speed_Info {
             get {

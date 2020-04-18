@@ -247,10 +247,10 @@
     <value>Reverse</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Speed in Hz</value>
+    <value>Speed</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
-    <value>The rate at which the leds are updated. in x/sec</value>
+    <value>The rate at which the leds are updated in Hz.</value>
   </data>
   <data name="StorageClear" xml:space="preserve">
     <value>Delete</value>

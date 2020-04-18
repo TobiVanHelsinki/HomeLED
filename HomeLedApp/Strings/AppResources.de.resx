@@ -246,10 +246,10 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Umkehren</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Geschwindigkeit in Hz</value>
+    <value>Geschwindigkeit</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
-    <value>Die Rate, mit der die Leds aktualisiert werden. in x/Sekunde</value>
+    <value>Die Rate, mit der die Leds aktualisiert werden in Hz.</value>
   </data>
   <data name="StorageClear" xml:space="preserve">
     <value>Löschen</value>
