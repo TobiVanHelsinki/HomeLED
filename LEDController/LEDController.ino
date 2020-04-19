@@ -21,12 +21,42 @@ bool IsLEDStarted = false;
 
 #pragma region Setups
 
+void PrintResetCause()
+{
+	//https://www.espressif.com/sites/default/files/documentation/esp8266_reset_causes_and_common_fatal_exception_causes_en.pdf
+	Serial.println("Reset Cause");
+	struct	rst_info* rtc_info = system_get_rst_info();
+	Serial.print("reset	reason:	");
+	Serial.println(rtc_info->reason);
+
+	if (rtc_info->reason == REASON_WDT_RST ||
+		rtc_info->reason == REASON_EXCEPTION_RST ||
+		rtc_info->reason == REASON_SOFT_WDT_RST) {
+		if (rtc_info->reason == REASON_EXCEPTION_RST)
+		{
+			Serial.print("Fatal	exception: ");
+			Serial.println(rtc_info->exccause);
+		}
+		Serial.print("epc1=");
+		Serial.println(rtc_info->epc1);
+		Serial.print("epc2=");
+		Serial.println(rtc_info->epc2);
+		Serial.print("epc3=");
+		Serial.println(rtc_info->epc3);
+		Serial.print("excvaddr=");
+		Serial.println(rtc_info->excvaddr);
+		Serial.print("depc=");
+		Serial.println(rtc_info->depc);
+	}
+}
+
 void setup()
 {
 	Serial.begin(115200);
 	delayMicroseconds(500);
 	Serial.println("-------------- --------------");
 	Serial.println("INIT");
+	PrintResetCause();
 	InitEEPROM(StorageAdress_EEPROMMax);
 	//ResetSystem();
 	SetupResetProcedures();
