@@ -189,7 +189,7 @@
                         TextColor="{Binding Model.CurrentColorInverse, Mode=OneWay}"
                         Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
             <ActivityIndicator Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" IsVisible="{x:Binding Model.NetworkCommunicationInProgress}" IsRunning="{x:Binding Model.NetworkCommunicationInProgress}"/>
-            <Button Text="{resx:AppResources Edit}" Grid.Row="0" Grid.Column="1" Clicked="EditURL" Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+            <Button Text="{resx:AppResources Edit}" Grid.Row="0" Grid.Column="1" Clicked="EditURL" Style="{StaticResource STDButton}"/>
             <Label Style="{StaticResource STDText}" Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap">
                 <Label.FormattedText>
                     <FormattedString>

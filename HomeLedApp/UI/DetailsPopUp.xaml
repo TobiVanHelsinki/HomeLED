@@ -26,7 +26,7 @@
                 <Button CornerRadius="5" Text="Debug" Clicked="AddDebug"/>
                 <Button CornerRadius="5" Text="Scale" Clicked="AddScale"/>
             </StackLayout>
-            <Button CornerRadius="5" Text="{resx:AppResources SendAndClose}" HorizontalOptions="Center" Clicked="OK"/>
+            <Button CornerRadius="5" Text="{resx:AppResources SendAndClose}" HorizontalOptions="Center" Clicked="OK" IsEnabled="{x:Binding Model.ControlsEnable}"/>
         </StackLayout>
     </Frame>
 </pages:PopupPage>
