@@ -1,13 +1,18 @@
-﻿using System;
+﻿//Author: Tobi van Helsinki
+
+using System;
 
 namespace HomeLedApp.Model
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-    sealed class LedServerRelevantAttribute : Attribute
+    internal sealed class LedServerRelevantAttribute : Attribute
     {
         public string ParamName { get; }
-        public LedServerRelevantAttribute(string paramname)
+        public object DefaultValue { get; }
+
+        public LedServerRelevantAttribute(string paramname, object defaultValue)
         {
+            DefaultValue = defaultValue;
             ParamName = paramname;
         }
     }

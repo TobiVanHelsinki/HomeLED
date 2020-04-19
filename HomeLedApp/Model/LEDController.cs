@@ -1,6 +1,7 @@
 ﻿//Author: Tobi van Helsinki
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Amporis.Xamarin.Forms.ColorPicker;
 using Xamarin.Forms;
 
 namespace HomeLedApp.Model
@@ -47,19 +49,11 @@ namespace HomeLedApp.Model
         }
 
         private Modes _CurrentMode;
-        [LedServerRelevant("m")]
+        [LedServerRelevant("m", Modes.sin)]
         public Modes CurrentMode
         {
             get => _CurrentMode;
             set { if (_CurrentMode != value) { _CurrentMode = value; NotifyPropertyChanged(); } }
-        }
-
-        private string _Config;
-        [LedServerRelevant("config")]
-        public string Config
-        {
-            get => _Config;
-            set { if (_Config != value) { _Config = value; NotifyPropertyChanged(); } }
         }
 
         public Color CurrentColorInverse
@@ -77,19 +71,32 @@ namespace HomeLedApp.Model
             }
         }
 
-        private Color _Color;
+        private Color _Color = new Color(0, 0, 0, 0);
         public Color CurrentColor
         {
             get => _Color;
             set
             {
-                _Color = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Hue));
-                NotifyPropertyChanged(nameof(Saturation));
-                NotifyPropertyChanged(nameof(Luminosity));
-                NotifyPropertyChanged(nameof(CurrentColorInverse));
+                var a = value.ToString();
+                var b = _Color.ToString();
+                if (a != b)
+                {
+                    _Color = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(Hue));
+                    NotifyPropertyChanged(nameof(Saturation));
+                    NotifyPropertyChanged(nameof(Luminosity));
+                    NotifyPropertyChanged(nameof(CurrentColorInverse));
+                    NotifyPropertyChanged(nameof(CurrentColorInt));
+                }
             }
+        }
+
+        [LedServerRelevant("color", 0xE58200)]
+        public int CurrentColorInt
+        {
+            get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0;
+            set { CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue); }
         }
 
         public double Hue_Min => 0;
@@ -116,33 +123,33 @@ namespace HomeLedApp.Model
             set => CurrentColor = CurrentColor.WithLuminosity(value / 100.0);
         }
 
-        [LedServerRelevant("color_h")]
-        public ushort Controller_HSV_Hue
-        {
-            get => (ushort)(CurrentColor.Hue * ushort.MaxValue);
-            set => CurrentColor = CurrentColor.WithHue(value / ushort.MaxValue);
-        }
+        //[LedServerRelevant("color_h", (ushort)39578)]
+        //public ushort Controller_HSV_Hue
+        //{
+        //    get => (ushort)(CurrentColor.Hue * ushort.MaxValue);
+        //    set => CurrentColor = CurrentColor.WithHue(value / (double)ushort.MaxValue);
+        //}
 
-        [LedServerRelevant("color_s")]
-        public byte Controller_HSV_Saturation
-        {
-            get => (byte)(CurrentColor.Saturation_HSV() * byte.MaxValue);
-            set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / ushort.MaxValue, value / byte.MaxValue, Controller_HSV_Value / byte.MaxValue); } }
-        }
+        //[LedServerRelevant("color_s", (byte)255)]
+        //public byte Controller_HSV_Saturation
+        //{
+        //    get => (byte)(CurrentColor.Saturation_HSV() * byte.MaxValue);
+        //    set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / (double)ushort.MaxValue * 360, value / (double)byte.MaxValue, Controller_HSV_Value / (double)byte.MaxValue); } }
+        //}
 
-        public double Value_Min => 0;
-        public double Value_Max => 100;
-        [LedServerRelevant("color_v")]
-        public byte Controller_HSV_Value
-        {
-            get => (byte)(CurrentColor.Value_HSV() * byte.MaxValue);
-            set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / ushort.MaxValue, Controller_HSV_Saturation / byte.MaxValue, value / byte.MaxValue); } }
-        }
+        //public double Value_Min => 0;
+        //public double Value_Max => 100;
+        //[LedServerRelevant("color_v", (byte)229)]
+        //public byte Controller_HSV_Value
+        //{
+        //    get => (byte)(CurrentColor.Value_HSV() * byte.MaxValue);
+        //    set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / (double)ushort.MaxValue * 360, Controller_HSV_Saturation / (double)byte.MaxValue, value / (double)byte.MaxValue); } }
+        //}
 
         public double Brigthnes_Min => 0;
         public double Brigthnes_Max => 255;
         private int _Brigthnes;
-        [LedServerRelevant("br")]
+        [LedServerRelevant("br", 127)]
         public int Brigthnes
         {
             get => _Brigthnes;
@@ -152,7 +159,7 @@ namespace HomeLedApp.Model
         public double Speed_Min => 0;
         public double Speed_Max => 50;
         private int _Speed;
-        [LedServerRelevant("v")]
+        [LedServerRelevant("v", 16)]
         public int Speed
         {
             get => _Speed;
@@ -162,7 +169,7 @@ namespace HomeLedApp.Model
         public double NumberOfLeds_Min => 0;
         public double NumberOfLeds_Max => 300;
         private int _NumberOfLeds;
-        [LedServerRelevant("n")]
+        [LedServerRelevant("n", 300)]
         public int NumberOfLeds
         {
             get => _NumberOfLeds;
@@ -172,7 +179,7 @@ namespace HomeLedApp.Model
         public double Sin_VerticalOffset_Min => 0;
         public double Sin_VerticalOffset_Max => 30;
         private int _Sin_VerticalOffset;
-        [LedServerRelevant("vo")]
+        [LedServerRelevant("vo", 5)]
         public int Sin_VerticalOffset
         {
             get => (_Sin_VerticalOffset < 0 ? -1 : 1) * _Sin_VerticalOffset;
@@ -189,7 +196,7 @@ namespace HomeLedApp.Model
         public double Sin_HorizontalOffset_Min => 0;
         public double Sin_HorizontalOffset_Max => 10;
         public int _Sin_HorizontalOffset;
-        [LedServerRelevant("ho")]
+        [LedServerRelevant("ho", 2)]
         public int Sin_HorizontalOffset
         {
             get => (_Sin_HorizontalOffset < 0 ? -1 : 1) * _Sin_HorizontalOffset;
@@ -206,7 +213,7 @@ namespace HomeLedApp.Model
         public double Width_Min => 0;
         public double Width_Max => NumberOfLeds_Max;
         private double _Width;
-        [LedServerRelevant("width")]
+        [LedServerRelevant("width", 50d)]
         public double Width
         {
             get => _Width;
@@ -217,7 +224,7 @@ namespace HomeLedApp.Model
         public double Fringe_Max => Width_Max;
 
         private double _Fringe;
-        [LedServerRelevant("fringe")]
+        [LedServerRelevant("fringe", 10d)]
         public double Fringe
         {
             get => _Fringe;
@@ -225,7 +232,7 @@ namespace HomeLedApp.Model
         }
 
         private int _Rainbow_Rand;
-        [LedServerRelevant("rand")]
+        [LedServerRelevant("rand", false)]
         public bool Rainbow_Rand
         {
             get => _Rainbow_Rand == 1 ? true : false;
@@ -324,15 +331,17 @@ namespace HomeLedApp.Model
         public void SetDefaultValues()
         {
             NetworkCommunicationInProgress = true;
-            CurrentMode = Modes.sin;
-            CurrentColor = new Color(0.9, 0.5, 0);
-            Brigthnes = 50;
-            Speed = 16;
-            NumberOfLeds = 150;
-            Sin_VerticalOffset = 5;
-            Sin_HorizontalOffset = 2;
-            Width = 50;
-            Fringe = 10;
+            foreach ((LedServerRelevantAttribute Attribute, PropertyInfo Property) in GetParameterProperties())
+            {
+                try
+                {
+                    Property.SetValue(this, Attribute.DefaultValue);
+                }
+                catch (Exception ex)
+                {
+                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                }
+            }
             NetworkCommunicationInProgress = false;
         }
 
@@ -367,9 +376,7 @@ namespace HomeLedApp.Model
             }
             try
             {
-                var props = GetType().GetProperties().Where(x => x.CustomAttributes.FirstOrDefault(y => y.AttributeType == typeof(LedServerRelevantAttribute)) != null);
-                var attributes = props.Select(x => (x.GetCustomAttribute<LedServerRelevantAttribute>().ParamName, x.GetValue(this)?.ToString()));
-                URLParam = attributes.Aggregate("", (a, c) => a += "&" + c.Item1 + (string.IsNullOrEmpty(c.Item2) ? "" : ("=" + c.Item2))).Replace("?&", "?");
+                URLParam = GetParameterProperties().Aggregate("", (a, c) => a += "&" + c.Attribute.ParamName + (string.IsNullOrEmpty(c.Property.GetValue(this)?.ToString()) ? "" : ("=" + c.Property.GetValue(this)?.ToString()))).Replace("?&", "?");
             }
             catch (Exception)
             {
@@ -378,6 +385,13 @@ namespace HomeLedApp.Model
                     System.Diagnostics.Debugger.Break();
                 }
             }
+        }
+
+        private IEnumerable<(LedServerRelevantAttribute Attribute, PropertyInfo Property)> GetParameterProperties()
+        {
+            return GetType().GetProperties()
+                                .Where(x => x.CustomAttributes.Any(y => y.AttributeType == typeof(LedServerRelevantAttribute)))
+                                .Select(Property => (Property.GetCustomAttribute<LedServerRelevantAttribute>(), Property));
         }
     }
 }

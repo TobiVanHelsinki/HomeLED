@@ -33,6 +33,13 @@ namespace HomeLedApp.Model
             return max;
         }
 
+        /// <summary>
+        /// Colors from HSV.
+        /// </summary>
+        /// <param name="hue">The hue. from 0 to 360</param>
+        /// <param name="saturation">The saturation.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static Color ColorFromHSV(double hue, double saturation, double value)
         {
             var hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;

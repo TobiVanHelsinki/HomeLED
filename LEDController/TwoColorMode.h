@@ -11,8 +11,8 @@ protected:
 	String Set(String Name, String Value) override;
 
 	uint32_t SecondColor;
-	uint16_t SecondColor_h = 154;
-	uint8_t SecondColor_s = 255;
-	uint8_t SecondColor_v = 229;
+	//uint16_t SecondColor_h = 154;
+	//uint8_t SecondColor_s = 255;
+	//uint8_t SecondColor_v = 229;
 	void RefreshSecondColor();
 };
