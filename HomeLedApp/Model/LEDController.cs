@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Amporis.Xamarin.Forms.ColorPicker;
 using Xamarin.Forms;
 
 namespace HomeLedApp.Model
@@ -96,7 +95,7 @@ namespace HomeLedApp.Model
         public int CurrentColorInt
         {
             get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0;
-            set { CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue); }
+            set => CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue);
         }
 
         public double Hue_Min => 0;
@@ -331,15 +330,18 @@ namespace HomeLedApp.Model
         public void SetDefaultValues()
         {
             NetworkCommunicationInProgress = true;
-            foreach ((LedServerRelevantAttribute Attribute, PropertyInfo Property) in GetParameterProperties())
+            foreach ((var Attribute, var Property) in GetParameterProperties())
             {
                 try
                 {
                     Property.SetValue(this, Attribute.DefaultValue);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+                    if (System.Diagnostics.Debugger.IsAttached)
+                    {
+                        System.Diagnostics.Debugger.Break();
+                    }
                 }
             }
             NetworkCommunicationInProgress = false;
@@ -370,10 +372,6 @@ namespace HomeLedApp.Model
 
         private void RefreshURL()
         {
-            if (CurrentDevice is null)
-            {
-                return;
-            }
             try
             {
                 URLParam = GetParameterProperties().Aggregate("", (a, c) => a += "&" + c.Attribute.ParamName + (string.IsNullOrEmpty(c.Property.GetValue(this)?.ToString()) ? "" : ("=" + c.Property.GetValue(this)?.ToString()))).Replace("?&", "?");

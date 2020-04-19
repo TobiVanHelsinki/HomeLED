@@ -1,4 +1,6 @@
-﻿using HomeLedApp.Model;
+﻿//Author: Tobi van Helsinki
+
+using HomeLedApp.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Rg.Plugins.Popup.Pages;
@@ -8,15 +10,17 @@ using Xamarin.Forms.Xaml;
 namespace HomeLedApp.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DetailsPopUp : PopupPage, INotifyPropertyChanged
-	{
+    public partial class DetailsPopUp : PopupPage, INotifyPropertyChanged
+    {
         #region NotifyPropertyChanged
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
+        #endregion NotifyPropertyChanged
+
         public LEDController Model { get; set; }
         string _MyURLParam;
         public string MyURLParam
@@ -25,8 +29,8 @@ namespace HomeLedApp.UI
             set { if (_MyURLParam != value) { _MyURLParam = value; NotifyPropertyChanged(); } }
         }
 
-        public DetailsPopUp (LEDController Model)
-		{
+        public DetailsPopUp(LEDController Model)
+        {
             this.Model = Model;
             MyURLParam = Model.URLParam;
             InitializeComponent();
@@ -34,10 +38,16 @@ namespace HomeLedApp.UI
             editor.Focus();
         }
 
-        async void OK(object sender, System.EventArgs e)
+        private async void OK(object sender, System.EventArgs e)
         {
             await Model.Send(MyURLParam);
-            PopupNavigation.Instance.PopAsync();
+            try
+            {
+                PopupNavigation.Instance.PopAsync();
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         private void AddAmp(object sender, System.EventArgs e)
