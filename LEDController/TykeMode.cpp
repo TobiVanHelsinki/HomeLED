@@ -1,8 +1,8 @@
 #include "TykeMode.h"
 TykeMode::TykeMode(ILEDProvider* leds) : TwoColorMode(leds)
 {
-	CurrentColor = Adafruit_NeoPixel::Color(0, 0, 255);
-	SecondColor = Adafruit_NeoPixel::Color(255, 0, 0);
+	CurrentColor = Adafruit_NeoPixel::Color(0, 0, 0);
+	SecondColor = Adafruit_NeoPixel::Color(0, 0, 255);
 }
 
 void TykeMode::NextState()
