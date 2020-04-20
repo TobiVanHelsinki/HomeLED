@@ -2,6 +2,8 @@
 
 ColorMode::ColorMode(ILEDProvider* leds) : ModeBase(leds)
 {
+	CurrentColor = Adafruit_NeoPixel::Color(229, 130, 00);
+	RefreshCurrentColors();
 }
 
 void ColorMode::NextState()
@@ -48,8 +50,7 @@ String ColorMode::Set(String Name, String Value)
 	if (Name == "color")
 	{
 		auto result = SetinBoundsAndReport(&CurrentColor, "Color", Value);
-		CalculateRGB(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b);
-		CalculateHSV(CurrentColor_r, CurrentColor_g, CurrentColor_b, &CurrentColor_h, &CurrentColor_s, &CurrentColor_v);
+		RefreshCurrentColors();
 		if (DebugOutput)
 		{
 			Serial.print("r: ");
@@ -71,6 +72,12 @@ String ColorMode::Set(String Name, String Value)
 	{
 		return ModeBase::Set(Name, Value);
 	}
+}
+
+void ColorMode::RefreshCurrentColors()
+{
+	CalculateRGB(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b);
+	CalculateHSV(CurrentColor_r, CurrentColor_g, CurrentColor_b, &CurrentColor_h, &CurrentColor_s, &CurrentColor_v);
 }
 
 void ColorMode::CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb)

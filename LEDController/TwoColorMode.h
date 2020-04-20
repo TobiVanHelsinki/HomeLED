@@ -17,4 +17,5 @@ protected:
 	uint16_t SecondColor_h = 0;
 	uint8_t SecondColor_s = 0;
 	uint8_t SecondColor_v = 0;
+	void RefreshSecondColors();
 };

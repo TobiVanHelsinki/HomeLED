@@ -3,7 +3,7 @@
 KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : TwoColorMode(leds)
 {
 	CurrentColor = Adafruit_NeoPixel::Color(255, 0, 0);
-	SecondColor = Adafruit_NeoPixel::Color(255, 0, 0);
+	SecondColor = Adafruit_NeoPixel::Color(0, 0, 0);
 }
 
 void KnightRiderMode::NextState()
