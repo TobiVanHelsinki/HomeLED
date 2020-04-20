@@ -21,6 +21,6 @@ protected:
 	uint16_t CurrentColor_h = 6200;
 	uint8_t CurrentColor_s = 255;
 	uint8_t CurrentColor_v = 229;
-	void RefreshColorParts();
-	void CalculateHSV(byte r, byte g, byte b);
+	static void CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb);
+	static void CalculateHSV(byte r, byte g, byte b, uint16_t* colorh, uint8_t* colors, uint8_t* colorv);
 };
