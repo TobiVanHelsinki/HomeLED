@@ -48,10 +48,6 @@ constexpr auto MinLEDRefreshTime = 20;
 constexpr auto MinBrigthnes = 0;
 
 #ifdef CustomSettings
-
-#endif
-
-#ifdef CustomSettings
 constexpr auto MaxNumberOfLeds = 252;
 #else
 constexpr auto MaxNumberOfLeds = 150;
