@@ -278,7 +278,7 @@ namespace HomeLedApp.Model
 
         private static readonly HttpClient client = new HttpClient();
 
-        internal async Task Send(string myurlparam = null)
+        internal async Task<string> Send(string myurlparam = null)
         {
             if (myurlparam is null)
             {
@@ -287,15 +287,17 @@ namespace HomeLedApp.Model
             RefreshURL();
             if (NetworkCommunicationInProgress)
             {
-                return;
+                return string.Empty;
             }
             NetworkCommunicationInProgress = true;
+            string resutlt;
             try
             {
                 var mess = await client.GetAsync(CurrentDevice.Urlbase + myurlparam);
                 var time = DateTime.Now.ToString("hh:mm:ss ");
                 StatusCode = time + mess.StatusCode.ToString();
-                Status = time + await mess.Content.ReadAsStringAsync();
+                resutlt = await mess.Content.ReadAsStringAsync();
+                Status = time + resutlt;
             }
             catch (Exception ex)
             {
@@ -304,6 +306,7 @@ namespace HomeLedApp.Model
                 Status = time + "Exception Communitcating with LEDs: " + ex.Message;
                 CurrentDevice.IsUpToDate = false;
                 SSDP.Instance.UpdateDeviceList(CurrentDevice);
+                resutlt = string.Empty;
             }
             finally
             {
@@ -317,6 +320,7 @@ namespace HomeLedApp.Model
             {
                 Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() => NetworkCommunicationInProgress = false);
             }
+            return resutlt;
         }
         #endregion Server Communication
 
@@ -338,13 +342,34 @@ namespace HomeLedApp.Model
                 }
                 catch (Exception)
                 {
-                    if (System.Diagnostics.Debugger.IsAttached)
-                    {
-                        System.Diagnostics.Debugger.Break();
-                    }
                 }
             }
             NetworkCommunicationInProgress = false;
+        }
+
+        public void SetValues(IEnumerable<(string name, string value)> parameter)
+        {
+            NetworkCommunicationInProgress = true;
+            foreach ((var Attribute, var Property) in GetParameterProperties().Join(parameter, a => a.Attribute.ParamName, b => b.name, (a, b) => (b, a.Property)))
+            {
+                try
+                {
+                    object value = Convert.ChangeType(Attribute.value, Property.PropertyType);
+                    Property.SetValue(this, value);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            NetworkCommunicationInProgress = false;
+        }
+
+        public async void ReadParameterFromDevice()
+        {
+            var result = await Send("get");
+            var pairs = result.Split('&')
+                .Select(x => x.Split('='));
+            SetValues(pairs.Select(x => x.Count() == 2 ? (x[0], x[1]) : default));
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -359,6 +384,10 @@ namespace HomeLedApp.Model
             if (e.PropertyName == nameof(CurrentMode))
             {
                 _ = Send();
+            }
+            else if (e.PropertyName == nameof(CurrentDevice))
+            {
+                ReadParameterFromDevice();
             }
         }
 
