@@ -97,10 +97,10 @@ namespace HomeLedApp.UI
                     case Modes.pulse:
                         break;
                     case Modes.tyke:
-                        HueFrame.IsVisible = false;
-                        HueSlider.IsVisible = false;
-                        LumSlider.IsVisible = false;
-                        SatSlider.IsVisible = false;
+                        //HueFrame.IsVisible = false;
+                        //HueSlider.IsVisible = false;
+                        //LumSlider.IsVisible = false;
+                        //SatSlider.IsVisible = false;
                         break;
                     case Modes.knightrider:
                         WidthSlider.IsVisible = true;

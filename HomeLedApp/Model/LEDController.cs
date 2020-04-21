@@ -371,7 +371,7 @@ namespace HomeLedApp.Model
             {
                 if (CurrentMode == Modes.tyke)
                 {
-                    CurrentColor = Color.Blue;
+                    CurrentColor = Color.Red;
                     //SecondColor = red;
                 }
                 _ = Send();
