@@ -331,22 +331,7 @@ namespace HomeLedApp.Model
             SetCurrentDeviceIfNull();
         }
 
-        public void SetDefaultValues()
-        {
-            SetValues(GetParameterProperties().Select(x => (x.Attribute.ParamName, x.Attribute.DefaultValue)));
-            //NetworkCommunicationInProgress = true;
-            //foreach ((var Attribute, var Property) in GetParameterProperties())
-            //{
-            //    try
-            //    {
-            //        Property.SetValue(this, Attribute.DefaultValue);
-            //    }
-            //    catch (Exception)
-            //    {
-            //    }
-            //}
-            //NetworkCommunicationInProgress = false;
-        }
+        public void SetDefaultValues() => SetValues(GetParameterProperties().Select(x => (x.Attribute.ParamName, x.Attribute.DefaultValue)));
 
         public void SetValues(IEnumerable<(string name, object value)> parameter)
         {
@@ -384,12 +369,12 @@ namespace HomeLedApp.Model
             RefreshURL();
             if (e.PropertyName == nameof(CurrentMode))
             {
-                _ = Send();
                 if (CurrentMode == Modes.tyke)
                 {
-                    //Color =;
-                    //SecondColor =;
+                    CurrentColor = Color.Blue;
+                    //SecondColor = red;
                 }
+                _ = Send();
             }
             else if (e.PropertyName == nameof(CurrentDevice))
             {
