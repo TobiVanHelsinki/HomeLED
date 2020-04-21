@@ -333,21 +333,22 @@ namespace HomeLedApp.Model
 
         public void SetDefaultValues()
         {
-            NetworkCommunicationInProgress = true;
-            foreach ((var Attribute, var Property) in GetParameterProperties())
-            {
-                try
-                {
-                    Property.SetValue(this, Attribute.DefaultValue);
-                }
-                catch (Exception)
-                {
-                }
-            }
-            NetworkCommunicationInProgress = false;
+            SetValues(GetParameterProperties().Select(x => (x.Attribute.ParamName, x.Attribute.DefaultValue)));
+            //NetworkCommunicationInProgress = true;
+            //foreach ((var Attribute, var Property) in GetParameterProperties())
+            //{
+            //    try
+            //    {
+            //        Property.SetValue(this, Attribute.DefaultValue);
+            //    }
+            //    catch (Exception)
+            //    {
+            //    }
+            //}
+            //NetworkCommunicationInProgress = false;
         }
 
-        public void SetValues(IEnumerable<(string name, string value)> parameter)
+        public void SetValues(IEnumerable<(string name, object value)> parameter)
         {
             NetworkCommunicationInProgress = true;
             foreach ((var Attribute, var Property) in GetParameterProperties().Join(parameter, a => a.Attribute.ParamName, b => b.name, (a, b) => (b, a.Property)))
@@ -369,7 +370,7 @@ namespace HomeLedApp.Model
             var result = await Send("get");
             var pairs = result.Split('&')
                 .Select(x => x.Split('='));
-            SetValues(pairs.Select(x => x.Count() == 2 ? (x[0], x[1]) : default));
+            SetValues(pairs.Select(x => x.Count() == 2 ? (x[0], x[1] as object) : default));
         }
 
         private void DiscoveredDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -384,6 +385,11 @@ namespace HomeLedApp.Model
             if (e.PropertyName == nameof(CurrentMode))
             {
                 _ = Send();
+                if (CurrentMode == Modes.tyke)
+                {
+                    //Color =;
+                    //SecondColor =;
+                }
             }
             else if (e.PropertyName == nameof(CurrentDevice))
             {
