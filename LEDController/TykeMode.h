@@ -10,5 +10,5 @@ public:
 	String GetID();
 
 protected:
-	int Position = 0;
+	uint Position = 0;
 };

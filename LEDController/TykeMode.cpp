@@ -7,6 +7,8 @@ TykeMode::TykeMode(ILEDProvider* leds) : TwoColorMode(leds)
 
 void TykeMode::NextState()
 {
+	leds->setPixelColor(Position, CurrentColor);
+	leds->setPixelColor(leds->numPixels() - Position, SecondColor);
 	if (Position > leds->numPixels())
 	{
 		Position = 0;
@@ -15,8 +17,6 @@ void TykeMode::NextState()
 	{
 		Position++;
 	}
-	leds->setPixelColor(Position, CurrentColor);         //  Set pixel's color (in RAM)
-	leds->setPixelColor(leds->numPixels() - Position, SecondColor);        //  Set pixel's color (in RAM)
 }
 
 String TykeMode::ID = "tyke";
