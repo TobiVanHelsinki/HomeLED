@@ -4,6 +4,7 @@
 bool IsServerReady = false;
 ESP8266WebServer Server(HTTPPort);
 AutoConnect Portal(Server);
+AutoConnectUpdate UpdateService("home", 8010);
 #pragma endregion
 
 #pragma region Led Vars
@@ -31,7 +32,8 @@ void PrintResetCause()
 
 	if (rtc_info->reason == REASON_WDT_RST ||
 		rtc_info->reason == REASON_EXCEPTION_RST ||
-		rtc_info->reason == REASON_SOFT_WDT_RST) {
+		rtc_info->reason == REASON_SOFT_WDT_RST)
+	{
 		if (rtc_info->reason == REASON_EXCEPTION_RST)
 		{
 			Serial.print("Fatal	exception: ");
@@ -79,8 +81,9 @@ void SetupWiFi()
 	Server.on("", handleRoot);
 	AutoConnectConfig acConfig;
 	acConfig.boundaryOffset = StorageAdress_AutoConnect;
-	acConfig.title = HomeLEDTitle + String("Menu");
+	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
 	acConfig.apid = GenerateDefaultHostname();
+	acConfig.psk = DEFAULTPASSW;
 	acConfig.hostName = ReadValidHostname();
 	Portal.config(acConfig);
 	Portal.onDetect(startCP);
@@ -88,6 +91,7 @@ void SetupWiFi()
 	IsServerReady = Portal.begin();
 	if (IsServerReady)
 	{
+		UpdateService.attach(Portal);
 		Serial.println("\tWiFi connected");
 		Serial.print("\tSSID: ");
 		Serial.println(WiFi.SSID());
@@ -105,6 +109,7 @@ void SetupWiFi()
 
 bool startCP(IPAddress ip)
 {
+	SetMode("cp");
 	Serial.println("C.P. started, IP:" + WiFi.localIP().toString());
 	return true;
 }
@@ -271,6 +276,11 @@ bool SetMode(String s)
 	else if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;
+	}
+	else if (s == "cp")
+	{
+		CurrentMode = new OnePixelMode(leds);
+		CurrentMode->Set("CurrentColor", String(Adafruit_NeoPixel::Color(11, 200, 0)));
 	}
 	else if (s == RainbowMode::ID)
 	{
@@ -465,7 +475,8 @@ String String2CurrentConfig(String config)
 		auto name = GetValue(param, '=', 0);
 		auto value = GetValue(param, '=', 1);
 		result += SetProperty(name, value);
-	} while (param != "");
+	}
+	while (param != "");
 	return result;
 }
 
@@ -475,8 +486,10 @@ String GetValue(String data, char separator, int index)
 	int strIndex[] = { 0, -1 };
 	int maxIndex = data.length() - 1;
 
-	for (int i = 0; i <= maxIndex && found <= index; i++) {
-		if (data.charAt(i) == separator || i == maxIndex) {
+	for (int i = 0; i <= maxIndex && found <= index; i++)
+	{
+		if (data.charAt(i) == separator || i == maxIndex)
+		{
 			found++;
 			strIndex[0] = strIndex[1] + 1;
 			strIndex[1] = (i == maxIndex) ? i + 1 : i;

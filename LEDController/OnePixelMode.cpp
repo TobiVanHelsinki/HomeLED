@@ -3,6 +3,7 @@
 OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds)
 {
 	Serial.println("pixel");
+	leds->clear();
 }
 
 String OnePixelMode::ID = "pixel";
@@ -14,7 +15,7 @@ String OnePixelMode::GetID()
 
 void OnePixelMode::NextState()
 {
-	leds->clear();
+	leds->setPixelColor(j, 0);
+	j = (j + 1) % leds->numPixels(); //TODO Test
 	leds->setPixelColor(j, CurrentColor);
-	j = (j + 1) % leds->numPixels();
 }
