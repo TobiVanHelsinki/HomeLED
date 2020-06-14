@@ -1,6 +1,6 @@
 #pragma once
 
-//#define CustomSettings
+#define CustomSettings
 
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
