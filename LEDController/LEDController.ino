@@ -110,7 +110,7 @@ void SetupWiFi()
 bool startCP(IPAddress ip)
 {
 	SetMode("cp");
-	Serial.println("C.P. started, IP:" + WiFi.localIP().toString());
+	Serial.println("CP (own WLAN) started, IP:" + WiFi.localIP().toString());
 	return true;
 }
 
@@ -279,6 +279,8 @@ bool SetMode(String s)
 	}
 	else if (s == "cp")
 	{
+		LEDsStop();
+		return true;
 		CurrentMode = new OnePixelMode(leds);
 		CurrentMode->Set("CurrentColor", String(Adafruit_NeoPixel::Color(11, 200, 0)));
 	}

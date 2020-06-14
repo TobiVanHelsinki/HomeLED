@@ -68,7 +68,7 @@ constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelName = "ImperialHomeLED.V1";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
 constexpr auto ModelNumber = "100";
-constexpr auto Version = "1.2";
+constexpr auto Version = "1.3s";
 constexpr auto DEFAULTPASSW = "12345678";
 
 constexpr auto HTTPPort = 80;
