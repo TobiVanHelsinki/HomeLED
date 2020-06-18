@@ -50,10 +50,10 @@ uint32_t KnightRiderMode::CalculateFringedColor(size_t innerPos)
 	}
 	if (DebugOutput)
 	{
-		Serial.print("relative_v at ");
-		Serial.print(innerPos);
-		Serial.print(":");
-		Serial.println(relative_v);
+		SERIALWRITE("relative_v at ");
+		SERIALWRITE(innerPos);
+		SERIALWRITE(":");
+		SERIALWRITELINE(relative_v);
 	}
 	return Adafruit_NeoPixel::ColorHSV(CurrentColor_h, CurrentColor_s, (uint16_t)relative_v);
 }

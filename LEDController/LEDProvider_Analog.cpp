@@ -81,17 +81,17 @@ void LEDProvider_Analog::Update()
 		auto r = (uint8_t)(_CurrentColor_R * _CurrentBrightness / 255.0);
 		auto g = (uint8_t)(_CurrentColor_G * _CurrentBrightness / 255.0);
 		auto b = (uint8_t)(_CurrentColor_B * _CurrentBrightness / 255.0);
-		//Serial.println("Update Leds (r,g,b):");
-		//Serial.println(r);
-		//Serial.println(g);
-		//Serial.println(b);
+		//SERIALWRITELINE("Update Leds (r,g,b):");
+		//SERIALWRITELINE(r);
+		//SERIALWRITELINE(g);
+		//SERIALWRITELINE(b);
 		analogWrite(_PinR, r);
 		analogWrite(_PinG, g);
 		analogWrite(_PinB, b);
 	}
 	else
 	{
-		//Serial.println("Update Leds: none");
+		//SERIALWRITELINE("Update Leds: none");
 		analogWrite(_PinR, 0);
 		analogWrite(_PinG, 0);
 		analogWrite(_PinB, 0);

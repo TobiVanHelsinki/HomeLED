@@ -53,18 +53,18 @@ String ColorMode::Set(String Name, String Value)
 		RefreshCurrentColors();
 		if (DebugOutput)
 		{
-			Serial.print("r: ");
-			Serial.println(CurrentColor_r);
-			Serial.print("g: ");
-			Serial.println(CurrentColor_g);
-			Serial.print("b: ");
-			Serial.println(CurrentColor_b);
-			Serial.print("h: ");
-			Serial.println(CurrentColor_h);
-			Serial.print("s: ");
-			Serial.println(CurrentColor_s);
-			Serial.print("v: ");
-			Serial.println(CurrentColor_v);
+			SERIALWRITE("r: ");
+			SERIALWRITELINE(CurrentColor_r);
+			SERIALWRITE("g: ");
+			SERIALWRITELINE(CurrentColor_g);
+			SERIALWRITE("b: ");
+			SERIALWRITELINE(CurrentColor_b);
+			SERIALWRITE("h: ");
+			SERIALWRITELINE(CurrentColor_h);
+			SERIALWRITE("s: ");
+			SERIALWRITELINE(CurrentColor_s);
+			SERIALWRITE("v: ");
+			SERIALWRITELINE(CurrentColor_v);
 		}
 		return result;
 	}

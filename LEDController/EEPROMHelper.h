@@ -1,7 +1,7 @@
 #pragma once
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
-//#include <HardwareSerial.h>
+#include "ProjectHeader.h"
 
 /// <summary>
 /// Test Initializes the eeprom with the given size

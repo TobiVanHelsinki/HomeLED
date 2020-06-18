@@ -51,7 +51,7 @@ void DoorsMode::SetDoorPixels(int Start, int End, int CurrentColor)
 //{
 //	auto sensorValue = analogRead(Pin);
 //	auto door = PinDoorMap[Pin];
-//	Serial.println("Pin " + String(Pin) + "Door" + String(door) + "sensorValue " + String(sensorValue));
+//	SERIALWRITELINE("Pin " + String(Pin) + "Door" + String(door) + "sensorValue " + String(sensorValue));
 //	if (door >=0)
 //	{
 //		DoorOpen[door] = sensorValue == 1023; //== 1023

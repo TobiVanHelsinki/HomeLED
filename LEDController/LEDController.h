@@ -13,6 +13,7 @@
 #include <ESP8266SSDP.h>
 #include <AutoConnectCredential.h>
 #include <pins_arduino.h>
+#include "ProjectHeader.h"
 
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
@@ -50,15 +51,15 @@ constexpr auto MinBrigthnes = 0;
 #ifdef CustomSettings
 constexpr auto MaxNumberOfLeds = 252;
 #else
-constexpr auto MaxNumberOfLeds = 15/*0*/;
+constexpr auto MaxNumberOfLeds = 300;
 #endif
 
 constexpr auto MaxLEDRefreshTime = 10000;
 constexpr auto MaxBrigthnes = 255;
 
 auto CurrentNumberOfLeds = MaxNumberOfLeds;
-auto CurrentLEDRefreshTime = 25; //in Hz
-auto CurrentBrigthnes = 100;
+auto CurrentLEDRefreshTime = 24; //in Hz
+auto CurrentBrigthnes = 25;
 
 constexpr auto StartMode = "sin";
 
@@ -68,7 +69,7 @@ constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelName = "ImperialHomeLED.V1";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
 constexpr auto ModelNumber = "100";
-constexpr auto Version = "1.4";
+constexpr auto Version = "1.7";
 constexpr auto DEFAULTPASSW = "12345678";
 
 constexpr auto HTTPPort = 80;

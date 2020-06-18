@@ -2,7 +2,7 @@
 
 OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds)
 {
-	Serial.println("pixel");
+	SERIALWRITELINE("pixel");
 	leds->clear();
 }
 

@@ -25,10 +25,10 @@ bool IsLEDStarted = false;
 void PrintResetCause()
 {
 	//https://www.espressif.com/sites/default/files/documentation/esp8266_reset_causes_and_common_fatal_exception_causes_en.pdf
-	Serial.println("Reset Cause");
+	SERIALWRITELINE("Reset Cause");
 	struct	rst_info* rtc_info = system_get_rst_info();
-	Serial.print("reset	reason:	");
-	Serial.println(rtc_info->reason);
+	SERIALWRITE("reset	reason:	");
+	SERIALWRITELINE(rtc_info->reason);
 
 	if (rtc_info->reason == REASON_WDT_RST ||
 		rtc_info->reason == REASON_EXCEPTION_RST ||
@@ -36,27 +36,30 @@ void PrintResetCause()
 	{
 		if (rtc_info->reason == REASON_EXCEPTION_RST)
 		{
-			Serial.print("Fatal	exception: ");
-			Serial.println(rtc_info->exccause);
+			SERIALWRITE("Fatal	exception: ");
+			SERIALWRITELINE(rtc_info->exccause);
 		}
-		Serial.print("epc1=");
-		Serial.println(rtc_info->epc1);
-		Serial.print("epc2=");
-		Serial.println(rtc_info->epc2);
-		Serial.print("epc3=");
-		Serial.println(rtc_info->epc3);
-		Serial.print("excvaddr=");
-		Serial.println(rtc_info->excvaddr);
-		Serial.print("depc=");
-		Serial.println(rtc_info->depc);
+		SERIALWRITE("epc1=");
+		SERIALWRITELINE(rtc_info->epc1);
+		SERIALWRITE("epc2=");
+		SERIALWRITELINE(rtc_info->epc2);
+		SERIALWRITE("epc3=");
+		SERIALWRITELINE(rtc_info->epc3);
+		SERIALWRITE("excvaddr=");
+		SERIALWRITELINE(rtc_info->excvaddr);
+		SERIALWRITE("depc=");
+		SERIALWRITELINE(rtc_info->depc);
 	}
 }
 
 void setup()
 {
+#if _DEBUG
 	Serial.begin(115200);
+#endif // _DEBUG
+
 	delayMicroseconds(500);
-	Serial.println("-------------- --------------");
+	SERIALWRITELINE("-------------- --------------");
 	PrintResetCause();
 	InitEEPROM(StorageAdress_EEPROMMax);
 	//ResetSystem();
@@ -64,7 +67,7 @@ void setup()
 	SetupLeds();
 	SetupWiFi();
 	SetupSSDP();
-	Serial.println("INIT complete");
+	SERIALWRITELINE("INIT complete");
 }
 
 void SetupResetProcedures()
@@ -75,7 +78,7 @@ void SetupResetProcedures()
 
 void SetupWiFi()
 {
-	Serial.println("SetupWiFi");
+	SERIALWRITELINE("SetupWiFi");
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
 	AutoConnectConfig acConfig;
@@ -87,7 +90,7 @@ void SetupWiFi()
 	//acConfig.autoReset = false;
 	//acConfig.autoRise = true;
 	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
-	acConfig.ota = AC_OTA_EXTRA;
+	acConfig.ota = AC_OTA_BUILTIN;
 	acConfig.portalTimeout = 0; //0=endless
 	acConfig.hostName = ReadValidHostname();
 	acConfig.apip = IPAddress(192, 168, 10, 1);
@@ -95,65 +98,65 @@ void SetupWiFi()
 	Portal.config(acConfig);
 	Portal.onDetect(startCP);
 	Portal.onNotFound(portalNotFound);
-	Serial.println("\tPortal.begin");
+	SERIALWRITELINE("\tPortal.begin");
 	IsServerReady = Portal.begin();
 	if (IsServerReady)
 	{
-		UpdateService.attach(Portal);
+		//UpdateService.atta//(Portal);
 		UpdateService.onStart(onUpdateStart);
 		UpdateService.onEnd(onUpdateEnd);
 		UpdateService.onProgress(onUpdateProgress);
 		UpdateService.onError(onUpdateError);
 		UpdateService.rebootOnUpdate(true);
-		Serial.println("\tWiFi connected");
-		Serial.print("\tSSID: ");
-		Serial.println(WiFi.SSID());
-		Serial.print("\tIP address: ");
-		Serial.println(WiFi.localIP());
-		Serial.print("\tHostname: ");
-		Serial.println(wifi_station_get_hostname());
-		Serial.println("\tWebServer Started");
+		SERIALWRITELINE("\tWiFi connected");
+		SERIALWRITE("\tSSID: ");
+		SERIALWRITELINE(WiFi.SSID());
+		SERIALWRITE("\tIP address: ");
+		SERIALWRITELINE(WiFi.localIP());
+		SERIALWRITE("\tHostname: ");
+		SERIALWRITELINE(wifi_station_get_hostname());
+		SERIALWRITELINE("\tWebServer Started");
 	}
 	else
 	{
-		Serial.println("WebServer NOT ready, unknown error.");
+		SERIALWRITELINE("WebServer NOT ready, unknown error.");
 	}
 }
 
 void portalNotFound()
 {
-	Serial.println("portal: Not found");
+	SERIALWRITELINE("portal: Not found");
 }
 
 bool startCP(IPAddress ip)
 {
 	SetMode("cp");
-	Serial.println("CP (own WLAN) started, IP:" + WiFi.localIP().toString());
+	SERIALWRITELINE("CP (own WLAN) started, IP:" + WiFi.localIP().toString());
 	return true;
 }
 void onUpdateStart()
 {
-	Serial.println("Updateprocess started");
+	SERIALWRITELINE("Updateprocess started");
 }
 void onUpdateEnd()
 {
-	Serial.println("Updateprocess ended");
+	SERIALWRITELINE("Updateprocess ended");
 }
 void onUpdateProgress(int p, int p1)
 {
-	Serial.println("Update makes progress:" + String(p) + String(p1));
+	SERIALWRITELINE("Update makes progress:" + String(p) + String(p1));
 }
 void onUpdateError(int code)
 {
-	Serial.println("Update encountered Error:" + String(code));
+	SERIALWRITELINE("Update encountered Error:" + String(code));
 }
 
 void SetupSSDP()
 {
-	Serial.println("SetupSSDP");
+	SERIALWRITELINE("SetupSSDP");
 	//https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266SSDP/examples/SSDP/SSDP.ino
 	Server.on("/index.html", HTTP_GET, []() { Server.send(200, "text/plain", "Hello World!"); });
-	Server.on("/description.xml", HTTP_GET, []() { Serial.println("\tSSDP Request"); SSDP.schema(Server.client()); });
+	Server.on("/description.xml", HTTP_GET, []() { SERIALWRITELINE("\tSSDP Request"); SSDP.schema(Server.client()); });
 	SSDP.setURL("index.html");
 	SSDP.setSchemaURL("description.xml");
 	SSDP.setHTTPPort(HTTPPort);
@@ -167,26 +170,26 @@ void SetupSSDP()
 	SSDP.setSerialNumber(serialNo);
 	auto name = ReadValidHostname();
 	SSDP.setName(name);
-	Serial.print("\t");
-	Serial.print("Model: ");
-	Serial.println(ModelName);
-	Serial.print("Serial: ");
-	Serial.println(serialNo);
-	Serial.print("Name: ");
-	Serial.println(name);
+	SERIALWRITE("\t");
+	SERIALWRITE("Model: ");
+	SERIALWRITELINE(ModelName);
+	SERIALWRITE("Serial: ");
+	SERIALWRITELINE(serialNo);
+	SERIALWRITE("Name: ");
+	SERIALWRITELINE(name);
 	if (SSDP.begin())
 	{
-		Serial.println("\tSSDP started");
+		SERIALWRITELINE("\tSSDP started");
 	}
 	else
 	{
-		Serial.println("\tERROR starting SSDP");
+		SERIALWRITELINE("\tERROR starting SSDP");
 	}
 }
 
 void SetupLeds()
 {
-	Serial.println("SetupLeds");
+	SERIALWRITELINE("SetupLeds");
 	leds->begin();
 	leds->clear();
 
@@ -197,10 +200,10 @@ void SetupLeds()
 	{
 		if (!SetMode(StartMode))
 		{
-			Serial.println("\tError SetMode");
+			SERIALWRITELINE("\tError SetMode");
 		}
 	}
-	Serial.print("\t");
+	SERIALWRITE("\t");
 	LEDsStart();
 }
 
@@ -249,7 +252,7 @@ void handleRoot()
 		digitalWrite(BuiltInLed, HIGH); //Led port ausschalten
 	}
 	Server.send(200, "text/plain", result);
-	Serial.println(result);
+	SERIALWRITELINE(result);
 }
 
 void loop(void)
@@ -278,7 +281,7 @@ void LEDsStart()
 	}
 	os_timer_setfn(&ShowTimer, RefreshLeds, NULL);
 	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
-	Serial.println("LEDs started");
+	SERIALWRITELINE("LEDs started");
 	IsLEDStarted = true;
 }
 
@@ -290,7 +293,7 @@ void LEDsStop()
 	}
 	os_timer_disarm(&ShowTimer);
 	delayMicroseconds(CurrentLEDRefreshTime + 20);
-	Serial.println("LEDs stopped");
+	SERIALWRITELINE("LEDs stopped");
 	leds->clear();
 	leds->show();
 	IsLEDStarted = false;
@@ -441,7 +444,7 @@ String SetProperty(String argName, String argVal)
 	{
 		return "Emtpy ArgVal";
 	}
-	Serial.println("SetProperty (" + argName + ")=(" + argVal + ")");
+	SERIALWRITELINE("SetProperty (" + argName + ")=(" + argVal + ")");
 	String Return;
 	if (argName == "br" || argName == "brightnes")
 	{
@@ -579,7 +582,7 @@ String ReadValidHostname()
 	auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
 	if (hostname.isEmpty())
 	{
-		Serial.println("Stored Hostname was empty");
+		SERIALWRITELINE("Stored Hostname was empty");
 		hostname = GenerateDefaultHostname();
 	}
 	return hostname;
@@ -587,9 +590,9 @@ String ReadValidHostname()
 
 String StoreHostname(String hostname)
 {
-	Serial.print("storing new hostname:-");
-	Serial.print(hostname);
-	Serial.println("-");
+	SERIALWRITE("storing new hostname:-");
+	SERIALWRITE(hostname);
+	SERIALWRITELINE("-");
 	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
 	{
 		//SetupSSDP();
@@ -597,9 +600,9 @@ String StoreHostname(String hostname)
 		SSDP.end();
 		SSDP.setName(ReadValidHostname());
 		SSDP.begin();
-		Serial.print("your new hostname is:-");
-		Serial.print(ReadValidHostname());
-		Serial.println("-");
+		SERIALWRITE("your new hostname is:-");
+		SERIALWRITE(ReadValidHostname());
+		SERIALWRITELINE("-");
 		//acConfig.hostName = customHostname;
 		return "SUCCESS storing Hostname, restarted SSDP Server";
 	}
@@ -619,40 +622,40 @@ void ProcessResetInterrupt()
 		auto pressedTime = millis() - ResetInitiatedAt;
 		if (pressedTime > ResetPressedTime)
 		{
-			Serial.print("Reset Button released after time.");
+			SERIALWRITE("Reset Button released after time.");
 			ResetSystem();
 		}
 		else
 		{
-			Serial.println("Abort Reset. (" + String(pressedTime) + ") milliseconds pressed");
+			SERIALWRITELINE("Abort Reset. (" + String(pressedTime) + ") milliseconds pressed");
 		}
 	}
 	else //pressed
 	{
-		Serial.println("Reset Button pressed. Releasing it in more then 4 sec will reset the module.");
+		SERIALWRITELINE("Reset Button pressed. Releasing it in more then 4 sec will reset the module.");
 		ResetInitiatedAt = millis();
 	}
 }
 
 void ResetSystem()
 {
-	Serial.println("Reset and cleaning memory now!");
+	SERIALWRITELINE("Reset and cleaning memory now!");
 	//ClearConfigMemory();
 	ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
 											 //auto credential = AutoConnectCredential(0);
 											 //AutoConnect::;
-	Serial.println("Remove AutoConnectCredential now!");
+	SERIALWRITELINE("Remove AutoConnectCredential now!");
 	AutoConnectCredential credential;
 	station_config_t config;
 	uint8_t ent = credential.entries();
-	Serial.print("Count of stored credentials: ");
-	Serial.println(ent); //TODO geht noch nicht. gibt 0 zurück
+	SERIALWRITE("Count of stored credentials: ");
+	SERIALWRITELINE(ent); //TODO geht noch nicht. gibt 0 zurück
 						 //https://hieromon.github.io/AutoConnect/credit.html#constructors
 	while (ent > 0)
 	{
 		credential.load((int8_t)0, &config);
-		Serial.print("Clearing WiFi Credentials for:");
-		Serial.println((const char*)&config.ssid[0]);
+		SERIALWRITE("Clearing WiFi Credentials for:");
+		SERIALWRITELINE((const char*)&config.ssid[0]);
 		credential.del((const char*)&config.ssid[0]);
 		ent--;
 	}

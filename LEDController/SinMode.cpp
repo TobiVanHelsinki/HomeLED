@@ -24,7 +24,7 @@ void SinMode::NextState()
 		{
 			auto colorstring = new char[6];
 			sprintf(colorstring, "%06x", color);
-			Serial.println(String(scale) + " : " + String(colorstring));
+			SERIALWRITELINE(String(scale) + " : " + String(colorstring));
 		}
 		leds->setPixelColor(i, color);
 	}
@@ -42,12 +42,12 @@ void SinMode::BuildTable(bool Verbose)
 	}
 	if (Verbose)
 	{
-		Serial.println("SinTable: ");
+		SERIALWRITELINE("SinTable: ");
 		for (auto i = 0; i < SinTabelSize; i++)
 		{
-			Serial.println(String(SinTable[i]));
+			SERIALWRITELINE(String(SinTable[i]));
 		}
-		Serial.println("SinTable");
+		SERIALWRITELINE("SinTable");
 	}
 }
 

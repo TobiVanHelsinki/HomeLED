@@ -45,12 +45,12 @@ bool WriteEEPROM(int startadress, String text, int endAdress)
 	int length = text.length();
 	if (endAdress != -1 && length > endAdress)
 	{
-		Serial.print("new hostname is to long, cuttin last symbols: " + String(length - endAdress));
+		SERIALWRITE("new hostname is to long, cuttin last symbols: " + String(length - endAdress));
 		length = endAdress;
 	}
 	char* textbytes = new char[length];
 	text.toCharArray(textbytes, length + 1);
-	for (size_t i = 0; i < length; i++)
+	for (auto i = 0; i < length; i++)
 	{
 		EEPROM.write(startadress + i, textbytes[i]);
 	}
@@ -58,7 +58,7 @@ bool WriteEEPROM(int startadress, String text, int endAdress)
 	auto result = EEPROM.commit();
 	if (!result)
 	{
-		Serial.println("ERROR! EEPROM commit failed");
+		SERIALWRITELINE("ERROR! EEPROM commit failed");
 	}
 	return result;
 }
@@ -78,7 +78,7 @@ bool ClearEEPROM(int startAdress, int endAdress)
 	auto result = EEPROM.commit();
 	if (!result)
 	{
-		Serial.println("ERROR! EEPROM commit failed");
+		SERIALWRITELINE("ERROR! EEPROM commit failed");
 	}
 	return result;
 }
