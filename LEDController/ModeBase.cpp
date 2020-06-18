@@ -5,6 +5,8 @@ ModeBase::ModeBase(ILEDProvider* ledstouse)
 	delay(1);
 	leds = ledstouse;
 }
+ModeBase::~ModeBase()
+{ }
 
 std::vector<String> ModeBase::ParameterNames()
 {
@@ -82,7 +84,7 @@ String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String pa
 }
 String ModeBase::SetinBoundsAndReport(uint32_t* savePlace, String name, String parameter, uint32_t min, uint32_t max)
 {
-	auto newVal = parameter.toInt();
+	uint32 newVal = parameter.toInt();
 	if (newVal != (*savePlace))
 	{
 		if (newVal > max)
@@ -151,12 +153,15 @@ String ModeBase::SetinBoundsAndReport(bool* savePlace, String name, String param
 
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
-uint32_t ModeBase::Wheel(byte WheelPos) {
+uint32_t ModeBase::Wheel(byte WheelPos)
+{
 	WheelPos = 255 - WheelPos;
-	if (WheelPos < 85) {
+	if (WheelPos < 85)
+	{
 		return Adafruit_NeoPixel::Color(255 - WheelPos * 3, 0, WheelPos * 3);
 	}
-	if (WheelPos < 170) {
+	if (WheelPos < 170)
+	{
 		WheelPos -= 85;
 		return Adafruit_NeoPixel::Color(0, WheelPos * 3, 255 - WheelPos * 3);
 	}

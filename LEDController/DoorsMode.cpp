@@ -10,7 +10,7 @@ DoorsMode::DoorsMode(ILEDProvider* leds, int doorcount, int* pinDoorMap) : SinMo
 {
 	DoorCount = doorcount;
 	DoorOpen = new bool[DoorCount];
-	for (size_t i = 0; i < DoorCount; i++)
+	for (auto i = 0; i < DoorCount; i++)
 	{
 		DoorOpen[i] = true;
 	}
@@ -23,7 +23,7 @@ DoorsMode::DoorsMode(ILEDProvider* leds, int doorcount, int* pinDoorMap) : SinMo
 void DoorsMode::NextState()
 {
 	leds->clear();
-	for (size_t i = 0; i < DoorCount; i++)
+	for (auto i = 0; i < DoorCount; i++)
 	{
 		if (DoorOpen[i])
 		{

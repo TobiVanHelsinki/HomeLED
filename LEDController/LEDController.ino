@@ -57,7 +57,6 @@ void setup()
 	Serial.begin(115200);
 	delayMicroseconds(500);
 	Serial.println("-------------- --------------");
-	Serial.println("INIT");
 	PrintResetCause();
 	InitEEPROM(StorageAdress_EEPROMMax);
 	//ResetSystem();
@@ -84,14 +83,28 @@ void SetupWiFi()
 	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
 	acConfig.apid = GenerateDefaultHostname();
 	acConfig.psk = DEFAULTPASSW;
+	//acConfig.autoReconnect = false;
+	//acConfig.autoReset = false;
+	//acConfig.autoRise = true;
+	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
+	acConfig.ota = AC_OTA_EXTRA;
+	acConfig.portalTimeout = 0; //0=endless
 	acConfig.hostName = ReadValidHostname();
+	acConfig.apip = IPAddress(192, 168, 10, 1);
+	acConfig.ticker = true;
 	Portal.config(acConfig);
 	Portal.onDetect(startCP);
+	Portal.onNotFound(portalNotFound);
 	Serial.println("\tPortal.begin");
 	IsServerReady = Portal.begin();
 	if (IsServerReady)
 	{
 		UpdateService.attach(Portal);
+		UpdateService.onStart(onUpdateStart);
+		UpdateService.onEnd(onUpdateEnd);
+		UpdateService.onProgress(onUpdateProgress);
+		UpdateService.onError(onUpdateError);
+		UpdateService.rebootOnUpdate(true);
 		Serial.println("\tWiFi connected");
 		Serial.print("\tSSID: ");
 		Serial.println(WiFi.SSID());
@@ -107,11 +120,32 @@ void SetupWiFi()
 	}
 }
 
+void portalNotFound()
+{
+	Serial.println("portal: Not found");
+}
+
 bool startCP(IPAddress ip)
 {
 	SetMode("cp");
 	Serial.println("CP (own WLAN) started, IP:" + WiFi.localIP().toString());
 	return true;
+}
+void onUpdateStart()
+{
+	Serial.println("Updateprocess started");
+}
+void onUpdateEnd()
+{
+	Serial.println("Updateprocess ended");
+}
+void onUpdateProgress(int p, int p1)
+{
+	Serial.println("Update makes progress:" + String(p) + String(p1));
+}
+void onUpdateError(int code)
+{
+	Serial.println("Update encountered Error:" + String(code));
 }
 
 void SetupSSDP()
@@ -155,6 +189,8 @@ void SetupLeds()
 	Serial.println("SetupLeds");
 	leds->begin();
 	leds->clear();
+
+	leds->setPixelColor(1, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
 	RestoreConfig();
 	if (CurrentMode == NULL)
@@ -172,28 +208,28 @@ void SetupLeds()
 
 void handleRoot()
 {
-	String Return;
-	for (size_t i = 0; i < Server.args(); i++)
+	String result;
+	for (auto i = 0; i < Server.args(); i++)
 	{
 		auto argName = Server.argName(i);
 		auto argVal = Server.arg(i);
 		if (argName == "get")
 		{
-			Return += CurrentConfig2String();
+			result += CurrentConfig2String();
 		}
 		else if (argName == "config")
 		{
 			if (argVal == "save")
 			{
-				Return += StoreConfig();
+				result += StoreConfig();
 			}
 			else if (argVal == "load")
 			{
-				Return += RestoreConfig();
+				result += RestoreConfig();
 			}
 			else if (argVal == "clear")
 			{
-				Return += ClearConfigMemory();
+				result += ClearConfigMemory();
 			}
 		}
 		else if (argName == "setHostname")
@@ -202,18 +238,18 @@ void handleRoot()
 		}
 		else
 		{
-			Return += SetProperty(argName, argVal);
+			result += SetProperty(argName, argVal);
 		}
 	}
 	if (Server.args() == 0)
 	{
 		digitalWrite(BuiltInLed, LOW); //Led port einschlaten
-		Return = "Welcome to the server";
+		result = "Welcome to the server";
 		delay(100);
 		digitalWrite(BuiltInLed, HIGH); //Led port ausschalten
 	}
-	Server.send(200, "text/plain", Return);
-	Serial.println(Return);
+	Server.send(200, "text/plain", result);
+	Serial.println(result);
 }
 
 void loop(void)
@@ -262,7 +298,7 @@ void LEDsStop()
 
 bool SetMode(String s)
 {
-	auto TempMode = CurrentMode;
+	auto tempMode = CurrentMode;
 	if (s == "on")
 	{
 		LEDsStart();
@@ -318,7 +354,7 @@ bool SetMode(String s)
 		maxpin = maxpin > D4 ? maxpin : D4;
 		maxpin = maxpin > D5 ? maxpin : D5;
 		int* PinDoorMap = new int[maxpin];
-		for (size_t i = 0; i < maxpin; i++)
+		for (auto i = 0; i < maxpin; i++)
 		{
 			PinDoorMap[i] = -1;
 		}
@@ -332,7 +368,7 @@ bool SetMode(String s)
 	{
 		return false;
 	}
-	delete TempMode;
+	delete tempMode;
 	return true;
 }
 
@@ -551,8 +587,9 @@ String ReadValidHostname()
 
 String StoreHostname(String hostname)
 {
-	Serial.print("storing new hostname: ");
-	Serial.println(hostname);
+	Serial.print("storing new hostname:-");
+	Serial.print(hostname);
+	Serial.println("-");
 	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
 	{
 		//SetupSSDP();
@@ -560,6 +597,9 @@ String StoreHostname(String hostname)
 		SSDP.end();
 		SSDP.setName(ReadValidHostname());
 		SSDP.begin();
+		Serial.print("your new hostname is:-");
+		Serial.print(ReadValidHostname());
+		Serial.println("-");
 		//acConfig.hostName = customHostname;
 		return "SUCCESS storing Hostname, restarted SSDP Server";
 	}

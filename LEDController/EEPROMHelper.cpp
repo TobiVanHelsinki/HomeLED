@@ -40,12 +40,13 @@ String ReadEEPROM(int startadress)
 /// <param name="text">The text to be written.</param>
 /// <param name="andAdress">A limit for storage usage. -1 for auto.</param>
 /// <returns>true if all is ok, false othwerwise</returns>
-bool WriteEEPROM(int startadress, String text, int andAdress)
+bool WriteEEPROM(int startadress, String text, int endAdress)
 {
-	auto length = text.length();
-	if (andAdress != -1 && length > andAdress)
+	int length = text.length();
+	if (endAdress != -1 && length > endAdress)
 	{
-		length = andAdress;
+		Serial.print("new hostname is to long, cuttin last symbols: " + String(length - endAdress));
+		length = endAdress;
 	}
 	char* textbytes = new char[length];
 	text.toCharArray(textbytes, length + 1);
@@ -53,7 +54,7 @@ bool WriteEEPROM(int startadress, String text, int andAdress)
 	{
 		EEPROM.write(startadress + i, textbytes[i]);
 	}
-	EEPROM.write(startadress + length + 1, 0);
+	EEPROM.write(startadress + length, 0);
 	auto result = EEPROM.commit();
 	if (!result)
 	{

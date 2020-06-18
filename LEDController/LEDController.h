@@ -1,6 +1,6 @@
 #pragma once
 
-#define CustomSettings
+//#define CustomSettings
 
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
@@ -50,14 +50,14 @@ constexpr auto MinBrigthnes = 0;
 #ifdef CustomSettings
 constexpr auto MaxNumberOfLeds = 252;
 #else
-constexpr auto MaxNumberOfLeds = 150;
+constexpr auto MaxNumberOfLeds = 15/*0*/;
 #endif
 
 constexpr auto MaxLEDRefreshTime = 10000;
 constexpr auto MaxBrigthnes = 255;
 
 auto CurrentNumberOfLeds = MaxNumberOfLeds;
-auto CurrentLEDRefreshTime = 16;
+auto CurrentLEDRefreshTime = 25; //in Hz
 auto CurrentBrigthnes = 100;
 
 constexpr auto StartMode = "sin";
@@ -68,7 +68,7 @@ constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelName = "ImperialHomeLED.V1";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
 constexpr auto ModelNumber = "100";
-constexpr auto Version = "1.3s";
+constexpr auto Version = "1.4";
 constexpr auto DEFAULTPASSW = "12345678";
 
 constexpr auto HTTPPort = 80;
@@ -78,7 +78,7 @@ constexpr auto StorageAdress_Start_Hostname = 0;
 constexpr auto StorageAdress_End_Hostname = 17;
 constexpr auto StorageAdress_Start_Configuration = 100;
 constexpr auto StorageAdress_End_Configuration = 500;
-constexpr auto StorageAdress_AutoConnect = 3500;
+constexpr auto StorageAdress_AutoConnect = 501;
 constexpr auto StorageAdress_EEPROMMax = 4096;
 
 constexpr auto ResetPressedTime = 4000;

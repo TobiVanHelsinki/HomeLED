@@ -19,5 +19,5 @@ protected:
 	int CurrentPosition = 0;
 	int PositionBackward = 0;
 	int Width = 30;
-	int Fringe = 25;
+	uint Fringe = 25;
 };

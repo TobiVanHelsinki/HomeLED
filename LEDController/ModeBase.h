@@ -7,6 +7,7 @@ class ModeBase
 {
 public:
 	ModeBase(ILEDProvider* ledstouse);
+	virtual ~ModeBase();
 
 	virtual String GetID() = 0;
 	virtual void NextState() = 0;

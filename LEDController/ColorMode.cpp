@@ -95,22 +95,27 @@ void ColorMode::CalculateHSV(byte r, byte g, byte b, uint16_t* colorh, uint8_t* 
 
 	double maxval = max(rd, max(gd, bd));
 	double minval = min(rd, min(gd, bd));
-	double h, s, v = maxval;
+	double h = 0, s, v = maxval;
 
 	double d = maxval - minval;
 	s = maxval == 0 ? 0 : d / maxval;
 
-	if (maxval == minval) {
+	if (maxval == minval)
+	{
 		h = 0; // achromatic
 	}
-	else {
-		if (maxval == rd) {
+	else
+	{
+		if (maxval == rd)
+		{
 			h = (gd - bd) / d + (gd < bd ? 6 : 0);
 		}
-		else if (maxval == gd) {
+		else if (maxval == gd)
+		{
 			h = (bd - rd) / d + 2;
 		}
-		else if (maxval == bd) {
+		else if (maxval == bd)
+		{
 			h = (rd - gd) / d + 4;
 		}
 		h /= 6;

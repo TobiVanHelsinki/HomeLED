@@ -5,7 +5,8 @@ SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 	BuildTable(DebugOutput);
 }
 
-inline int SinMode::positive_modulo(int i, int n) {
+inline int SinMode::positive_modulo(int i, int n)
+{
 	return (i % n + n) % n;
 }
 
@@ -35,14 +36,14 @@ void SinMode::BuildTable(bool Verbose)
 	SinTable = new float[SinTabelSize];
 	float stepsize = TWO_PI / SinTabelSize;
 	auto Offset = 1.0f - Scaling;
-	for (size_t i = 0; i < SinTabelSize; i++)
+	for (auto i = 0; i < SinTabelSize; i++)
 	{
 		SinTable[i] = (sin(i * stepsize - PI * 0.5) * Scaling) + Offset;
 	}
 	if (Verbose)
 	{
 		Serial.println("SinTable: ");
-		for (size_t i = 0; i < SinTabelSize; i++)
+		for (auto i = 0; i < SinTabelSize; i++)
 		{
 			Serial.println(String(SinTable[i]));
 		}

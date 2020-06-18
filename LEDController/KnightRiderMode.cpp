@@ -24,7 +24,7 @@ void KnightRiderMode::NextState()
 void KnightRiderMode::PrintTail(size_t startPos)
 {
 	auto max = leds->numPixels();
-	for (size_t i = 0; i < Width; i++)
+	for (auto i = 0; i < Width; i++)
 	{
 		auto pixelpos = startPos + i;
 		if (pixelpos >= max)
@@ -102,9 +102,10 @@ String KnightRiderMode::Set(String Name, String Value)
 {
 	if (Name == "width")
 	{
-		if (Fringe > Value.toInt())
+		uint val = Value.toInt();
+		if (Fringe > val)
 		{
-			Fringe = Value.toInt();
+			Fringe = val;
 		}
 		return SetinBoundsAndReport(&Width, "Width", Value);
 	}
