@@ -9,16 +9,11 @@
 
 void setup()
 {
-#if _DEBUG
-	//Serial.begin(115200);
-#endif // _DEBUG
+#ifdef _DEBUG
 	Serial.begin(115200);
-
-	Serial.println("Test");
-	delayMicroseconds(500);
-	Serial.println("Test");
+#endif // _DEBUG
+	delay(2000);
 	SERIALWRITELINE("-------------- --------------");
-	return;
 	PrintResetCause();
 	InitEEPROM(StorageAdress_EEPROMMax);
 	HWReset::SetupResetProcedures();
@@ -35,7 +30,7 @@ void loop(void)
 	{
 		NetworkCommunication::Portal.handleClient();
 	}
-	delay(100);
+	delay(1000);
 }
 
 void PrintResetCause()

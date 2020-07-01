@@ -7,6 +7,12 @@
 #include "EEPROMHelper.h"
 #include "LEDProvider_Analog.h"
 #include "LEDProvider_NeoPixel.h"
+#ifdef HARDWARE_IS_NEOPIXEL
+#include "LEDProvider_NeoPixel.h"
+#endif
+#ifdef HARDWARE_IS_ANALOG
+#include "LEDProvider_Analog.h"
+#endif
 //Modes:
 #include "RainbowMode.h"
 #include "PulseMode.h"
@@ -16,13 +22,6 @@
 #include "DoorsMode.h"
 #include "KnightRiderMode.h"
 #include "TykeMode.h"
-
-#ifdef HARDWARE_IS_NEOPIXEL
-#include "LEDProvider_NeoPixel.h"
-#endif
-#ifdef HARDWARE_IS_ANALOG
-#include "LEDProvider_Analog.h"
-#endif
 
 class LedFunctions
 {

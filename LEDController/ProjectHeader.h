@@ -1,11 +1,11 @@
 #pragma once
 
 //#define CustomSettings
-
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
+#define _DEBUG
 
-#if _DEBUG
+#ifdef _DEBUG
 #define SERIALWRITELINE(x) Serial.println(x);
 #define SERIALWRITE(x) Serial.print(x);
 #else

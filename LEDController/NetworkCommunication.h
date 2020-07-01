@@ -29,7 +29,7 @@ public:
 
 	static void onUpdateProgress(int p, int p1);
 
-	static 	void onUpdateError(int code);
+	static	void onUpdateError(int code);
 
 	static void SetupSSDP();
 
