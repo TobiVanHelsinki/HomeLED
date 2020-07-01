@@ -1,7 +1,13 @@
 #include "HWReset.h"
 unsigned long HWReset::ResetInitiatedAt = 0;
 
-void HWReset::ProcessResetInterrupt()
+void HWReset::SetupResetProcedures()
+{
+	pinMode(interruptPinReset, INPUT_PULLUP);
+	attachInterrupt(digitalPinToInterrupt(interruptPinReset), HWReset::ProcessResetInterrupt, CHANGE);
+}
+
+void ICACHE_RAM_ATTR HWReset::ProcessResetInterrupt()
 {
 	if (digitalRead(interruptPinReset) == HIGH) //released
 	{

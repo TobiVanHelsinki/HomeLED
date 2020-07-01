@@ -6,8 +6,8 @@
 #define HARDWARE_IS_NEOPIXEL
 
 #if _DEBUG
-#define SERIALWRITELINE(x) SERIALWRITELINE(x);
-#define SERIALWRITE(x) SERIALWRITE(x);
+#define SERIALWRITELINE(x) Serial.println(x);
+#define SERIALWRITE(x) Serial.print(x);
 #else
 #define SERIALWRITELINE(x)
 #define SERIALWRITE(x)
@@ -17,6 +17,19 @@
 For OTA: set FS to none
 */
 #include <Arduino.h>
+constexpr auto BuiltInLed = D4;
+
+//NetworkCommunication
+constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
+constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
+constexpr auto DeviceType = "ImperialHomeLED";
+constexpr auto ModelName = "ImperialHomeLED.V1";
+constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
+constexpr auto ModelNumber = "100";
+constexpr auto Version = "1.7";
+constexpr auto DEFAULTPASSW = "12345678";
+
+constexpr auto HTTPPort = 80;
 
 //HW Reset
 constexpr auto interruptPinReset = D7;
