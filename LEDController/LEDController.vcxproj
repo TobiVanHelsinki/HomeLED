@@ -120,6 +120,7 @@
     <ClInclude Include="ConfigIO.h" />
     <ClInclude Include="HWReset.h" />
     <ClInclude Include="KnightRiderMode.h" />
+    <ClInclude Include="LedFunctions.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
     <ClInclude Include="ColorMode.h" />
     <ClInclude Include="DoorsMode.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="ConfigIO.cpp" />
     <ClCompile Include="HWReset.cpp" />
     <ClCompile Include="KnightRiderMode.cpp" />
+    <ClCompile Include="LedFunctions.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />
     <ClCompile Include="ColorMode.cpp" />
     <ClCompile Include="DoorsMode.cpp" />

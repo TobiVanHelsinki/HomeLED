@@ -1,10 +1,4 @@
 #pragma once
-
-//#define CustomSettings
-
-//#define HARDWARE_IS_ANALOG
-#define HARDWARE_IS_NEOPIXEL
-
 #include <AutoConnect.h>
 #include <PageStream.h>
 #include <PageBuilder.h>
@@ -13,56 +7,14 @@
 #include <ESP8266SSDP.h>
 #include <AutoConnectCredential.h>
 #include <Arduino.h>
-//#include <pins_arduino.h>
 #include "ProjectHeader.h"
+#include "LedFunctions.h"
 #include "HWReset.h"
 #include "ConfigIO.h"
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
-#ifdef HARDWARE_IS_NEOPIXEL
-#include "LEDProvider_NeoPixel.h"
-#ifdef CustomSettings
-constexpr auto LEDsPin = D6;
-#else
-constexpr auto LEDsPin = D1;
-#endif
-#endif
-#ifdef HARDWARE_IS_ANALOG
-#include "LEDProvider_Analog.h"
-constexpr auto AnalogPin_R = D1;
-constexpr auto AnalogPin_G = D3;
-constexpr auto AnalogPin_B = D2;
-#endif
 
 constexpr auto BuiltInLed = D4;
-
-#include "RainbowMode.h"
-#include "PulseMode.h"
-#include "OnePixelMode.h"
-#include "SinMode.h"
-#include "ColorMode.h"
-#include "DoorsMode.h"
-#include "KnightRiderMode.h"
-#include "TykeMode.h"
-
-constexpr auto MinNumberOfLeds = 1;
-constexpr auto MinLEDRefreshTime = 20;
-constexpr auto MinBrigthnes = 0;
-
-#ifdef CustomSettings
-constexpr auto MaxNumberOfLeds = 252;
-#else
-constexpr auto MaxNumberOfLeds = 300;
-#endif
-
-constexpr auto MaxLEDRefreshTime = 10000;
-constexpr auto MaxBrigthnes = 255;
-
-auto CurrentNumberOfLeds = MaxNumberOfLeds;
-auto CurrentLEDRefreshTime = 24; //in Hz
-auto CurrentBrigthnes = 25;
-
-constexpr auto StartMode = "sin";
 
 constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
 constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";

@@ -1,26 +1,9 @@
 #include "LEDController.h"
 
-#pragma region Server Vars
 bool IsServerReady = false;
 ESP8266WebServer Server(HTTPPort);
 AutoConnect Portal(Server);
 AutoConnectUpdate UpdateService("home", 8010);
-#pragma endregion
-
-#pragma region Led Vars
-ILEDProvider* leds =
-#ifdef HARDWARE_IS_NEOPIXEL
-new LEDProvider_NeoPixel(new Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800));
-#endif
-#ifdef HARDWARE_IS_ANALOG
-new LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B);
-#endif
-ModeBase* CurrentMode;
-os_timer_t ShowTimer;
-bool IsLEDStarted = false;
-#pragma endregion
-
-#pragma region Setups
 
 void PrintResetCause()
 {
@@ -64,7 +47,7 @@ void setup()
 	InitEEPROM(StorageAdress_EEPROMMax);
 	//HWReset::ResetSystem();
 	SetupResetProcedures();
-	SetupLeds();
+	LedFunctions::SetupLeds();
 	SetupWiFi();
 	SetupSSDP();
 	SERIALWRITELINE("INIT complete");
@@ -130,7 +113,7 @@ void portalNotFound()
 
 bool startCP(IPAddress ip)
 {
-	SetMode("cp");
+	LedFunctions::SetMode("cp");
 	SERIALWRITELINE("CP (own WLAN) started, IP:" + WiFi.localIP().toString());
 	return true;
 }
@@ -187,28 +170,6 @@ void SetupSSDP()
 	}
 }
 
-void SetupLeds()
-{
-	SERIALWRITELINE("SetupLeds");
-	leds->begin();
-	//leds->clear();
-
-	leds->setPixelColor(1, Adafruit_NeoPixel::Color(20, 20, 255));
-	leds->show();
-	String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
-	if (CurrentMode == NULL)
-	{
-		if (!SetMode(StartMode))
-		{
-			SERIALWRITELINE("\tError SetMode");
-		}
-	}
-	SERIALWRITE("\t");
-	LEDsStart();
-}
-
-#pragma endregion
-
 void handleRoot()
 {
 	String result;
@@ -218,17 +179,17 @@ void handleRoot()
 		auto argVal = Server.arg(i);
 		if (argName == "get")
 		{
-			result += CurrentConfig2String();
+			result += LedFunctions::CurrentConfig2String();
 		}
 		else if (argName == "config")
 		{
 			if (argVal == "save")
 			{
-				result += ConfigIO::StoreConfig(CurrentConfig2String());
+				result += ConfigIO::StoreConfig(LedFunctions::CurrentConfig2String());
 			}
 			else if (argVal == "load")
 			{
-				result += String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
+				result += LedFunctions::String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 			}
 			else if (argVal == "clear")
 			{
@@ -244,7 +205,7 @@ void handleRoot()
 		}
 		else
 		{
-			result += SetProperty(argName, argVal);
+			result += LedFunctions::SetProperty(argName, argVal);
 		}
 	}
 	if (Server.args() == 0)
@@ -266,280 +227,3 @@ void loop(void)
 	}
 	delay(100);
 }
-
-//Function is called by the timer multiple times a second
-void RefreshLeds(void* pArg)
-{
-	CurrentMode->NextState();
-	leds->show();
-}
-//TODO try to extract the following to other files
-#pragma region Led Functs
-
-void LEDsStart()
-{
-	if (IsLEDStarted)
-	{
-		return;
-	}
-	os_timer_setfn(&ShowTimer, RefreshLeds, NULL);
-	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
-	SERIALWRITELINE("LEDs started");
-	IsLEDStarted = true;
-}
-
-void LEDsStop()
-{
-	if (!IsLEDStarted)
-	{
-		return;
-	}
-	os_timer_disarm(&ShowTimer);
-	delayMicroseconds(CurrentLEDRefreshTime + 20);
-	SERIALWRITELINE("LEDs stopped");
-	leds->clear();
-	leds->show();
-	IsLEDStarted = false;
-}
-
-bool SetMode(String s)
-{
-	auto tempMode = CurrentMode;
-	if (s == "on")
-	{
-		LEDsStart();
-		return true;
-	}
-	else if (s == "off")
-	{
-		LEDsStop();
-		return true;
-	}
-	else if (CurrentMode != NULL && s == CurrentMode->GetID())
-	{
-		return false;
-	}
-	else if (s == "cp")
-	{
-		LEDsStop();
-		return true;
-		CurrentMode = new OnePixelMode(leds);
-		CurrentMode->Set("CurrentColor", String(Adafruit_NeoPixel::Color(11, 200, 0)));
-	}
-	else if (s == RainbowMode::ID)
-	{
-		CurrentMode = new RainbowMode(leds);
-	}
-	else if (s == ColorMode::ID)
-	{
-		CurrentMode = new ColorMode(leds);
-	}
-	else if (s == SinMode::ID)
-	{
-		CurrentMode = new SinMode(leds);
-	}
-	else if (s == PulseMode::ID)
-	{
-		CurrentMode = new PulseMode(leds);
-	}
-	else if (s == OnePixelMode::ID)
-	{
-		CurrentMode = new OnePixelMode(leds);
-	}
-	else if (s == KnightRiderMode::ID)
-	{
-		CurrentMode = new KnightRiderMode(leds);
-	}
-	else if (s == TykeMode::ID)
-	{
-		CurrentMode = new TykeMode(leds);
-	}
-	else if (s == DoorsMode::ID)
-	{
-		int maxpin = D2 > D3 ? D2 : D3;
-		maxpin = maxpin > D4 ? maxpin : D4;
-		maxpin = maxpin > D5 ? maxpin : D5;
-		int* PinDoorMap = new int[maxpin];
-		for (auto i = 0; i < maxpin; i++)
-		{
-			PinDoorMap[i] = -1;
-		}
-		PinDoorMap[D2] = 0;
-		PinDoorMap[D3] = 1;
-		PinDoorMap[D4] = 2;
-		PinDoorMap[D5] = 3;
-		CurrentMode = new DoorsMode(leds, 4, PinDoorMap);
-	}
-	else
-	{
-		return false;
-	}
-	delete tempMode;
-	return true;
-}
-
-static int CropAtBounds(int newVal, int minVal, int maxVal)
-{
-	if (newVal < minVal)
-	{
-		return minVal;
-	}
-	else if (newVal > maxVal)
-	{
-		return maxVal;
-	}
-	return newVal;
-}
-
-// Hz Value from 1 to 50
-bool UpdateSpeed(int newValue)
-{
-	if (newValue == 0)
-	{
-		newValue = 1;
-	}
-	newValue = CropAtBounds(1000 / newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
-	if (newValue != CurrentLEDRefreshTime)
-	{
-		CurrentLEDRefreshTime = newValue;
-		LEDsStop();
-		LEDsStart();
-		return true;
-	}
-	return false;
-}
-
-bool UpdateNumOfLeds(int newValue)
-{
-	newValue = CropAtBounds(newValue, MinNumberOfLeds, MaxNumberOfLeds);
-	if (CurrentNumberOfLeds != newValue)
-	{
-		CurrentNumberOfLeds = newValue;
-		leds->clear();
-		leds->updateLength(CurrentNumberOfLeds);
-		return true;
-	}
-	return false;
-}
-
-bool UpdateBri(int newValue)
-{
-	newValue = CropAtBounds(newValue, MinBrigthnes, MaxBrigthnes);
-	if (CurrentBrigthnes != newValue)
-	{
-		CurrentBrigthnes = newValue;
-		leds->setBrightness(newValue);
-		return true;
-	}
-	return false;
-}
-
-#pragma endregion
-
-#pragma region Config
-String SetProperty(String argName, String argVal)
-{
-	if (argName.isEmpty())
-	{
-		return "Emtpy Arg";
-	}
-	if (argVal.isEmpty())
-	{
-		return "Emtpy ArgVal";
-	}
-	SERIALWRITELINE("SetProperty (" + argName + ")=(" + argVal + ")");
-	String Return;
-	if (argName == "br" || argName == "brightnes")
-	{
-		if (UpdateBri(argVal.toInt()))
-		{
-			Return += "Brigthnes changed to: " + String(CurrentBrigthnes) + " \n";
-		}
-	}
-	else if (argName == "n" || argName == "number")
-	{
-		if (UpdateNumOfLeds(argVal.toInt()))
-		{
-			Return += "Number of active LEDs changed to: " + String(CurrentNumberOfLeds) + " \n";
-		}
-	}
-	else if (argName == "v" || argName == "speed")
-	{
-		if (UpdateSpeed(argVal.toInt()))
-		{
-			Return += "Speed changed to: " + String(CurrentLEDRefreshTime) + " \n";
-		}
-	}
-	else if (argName == "m" || argName == "mode")
-	{
-		if (SetMode(argVal))
-		{
-			Return += "Changed Mode to: " + CurrentMode->GetID() + "\n";
-		}
-	}
-	else
-	{
-		if (CurrentMode)
-		{
-			Return += CurrentMode->Set(argName, argVal);
-		}
-	}
-	return Return;
-}
-
-String CurrentConfig2String()
-{
-	String Return;
-	Return += "br=" + String(CurrentBrigthnes) + "&";
-	Return += "n=" + String(CurrentNumberOfLeds) + "&";
-	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
-	Return += "m=" + String(CurrentMode->GetID()) + "&";
-	auto names = CurrentMode->ParameterNames();
-	for (size_t i = 0; i < names.size(); i++)
-	{
-		auto parname = names.at(i);
-		Return += String(parname) + "=" + String(CurrentMode->Get(parname)) + "&";
-	}
-	return Return;
-}
-
-String String2CurrentConfig(String config)
-{
-	if (config.isEmpty())
-	{
-		return "config was Empty";
-	}
-	String param;
-	int counter = 0;
-	String result;
-	do
-	{
-		param = GetValue(config, '&', counter);
-		counter++;
-		auto name = GetValue(param, '=', 0);
-		auto value = GetValue(param, '=', 1);
-		result += SetProperty(name, value);
-	}
-	while (param != "");
-	return result;
-}
-
-String GetValue(String data, char separator, int index)
-{
-	int found = 0;
-	int strIndex[] = { 0, -1 };
-	int maxIndex = data.length() - 1;
-
-	for (int i = 0; i <= maxIndex && found <= index; i++)
-	{
-		if (data.charAt(i) == separator || i == maxIndex)
-		{
-			found++;
-			strIndex[0] = strIndex[1] + 1;
-			strIndex[1] = (i == maxIndex) ? i + 1 : i;
-		}
-	}
-	return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
-
-#pragma endregion
