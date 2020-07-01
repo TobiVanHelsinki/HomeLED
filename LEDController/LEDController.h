@@ -15,6 +15,7 @@
 #include <pins_arduino.h>
 #include "ProjectHeader.h"
 
+#include "ConfigIO.h"
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
 #ifdef HARDWARE_IS_NEOPIXEL
@@ -73,14 +74,6 @@ constexpr auto Version = "1.7";
 constexpr auto DEFAULTPASSW = "12345678";
 
 constexpr auto HTTPPort = 80;
-constexpr auto HomeLEDTitle = "HomeLED-";
-
-constexpr auto StorageAdress_Start_Hostname = 0;
-constexpr auto StorageAdress_End_Hostname = 17;
-constexpr auto StorageAdress_Start_Configuration = 100;
-constexpr auto StorageAdress_End_Configuration = 500;
-constexpr auto StorageAdress_AutoConnect = 501;
-constexpr auto StorageAdress_EEPROMMax = 4096;
 
 constexpr auto ResetPressedTime = 4000;
 

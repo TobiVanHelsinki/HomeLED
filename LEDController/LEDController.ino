@@ -84,7 +84,7 @@ void SetupWiFi()
 	AutoConnectConfig acConfig;
 	acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
-	acConfig.apid = GenerateDefaultHostname();
+	acConfig.apid = ConfigIO::GenerateDefaultHostname();
 	acConfig.psk = DEFAULTPASSW;
 	//acConfig.autoReconnect = false;
 	//acConfig.autoReset = false;
@@ -92,7 +92,7 @@ void SetupWiFi()
 	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
 	acConfig.ota = AC_OTA_BUILTIN;
 	acConfig.portalTimeout = 0; //0=endless
-	acConfig.hostName = ReadValidHostname();
+	acConfig.hostName = ConfigIO::ReadValidHostname();
 	acConfig.apip = IPAddress(192, 168, 10, 1);
 	acConfig.ticker = true;
 	Portal.config(acConfig);
@@ -168,7 +168,7 @@ void SetupSSDP()
 	SSDP.setModelNumber(ModelNumber);
 	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
 	SSDP.setSerialNumber(serialNo);
-	auto name = ReadValidHostname();
+	auto name = ConfigIO::ReadValidHostname();
 	SSDP.setName(name);
 	SERIALWRITE("\t");
 	SERIALWRITE("Model: ");
@@ -191,11 +191,11 @@ void SetupLeds()
 {
 	SERIALWRITELINE("SetupLeds");
 	leds->begin();
-	leds->clear();
+	//leds->clear();
 
 	leds->setPixelColor(1, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
-	RestoreConfig();
+	String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 	if (CurrentMode == NULL)
 	{
 		if (!SetMode(StartMode))
@@ -224,20 +224,23 @@ void handleRoot()
 		{
 			if (argVal == "save")
 			{
-				result += StoreConfig();
+				result += ConfigIO::StoreConfig(CurrentConfig2String());
 			}
 			else if (argVal == "load")
 			{
-				result += RestoreConfig();
+				result += String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 			}
 			else if (argVal == "clear")
 			{
-				result += ClearConfigMemory();
+				result += ConfigIO::ClearConfigMemory();
 			}
 		}
 		else if (argName == "setHostname")
 		{
-			StoreHostname(argVal);
+			ConfigIO::StoreHostname(argVal);
+			SSDP.end();
+			SSDP.setName(ConfigIO::ReadValidHostname());
+			SSDP.begin();
 		}
 		else
 		{
@@ -541,76 +544,8 @@ String GetValue(String data, char separator, int index)
 
 #pragma endregion
 
-#pragma region Config IO
+#pragma region ConfigIO
 
-String RestoreConfig()
-{
-	return String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
-}
-
-String StoreConfig()
-{
-	if (WriteEEPROM(StorageAdress_Start_Configuration, CurrentConfig2String(), StorageAdress_End_Configuration))
-	{
-		return "SUCCESS storing Config";
-	}
-	else
-	{
-		return "ERROR storing Config";
-	}
-}
-
-String ClearConfigMemory()
-{
-	if (ClearEEPROM(StorageAdress_Start_Configuration, StorageAdress_End_Configuration))
-	{
-		return "SUCCESS cleaning Config";
-	}
-	else
-	{
-		return "ERROR cleaning Config";
-	}
-}
-
-String GenerateDefaultHostname()
-{
-	return HomeLEDTitle + String(ESP.getChipId(), HEX);
-}
-
-String ReadValidHostname()
-{
-	auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
-	if (hostname.isEmpty())
-	{
-		SERIALWRITELINE("Stored Hostname was empty");
-		hostname = GenerateDefaultHostname();
-	}
-	return hostname;
-}
-
-String StoreHostname(String hostname)
-{
-	SERIALWRITE("storing new hostname:-");
-	SERIALWRITE(hostname);
-	SERIALWRITELINE("-");
-	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
-	{
-		//SetupSSDP();
-		//SetupWiFi();
-		SSDP.end();
-		SSDP.setName(ReadValidHostname());
-		SSDP.begin();
-		SERIALWRITE("your new hostname is:-");
-		SERIALWRITE(ReadValidHostname());
-		SERIALWRITELINE("-");
-		//acConfig.hostName = customHostname;
-		return "SUCCESS storing Hostname, restarted SSDP Server";
-	}
-	else
-	{
-		return "ERROR storing Hostname";
-	}
-}
 #pragma endregion
 
 #pragma region HW Reset
