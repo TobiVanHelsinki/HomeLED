@@ -12,7 +12,8 @@
 #include <ESP8266WebServerSecure.h>
 #include <ESP8266SSDP.h>
 #include <AutoConnectCredential.h>
-#include <pins_arduino.h>
+#include <Arduino.h>
+//#include <pins_arduino.h>
 #include "ProjectHeader.h"
 #include "HWReset.h"
 #include "ConfigIO.h"

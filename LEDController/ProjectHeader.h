@@ -11,9 +11,9 @@
 /*
 For OTA: set FS to none
 */
-//#include <pins_arduino.h>
+#include <Arduino.h>
 
-constexpr auto interruptPinReset = 13;// D7;
+constexpr auto interruptPinReset = D7;
 constexpr auto ResetPressedTime = 4000;
 
 constexpr auto HomeLEDTitle = "HomeLED-";
