@@ -14,7 +14,7 @@
 #include <AutoConnectCredential.h>
 #include <pins_arduino.h>
 #include "ProjectHeader.h"
-
+#include "HWReset.h"
 #include "ConfigIO.h"
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
@@ -34,7 +34,6 @@ constexpr auto AnalogPin_B = D2;
 #endif
 
 constexpr auto BuiltInLed = D4;
-constexpr auto interruptPinReset = D7;
 
 #include "RainbowMode.h"
 #include "PulseMode.h"
@@ -74,8 +73,6 @@ constexpr auto Version = "1.7";
 constexpr auto DEFAULTPASSW = "12345678";
 
 constexpr auto HTTPPort = 80;
-
-constexpr auto ResetPressedTime = 4000;
 
 void ICACHE_RAM_ATTR ProcessResetInterrupt();
 

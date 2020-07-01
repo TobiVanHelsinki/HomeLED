@@ -69,6 +69,9 @@
     <ClInclude Include="ConfigIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HWReset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModeBase.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConfigIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HWReset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

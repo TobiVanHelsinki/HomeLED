@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfigIO.h" />
+    <ClInclude Include="HWReset.h" />
     <ClInclude Include="KnightRiderMode.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
     <ClInclude Include="ColorMode.h" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigIO.cpp" />
+    <ClCompile Include="HWReset.cpp" />
     <ClCompile Include="KnightRiderMode.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />
     <ClCompile Include="ColorMode.cpp" />
