@@ -1,7 +1,7 @@
 #include "LedFunctions.h"
 
 int LedFunctions::CurrentNumberOfLeds = MaxNumberOfLeds;
-int LedFunctions::CurrentLEDRefreshTime = 24; //in Hz
+int LedFunctions::CurrentLEDRefreshTime = 21; //in Hz
 int LedFunctions::CurrentBrigthnes = 25;
 
 ILEDProvider* LedFunctions::leds = new
