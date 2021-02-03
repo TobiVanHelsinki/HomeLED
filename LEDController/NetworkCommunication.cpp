@@ -1,7 +1,7 @@
 #include "NetworkCommunication.h"
 bool NetworkCommunication::IsServerReady = false;
 ESP8266WebServer NetworkCommunication::Server(HTTPPort);
-AutoConnectUpdate NetworkCommunication::UpdateService("home", 8010);
+AutoConnectUpdate NetworkCommunication::UpdateService("ts1", 8010);
 AutoConnect NetworkCommunication::Portal(Server);
 
 void NetworkCommunication::SetupWiFi()
