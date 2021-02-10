@@ -38,12 +38,14 @@ constexpr auto ResetPressedTime = 4000;
 constexpr auto HomeLEDTitle = "HomeLED-";
 
 //Config
-constexpr auto StorageAdress_Start_Hostname = 0;
-constexpr auto StorageAdress_End_Hostname = 17;
-constexpr auto StorageAdress_Start_Configuration = 100;
-constexpr auto StorageAdress_End_Configuration = 500;
-constexpr auto StorageAdress_AutoConnect = 501;
-constexpr auto StorageAdress_EEPROMMax = 1024;
+//constexpr auto StorageAdress_Start_Hostname = 0;
+//constexpr auto StorageAdress_End_Hostname = 17;
+//constexpr auto StorageAdress_Start_Configuration = 100;
+//constexpr auto StorageAdress_End_Configuration = 500;
+//constexpr auto StorageAdress_AutoConnect = 501;
+//constexpr auto StorageAdress_EEPROMMax = 1024;
+constexpr auto FileHostName = "/hostnm.txt";
+constexpr auto FileConfig = "/lastconf.txt";
 
 //LedFunctions
 #ifdef HARDWARE_IS_NEOPIXEL

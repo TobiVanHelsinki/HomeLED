@@ -33,7 +33,7 @@ void HWReset::ResetSystem()
 {
 	SERIALWRITELINE("Reset and cleaning memory now!");
 	//ClearConfigMemory();
-	ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
+	//ClearEEPROM(0, StorageAdress_EEPROMMax); //geht auch nicht
 											 //auto credential = AutoConnectCredential(0);
 											 //AutoConnect::;
 	SERIALWRITELINE("Remove AutoConnectCredential now!");

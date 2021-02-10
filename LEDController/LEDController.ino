@@ -15,7 +15,8 @@ void setup()
 	delay(2000);
 	SERIALWRITELINE("-------------- --------------");
 	PrintResetCause();
-	InitEEPROM(StorageAdress_EEPROMMax);
+	//InitEEPROM(StorageAdress_EEPROMMax);
+	InitFileSystem();
 	HWReset::SetupResetProcedures();
 	//HWReset::ResetSystem();
 	LedFunctions::SetupLeds();

@@ -30,13 +30,7 @@
     <ClInclude Include="OnePixelMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LEDController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DoorsMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="__vm\.LEDController.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EEPROMHelper.h">
@@ -76,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NetworkCommunication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.LEDController.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

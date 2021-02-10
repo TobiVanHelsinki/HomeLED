@@ -24,7 +24,8 @@ void LedFunctions::SetupLeds()
 
 	leds->setPixelColor(1, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
-	String2CurrentConfig(/*EEPROMHelper::*/ReadEEPROM(StorageAdress_Start_Configuration));
+	//String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
+	String2CurrentConfig(ReadFile(FileConfig));
 	if (CurrentMode == NULL)
 	{
 		if (!SetMode(StartMode))

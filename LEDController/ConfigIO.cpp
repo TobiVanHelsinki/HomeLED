@@ -2,7 +2,8 @@
 
 String ConfigIO::StoreConfig(String config)
 {
-	if (WriteEEPROM(StorageAdress_Start_Configuration, config, StorageAdress_End_Configuration))
+	if (WriteFile(FileConfig, config))
+	//if (WriteEEPROM(StorageAdress_Start_Configuration, config, StorageAdress_End_Configuration))
 	{
 		return "SUCCESS storing Config";
 	}
@@ -14,7 +15,8 @@ String ConfigIO::StoreConfig(String config)
 
 String ConfigIO::ClearConfigMemory()
 {
-	if (ClearEEPROM(StorageAdress_Start_Configuration, StorageAdress_End_Configuration))
+	if (TruncateFile(FileConfig))
+	//if (ClearEEPROM(StorageAdress_Start_Configuration, StorageAdress_End_Configuration))
 	{
 		return "SUCCESS cleaning Config";
 	}
@@ -31,7 +33,8 @@ String ConfigIO::GenerateDefaultHostname()
 
 String ConfigIO::ReadValidHostname()
 {
-	auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
+	auto hostname = ReadFile(FileHostName);
+	//auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
 	if (hostname.isEmpty())
 	{
 		SERIALWRITELINE("Stored Hostname was empty");
@@ -45,7 +48,8 @@ String ConfigIO::StoreHostname(String hostname)
 	SERIALWRITE("storing new hostname:-");
 	SERIALWRITE(hostname);
 	SERIALWRITELINE("-");
-	if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
+	if (WriteFile(FileHostName, hostname))
+	//if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
 	{
 		//SetupSSDP();
 		//SetupWiFi();

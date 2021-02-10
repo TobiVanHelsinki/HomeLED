@@ -10,7 +10,7 @@ void NetworkCommunication::SetupWiFi()
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
 	AutoConnectConfig acConfig;
-	acConfig.boundaryOffset = StorageAdress_AutoConnect;
+	//acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
 	acConfig.apid = ConfigIO::GenerateDefaultHostname();
 	acConfig.psk = DEFAULTPASSW;
@@ -24,7 +24,7 @@ void NetworkCommunication::SetupWiFi()
 	acConfig.apip = IPAddress(192, 168, 10, 1);
 	acConfig.ticker = true;
 	Portal.config(acConfig);
-	Portal.onDetect(startCP);
+	//Portal.onDetect(startCP); // linking error after Version 1.1.7
 	Portal.onNotFound(portalNotFound);
 	SERIALWRITELINE("\tPortal.begin");
 	IsServerReady = Portal.begin();
@@ -53,7 +53,7 @@ void NetworkCommunication::SetupWiFi()
 
 void NetworkCommunication::portalNotFound()
 {
-	SERIALWRITELINE("portal: Not found");
+	//SERIALWRITELINE("portal: Not found");
 }
 
 bool NetworkCommunication::startCP(IPAddress ip)
@@ -118,6 +118,7 @@ void NetworkCommunication::SetupSSDP()
 void NetworkCommunication::handleRoot()
 {
 	String result;
+	bool shouldRestart = false;
 	for (auto i = 0; i < Server.args(); i++)
 	{
 		auto argName = Server.argName(i);
@@ -134,7 +135,7 @@ void NetworkCommunication::handleRoot()
 			}
 			else if (argVal == "load")
 			{
-				result += LedFunctions::String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
+				result += LedFunctions::String2CurrentConfig(ReadFile(FileConfig));
 			}
 			else if (argVal == "clear")
 			{
@@ -147,6 +148,15 @@ void NetworkCommunication::handleRoot()
 			SSDP.end();
 			SSDP.setName(ConfigIO::ReadValidHostname());
 			SSDP.begin();
+		}
+		else if (argName == "getHostname")
+		{
+			result += ConfigIO::ReadValidHostname();
+		}
+		else if (argName == "restart")
+		{
+			shouldRestart = true;
+			result += "restarting module";
 		}
 		else
 		{
@@ -162,4 +172,9 @@ void NetworkCommunication::handleRoot()
 	}
 	Server.send(200, "text/plain", result);
 	SERIALWRITELINE(result);
+	if (shouldRestart)
+	{
+		SERIALWRITELINE("Restarting now");
+		ESP.restart();
+	}
 }
