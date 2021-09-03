@@ -12,25 +12,26 @@ inline int SinMode::positive_modulo(int i, int n)
 
 void SinMode::NextState()
 {
-	for (int i = 0; i < leds->numPixels(); i++)
+	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos++)
 	{
-		float scale = SinTable[positive_modulo(VerticalOffset * i + j, SinTabelSize)];
+		//Was passiert, wenn ich VerticalOffset über table size mache?
+		float scale = SinTable[positive_modulo(VerticalOffset * ledpos + timepos, SinTabelSize)];
 		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
 			(int)(CurrentColor_b * scale)
 		);
-		if (DebugOutput && i == 0)
+		if (DebugOutput && ledpos == 0)
 		{
 			auto colorstring = new char[6];
 			sprintf(colorstring, "%06x", color);
 			SERIALWRITELINE(String(scale) + " : " + String(colorstring));
 		}
-		leds->setPixelColor(i, color);
+		leds->setPixelColor(ledpos, color);
 	}
-	j = positive_modulo(j + HorizontalOffset, SinTabelSize);
+	timepos = positive_modulo(timepos + HorizontalOffset, SinTabelSize);
 }
-
+//TODO statt einer wellenbreitenreduktion einfach direkt die SinTabelSize bearbeiten lassen. so kann die wellenbrite direkt angegeben werden. spart rechnerei und einen parameter
 void SinMode::BuildTable(bool Verbose)
 {
 	SinTable = new float[SinTabelSize];
@@ -97,11 +98,11 @@ String SinMode::Set(String Name, String Value)
 {
 	if (Name == "ho")
 	{
-		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, 0, 255);
+		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, -255, 255);
 	}
 	else if (Name == "vo")
 	{
-		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, 0, 255);
+		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, -255, 255);
 	}
 	else if (Name == "scale")
 	{
