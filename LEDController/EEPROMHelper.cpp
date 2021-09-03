@@ -7,6 +7,7 @@
 void InitFileSystem()
 {
 	SERIALWRITELINE("InitFileSystem");
+
 	LittleFSConfig cfg;
 	cfg.setAutoFormat(true);
 	if (!LittleFS.setConfig(cfg))
@@ -57,13 +58,23 @@ void InitFileSystem()
 /// <returns>The red string</returns>
 String ReadFile(String path)
 {
-	File f = LittleFS.open(path, "r");
-	if (!f)
-	{
-		SERIALWRITELINE("file open for reading failed");
-		return String();
+	SERIALWRITE("Read ");
+	SERIALWRITE(path);
+	SERIALWRITE(" : ");
+
+	File file = LittleFS.open(path, "r");
+	if (!file) {
+		SERIALWRITELINE("Failed to open file for reading");
+		return "";
 	}
-	return f.readString();
+	String filecontent = "";
+	while (file.available()) 
+	{
+		filecontent = file.readString();
+	}
+	file.close();
+	SERIALWRITELINE("Success");
+	return filecontent;
 }
 
 ///// <summary>
@@ -122,39 +133,27 @@ void listDir(const char* dirname) {
 /// <param name="text">The text to be written.</param>
 /// <param name="andAdress">A limit for storage usage. -1 for auto.</param>
 /// <returns>true if all is ok, false othwerwise</returns>
-bool WriteFile(String path, String texta)
+bool WriteFile(String path, String message)
 {
-	//const char* text = "Now is the time for all good men to come to the aid of their country.\nYa te vas para no volver.\nRien n'empeche.\n";
-	const char* text = "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello12345";
-	Serial.printf("Deleting file: %s\n", path.c_str());
-	if (LittleFS.remove(path)) {
-		Serial.println("File deleted");
+	SERIALWRITE("Write ");
+	SERIALWRITE(path);
+	SERIALWRITE(" : ");
+
+	File file = LittleFS.open(path, "w");
+	if (!file) {
+		SERIALWRITELINE("Failed to open file for writing");
+		return false;
+	}
+	if (file.print(message)) {
+		SERIALWRITELINE("File written");
+		file.close();
+		return true;
 	}
 	else {
-		Serial.println("Delete failed");
-	}
-	File f = LittleFS.open(path, "w");
-	if (!f)
-	{
-		SERIALWRITELINE("file open for writing failed");
+		SERIALWRITELINE("Write failed");
+		file.close();
 		return false;
 	}
-	auto writtenbytes = f.write(text);
-	//auto writtenbytes = f.write(text.c_str());
-	//auto writtenbytes = f.print(text);
-	f.close();
-	listDir("/");
-	//if (writtenbytes != text.length())
-	//{
-	//	SERIALWRITELINE("wrote just "+ String(writtenbytes) +" of " + String(text.length())+" at " + String(path));
-	//	return false;
-	//}
-	/*else*/ if (writtenbytes == 0)
-	{
-		SERIALWRITELINE("wrote 0 bytes");
-		return false;
-	}
-	return true;
 }
 
 ///// <summary>
@@ -191,6 +190,7 @@ bool TruncateFile(String path)
 		SERIALWRITELINE("file open for truncate failed");
 		return false;
 	}
+	f.truncate(f.size()); //untestet
 	f.close();
 	return true;
 }

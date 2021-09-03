@@ -17,21 +17,23 @@ void setup()
 	PrintResetCause();
 	//InitEEPROM(StorageAdress_EEPROMMax);
 	InitFileSystem();
+	delay(2000);
 	HWReset::SetupResetProcedures();
 	//HWReset::ResetSystem();
-	LedFunctions::SetupLeds();
 	NetworkCommunication::SetupWiFi();
 	NetworkCommunication::SetupSSDP();
+	LedFunctions::SetupLeds();
 	SERIALWRITELINE("INIT complete");
 }
 
 void loop(void)
 {
+	//SERIALWRITELINE("loop");
 	if (NetworkCommunication::IsServerReady)
 	{
 		NetworkCommunication::Portal.handleClient();
 	}
-	delay(1000);
+	delay(500);
 }
 
 void PrintResetCause()

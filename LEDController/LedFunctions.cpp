@@ -1,7 +1,7 @@
 #include "LedFunctions.h"
 
 int LedFunctions::CurrentNumberOfLeds = MaxNumberOfLeds;
-int LedFunctions::CurrentLEDRefreshTime = 21; //in Hz
+int LedFunctions::CurrentLEDRefreshTime = 100; //in ms
 int LedFunctions::CurrentBrigthnes = 25;
 
 ILEDProvider* LedFunctions::leds = new
@@ -22,7 +22,7 @@ void LedFunctions::SetupLeds()
 	leds->begin();
 	//leds->clear();
 
-	leds->setPixelColor(1, Adafruit_NeoPixel::Color(20, 20, 255));
+	leds->fill(1,100, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
 	//String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 	String2CurrentConfig(ReadFile(FileConfig));
@@ -33,12 +33,11 @@ void LedFunctions::SetupLeds()
 			SERIALWRITELINE("\tError SetMode");
 		}
 	}
-	SERIALWRITE("\t");
 	LedFunctions::LEDsStart();
 }
 
 //Function is called by the timer multiple times a second
-void RefreshLeds(void* pArg)
+LOCAL void ICACHE_FLASH_ATTR RefreshLeds(void* pArg) //LOCAL und FLASH ist neu
 {
 	LedFunctions::CurrentMode->NextState();
 	LedFunctions::leds->show();
@@ -50,10 +49,11 @@ void LedFunctions::LEDsStart()
 	{
 		return;
 	}
-	os_timer_setfn(&ShowTimer, RefreshLeds, NULL);
+	os_timer_disarm(&ShowTimer);
+	os_timer_setfn(&ShowTimer, (os_timer_func_t*)RefreshLeds, (void*)0);
 	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
-	SERIALWRITELINE("LEDs started");
 	IsLEDStarted = true;
+	SERIALWRITELINE("LEDs started");
 }
 
 void LedFunctions::LEDsStop()
@@ -161,11 +161,7 @@ int LedFunctions::CropAtBounds(int newVal, int minVal, int maxVal)
 
 bool LedFunctions::UpdateSpeed(int newValue)
 {
-	if (newValue == 0)
-	{
-		newValue = 1;
-	}
-	newValue = CropAtBounds(1000 / newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
+	newValue = CropAtBounds(newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
 	if (newValue != CurrentLEDRefreshTime)
 	{
 		CurrentLEDRefreshTime = newValue;
@@ -271,8 +267,11 @@ String LedFunctions::String2CurrentConfig(String config)
 {
 	if (config.isEmpty())
 	{
+		SERIALWRITELINE("config was Empty");
 		return "config was Empty";
 	}
+	SERIALWRITE("Load: ");
+	SERIALWRITELINE(config);
 	String param;
 	int counter = 0;
 	String result;

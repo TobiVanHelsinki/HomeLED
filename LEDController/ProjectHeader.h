@@ -53,7 +53,7 @@ constexpr auto FileConfig = "/lastconf.txt";
 constexpr auto LEDsPin = D6;
 #else
 constexpr auto LEDsPin = D1;
-#endif
+#endif 
 #endif
 #ifdef HARDWARE_IS_ANALOG
 constexpr auto AnalogPin_R = D1;
@@ -62,13 +62,13 @@ constexpr auto AnalogPin_B = D2;
 #endif
 
 constexpr auto MinNumberOfLeds = 1;
-constexpr auto MinLEDRefreshTime = 20;
+constexpr auto MinLEDRefreshTime = 40;
 constexpr auto MinBrigthnes = 0;
 
 #ifdef CustomSettings
 constexpr auto MaxNumberOfLeds = 252;
 #else
-constexpr auto MaxNumberOfLeds = 300;
+constexpr auto MaxNumberOfLeds = 1024;
 #endif
 
 constexpr auto MaxLEDRefreshTime = 10000;

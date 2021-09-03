@@ -37,8 +37,13 @@ String ConfigIO::ReadValidHostname()
 	//auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
 	if (hostname.isEmpty())
 	{
-		SERIALWRITELINE("Stored Hostname was empty");
+		SERIALWRITELINE("Stored Hostname was empty, return new generative hostname");
 		hostname = GenerateDefaultHostname();
+	}
+	else
+	{
+		SERIALWRITE("Your Hostname is: ");
+		SERIALWRITELINE(hostname);
 	}
 	return hostname;
 }
@@ -51,13 +56,7 @@ String ConfigIO::StoreHostname(String hostname)
 	if (WriteFile(FileHostName, hostname))
 	//if (WriteEEPROM(StorageAdress_Start_Hostname, hostname, StorageAdress_End_Hostname))
 	{
-		//SetupSSDP();
-		//SetupWiFi();
-		SERIALWRITE("your new hostname is:-");
-		SERIALWRITE(ReadValidHostname());
-		SERIALWRITELINE("-");
-		//acConfig.hostName = customHostname;
-		return "SUCCESS storing Hostname, restarted SSDP Server";
+		return "SUCCESS storing Hostname";
 	}
 	else
 	{

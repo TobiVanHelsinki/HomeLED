@@ -147,6 +147,7 @@ void NetworkCommunication::handleRoot()
 			ConfigIO::StoreHostname(argVal);
 			SSDP.end();
 			SSDP.setName(ConfigIO::ReadValidHostname());
+			SERIALWRITELINE("SUCCESS storing Hostname, restarted SSDP Server");
 			SSDP.begin();
 		}
 		else if (argName == "getHostname")

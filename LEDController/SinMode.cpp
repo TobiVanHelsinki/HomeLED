@@ -97,11 +97,11 @@ String SinMode::Set(String Name, String Value)
 {
 	if (Name == "ho")
 	{
-		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, 0, 50);
+		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, 0, 255);
 	}
 	else if (Name == "vo")
 	{
-		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, 0, 50);
+		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, 0, 255);
 	}
 	else if (Name == "scale")
 	{
