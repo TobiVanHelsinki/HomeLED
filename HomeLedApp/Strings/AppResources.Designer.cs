@@ -142,7 +142,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Horizontal offset ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wavelength reduction ähnelt.
         /// </summary>
         public static string HorizontalOffset {
             get {
@@ -448,7 +448,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Speed ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delay ähnelt.
         /// </summary>
         public static string Speed {
             get {
@@ -511,7 +511,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die VersionHistory ähnelt.
         /// </summary>
         public static string VersionHistory {
             get {
@@ -520,7 +520,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Vertical offset ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Accelerate by omission ähnelt.
         /// </summary>
         public static string VerticalOffset {
             get {

@@ -132,10 +132,6 @@
                     </StackLayout>
                     <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset"/>
-
-                    <Label Grid.Row="0" Grid.Column="1" Text="{resx:AppResources SinReverseParameter_Headline}" Style="{StaticResource HeadLineText}"/>
-                    <Switch Grid.Row="1" Grid.Column="1" IsToggled="{x:Binding Model.Sin_VerticalOffset_Neg}"/>
-                    <Switch Grid.Row="2" Grid.Column="1" IsToggled="{x:Binding Model.Sin_HorizontalOffset_Neg}"/>
                 </Grid>
                 <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
                     <Grid.RowDefinitions>

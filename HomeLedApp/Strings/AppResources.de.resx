@@ -145,7 +145,7 @@
     <value>Modus einstellen und senden</value>
   </data>
   <data name="HorizontalOffset" xml:space="preserve">
-    <value>Wellenbreite reduktion</value>
+    <value>Wellenbreitenreduktion</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
     <value>Streckt den Sinus in die Breite. Spielen Sie mit diesem Parameter doch ein wenig.</value>
@@ -246,7 +246,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Umkehren</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Geschwindigkeit</value>
+    <value>Verzögerung</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>Die Rate, mit der die Leds aktualisiert werden in Hz.</value>
@@ -267,7 +267,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Speichert die aktuelle Konfiguration des Gerätes, sodass diese beim nächsten Start automatisch geladen wird.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
-    <value />
+    <value>Versionen</value>
   </data>
   <data name="VerticalOffset" xml:space="preserve">
     <value>Beschleunigen durch Auslassen</value>

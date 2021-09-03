@@ -145,7 +145,7 @@
     <value>Set and send Mode</value>
   </data>
   <data name="HorizontalOffset" xml:space="preserve">
-    <value>Horizontal offset</value>
+    <value>Wavelength reduction</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
     <value>Extends the sine wave to the width. Why don't you play around with this parameter a bit?</value>
@@ -247,7 +247,7 @@
     <value>Reverse</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
+    <value>Delay</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>The rate at which the leds are updated in Hz.</value>
@@ -268,10 +268,10 @@
     <value>Saves the current configuration of the device so that it will be loaded automatically at the next start.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
-    <value />
+    <value>VersionHistory</value>
   </data>
   <data name="VerticalOffset" xml:space="preserve">
-    <value>Vertical offset</value>
+    <value>Accelerate by omission</value>
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
     <value>Raises the sine wave. Why don't you play around with this parameter a little?</value>
