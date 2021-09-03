@@ -145,7 +145,7 @@
     <value>Modus einstellen und senden</value>
   </data>
   <data name="HorizontalOffset" xml:space="preserve">
-    <value>Horizontale Verschiebung</value>
+    <value>Wellenbreite reduktion</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
     <value>Streckt den Sinus in die Breite. Spielen Sie mit diesem Parameter doch ein wenig.</value>
@@ -270,7 +270,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value />
   </data>
   <data name="VerticalOffset" xml:space="preserve">
-    <value>Vertikale Verschiebung</value>
+    <value>Beschleunigen durch Auslassen</value>
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
     <value>Streckt den Sinus in die Höhe. Spielen Sie mit diesem Parameter doch ein wenig.</value>
