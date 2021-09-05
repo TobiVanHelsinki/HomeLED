@@ -13,13 +13,13 @@ public:
 	String Get(String Name) override;
 	String Set(String Name, String Value) override;
 protected:
-	int HorizontalOffset = 3;
-	int VerticalOffset = 20;
-	float Scaling = 0.45;
-	void BuildTable(bool Verbose);
-	int timepos = 0;
-	inline int positive_modulo(int i, int n);
-
 	int SinTabelSize = 256;
+	int Multi = 1;
+	float Scaling = 0.45;
+
+	void BuildTable(bool Verbose);
+	inline int positive_modulo(int i, int n);
 	float* SinTable;
+	int timepos = 0;
+
 };

@@ -145,10 +145,10 @@
     <value>Modus einstellen und senden</value>
   </data>
   <data name="HorizontalOffset" xml:space="preserve">
-    <value>Wellenbreitenreduktion</value>
+    <value>Sinusbreite</value>
   </data>
   <data name="HorizontalOffset_Info" xml:space="preserve">
-    <value>Streckt den Sinus in die Breite. Spielen Sie mit diesem Parameter doch ein wenig.</value>
+    <value>Anzahl LEDs, die eine vollständige Sinuswelle bilden.</value>
   </data>
   <data name="Hue" xml:space="preserve">
     <value>Farbton</value>
@@ -270,10 +270,10 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Versionen</value>
   </data>
   <data name="VerticalOffset" xml:space="preserve">
-    <value>Beschleunigen durch Auslassen</value>
+    <value>Multiplikator</value>
   </data>
   <data name="VerticalOffset_Info" xml:space="preserve">
-    <value>Streckt den Sinus in die Höhe. Spielen Sie mit diesem Parameter doch ein wenig.</value>
+    <value>Fügt Effekte hinzu. Spiel doch ein wenig damit herum. Es auf die Hälfte der Sinusbreite zu setzen lässt die LEDs sanft blinken.</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Breite</value>

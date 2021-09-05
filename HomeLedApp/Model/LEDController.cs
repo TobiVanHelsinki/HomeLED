@@ -156,8 +156,8 @@ namespace HomeLedApp.Model
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
-        public double Speed_Min => 0; //Android can just acceppt 0 or negative values
-        public double Speed_Max => 2000;
+        public double Speed_Min => 0; //40; Android can just acceppt 0 or negative values
+        public double Speed_Max => 1000;
         private int _Speed;
         [LedServerRelevant("v", 50)]
         public int Speed
@@ -166,40 +166,40 @@ namespace HomeLedApp.Model
             set { if (_Speed != value) { _Speed = value.Max(40); NotifyPropertyChanged(); } }
         }
 
-        public double NumberOfLeds_Min => 0;
-        public double NumberOfLeds_Max => 1024;
-        private int _NumberOfLeds;
-        [LedServerRelevant("n", 1024)]
-        public int NumberOfLeds
-        {
-            get => _NumberOfLeds;
-            set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
-        }
+        //public double NumberOfLeds_Min => 0;
+        //public double NumberOfLeds_Max => 1024;
+        //private int _NumberOfLeds;
+        //[LedServerRelevant("n", 1024)]
+        //public int NumberOfLeds
+        //{
+        //    get => _NumberOfLeds;
+        //    set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
+        //}
 
-        public double Sin_VerticalOffset_Min => -255;
-        public double Sin_VerticalOffset_Max => 255;
+        public double Sin_VerticalOffset_Min => 0;
+        public double Sin_VerticalOffset_Max => 1024;
         private int _Sin_VerticalOffset;
-        [LedServerRelevant("vo", 5)]
+        [LedServerRelevant("mul", 1)]
         public int Sin_VerticalOffset
         {
             get => _Sin_VerticalOffset;
-            set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value; NotifyPropertyChanged(); } }
+            set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value.Max(1); NotifyPropertyChanged(); } }
         }
 
-        public double Sin_HorizontalOffset_Min => -255;
-        public double Sin_HorizontalOffset_Max => 255;
+        public double Sin_HorizontalOffset_Min => 0;
+        public double Sin_HorizontalOffset_Max => 1024;
         public int _Sin_HorizontalOffset;
-        [LedServerRelevant("ho", 2)]
+        [LedServerRelevant("tblsz", 256)]
         public int Sin_HorizontalOffset
         {
             get => _Sin_HorizontalOffset;
-            set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value; NotifyPropertyChanged(); } }
+            set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value.Max(2); NotifyPropertyChanged(); } }
         }
 
        
 
         public double Width_Min => 0;
-        public double Width_Max => NumberOfLeds_Max;
+        public double Width_Max => 1024;
         private double _Width;
         [LedServerRelevant("width", 50d)]
         public double Width

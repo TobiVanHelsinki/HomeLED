@@ -180,6 +180,7 @@ bool LedFunctions::UpdateNumOfLeds(int newValue)
 		CurrentNumberOfLeds = newValue;
 		leds->clear();
 		leds->updateLength(CurrentNumberOfLeds);
+		//leds->updateLength(10); //TODO DEBUG
 		return true;
 	}
 	return false;

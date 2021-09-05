@@ -142,7 +142,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Wavelength reduction ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sin Size ähnelt.
         /// </summary>
         public static string HorizontalOffset {
             get {
@@ -151,7 +151,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Extends the sine wave to the width. Why don&apos;t you play around with this parameter a bit? ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The number of leds one sin-wave is complete. ähnelt.
         /// </summary>
         public static string HorizontalOffset_Info {
             get {
@@ -520,7 +520,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Accelerate by omission ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Multiplicator ähnelt.
         /// </summary>
         public static string VerticalOffset {
             get {
@@ -529,7 +529,7 @@ namespace HomeLedApp.Strings {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Raises the sine wave. Why don&apos;t you play around with this parameter a little? ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Adds effects. Why don&apos;t you play around with this parameter a little? (Set it half to the sin size makes some blink effects) ähnelt.
         /// </summary>
         public static string VerticalOffset_Info {
             get {

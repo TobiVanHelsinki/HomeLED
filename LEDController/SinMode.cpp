@@ -14,14 +14,13 @@ void SinMode::NextState()
 {
 	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos++)
 	{
-		//Was passiert, wenn ich VerticalOffset über table size mache?
-		float scale = SinTable[positive_modulo(VerticalOffset * ledpos + timepos, SinTabelSize)];
+		float scale = SinTable[positive_modulo(Multi * ledpos + timepos, SinTabelSize)];
 		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
 			(int)(CurrentColor_b * scale)
 		);
-		if (DebugOutput && ledpos == 0)
+		if (DebugOutput && ledpos < 10)
 		{
 			auto colorstring = new char[6];
 			sprintf(colorstring, "%06x", color);
@@ -29,9 +28,9 @@ void SinMode::NextState()
 		}
 		leds->setPixelColor(ledpos, color);
 	}
-	timepos = positive_modulo(timepos + HorizontalOffset, SinTabelSize);
+	timepos = positive_modulo(timepos + 1, SinTabelSize);
 }
-//TODO statt einer wellenbreitenreduktion einfach direkt die SinTabelSize bearbeiten lassen. so kann die wellenbrite direkt angegeben werden. spart rechnerei und einen parameter
+
 void SinMode::BuildTable(bool Verbose)
 {
 	SinTable = new float[SinTabelSize];
@@ -62,8 +61,8 @@ String SinMode::GetID()
 std::vector<String> SinMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("ho");
-	names.push_back("vo");
+	names.push_back("tblsz");
+	names.push_back("mul");
 	names.push_back("scale");
 	names.push_back("build");
 	auto baseNames = ColorMode::ParameterNames();
@@ -76,13 +75,13 @@ std::vector<String> SinMode::ParameterNames()
 
 String SinMode::Get(String Name)
 {
-	if (Name == "ho")
+	if (Name == "tblsz")
 	{
-		return String(HorizontalOffset);
+		return String(SinTabelSize);
 	}
-	else if (Name == "vo")
+	else if (Name == "mul")
 	{
-		return String(VerticalOffset);
+		return String(Multi);
 	}
 	else if (Name == "scale")
 	{
@@ -96,13 +95,16 @@ String SinMode::Get(String Name)
 
 String SinMode::Set(String Name, String Value)
 {
-	if (Name == "ho")
+	if (Name == "tblsz")
 	{
-		return SetinBoundsAndReport(&HorizontalOffset, "HorizontalOffset", Value, -255, 255);
+		auto oldsize = SinTabelSize;
+		auto result = SetinBoundsAndReport(&SinTabelSize, "SinTabelSize", Value, 2, 1024);
+		BuildTable(true);
+		return result;
 	}
-	else if (Name == "vo")
+	else if (Name == "mul")
 	{
-		return SetinBoundsAndReport(&VerticalOffset, "VerticalOffset", Value, -255, 255);
+		return SetinBoundsAndReport(&Multi, "Multi", Value, 0, 1024);
 	}
 	else if (Name == "scale")
 	{
