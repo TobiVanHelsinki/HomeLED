@@ -13,7 +13,7 @@ namespace HomeLedApp.UI
     public partial class DetailsPopUp : PopupPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -43,7 +43,7 @@ namespace HomeLedApp.UI
             await Model.Send(MyURLParam);
             try
             {
-                PopupNavigation.Instance.PopAsync();
+                _ = PopupNavigation.Instance.PopAsync();
             }
             catch (System.Exception)
             {

@@ -93,12 +93,13 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
+    <!-- <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" /> -->
     <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources" Version="1.1.0" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
+    <!-- <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" /> -->
+    <!-- <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.3" /> -->
+    <!-- <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.3" /> -->
+	<PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.0" />
+    <PackageReference Include="Xamarin.AndroidX.Palette" Version="1.0.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -156,7 +157,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionHomeLedAppAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionHomeLedAppAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionHomeLedAppAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionHomeLedAppAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

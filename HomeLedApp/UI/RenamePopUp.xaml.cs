@@ -13,7 +13,7 @@ namespace HomeLedApp.UI
     public partial class Rename : PopupPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
