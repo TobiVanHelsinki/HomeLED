@@ -136,16 +136,32 @@ void listDir(const char* dirname) {
 bool WriteFile(String path, String message)
 {
 	SERIALWRITE("Write ");
+	SERIALWRITE(" (");
+	SERIALWRITE(message.length());
+	SERIALWRITE(") to ");
 	SERIALWRITE(path);
-	SERIALWRITE(" : ");
-
+	SERIALWRITELINE("");
 	File file = LittleFS.open(path, "w");
 	if (!file) {
 		SERIALWRITELINE("Failed to open file for writing");
 		return false;
 	}
-	if (file.print(message)) {
+	
+	auto bytes = file.availableForWrite();
+	if (bytes == 0)
+	{
+		SERIALWRITELINE("File not available For Write, try clear");
+		file.clearWriteError();
+	}
+	SERIALWRITE(" Bytes available: ");
+	SERIALWRITELINE(file.availableForWrite());
+	SERIALWRITE("FileSize: ");
+	SERIALWRITELINE(file.size());
+
+	if (file.print(message)) { //TODO beschraenken auf 64, mehrere files. wenn man mehrer schreibt kann es zu fehlern kommen
 		SERIALWRITELINE("File written");
+		SERIALWRITE("FileSize: ");
+		SERIALWRITELINE(file.size());
 		file.close();
 		return true;
 	}

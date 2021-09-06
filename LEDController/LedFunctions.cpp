@@ -39,6 +39,7 @@ void LedFunctions::SetupLeds()
 //Function is called by the timer multiple times a second
 LOCAL void ICACHE_FLASH_ATTR RefreshLeds(void* pArg) //LOCAL und FLASH ist neu
 {
+	//If adding areas, here is the rigth place for the area-switch (a whileloop)
 	LedFunctions::CurrentMode->NextState();
 	LedFunctions::leds->show();
 }
