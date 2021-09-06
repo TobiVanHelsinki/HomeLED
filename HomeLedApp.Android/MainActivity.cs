@@ -16,7 +16,7 @@ namespace HomeLedApp.Droid
 
             #region Init libs
             Xamarin.Essentials.Platform.Init(this, savedInstanceState); // add this line to your code, it may also be called: bundle
-            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this);
             #endregion Init libs
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
