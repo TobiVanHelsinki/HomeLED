@@ -156,14 +156,14 @@ namespace HomeLedApp.Model
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
-        public double Speed_Min => 0; //40; Android can just acceppt 0 or negative values
+        public double Speed_Min => 40; 
         public double Speed_Max => 1000;
         private int _Speed;
         [LedServerRelevant("v", 50)]
         public int Speed
         {
             get => _Speed;
-            set { if (_Speed != value) { _Speed = value.Max(40); NotifyPropertyChanged(); } }
+            set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
 
         //public double NumberOfLeds_Min => 0;
@@ -176,29 +176,29 @@ namespace HomeLedApp.Model
         //    set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
         //}
 
-        public double Sin_VerticalOffset_Min => 0;
+        public double Sin_VerticalOffset_Min => 1;
         public double Sin_VerticalOffset_Max => 1024;
         private int _Sin_VerticalOffset;
         [LedServerRelevant("mul", 1)]
         public int Sin_VerticalOffset
         {
             get => _Sin_VerticalOffset;
-            set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value.Max(1); NotifyPropertyChanged(); } }
+            set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value; NotifyPropertyChanged(); } }
         }
 
-        public double Sin_HorizontalOffset_Min => 0;
+        public double Sin_HorizontalOffset_Min => 2;
         public double Sin_HorizontalOffset_Max => 1024;
         public int _Sin_HorizontalOffset;
         [LedServerRelevant("tblsz", 256)]
         public int Sin_HorizontalOffset
         {
             get => _Sin_HorizontalOffset;
-            set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value.Max(2); NotifyPropertyChanged(); } }
+            set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value; NotifyPropertyChanged(); } }
         }
 
        
 
-        public double Width_Min => 0;
+        public double Width_Min => 1;
         public double Width_Max => 1024;
         private double _Width;
         [LedServerRelevant("width", 50d)]
