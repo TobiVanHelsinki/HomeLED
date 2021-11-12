@@ -92,7 +92,9 @@ namespace HomeLedApp.Model
             }
         }
 
-        [LedServerRelevant("color", 0xE58200)]
+
+
+        [LedServerRelevant("c", 0xE58200)]
         public int CurrentColorInt
         {
             get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0;
@@ -123,28 +125,74 @@ namespace HomeLedApp.Model
             set => CurrentColor = CurrentColor.WithLuminosity(value / 100.0);
         }
 
-        //[LedServerRelevant("color_h", (ushort)39578)]
-        //public ushort Controller_HSV_Hue
-        //{
-        //    get => (ushort)(CurrentColor.Hue * ushort.MaxValue);
-        //    set => CurrentColor = CurrentColor.WithHue(value / (double)ushort.MaxValue);
-        //}
+        private Color _Color2 = new Color(0, 0, 0, 0);
+        public Color CurrentColor2
+        {
+            get => _Color2;
+            set
+            {
+                var a = value.ToString();
+                var b = _Color2.ToString();
+                if (a != b)
+                {
+                    _Color2 = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(Hue2));
+                    NotifyPropertyChanged(nameof(Saturation2));
+                    NotifyPropertyChanged(nameof(Luminosity2));
+                    NotifyPropertyChanged(nameof(CurrentColor2Inverse));
+                    NotifyPropertyChanged(nameof(CurrentColor2Int));
+                }
+            }
+        }
 
-        //[LedServerRelevant("color_s", (byte)255)]
-        //public byte Controller_HSV_Saturation
-        //{
-        //    get => (byte)(CurrentColor.Saturation_HSV() * byte.MaxValue);
-        //    set { if (Controller_HSV_Saturation != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / (double)ushort.MaxValue * 360, value / (double)byte.MaxValue, Controller_HSV_Value / (double)byte.MaxValue); } }
-        //}
+        public Color CurrentColor2Inverse
+        {
+            get
+            {
+                try
+                {
+                    return CurrentColor2.WithSaturation((_Color2.Saturation + 0.5) % 1).WithLuminosity((_Color2.Luminosity + 0.5) % 1).WithHue((_Color2.Hue + 0.5) % 1);
+                }
+                catch
+                {
+                    return Color.Default;
+                }
+            }
+        }
 
-        //public double Value_Min => 0;
-        //public double Value_Max => 100;
-        //[LedServerRelevant("color_v", (byte)229)]
-        //public byte Controller_HSV_Value
-        //{
-        //    get => (byte)(CurrentColor.Value_HSV() * byte.MaxValue);
-        //    set { if (Controller_HSV_Value != value) { CurrentColor = HSVColorExtension.ColorFromHSV(Controller_HSV_Hue / (double)ushort.MaxValue * 360, Controller_HSV_Saturation / (double)byte.MaxValue, value / (double)byte.MaxValue); } }
-        //}
+        [LedServerRelevant("c2", 0xE58200)]
+        public int CurrentColor2Int
+        {
+            get => (int)(CurrentColor2.R * byte.MaxValue) << 16 | (int)(CurrentColor2.G * byte.MaxValue) << 8 | (int)(CurrentColor2.B * byte.MaxValue) << 0;
+            set => CurrentColor2 = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue);
+        }
+
+        public double Hue2_Min => 0;
+        public double Hue2_Max => 360;
+        public double Hue2
+        {
+            get => CurrentColor2.Hue * 360.0;
+            set => CurrentColor2 = CurrentColor2.WithHue(value / 360.0);
+        }
+
+        public double Saturation2_Min => 0;
+        public double Saturation2_Max => 100;
+        public double Saturation2
+        {
+            get => CurrentColor2.Saturation * 100.0;
+            set => CurrentColor2 = CurrentColor2.WithSaturation(value / 100.0);
+        }
+
+        public double Luminosity2_Min => 0;
+        public double Luminosity2_Max => 100;
+        public double Luminosity2
+        {
+            get => CurrentColor2.Luminosity * 100.0;
+            set => CurrentColor2 = CurrentColor2.WithLuminosity(value / 100.0);
+        }
+
+
 
         public double Brigthnes_Min => 0;
         public double Brigthnes_Max => 255;

@@ -13,7 +13,7 @@ namespace HomeLedApp.Model
         sin,
         rainbow,
         color,
-        pixel,
+        demo,
         pulse,
         tyke,
         knightrider,

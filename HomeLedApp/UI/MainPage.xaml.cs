@@ -53,6 +53,7 @@ namespace HomeLedApp.UI
             Model.PropertyChanged += Model_PropertyChanged;
             Model.SetDefaultValues();
             ColorSpectrum.Source = ImageSource.FromResource(nameof(HomeLedApp) + "." + "Assets.HueScale.png", typeof(MainPage).GetTypeInfo().Assembly);
+            ColorSpectrum2.Source = ImageSource.FromResource(nameof(HomeLedApp) + "." + "Assets.HueScale.png", typeof(MainPage).GetTypeInfo().Assembly);
         }
 
         private void Log_DisplayMessageRequested(LogMessage logmessage) => DisplayAlert(logmessage.LogType.ToString(), logmessage.CombinedMessage, "OK");
@@ -61,56 +62,57 @@ namespace HomeLedApp.UI
         {
             if (e.PropertyName == nameof(Model.CurrentMode))
             {
-                HueFrame.IsVisible = true;
-                HueSlider.IsVisible = true;
-                LumSlider.IsVisible = true;
-                SatSlider.IsVisible = true;
-                BriSlider.IsVisible = true;
+                Panel_Color1.IsVisible = true;
+                Panel_Color2.IsVisible = false;
                 SpeedSlider.IsVisible = true;
                 WidthSlider.IsVisible = false;
                 FringeSlider.IsVisible = false;
+                Panel_SinParameter.IsVisible = false;
+
                 switch (Model.CurrentMode)
                 {
                     case Modes.on:
                         break;
                     case Modes.off:
-                        HueFrame.IsVisible = false;
-                        HueSlider.IsVisible = false;
-                        LumSlider.IsVisible = false;
-                        SatSlider.IsVisible = false;
-                        BriSlider.IsVisible = false;
+                        Panel_Color1.IsVisible = false;
+                        Panel_Color2.IsVisible = false;
                         SpeedSlider.IsVisible = false;
                         break;
                     case Modes.sin:
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = false;
+                        Panel_SinParameter.IsVisible = true;
                         break;
                     case Modes.rainbow:
-                        HueFrame.IsVisible = false;
-                        HueSlider.IsVisible = false;
-                        LumSlider.IsVisible = false;
-                        SatSlider.IsVisible = false;
+                        Panel_Color1.IsVisible = false;
+                        Panel_Color2.IsVisible = false;
+                        Panel_RainbowParameter.IsVisible = true;
                         break;
                     case Modes.color:
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = false;
                         SpeedSlider.IsVisible = false;
                         break;
-                    case Modes.pixel:
+                    case Modes.demo:
                         break;
                     case Modes.pulse:
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = false;
+                        Panel_SinParameter.IsVisible = true;
                         break;
                     case Modes.tyke:
-                        //HueFrame.IsVisible = false;
-                        //HueSlider.IsVisible = false;
-                        //LumSlider.IsVisible = false;
-                        //SatSlider.IsVisible = false;
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = true;
                         break;
                     case Modes.knightrider:
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = false;
                         WidthSlider.IsVisible = true;
                         FringeSlider.IsVisible = true;
                         break;
                     default:
                         break;
                 }
-                Panel_SinParameter.IsVisible = Model.CurrentMode == Modes.sin;
-                Panel_RainbowParameter.IsVisible = Model.CurrentMode == Modes.rainbow;
             }
         }
 

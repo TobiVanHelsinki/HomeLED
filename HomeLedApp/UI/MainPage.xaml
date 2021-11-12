@@ -100,14 +100,34 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <Frame Grid.Row="1" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30" x:Name="HueFrame">
+                </Grid>
+                <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30" x:Name="HueFrame1">
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
-                    <ui:SliderElement Grid.Row="1" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider"/>
+                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider1"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider1"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1"/>
                 </Grid>
-                <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider"/>
-                <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider"/>
-                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider"/>
+                <Grid x:Name="Panel_Color2" RowSpacing="0" Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30" x:Name="HueFrame2">
+                        <Image x:Name="ColorSpectrum2" Aspect="Fill"/>
+                    </Frame>
+                    <ui:SliderElement Grid.Row="0" TitleResource="Hue" Property="Model.Hue2" x:Name="HueSlider2"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2"/>
+                </Grid>
+                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider2"/>
                 <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider"/>
                 <!--<ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>-->
                 <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider"/>
