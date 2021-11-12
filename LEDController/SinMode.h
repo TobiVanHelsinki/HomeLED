@@ -18,7 +18,7 @@ protected:
 	float Scaling = 0.45;
 
 	void BuildTable(bool Verbose);
-	inline int positive_modulo(int i, int n);
+	int positive_modulo(int i, int n);
 	float* SinTable;
 	int timepos = 0;
 

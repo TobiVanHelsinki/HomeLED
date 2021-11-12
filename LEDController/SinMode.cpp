@@ -5,7 +5,7 @@ SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 	BuildTable(DebugOutput);
 }
 
-inline int SinMode::positive_modulo(int i, int n)
+ int SinMode::positive_modulo(int i, int n)
 {
 	return (i % n + n) % n;
 }
