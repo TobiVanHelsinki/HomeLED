@@ -1,8 +1,7 @@
 #include "PulseMode.h"
 
-PulseMode::PulseMode(ILEDProvider* leds) : SinMode(leds) //TODO sinus rausnehmen, selbst neu machen
+PulseMode::PulseMode(ILEDProvider* leds) : SinMode(leds) 
 {
-	SinMode::Set("vo", "0");
 }
 
 void PulseMode::NextState()
