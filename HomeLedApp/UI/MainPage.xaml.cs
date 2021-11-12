@@ -14,6 +14,7 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.UI
 {
+    //TODO +- buttons for sliders and input field for number of leds and the data pin in the settings
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
