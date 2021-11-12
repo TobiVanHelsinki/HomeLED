@@ -153,7 +153,7 @@ String ModeBase::SetinBoundsAndReport(bool* savePlace, String name, String param
 
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
-uint32_t ModeBase::Wheel(byte WheelPos)
+uint32_t ModeBase::Wheel(byte WheelPos) //TODO introduce relative width of the wheel
 {
 	WheelPos = 255 - WheelPos;
 	if (WheelPos < 85)
