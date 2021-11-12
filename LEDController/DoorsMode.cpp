@@ -1,6 +1,6 @@
 #include "DoorsMode.h"
 
-String DoorsMode::ID = "doors";
+String DoorsMode::ID = "doors"; //TODO abschaffen
 
 String DoorsMode::GetID()
 {

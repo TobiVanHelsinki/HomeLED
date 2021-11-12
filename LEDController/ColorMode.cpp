@@ -14,7 +14,7 @@ void ColorMode::NextState()
 	}
 }
 
-String ColorMode::ID = "color";
+String ColorMode::ID = "c";
 
 String ColorMode::GetID()
 {
@@ -24,7 +24,7 @@ String ColorMode::GetID()
 std::vector<String> ColorMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("color");
+	names.push_back("c");
 	auto baseNames = ModeBase::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
@@ -35,7 +35,7 @@ std::vector<String> ColorMode::ParameterNames()
 
 String ColorMode::Get(String Name)
 {
-	if (Name == "color")
+	if (Name == "c")
 	{
 		return String(CurrentColor);
 	}
@@ -47,9 +47,9 @@ String ColorMode::Get(String Name)
 
 String ColorMode::Set(String Name, String Value)
 {
-	if (Name == "color")
+	if (Name == "c")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor, "Color", Value);
+		auto result = SetinBoundsAndReport(&CurrentColor, "c", Value);
 		RefreshCurrentColors();
 		if (DebugOutput)
 		{

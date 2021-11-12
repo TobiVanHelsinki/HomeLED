@@ -32,7 +32,7 @@ void RainbowMode::NextState()
 std::vector<String> RainbowMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("rand");
+	names.push_back("r");
 	auto baseNames = ModeBase::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
@@ -43,7 +43,7 @@ std::vector<String> RainbowMode::ParameterNames()
 
 String RainbowMode::Get(String Name)
 {
-	if (Name == "rand")
+	if (Name == "r")
 	{
 		return String(DisturbingMode);
 	}
@@ -55,7 +55,7 @@ String RainbowMode::Get(String Name)
 
 String RainbowMode::Set(String Name, String Value)
 {
-	if (Name == "rand")
+	if (Name == "r")
 	{
 		return SetinBoundsAndReport(&DisturbingMode, "DisturbingMode", Value);
 	}

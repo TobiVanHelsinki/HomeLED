@@ -1,6 +1,6 @@
 #include "OnePixelMode.h"
 
-OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds)
+OnePixelMode::OnePixelMode(ILEDProvider* leds) : ColorMode(leds) //TODO in einen LED Test / vorschau mode umwandeln
 {
 	SERIALWRITELINE("pixel");
 	leds->clear();

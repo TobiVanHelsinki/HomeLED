@@ -61,9 +61,9 @@ String SinMode::GetID()
 std::vector<String> SinMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("tblsz");
-	names.push_back("mul");
-	names.push_back("scale");
+	names.push_back("t");
+	names.push_back("mu");
+	names.push_back("s");
 	names.push_back("build");
 	auto baseNames = ColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
@@ -75,15 +75,15 @@ std::vector<String> SinMode::ParameterNames()
 
 String SinMode::Get(String Name)
 {
-	if (Name == "tblsz")
+	if (Name == "t")
 	{
 		return String(SinTabelSize);
 	}
-	else if (Name == "mul")
+	else if (Name == "mu")
 	{
 		return String(Multi);
 	}
-	else if (Name == "scale")
+	else if (Name == "s")
 	{
 		return String(Scaling);
 	}
@@ -95,20 +95,20 @@ String SinMode::Get(String Name)
 
 String SinMode::Set(String Name, String Value)
 {
-	if (Name == "tblsz")
+	if (Name == "t")
 	{
 		auto oldsize = SinTabelSize;
 		auto result = SetinBoundsAndReport(&SinTabelSize, "SinTabelSize", Value, 2, 1024);
 		BuildTable(true);
 		return result;
 	}
-	else if (Name == "mul")
+	else if (Name == "mu")
 	{
-		return SetinBoundsAndReport(&Multi, "Multi", Value, 0, 1024);
+		return SetinBoundsAndReport(&Multi, "Multiplikator", Value, 0, 1024);
 	}
-	else if (Name == "scale")
+	else if (Name == "s")
 	{
-		auto result = SetinBoundsAndReport(&Scaling, "Scale", Value, 0.0, 0.5);
+		auto result = SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 0.5);
 		BuildTable(true);
 		return result;
 	}

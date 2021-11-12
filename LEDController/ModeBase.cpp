@@ -11,13 +11,13 @@ ModeBase::~ModeBase()
 std::vector<String> ModeBase::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("debug");
+	names.push_back("d");
 	return names;
 }
 
 String ModeBase::Get(String Name)
 {
-	if (Name == "debug")
+	if (Name == "d")
 	{
 		return String(DebugOutput);
 	}
@@ -29,9 +29,9 @@ String ModeBase::Get(String Name)
 
 String ModeBase::Set(String Name, String Value)
 {
-	if (Name == "debug")
+	if (Name == "d")
 	{
-		return SetinBoundsAndReport(&DebugOutput, "Debug", Value);
+		return SetinBoundsAndReport(&DebugOutput, "d", Value);
 	}
 	else
 	{

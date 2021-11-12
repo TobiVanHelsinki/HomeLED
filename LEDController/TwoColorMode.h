@@ -5,7 +5,9 @@ class TwoColorMode :
 {
 protected:
 	TwoColorMode(ILEDProvider* leds);
-
+	static String ID;
+	String GetID() override;
+	void NextState() override;
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
 	String Set(String Name, String Value) override;

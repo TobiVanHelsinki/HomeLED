@@ -211,7 +211,7 @@ String LedFunctions::SetProperty(String argName, String argVal)
 	}
 	SERIALWRITELINE("SetProperty (" + argName + ")=(" + argVal + ")");
 	String Return;
-	if (argName == "br" || argName == "brightnes")
+	if (argName == "b" || argName == "br" || argName == "brightnes")
 	{
 		if (UpdateBri(argVal.toInt()))
 		{

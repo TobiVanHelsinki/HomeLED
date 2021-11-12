@@ -7,10 +7,32 @@ TwoColorMode::TwoColorMode(ILEDProvider* leds) : ColorMode(leds)
 	RefreshSecondColors();
 }
 
+void TwoColorMode::NextState()
+{
+	for (uint16_t i = 0; i < leds->numPixels(); i++)
+	{
+		if (rand() % 2 == 0)
+		{
+			leds->setPixelColor(i, CurrentColor);
+		}
+		else
+		{
+			leds->setPixelColor(i, SecondColor);
+		}
+	}
+}
+
+String TwoColorMode::ID = "c2";
+
+String TwoColorMode::GetID()
+{
+	return ID;
+}
+
 std::vector<String> TwoColorMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("secondcolor");
+	names.push_back("c2");
 	auto baseNames = ColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
@@ -21,7 +43,7 @@ std::vector<String> TwoColorMode::ParameterNames()
 
 String TwoColorMode::Get(String Name)
 {
-	if (Name == "secondcolor")
+	if (Name == "c2")
 	{
 		return String(SecondColor);
 	}
@@ -33,7 +55,7 @@ String TwoColorMode::Get(String Name)
 
 String TwoColorMode::Set(String Name, String Value)
 {
-	if (Name == "secondcolor")
+	if (Name == "c2")
 	{
 		auto result = SetinBoundsAndReport(&SecondColor, "Second Color", Value);
 		RefreshSecondColors();

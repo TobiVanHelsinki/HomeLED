@@ -72,8 +72,8 @@ String KnightRiderMode::GetID()
 std::vector<String> KnightRiderMode::ParameterNames()
 {
 	std::vector<String> names;
-	names.push_back("width");
-	names.push_back("fringe");
+	names.push_back("w");
+	names.push_back("f");
 	auto baseNames = TwoColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
 	{
@@ -84,11 +84,11 @@ std::vector<String> KnightRiderMode::ParameterNames()
 
 String KnightRiderMode::Get(String Name)
 {
-	if (Name == "width")
+	if (Name == "w")
 	{
 		return String(Width);
 	}
-	else if (Name == "fringe")
+	else if (Name == "f")
 	{
 		return String(Fringe);
 	}
@@ -100,16 +100,16 @@ String KnightRiderMode::Get(String Name)
 
 String KnightRiderMode::Set(String Name, String Value)
 {
-	if (Name == "width")
+	if (Name == "w")
 	{
 		uint val = Value.toInt();
 		if (Fringe > val)
 		{
 			Fringe = val;
 		}
-		return SetinBoundsAndReport(&Width, "Width", Value);
+		return SetinBoundsAndReport(&Width, "Width ", Value);
 	}
-	else if (Name == "fringe")
+	else if (Name == "f")
 	{
 		if (Value.toInt() > Width)
 		{
