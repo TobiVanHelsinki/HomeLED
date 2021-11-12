@@ -197,7 +197,7 @@ namespace HomeLedApp.Model
         public double Brigthnes_Min => 0;
         public double Brigthnes_Max => 255;
         private int _Brigthnes;
-        [LedServerRelevant("br", 127)]
+        [LedServerRelevant("b", 127)]
         public int Brigthnes
         {
             get => _Brigthnes;
@@ -214,20 +214,21 @@ namespace HomeLedApp.Model
             set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
 
-        //public double NumberOfLeds_Min => 0;
-        //public double NumberOfLeds_Max => 1024;
-        //private int _NumberOfLeds;
-        //[LedServerRelevant("n", 1024)]
-        //public int NumberOfLeds
-        //{
-        //    get => _NumberOfLeds;
-        //    set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
-        //}
+        public double NumberOfLeds_Min => 0;
+        public double NumberOfLeds_Max => 1024;
+        private int _NumberOfLeds;
+        [LedServerRelevant("n", 1024)]
+        public int NumberOfLeds
+        {
+            get => _NumberOfLeds;
+            set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
+        }
+
 
         public double Sin_VerticalOffset_Min => 1;
         public double Sin_VerticalOffset_Max => 1024;
         private int _Sin_VerticalOffset;
-        [LedServerRelevant("mul", 1)]
+        [LedServerRelevant("mu", 1)]
         public int Sin_VerticalOffset
         {
             get => _Sin_VerticalOffset;
@@ -237,19 +238,34 @@ namespace HomeLedApp.Model
         public double Sin_HorizontalOffset_Min => 2;
         public double Sin_HorizontalOffset_Max => 1024;
         public int _Sin_HorizontalOffset;
-        [LedServerRelevant("tblsz", 256)]
+
+        [LedServerRelevant("t", 256)]
         public int Sin_HorizontalOffset
         {
             get => _Sin_HorizontalOffset;
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value; NotifyPropertyChanged(); } }
         }
 
-       
+        public double Sin_Scale_Min => 0;
+        public double Sin_Scale_Max => 50;
+        
+        public int _Sin_Scale;
+        public int Sin_Scale
+        {
+            get => _Sin_Scale;
+            set { if (_Sin_Scale != value) { _Sin_Scale = value; NotifyPropertyChanged(); } }
+        }
+        [LedServerRelevant("s", "0.45")]
+        public string Sin_Scale_ForSend
+        {
+            get => (Sin_Scale / 100.0).ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            set => Sin_Scale = (int)(double.Parse(value) * 1.0); // verstehe nicht, wieso parse("0.34") 34 zurück gibt.
+        }
 
         public double Width_Min => 1;
         public double Width_Max => 1024;
         private double _Width;
-        [LedServerRelevant("width", 50d)]
+        [LedServerRelevant("w", 50d)]
         public double Width
         {
             get => _Width;
@@ -260,7 +276,7 @@ namespace HomeLedApp.Model
         public double Fringe_Max => Width_Max;
 
         private double _Fringe;
-        [LedServerRelevant("fringe", 10d)]
+        [LedServerRelevant("f", 10d)]
         public double Fringe
         {
             get => _Fringe;
@@ -268,7 +284,7 @@ namespace HomeLedApp.Model
         }
 
         private int _Rainbow_Rand;
-        [LedServerRelevant("rand", false)]
+        [LedServerRelevant("r", false)]
         public bool Rainbow_Rand
         {
             get => _Rainbow_Rand == 1 ? true : false;

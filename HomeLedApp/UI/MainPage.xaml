@@ -101,7 +101,7 @@
                         </Label>
                     </StackLayout>
                 </Grid>
-                <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="2">
+                <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="2" BackgroundColor="BlanchedAlmond">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -114,7 +114,7 @@
                     <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider1"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1"/>
                 </Grid>
-                <Grid x:Name="Panel_Color2" RowSpacing="0" Grid.Row="3">
+                <Grid x:Name="Panel_Color2" RowSpacing="0" Grid.Row="3" BackgroundColor="CadetBlue">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -137,6 +137,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -152,6 +153,7 @@
                     </StackLayout>
                     <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset"/>
+                    <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale"/>
                 </Grid>
                 <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
                     <Grid.RowDefinitions>

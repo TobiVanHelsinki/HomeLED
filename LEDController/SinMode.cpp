@@ -99,7 +99,7 @@ String SinMode::Set(String Name, String Value)
 	{
 		auto oldsize = SinTabelSize;
 		auto result = SetinBoundsAndReport(&SinTabelSize, "SinTabelSize", Value, 2, 1024);
-		BuildTable(true);
+		BuildTable(false);
 		return result;
 	}
 	else if (Name == "mu")
@@ -109,7 +109,7 @@ String SinMode::Set(String Name, String Value)
 	else if (Name == "s")
 	{
 		auto result = SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 0.5);
-		BuildTable(true);
+		BuildTable(false);
 		return result;
 	}
 	else if (Name == "build")

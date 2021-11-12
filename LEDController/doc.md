@@ -10,6 +10,7 @@ n	number
 r	activate randomness
 s	scale
 t	tablesize
+w	Width of bar
 
 Commands
 
