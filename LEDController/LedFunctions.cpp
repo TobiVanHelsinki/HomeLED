@@ -121,22 +121,6 @@ bool LedFunctions::SetMode(String s)
 	{
 		CurrentMode = new TykeMode(leds);
 	}
-	else if (s == DoorsMode::ID)
-	{
-		int maxpin = D2 > D3 ? D2 : D3;
-		maxpin = maxpin > D4 ? maxpin : D4;
-		maxpin = maxpin > D5 ? maxpin : D5;
-		int* PinDoorMap = new int[maxpin];
-		for (auto i = 0; i < maxpin; i++)
-		{
-			PinDoorMap[i] = -1;
-		}
-		PinDoorMap[D2] = 0;
-		PinDoorMap[D3] = 1;
-		PinDoorMap[D4] = 2;
-		PinDoorMap[D5] = 3;
-		CurrentMode = new DoorsMode(leds, 4, PinDoorMap);
-	}
 	else
 	{
 		return false;

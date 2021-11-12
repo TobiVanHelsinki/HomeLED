@@ -1,7 +1,7 @@
 #include "TykeMode.h"
 TykeMode::TykeMode(ILEDProvider* leds) : TwoColorMode(leds)
 {
-	CurrentColor = Adafruit_NeoPixel::Color(0, 0, 0); //TODO farbe nicht fest codieren, sondern lieber eine default farbe bei diesem modi in die app bringen
+	CurrentColor = Adafruit_NeoPixel::Color(255, 0, 0);
 	SecondColor = Adafruit_NeoPixel::Color(0, 0, 255);
 }
 

@@ -122,7 +122,6 @@
     <ClInclude Include="LedFunctions.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
     <ClInclude Include="ColorMode.h" />
-    <ClInclude Include="DoorsMode.h" />
     <ClInclude Include="EEPROMHelper.h" />
     <ClInclude Include="ILEDProvider.h" />
     <ClInclude Include="LEDProvider_NeoPixel.h" />
@@ -144,7 +143,6 @@
     <ClCompile Include="LedFunctions.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />
     <ClCompile Include="ColorMode.cpp" />
-    <ClCompile Include="DoorsMode.cpp" />
     <ClCompile Include="EEPROMHelper.cpp" />
     <ClCompile Include="LEDProvider_NeoPixel.cpp" />
     <ClCompile Include="ModeBase.cpp" />

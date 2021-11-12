@@ -27,9 +27,6 @@
     <ClInclude Include="ColorMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DoorsMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EEPROMHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,9 +84,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColorMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DoorsMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EEPROMHelper.cpp">

@@ -19,7 +19,6 @@
 #include "Mode_Demo.h"
 #include "SinMode.h"
 #include "ColorMode.h"
-#include "DoorsMode.h"
 #include "KnightRiderMode.h"
 #include "TykeMode.h"
 
