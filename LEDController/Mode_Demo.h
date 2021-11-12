@@ -1,11 +1,11 @@
 #pragma once
 #include "ColorMode.h"
 
-class OnePixelMode :
+class Mode_Demo :
 	public ColorMode
 {
 public:
-	OnePixelMode(ILEDProvider* leds);
+	Mode_Demo(ILEDProvider* leds);
 	static String ID;
 	String GetID();
 	void NextState();

@@ -17,6 +17,7 @@
 #include "RainbowMode.h"
 #include "PulseMode.h"
 #include "OnePixelMode.h"
+#include "Mode_Demo.h"
 #include "SinMode.h"
 #include "ColorMode.h"
 #include "DoorsMode.h"

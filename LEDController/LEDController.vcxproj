@@ -127,8 +127,8 @@
     <ClInclude Include="ILEDProvider.h" />
     <ClInclude Include="LEDProvider_NeoPixel.h" />
     <ClInclude Include="ModeBase.h" />
+    <ClInclude Include="Mode_Demo.h" />
     <ClInclude Include="NetworkCommunication.h" />
-    <ClInclude Include="OnePixelMode.h" />
     <ClInclude Include="ProjectHeader.h" />
     <ClInclude Include="PulseMode.h" />
     <ClInclude Include="RainbowMode.h" />
@@ -148,8 +148,8 @@
     <ClCompile Include="EEPROMHelper.cpp" />
     <ClCompile Include="LEDProvider_NeoPixel.cpp" />
     <ClCompile Include="ModeBase.cpp" />
+    <ClCompile Include="Mode_Demo.cpp" />
     <ClCompile Include="NetworkCommunication.cpp" />
-    <ClCompile Include="OnePixelMode.cpp" />
     <ClCompile Include="PulseMode.cpp" />
     <ClCompile Include="RainbowMode.cpp" />
     <ClCompile Include="SinMode.cpp" />

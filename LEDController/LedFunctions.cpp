@@ -88,12 +88,10 @@ bool LedFunctions::SetMode(String s)
 	{
 		return false;
 	}
-	else if (s == "cp")
+	else if (s == "cp") //what is this?
 	{
 		LEDsStop();
 		return true;
-		CurrentMode = new OnePixelMode(leds);
-		CurrentMode->Set("CurrentColor", String(Adafruit_NeoPixel::Color(11, 200, 0)));
 	}
 	else if (s == RainbowMode::ID)
 	{
@@ -111,9 +109,9 @@ bool LedFunctions::SetMode(String s)
 	{
 		CurrentMode = new PulseMode(leds);
 	}
-	else if (s == OnePixelMode::ID)
+	else if (s == Mode_Demo::ID)
 	{
-		CurrentMode = new OnePixelMode(leds);
+		CurrentMode = new Mode_Demo(leds);
 	}
 	else if (s == KnightRiderMode::ID)
 	{
