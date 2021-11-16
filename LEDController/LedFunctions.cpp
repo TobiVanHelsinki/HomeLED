@@ -74,24 +74,19 @@ void LedFunctions::LEDsStop()
 	os_timer_disarm(&ShowTimer);
 	delayMicroseconds(CurrentLEDRefreshTime + 20);
 	SERIALWRITELINE("LEDs stopped");
-	leds->clear();
-	leds->show();
 	IsLEDStarted = false;
 }
 
 bool LedFunctions::SetMode(String s)
 {
 	auto tempMode = CurrentMode;
-	//if (s == "on")
-	//{
-	//	LEDsStart();
-	//	return true;
-	//}
-	//else if (s == "off")
-	//{
-	//	LEDsStop();
-	//	return true;
-	//}
+	if (s == "off")
+	{
+		LEDsStop();
+		leds->clear();
+		leds->show();
+		return true;
+	}
 	/*else*/ if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;

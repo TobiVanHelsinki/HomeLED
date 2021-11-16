@@ -124,16 +124,14 @@ void NetworkCommunication::handleRoot()
 	for (auto i = 0; i < Server.args(); i++)
 	{
 		auto argName = Server.argName(i);
-		SERIALWRITE("(");
-		SERIALWRITE(argName);
-		SERIALWRITE(")=");
 		if (argName.isEmpty())
 		{
-			SERIALWRITELINE("--Empty--");
 			continue;
 		}
 		auto argVal = Server.arg(i);
 		SERIALWRITE("(");
+		SERIALWRITE(argName);
+		SERIALWRITE(")=(");
 		SERIALWRITE(argVal);
 		SERIALWRITELINE(")");
 		if (argName == "get")
