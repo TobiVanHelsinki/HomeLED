@@ -86,25 +86,6 @@
                     <Picker Grid.Row="0" Grid.ColumnSpan="1" Grid.Column="2" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay, Converter={StaticResource IO_ModesToString}}" ItemsSource="{x:Binding ModesList}"/>
                     <!--IsEnabled="{x:Binding Model.ControlsEnable}"-->
                 </Grid>
-                <!--<Grid x:Name="Panel_MainParameter" RowSpacing="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="{resx:AppResources MainParameter_Headline}" Style="{StaticResource HeadLineText}"/>
-                        <Label Style="{StaticResource HelpLabel}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources MainParameter_Info}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                </Grid>-->
-                <Line X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />
                 <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -123,9 +104,9 @@
                     <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
                     <BoxView Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}" CornerRadius="15" Margin="5"/>
                 </Grid>
-                <Line X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />
                 <Grid x:Name="Panel_Color2" RowSpacing="0" Grid.Row="3">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -135,14 +116,15 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
-                    <Frame Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30" x:Name="HueFrame2">
+                    <Line X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" Margin="0,0,0,5" />
+                    <Frame Grid.Row="1" Grid.ColumnSpan="2" CornerRadius="10" Margin="0" Padding="0" HeightRequest="30" x:Name="HueFrame2">
                         <Image x:Name="ColorSpectrum2" Aspect="Fill"/>
                     </Frame>
-                    <ui:SliderElement Grid.Row="0" Grid.ColumnSpan="2" TitleResource="Hue" Property="Model.Hue2" x:Name="HueSlider2" ColorBindingPath="Model.CurrentColor2"/>
-                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
-                    <BoxView Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay}" CornerRadius="15" Margin="5"/>
-                    <Line Grid.Row="3" X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />
+                    <ui:SliderElement Grid.Row="1" Grid.ColumnSpan="2" TitleResource="Hue" Property="Model.Hue2" x:Name="HueSlider2" ColorBindingPath="Model.CurrentColor2"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
+                    <BoxView Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay}" CornerRadius="15" Margin="5"/>
+                    <!--<Line Grid.Row="4" X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />-->
                 </Grid>
                 <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider" DetailSteps="true"/>
                 <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider" DetailSteps="true"/>
