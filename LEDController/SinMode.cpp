@@ -12,9 +12,9 @@ SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 
 void SinMode::NextState()
 {
-	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos++)
+	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos+=StepSize)
 	{
-		float scale = SinTable[positive_modulo(Multi * ledpos + timepos, SinTabelSize)];
+		float scale = SinTable[positive_modulo(Multi * (int)(ledpos/(double)StepSize) + timepos, SinTabelSize)];
 		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
@@ -26,7 +26,10 @@ void SinMode::NextState()
 			sprintf(colorstring, "%06x", color);
 			SERIALWRITELINE(String(scale) + " : " + String(colorstring));
 		}
-		leds->setPixelColor(ledpos, color);
+		for (size_t s = 0; s < StepSize; s++)
+		{
+			leds->setPixelColor(ledpos + s, color);
+		}
 	}
 	timepos = positive_modulo(timepos + 1, SinTabelSize);
 }
@@ -64,6 +67,7 @@ std::vector<String> SinMode::ParameterNames()
 	names.push_back("t");
 	names.push_back("mu");
 	names.push_back("s");
+	names.push_back("st");
 	names.push_back("build");
 	auto baseNames = ColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
@@ -118,10 +122,18 @@ String SinMode::HandleProperty(String Name, String Value)
 	{
 		if (!Value.isEmpty())
 		{
-			SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 0.5);
+			SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 1);
 			BuildTable(false);
 		}
 		return "s=" + String(Scaling) + "&";
+	}
+	else if (Name == "st")
+	{
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&StepSize, "", Value, 1, 1024);
+		}
+		return "st=" + String(StepSize) + "&";
 	}
 	else if (Name == "build")
 	{

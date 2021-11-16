@@ -6,6 +6,7 @@ d	debug
 f	fringe of bar
 m	mode
 mu	multiplikator
+st	step size
 n	number
 r	activate randomness
 s	scale

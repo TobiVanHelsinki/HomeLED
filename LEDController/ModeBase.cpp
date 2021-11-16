@@ -72,6 +72,7 @@ String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String pa
 			newVal = min;
 		}
 		(*savePlace) = newVal;
+		SERIALWRITELINE("Set " + name + " to " + String((*savePlace)) + "\n");
 		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else

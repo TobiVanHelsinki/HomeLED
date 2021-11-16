@@ -259,7 +259,7 @@ namespace HomeLedApp.Model
         }
 
         public double Sin_Scale_Min => 0;
-        public double Sin_Scale_Max => 50;
+        public double Sin_Scale_Max => 100;
         
         public int _Sin_Scale;
         public int Sin_Scale
@@ -273,6 +273,19 @@ namespace HomeLedApp.Model
             get => (Sin_Scale / 100.0).ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
             set => Sin_Scale = (int)(double.Parse(value) * 1.0); // verstehe nicht, wieso parse("0.34") 34 zurück gibt.
         }
+
+
+        public double Sin_StepSize_Min => 1;
+        public double Sin_StepSize_Max => 20;
+
+        public int _Sin_StepSize;
+        [LedServerRelevant("st", "1")]
+        public int Sin_StepSize
+        {
+            get => _Sin_StepSize;
+            set { if (_Sin_StepSize != value) { _Sin_StepSize = value; NotifyPropertyChanged(); } }
+        }
+
 
         public double Width_Min => 1;
         public double Width_Max => 1024;

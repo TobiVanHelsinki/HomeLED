@@ -14,6 +14,7 @@ public:
 	String HandleProperty(String Name, String Value) override;
 protected:
 	int SinTabelSize = 256;
+	int StepSize = 1;
 	int Multi = 1;
 	float Scaling = 0.45;
 

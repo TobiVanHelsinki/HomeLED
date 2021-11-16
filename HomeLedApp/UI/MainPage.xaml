@@ -138,6 +138,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -154,6 +155,7 @@
                     <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="4" TitleResource="Stepsize" Property="Model.Sin_StepSize" DetailSteps="true"/>
                 </Grid>
                 <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
                     <Grid.RowDefinitions>
