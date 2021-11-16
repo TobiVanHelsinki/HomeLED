@@ -227,7 +227,7 @@ namespace HomeLedApp.Model
         }
 
         public double Sin_VerticalOffset_Min => 1;
-        public double Sin_VerticalOffset_Max => 1024; //die 1024 max auf das aktuelle n verstellen.
+        public double Sin_VerticalOffset_Max => 1024; //die 1024 max auf das aktuelle n verstellen. dafür auch diese bindable machen
         private int _Sin_VerticalOffset;
         [LedServerRelevant("mu", 1)]
         public int Sin_VerticalOffset
