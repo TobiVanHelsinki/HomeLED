@@ -36,9 +36,19 @@ namespace HomeLedApp.Model
 
         #region Params
 
-        internal async void UpdateHostname(string hostname)
+        internal async Task<(int dataPin, int numberLED, string hostname)> GetSettings()
         {
-            await Send("setHostname=" + hostname);
+            var result = await Send("hostname&datapin&n");
+            var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
+            int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
+            int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
+            string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
+            return ( dataPin,  numberLED,  hostname);
+        }
+
+        internal async void SetSettings(int dataPin, int numberLED, string hostname)
+        {
+            await Send("setHostname=" + hostname+ "&setDataPin=" + dataPin+ "&n="+ numberLED);
         }
 
         private int _CurrentModeIndex;
@@ -47,6 +57,8 @@ namespace HomeLedApp.Model
             get => _CurrentModeIndex;
             set { if (_CurrentModeIndex != value) { _CurrentModeIndex = value; NotifyPropertyChanged(); } }
         }
+
+
 
         private Modes _CurrentMode;
         [LedServerRelevant("m", Modes.sin)]

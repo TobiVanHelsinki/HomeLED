@@ -12,7 +12,7 @@ public:
 	String GetID();
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
-	String Set(String Name, String Value) override;
+	String HandleProperty(String Name, String Value) override;
 private:
 	bool DisturbingMode = false;
 	int j = 0;

@@ -4,6 +4,14 @@ int LedFunctions::CurrentNumberOfLeds = MaxNumberOfLeds;
 int LedFunctions::CurrentLEDRefreshTime = 100; //in ms
 int LedFunctions::CurrentBrigthnes = 25;
 
+#ifdef HARDWARE_IS_NEOPIXEL
+#ifdef CustomSettings
+int LedFunctions::LEDsPin = D1;
+#else
+int LedFunctions::LEDsPin = D1;
+#endif 
+#endif
+
 ILEDProvider* LedFunctions::leds = new
 #ifdef HARDWARE_IS_NEOPIXEL
 LEDProvider_NeoPixel(new Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800))
@@ -22,7 +30,7 @@ void LedFunctions::SetupLeds()
 	leds->begin();
 	//leds->clear();
 
-	leds->fill(1,100, Adafruit_NeoPixel::Color(20, 20, 255));
+	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
 	//String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 	String2CurrentConfig(ReadFile(FileConfig));
@@ -100,6 +108,10 @@ bool LedFunctions::SetMode(String s)
 	else if (s == ColorMode::ID)
 	{
 		CurrentMode = new ColorMode(leds);
+	}
+	else if (s == TwoColorMode::ID)
+	{
+		CurrentMode = new TwoColorMode(leds);
 	}
 	else if (s == SinMode::ID)
 	{
@@ -181,74 +193,79 @@ bool LedFunctions::UpdateBri(int newValue)
 	return false;
 }
 
-String LedFunctions::SetProperty(String argName, String argVal)
+String LedFunctions::HandleProperty(String argName, String argVal)
 {
-	if (argName.isEmpty())
-	{
-		return "Emtpy Arg";
-	}
-	if (argVal.isEmpty())
-	{
-		return "Emtpy ArgVal";
-	}
-	SERIALWRITELINE("SetProperty (" + argName + ")=(" + argVal + ")");
-	String Return;
+	String result;
 	if (argName == "b" || argName == "br" || argName == "brightnes")
 	{
-		if (UpdateBri(argVal.toInt()))
+		if (!argVal.isEmpty())
 		{
-			Return += "Brigthnes changed to: " + String(CurrentBrigthnes) + " \n";
+			UpdateBri(argVal.toInt());
 		}
+		result += "n=" + String(CurrentBrigthnes) + "&";
 	}
 	else if (argName == "n" || argName == "number")
 	{
-		if (UpdateNumOfLeds(argVal.toInt()))
+		//TODO Save like hostname
+		if (!argVal.isEmpty())
 		{
-			Return += "Number of active LEDs changed to: " + String(CurrentNumberOfLeds) + " \n";
+			UpdateNumOfLeds(argVal.toInt());
 		}
+		result += "n=" + String(CurrentNumberOfLeds) + "&";
 	}
 	else if (argName == "v" || argName == "speed")
 	{
-		if (UpdateSpeed(argVal.toInt()))
+		if (!argVal.isEmpty())
 		{
-			Return += "Speed changed to: " + String(CurrentLEDRefreshTime) + " \n";
+			UpdateSpeed(argVal.toInt());
 		}
+		result += "v=" + String(CurrentLEDRefreshTime) + "&";
 	}
 	else if (argName == "m" || argName == "mode")
 	{
-		if (SetMode(argVal))
+		if (!argVal.isEmpty())
 		{
-			Return += "Changed Mode to: " + CurrentMode->GetID() + "\n";
+			SetMode(argVal);
 		}
+		result += "m=" + String(CurrentMode->GetID()) + "&";
+	}
+	else if (argName == "datapin")
+	{
+		if (!argVal.isEmpty())
+		{
+			LEDsPin = argVal.toInt(); //TODO maybe boundry checks
+			//TODO permanent store like hostname
+		}
+		result += "datapin=" + String(LEDsPin) + "&";
 	}
 	else
 	{
 		if (CurrentMode)
 		{
-			Return += CurrentMode->Set(argName, argVal);
+			result += CurrentMode->HandleProperty(argName, argVal);
 		}
 	}
-	return Return;
+	return result;
 }
 
 String LedFunctions::CurrentConfig2String()
 {
 	String Return;
-	Return += "br=" + String(CurrentBrigthnes) + "&";
+	Return += "b=" + String(CurrentBrigthnes) + "&";
 	Return += "n=" + String(CurrentNumberOfLeds) + "&";
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
 	Return += "m=" + String(CurrentMode->GetID()) + "&";
 	auto names = CurrentMode->ParameterNames();
 	for (size_t i = 0; i < names.size(); i++)
 	{
-		auto parname = names.at(i);
-		Return += String(parname) + "=" + String(CurrentMode->Get(parname)) + "&";
+		Return += CurrentMode->HandleProperty(names.at(i), "");
 	}
 	return Return;
 }
 
 String LedFunctions::String2CurrentConfig(String config)
 {
+	
 	if (config.isEmpty())
 	{
 		SERIALWRITELINE("config was Empty");
@@ -265,7 +282,7 @@ String LedFunctions::String2CurrentConfig(String config)
 		counter++;
 		auto name = GetValue(param, '=', 0);
 		auto value = GetValue(param, '=', 1);
-		result += SetProperty(name, value);
+		result += HandleProperty(name, value);
 	}
 	while (param != "");
 	return result;

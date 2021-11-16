@@ -73,8 +73,9 @@ std::vector<String> SinMode::ParameterNames()
 	return names;
 }
 
-String SinMode::Get(String Name)
+String SinMode::Get(String Name) //TODO später Get und handle in allen modes zusammenführen
 {
+	return HandleProperty(Name, "");
 	if (Name == "t")
 	{
 		return String(SinTabelSize);
@@ -93,29 +94,39 @@ String SinMode::Get(String Name)
 	}
 }
 
-String SinMode::Set(String Name, String Value)
+String SinMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "t")
 	{
-		auto oldsize = SinTabelSize;
-		auto result = SetinBoundsAndReport(&SinTabelSize, "SinTabelSize", Value, 2, 1024);
-		BuildTable(false);
-		return result;
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&SinTabelSize, "SinTableSize", Value, 2, 1024);
+			BuildTable(false);
+		}
+		return "t=" + String(SinTabelSize) + "&";
 	}
 	else if (Name == "mu")
 	{
-		return SetinBoundsAndReport(&Multi, "Multiplikator", Value, 0, 1024);
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&Multi, "Multiplikator", Value, 0, 1024);
+			BuildTable(false);
+		}
+		return "mu=" + String(Multi) + "&";
 	}
 	else if (Name == "s")
 	{
-		auto result = SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 0.5);
-		BuildTable(false);
-		return result;
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&Scaling, "Scaling", Value, 0.0, 0.5);
+			BuildTable(false);
+		}
+		return "s=" + String(Scaling) + "&";
 	}
 	else if (Name == "build")
 	{
 		BuildTable(true);
-		return "Rebuild Table";
+		return "RebuildTable&";
 	}
-	return ColorMode::Set(Name, Value);
+	return ColorMode::HandleProperty(Name, Value);
 }

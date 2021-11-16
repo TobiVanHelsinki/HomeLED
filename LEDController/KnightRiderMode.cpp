@@ -84,6 +84,7 @@ std::vector<String> KnightRiderMode::ParameterNames()
 
 String KnightRiderMode::Get(String Name)
 {
+	return HandleProperty(Name, "");
 	if (Name == "w")
 	{
 		return String(Width);
@@ -98,24 +99,32 @@ String KnightRiderMode::Get(String Name)
 	}
 }
 
-String KnightRiderMode::Set(String Name, String Value)
+String KnightRiderMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "w")
 	{
-		uint val = Value.toInt();
-		if (Fringe > val)
+		if (!Value.isEmpty())
 		{
-			Fringe = val;
+			uint val = Value.toInt();
+			if (Fringe > val)
+			{
+				Fringe = val;
+			}
+			SetinBoundsAndReport(&Width, "Width ", Value);
 		}
-		return SetinBoundsAndReport(&Width, "Width ", Value);
+		return "w=" + String(Width) + "&";
 	}
 	else if (Name == "f")
 	{
-		if (Value.toInt() > Width)
+		if (!Value.isEmpty())
 		{
-			Value = String(Width);
+			if (Value.toInt() > Width)
+			{
+				Value = String(Width);
+			}
+			SetinBoundsAndReport(&Fringe, "Fringe", Value);
 		}
-		return SetinBoundsAndReport(&Fringe, "Fringe", Value);
+		return  "f=" + String(Fringe) + "&";
 	}
-	return TwoColorMode::Set(Name, Value);
+	return TwoColorMode::HandleProperty(Name, Value);
 }

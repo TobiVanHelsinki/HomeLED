@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms.Xaml;
+using TLIB;
 
 namespace HomeLedApp.UI
 {
@@ -29,18 +30,40 @@ namespace HomeLedApp.UI
             set { if (_Hostname != value) { _Hostname = value; NotifyPropertyChanged(); } }
         }
 
-        public LedCtrlSettings(LEDController model, LEDDevice device)
+        private int _NumberLED = 1024;
+        public int NumberLED
         {
-            Hostname = device.HostName;
+            get => _NumberLED;
+            set { if (_NumberLED != value) { _NumberLED = value; NotifyPropertyChanged(); } }
+        }
+
+        private int _DataPin;
+        public int DataPin
+        {
+            get => _DataPin;
+            set { if (_DataPin != value) { _DataPin = value; NotifyPropertyChanged(); } }
+        }
+
+
+         public LedCtrlSettings(LEDController model, LEDDevice device)
+        {
+            //Hostname = device.HostName;
             Model = model;
             InitializeComponent();
+            //Model.GetSettings().ContinueWith(x => { 
+            //    DataPin = x.Result.dataPin; NumberLED = x.Result.numberLED ; Hostname = x.Result.hostname; });
             BindingContext = this;
-            editor.Focus();
+            Appearing += LedCtrlSettings_Appearing;
+        }
+
+        private async void LedCtrlSettings_Appearing(object sender, System.EventArgs e)
+        {
+            (DataPin, NumberLED, Hostname) = await Model.GetSettings();
         }
 
         private void OK(object sender, System.EventArgs e)
         {
-            Model.UpdateHostname(Hostname);
+            Model.SetSettings(DataPin, NumberLED, Hostname);
             PopupNavigation.Instance.PopAsync();
         }
     }

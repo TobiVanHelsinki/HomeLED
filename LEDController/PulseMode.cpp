@@ -23,7 +23,7 @@ String PulseMode::GetID()
 	return ID;
 }
 
-String PulseMode::Set(String Name, String Value)
+String PulseMode::HandleProperty(String Name, String Value)
 {
-	return SinMode::Set(Name, Value);
+	return SinMode::HandleProperty(Name, Value);
 }

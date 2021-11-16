@@ -3,14 +3,15 @@
 class TwoColorMode :
 	public ColorMode
 {
-protected:
+public:
 	TwoColorMode(ILEDProvider* leds);
 	static String ID;
 	String GetID() override;
 	void NextState() override;
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
-	String Set(String Name, String Value) override;
+	String HandleProperty(String Name, String Value) override;
+protected:
 
 	uint32_t SecondColor = 0;
 	uint8_t SecondColor_r = 0;

@@ -12,7 +12,7 @@ public:
 	void NextState();
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
-	String Set(String Name, String Value) override;
+	String HandleProperty(String Name, String Value) override;
 
 protected:
 	uint32_t CurrentColor = 0;

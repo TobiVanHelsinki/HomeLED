@@ -11,7 +11,10 @@ r	activate randomness
 s	scale
 t	tablesize
 w	Width of bar
+get			return current config string
+config		save, load, clear stored config for startup
+hostname	network name of device
+datapin		device pin nomber where the LED's data lane is connected'
 
 Commands
-
 build	rebuild tables

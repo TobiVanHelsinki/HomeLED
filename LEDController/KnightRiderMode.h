@@ -10,7 +10,7 @@ public:
 	String GetID();
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
-	String Set(String Name, String Value) override;
+	String HandleProperty(String Name, String Value) override;
 protected:
 	void PrintTail(size_t pos);
 	uint32_t CalculateFringedColor(size_t pos);

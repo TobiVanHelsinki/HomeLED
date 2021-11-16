@@ -17,21 +17,18 @@ std::vector<String> ModeBase::ParameterNames()
 
 String ModeBase::Get(String Name)
 {
-	if (Name == "d")
-	{
-		return String(DebugOutput);
-	}
-	else
-	{
-		return String();
-	}
+	return HandleProperty(Name, "");
 }
 
-String ModeBase::Set(String Name, String Value)
+String ModeBase::HandleProperty(String Name, String Value)
 {
 	if (Name == "d")
 	{
-		return SetinBoundsAndReport(&DebugOutput, "d", Value);
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&DebugOutput, "d", Value);
+		}
+		return "d=" + String(DebugOutput) + "&";
 	}
 	else
 	{

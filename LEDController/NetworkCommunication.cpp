@@ -119,13 +119,26 @@ void NetworkCommunication::handleRoot()
 {
 	String result;
 	bool shouldRestart = false;
+	SERIALWRITELINE("-------handleRoot-------");
+
 	for (auto i = 0; i < Server.args(); i++)
 	{
 		auto argName = Server.argName(i);
+		SERIALWRITE("(");
+		SERIALWRITE(argName);
+		SERIALWRITE(")=");
+		if (argName.isEmpty())
+		{
+			SERIALWRITELINE("--Empty--");
+			continue;
+		}
 		auto argVal = Server.arg(i);
+		SERIALWRITE("(");
+		SERIALWRITE(argVal);
+		SERIALWRITELINE(")");
 		if (argName == "get")
 		{
-			result += LedFunctions::CurrentConfig2String();
+			result += LedFunctions::CurrentConfig2String()+"&";
 		}
 		else if (argName == "config")
 		{
@@ -142,17 +155,17 @@ void NetworkCommunication::handleRoot()
 				result += ConfigIO::ClearConfigMemory();
 			}
 		}
-		else if (argName == "setHostname")
+		else if (argName == "hostname")
 		{
-			ConfigIO::StoreHostname(argVal);
-			SSDP.end();
-			SSDP.setName(ConfigIO::ReadValidHostname());
-			SERIALWRITELINE("SUCCESS storing Hostname, restarted SSDP Server");
-			SSDP.begin();
-		}
-		else if (argName == "getHostname")
-		{
-			result += ConfigIO::ReadValidHostname();
+			if (!argVal.isEmpty())
+			{
+				ConfigIO::StoreHostname(argVal);
+				SSDP.end();
+				SSDP.setName(ConfigIO::ReadValidHostname());
+				SSDP.begin();
+				result += "restarted SSDP Server&";
+			}
+			result += "hostname=" + ConfigIO::ReadValidHostname() + "&";
 		}
 		else if (argName == "restart")
 		{
@@ -161,7 +174,7 @@ void NetworkCommunication::handleRoot()
 		}
 		else
 		{
-			result += LedFunctions::SetProperty(argName, argVal);
+			result += LedFunctions::HandleProperty(argName, argVal);
 		}
 	}
 	if (Server.args() == 0)
@@ -173,6 +186,7 @@ void NetworkCommunication::handleRoot()
 	}
 	Server.send(200, "text/plain", result);
 	SERIALWRITELINE(result);
+	SERIALWRITELINE("-------Roothandled------");
 	if (shouldRestart)
 	{
 		SERIALWRITELINE("Restarting now");

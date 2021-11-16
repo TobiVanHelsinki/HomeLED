@@ -48,13 +48,7 @@ constexpr auto FileHostName = "/hostnm.txt";
 constexpr auto FileConfig = "/lastconf.txt";
 
 //LedFunctions
-#ifdef HARDWARE_IS_NEOPIXEL
-#ifdef CustomSettings
-constexpr auto LEDsPin = D6;
-#else
-constexpr auto LEDsPin = D1;
-#endif 
-#endif
+
 #ifdef HARDWARE_IS_ANALOG
 constexpr auto AnalogPin_R = D1;
 constexpr auto AnalogPin_G = D3;

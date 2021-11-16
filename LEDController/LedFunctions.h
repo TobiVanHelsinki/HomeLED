@@ -24,14 +24,16 @@
 
 class LedFunctions
 {
-	static int CurrentNumberOfLeds;
-	static int CurrentLEDRefreshTime; //in Hz
-	static int CurrentBrigthnes;
 
 	static os_timer_t ShowTimer;
 	static bool IsLEDStarted;
 
 public:
+	static int CurrentNumberOfLeds;
+	static int CurrentLEDRefreshTime; //in Hz
+	static int CurrentBrigthnes;
+	static int LEDsPin;
+
 	static ILEDProvider* leds;
 	static ModeBase* CurrentMode;
 
@@ -50,7 +52,7 @@ public:
 
 	static bool UpdateBri(int newValue);
 
-	static String SetProperty(String argName, String argVal);
+	static String HandleProperty(String argName, String argVal);
 
 	static String CurrentConfig2String();
 

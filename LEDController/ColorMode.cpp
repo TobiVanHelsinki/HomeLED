@@ -35,42 +35,38 @@ std::vector<String> ColorMode::ParameterNames()
 
 String ColorMode::Get(String Name)
 {
-	if (Name == "c")
-	{
-		return String(CurrentColor);
-	}
-	else
-	{
-		return ModeBase::Get(Name);
-	}
+	return HandleProperty(Name, "");
 }
 
-String ColorMode::Set(String Name, String Value)
+String ColorMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "c")
 	{
-		auto result = SetinBoundsAndReport(&CurrentColor, "c", Value);
-		RefreshCurrentColors();
-		if (DebugOutput)
+		if (!Value.isEmpty())
 		{
-			SERIALWRITE("r: ");
-			SERIALWRITELINE(CurrentColor_r);
-			SERIALWRITE("g: ");
-			SERIALWRITELINE(CurrentColor_g);
-			SERIALWRITE("b: ");
-			SERIALWRITELINE(CurrentColor_b);
-			SERIALWRITE("h: ");
-			SERIALWRITELINE(CurrentColor_h);
-			SERIALWRITE("s: ");
-			SERIALWRITELINE(CurrentColor_s);
-			SERIALWRITE("v: ");
-			SERIALWRITELINE(CurrentColor_v);
+			SetinBoundsAndReport(&CurrentColor, "c", Value);
+			RefreshCurrentColors();
+			if (DebugOutput)
+			{
+				SERIALWRITE("r: ");
+				SERIALWRITELINE(CurrentColor_r);
+				SERIALWRITE("g: ");
+				SERIALWRITELINE(CurrentColor_g);
+				SERIALWRITE("b: ");
+				SERIALWRITELINE(CurrentColor_b);
+				SERIALWRITE("h: ");
+				SERIALWRITELINE(CurrentColor_h);
+				SERIALWRITE("s: ");
+				SERIALWRITELINE(CurrentColor_s);
+				SERIALWRITE("v: ");
+				SERIALWRITELINE(CurrentColor_v);
+			}
 		}
-		return result;
+		return "c=" + String(CurrentColor) + "&";
 	}
 	else
 	{
-		return ModeBase::Set(Name, Value);
+		return ModeBase::HandleProperty(Name, Value);
 	}
 }
 

@@ -43,6 +43,7 @@ std::vector<String> RainbowMode::ParameterNames()
 
 String RainbowMode::Get(String Name)
 {
+	return HandleProperty(Name, "");
 	if (Name == "r")
 	{
 		return String(DisturbingMode);
@@ -53,14 +54,18 @@ String RainbowMode::Get(String Name)
 	}
 }
 
-String RainbowMode::Set(String Name, String Value)
+String RainbowMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "r")
 	{
-		return SetinBoundsAndReport(&DisturbingMode, "DisturbingMode", Value);
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&DisturbingMode, "DisturbingMode", Value);
+		}
+		return "r=" + String(DisturbingMode) + "&";
 	}
 	else
 	{
-		return ModeBase::Set(Name, Value);
+		return ModeBase::HandleProperty(Name, Value);
 	}
 }

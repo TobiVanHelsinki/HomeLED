@@ -14,7 +14,7 @@ public:
 
 	virtual std::vector<String> ParameterNames();
 	virtual String Get(String Name);
-	virtual String Set(String Name, String Value);
+	virtual String HandleProperty(String Name, String Value);
 
 protected:
 	bool DebugOutput = false;

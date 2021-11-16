@@ -11,7 +11,7 @@ public:
 	String GetID();
 	std::vector<String> ParameterNames() override;
 	String Get(String Name) override;
-	String Set(String Name, String Value) override;
+	String HandleProperty(String Name, String Value) override;
 protected:
 	int SinTabelSize = 256;
 	int Multi = 1;
