@@ -226,19 +226,8 @@ namespace HomeLedApp.Model
             set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
 
-        public double NumberOfLeds_Min => 0;
-        public double NumberOfLeds_Max => 1024;
-        private int _NumberOfLeds;
-        [LedServerRelevant("n", 1024)]
-        public int NumberOfLeds
-        {
-            get => _NumberOfLeds;
-            set { if (_NumberOfLeds != value) { _NumberOfLeds = value; NotifyPropertyChanged(); } }
-        }
-
-
         public double Sin_VerticalOffset_Min => 1;
-        public double Sin_VerticalOffset_Max => 1024;
+        public double Sin_VerticalOffset_Max => 1024; //die 1024 max auf das aktuelle n verstellen.
         private int _Sin_VerticalOffset;
         [LedServerRelevant("mu", 1)]
         public int Sin_VerticalOffset
@@ -450,7 +439,7 @@ namespace HomeLedApp.Model
                 if (CurrentMode == Modes.tyke)
                 {
                     CurrentColor = Color.Red;
-                    //SecondColor = red;
+                    CurrentColor2 = Color.Blue;
                 }
                 //_ = Send();
             }

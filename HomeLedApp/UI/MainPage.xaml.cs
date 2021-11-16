@@ -85,13 +85,13 @@ namespace HomeLedApp.UI
                         Panel_RainbowParameter.IsVisible = true;
                         BriSlider.IsVisible = true;
                         break;
-                    case Modes.color:
+                    case Modes.c:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         SpeedSlider.IsVisible = false;
                         Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
-                    case Modes.color2:
+                    case Modes.c2:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
                         SpeedSlider.IsVisible = false;
