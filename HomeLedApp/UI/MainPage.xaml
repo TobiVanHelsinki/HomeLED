@@ -65,7 +65,8 @@
                           SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                     <ActivityIndicator Grid.Row="0" Grid.Column="2" IsRunning="{x:Binding SSDPInstance.IsSearching}"/>
                     <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}" IsVisible="{x:Binding SSDPInstance.IsSearching, Converter={StaticResource IO_BoolInvert}}"/>
-                    <Button Text="&#xf013;" Grid.Row="0" Grid.Column="3" Clicked="RenameHost" Style="{StaticResource IconButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <Button Text="&#xf013;" Grid.Row="0" Grid.Column="3" Clicked="LedCtrlSettings" Style="{StaticResource IconButton}"/>
+                    <!--IsEnabled="{x:Binding Model.ControlsEnable}"-->
                 </Grid>
                 <Grid x:Name="Panel_Modes">
                     <Grid.RowDefinitions>

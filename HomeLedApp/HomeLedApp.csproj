@@ -34,8 +34,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="UI\RenamePopUp.xaml.cs">
-      <DependentUpon>RenamePopUp.xaml</DependentUpon>
+    <Compile Update="UI\LedCtrlSettingsPopUp.xaml.cs">
+      <DependentUpon>LedCtrlSettingsPopUp.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace HomeLedApp.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Rename : PopupPage, INotifyPropertyChanged
+    public partial class LedCtrlSettings : PopupPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
         public new event PropertyChangedEventHandler PropertyChanged;
@@ -29,7 +29,7 @@ namespace HomeLedApp.UI
             set { if (_Hostname != value) { _Hostname = value; NotifyPropertyChanged(); } }
         }
 
-        public Rename(LEDController model, LEDDevice device)
+        public LedCtrlSettings(LEDController model, LEDDevice device)
         {
             Hostname = device.HostName;
             Model = model;

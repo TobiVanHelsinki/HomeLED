@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.UI
 {
-    //TODO +- buttons for sliders and input field for number of leds and the data pin in the settings
+    //TODO input field for number of leds and the data pin in the settings
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
@@ -148,14 +148,14 @@ namespace HomeLedApp.UI
             }
         }
 
-        private void RenameHost(object sender, EventArgs e)
+        private void LedCtrlSettings(object sender, EventArgs e)
         {
             if (sender is BindableObject b)
             {
                 try
                 {
                     _ = PopupNavigation.Instance.PushAsync(
-                        new Rename(Model, b.BindingContext switch
+                        new LedCtrlSettings(Model, b.BindingContext switch
                         {
                             LEDDevice led => led,
                             MainPage currentPage => currentPage.Model.CurrentDevice,
