@@ -403,14 +403,26 @@ namespace HomeLedApp.Model
         public void SetValues(IEnumerable<(string name, object value)> parameter)
         {
             NetworkCommunicationInProgress = true;
+            var list = GetParameterProperties().ToArray();
             foreach ((var Attribute, var Property) in GetParameterProperties().Join(parameter, a => a.Attribute.ParamName, b => b.name, (a, b) => (b, a.Property)))
             {
                 try
                 {
-                    object value = Convert.ChangeType(Attribute.value, Property.PropertyType);
-                    Property.SetValue(this, value);
+                    if (Property.PropertyType.IsEnum && Attribute.value is string enumasstring)
+                        //if the value is a string, comming from the device
+                    {
+                        bool isdefined= Property.PropertyType.IsEnumDefined(Attribute.value);
+                        var enumvalue = Enum.Parse(Property.PropertyType, enumasstring);
+                        Property.SetValue(this, enumvalue);
+                    }
+                    else
+                    {
+                        //for natives types
+                        object value = Convert.ChangeType(Attribute.value, Property.PropertyType);
+                        Property.SetValue(this, value);
+                    }
                 }
-                catch (Exception)
+                catch (Exception )
                 {
                 }
             }
