@@ -2,7 +2,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using HomeLedApp.Model;
 using HomeLedApp.Strings;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -67,11 +69,50 @@ namespace HomeLedApp.UI
             }
         }
 
+        private bool _DetailSteps = false;
+        public bool DetailSteps
+        {
+            get => _DetailSteps;
+            set
+            {
+                if (_DetailSteps != value)
+                {
+                    _DetailSteps = value; NotifyPropertyChanged();
+                    PlusBtn.IsVisible = value;
+                    MinusBtn.IsVisible = value;
+                    PlusBtnColumn.Width = 50;
+                    MinusBtnColumn.Width = 50;
+                }
+            }
+        }
+
         public SliderElement() => InitializeComponent();
 
         private void Info_Tapped(object sender, EventArgs e)
         {
             MainPage.Instance.DisplayAlert(AppResources.Info, AppResources.ResourceManager.GetStringSafe(_TitleResource + "_Info"), "OK");
+        }
+
+        private void MinusBtn_Clicked(object sender, EventArgs e)
+        {
+            var ctrl = (BindingContext as MainPage)?.Model;
+            var prop = ctrl.GetType().GetProperty(_Property.Split('.').LastOrDefault());
+            var oldval = prop.GetValue(ctrl);
+            prop.SetValue(ctrl,
+                oldval is double d ? d - 1.0 :
+                oldval is int i ? i - 1 :
+                oldval);
+        }
+
+        private void PlusBtn_Clicked(object sender, EventArgs e)
+        {
+            var ctrl = (BindingContext as MainPage)?.Model;
+            var prop = ctrl.GetType().GetProperty(_Property.Split('.').LastOrDefault());
+            var oldval = prop.GetValue(ctrl);
+            prop.SetValue(ctrl, 
+                oldval is double d ? d + 1.0 :
+                oldval is int i ? i + 1 :
+                oldval);
         }
     }
 }

@@ -44,7 +44,16 @@
                     <TapGestureRecognizer Tapped="Info_Tapped"/>
                 </Label.GestureRecognizers>
             </Label>
-            <Slider x:Name="ValueSlider" Grid.Row="1" Grid.ColumnSpan="5" Style="{StaticResource SliderStyle}"/>
+            <Grid Grid.Row="1" Grid.ColumnSpan="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="MinusBtnColumn" Width="0"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition x:Name="PlusBtnColumn" Width="0"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="MinusBtn" Text="&#xf068;" Style="{StaticResource IconButton}" IsVisible="false" Clicked="MinusBtn_Clicked"/>
+                <Slider Grid.Column="1" x:Name="ValueSlider"  Style="{StaticResource SliderStyle}"/>
+                <Button Grid.Column="2" x:Name="PlusBtn" Text="&#xf067;" Style="{StaticResource IconButton}" IsVisible="false" Clicked="PlusBtn_Clicked"/>
+            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>

@@ -29,7 +29,6 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="50"/>
@@ -62,11 +61,11 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <ActivityIndicator Grid.Row="0" Grid.Column="1" IsRunning="{x:Binding SSDPInstance.IsSearching}"/>
-                    <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="3" Clicked="Refresh" Style="{StaticResource IconButton}" IsVisible="{x:Binding SSDPInstance.IsSearching, Converter={StaticResource IO_BoolInvert}}"/>
-                    <Picker x:Name="SSDPPicker" Grid.Row="0" Grid.Column="2" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
+                    <Picker x:Name="SSDPPicker" Grid.Row="0" Grid.Column="1" ItemsSource="{x:Binding SSDPInstance.DiscoveredDevices}"
                           SelectedItem="{x:Binding Model.CurrentDevice, Mode=TwoWay}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-                    <Button Text="&#xf013;" Grid.Row="0" Grid.Column="4" Clicked="RenameHost" Style="{StaticResource IconButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
+                    <ActivityIndicator Grid.Row="0" Grid.Column="2" IsRunning="{x:Binding SSDPInstance.IsSearching}"/>
+                    <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}" IsVisible="{x:Binding SSDPInstance.IsSearching, Converter={StaticResource IO_BoolInvert}}"/>
+                    <Button Text="&#xf013;" Grid.Row="0" Grid.Column="3" Clicked="RenameHost" Style="{StaticResource IconButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
                 </Grid>
                 <Grid x:Name="Panel_Modes">
                     <Grid.RowDefinitions>
@@ -120,8 +119,8 @@
                         <Image x:Name="ColorSpectrum" Aspect="Fill"/>
                     </Frame>
                     <ui:SliderElement Grid.Row="0" Grid.ColumnSpan="2" TitleResource="Hue" Property="Model.Hue" x:Name="HueSlider1" ColorBindingPath="Model.CurrentColor"/>
-                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider1" ColorBindingPath="Model.CurrentColor"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1" ColorBindingPath="Model.CurrentColor"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
                     <BoxView Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}" CornerRadius="15" Margin="5"/>
                 </Grid>
                 <Line X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />
@@ -140,16 +139,16 @@
                         <Image x:Name="ColorSpectrum2" Aspect="Fill"/>
                     </Frame>
                     <ui:SliderElement Grid.Row="0" Grid.ColumnSpan="2" TitleResource="Hue" Property="Model.Hue2" x:Name="HueSlider2" ColorBindingPath="Model.CurrentColor2"/>
-                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2" ColorBindingPath="Model.CurrentColor2"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2" ColorBindingPath="Model.CurrentColor2"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
                     <BoxView Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay}" CornerRadius="15" Margin="5"/>
                     <Line Grid.Row="3" X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />
                 </Grid>
-                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider"/>
-                <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider"/>
-                <!--<ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds"/>-->
-                <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider"/>
-                <ui:SliderElement TitleResource="Fringe" Property="Model.Fringe" x:Name="FringeSlider"/>
+                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider" DetailSteps="true"/>
+                <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider" DetailSteps="true"/>
+                <!--<ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds" DetailSteps="true"/>-->
+                <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider" DetailSteps="true"/>
+                <ui:SliderElement TitleResource="Fringe" Property="Model.Fringe" x:Name="FringeSlider" DetailSteps="true"/>
                 <Grid x:Name="Panel_SinParameter" IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -169,9 +168,9 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset"/>
-                    <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset"/>
-                    <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Property="Model.Sin_VerticalOffset" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale" DetailSteps="true"/>
                 </Grid>
                 <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
                     <Grid.RowDefinitions>
