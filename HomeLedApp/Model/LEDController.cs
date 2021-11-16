@@ -427,7 +427,7 @@ namespace HomeLedApp.Model
                     CurrentColor = Color.Red;
                     //SecondColor = red;
                 }
-                _ = Send();
+                //_ = Send();
             }
             else if (e.PropertyName == nameof(CurrentDevice))
             {

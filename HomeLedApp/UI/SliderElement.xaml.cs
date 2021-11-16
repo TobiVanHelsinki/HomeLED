@@ -52,6 +52,21 @@ namespace HomeLedApp.UI
             }
         }
 
+        private string _ColorBindingPath;
+        public string ColorBindingPath
+        {
+            get => _ColorBindingPath;
+            set
+            {
+                if (_ColorBindingPath != value)
+                {
+                    _ColorBindingPath = value; NotifyPropertyChanged();
+                    //ValueSlider.SetBinding(Slider.ThumbColorProperty, _ColorBindingPath, BindingMode.OneWay);
+                    //ValueSlider.SetBinding(Slider.MinimumTrackColorProperty, _ColorBindingPath, BindingMode.OneWay);
+                }
+            }
+        }
+
         public SliderElement() => InitializeComponent();
 
         private void Info_Tapped(object sender, EventArgs e)

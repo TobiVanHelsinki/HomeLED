@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="TitleLabel" Grid.Row="0" Grid.Column="1" Style="{StaticResource STDText}"/>
-            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource STDText}">
+            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource STDText}" >
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>

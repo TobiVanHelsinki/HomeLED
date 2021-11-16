@@ -66,50 +66,57 @@ namespace HomeLedApp.UI
                 Panel_Color1.IsVisible = true;
                 Panel_Color2.IsVisible = false;
                 SpeedSlider.IsVisible = true;
+                BriSlider.IsVisible = false;
                 WidthSlider.IsVisible = false;
                 FringeSlider.IsVisible = false;
                 Panel_SinParameter.IsVisible = false;
 
                 switch (Model.CurrentMode)
                 {
-                    case Modes.on:
-                        break;
-                    case Modes.off:
-                        Panel_Color1.IsVisible = false;
-                        Panel_Color2.IsVisible = false;
-                        SpeedSlider.IsVisible = false;
-                        break;
                     case Modes.sin:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         Panel_SinParameter.IsVisible = true;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.rainbow:
                         Panel_Color1.IsVisible = false;
                         Panel_Color2.IsVisible = false;
                         Panel_RainbowParameter.IsVisible = true;
+                        BriSlider.IsVisible = true;
                         break;
                     case Modes.color:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         SpeedSlider.IsVisible = false;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        break;
+                    case Modes.color2:
+                        Panel_Color1.IsVisible = true;
+                        Panel_Color2.IsVisible = true;
+                        SpeedSlider.IsVisible = false;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.demo:
+                        BriSlider.IsVisible = true;
                         break;
                     case Modes.pulse:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         Panel_SinParameter.IsVisible = true;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.tyke:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.knightrider:
                         Panel_Color1.IsVisible = true;
-                        Panel_Color2.IsVisible = false;
+                        Panel_Color2.IsVisible = true;
                         WidthSlider.IsVisible = true;
                         FringeSlider.IsVisible = true;
+                        Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     default:
                         break;

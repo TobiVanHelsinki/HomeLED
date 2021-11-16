@@ -66,10 +66,10 @@
     <ClInclude Include="NetworkCommunication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.LEDController.vsarduino.h">
+    <ClInclude Include="Mode_Demo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mode_Demo.h">
+    <ClInclude Include="__vm\.LEDController.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

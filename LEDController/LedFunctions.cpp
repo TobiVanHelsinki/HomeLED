@@ -74,17 +74,17 @@ void LedFunctions::LEDsStop()
 bool LedFunctions::SetMode(String s)
 {
 	auto tempMode = CurrentMode;
-	if (s == "on")
-	{
-		LEDsStart();
-		return true;
-	}
-	else if (s == "off")
-	{
-		LEDsStop();
-		return true;
-	}
-	else if (CurrentMode != NULL && s == CurrentMode->GetID())
+	//if (s == "on")
+	//{
+	//	LEDsStart();
+	//	return true;
+	//}
+	//else if (s == "off")
+	//{
+	//	LEDsStop();
+	//	return true;
+	//}
+	/*else*/ if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;
 	}
