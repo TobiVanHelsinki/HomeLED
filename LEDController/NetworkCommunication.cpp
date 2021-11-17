@@ -157,7 +157,7 @@ void NetworkCommunication::handleRoot()
 		{
 			if (!argVal.isEmpty())
 			{
-				ConfigIO::StoreHostname(argVal);
+				ConfigIO::StoreHostname(argVal); //TODO make easier
 				SSDP.end();
 				SSDP.setName(ConfigIO::ReadValidHostname());
 				SSDP.begin();

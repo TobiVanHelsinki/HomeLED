@@ -1,25 +1,9 @@
 #include "LedFunctions.h"
 
-int LedFunctions::CurrentNumberOfLeds = MaxNumberOfLeds;
 int LedFunctions::CurrentLEDRefreshTime = 100; //in ms
 int LedFunctions::CurrentBrigthnes = 25;
 
-#ifdef HARDWARE_IS_NEOPIXEL
-#ifdef CustomSettings
-int LedFunctions::LEDsPin = D1;
-#else
-int LedFunctions::LEDsPin = D1;
-#endif 
-#endif
-
-ILEDProvider* LedFunctions::leds = new
-#ifdef HARDWARE_IS_NEOPIXEL
-LEDProvider_NeoPixel(new Adafruit_NeoPixel(CurrentNumberOfLeds, LEDsPin, NEO_GRB + NEO_KHZ800))
-#endif
-#ifdef HARDWARE_IS_ANALOG
-LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B)
-#endif
-;
+ILEDProvider* LedFunctions::leds;
 ModeBase* LedFunctions::CurrentMode;
 os_timer_t LedFunctions::ShowTimer;
 bool LedFunctions::IsLEDStarted = false;
@@ -27,11 +11,12 @@ bool LedFunctions::IsLEDStarted = false;
 void LedFunctions::SetupLeds()
 {
 	SERIALWRITELINE("SetupLeds");
+	auto ledno = ReadFile(FileLEDNo).toInt();
+	auto pin = ReadFile(FileDatapin).toInt();
+	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRB + NEO_KHZ800));
 	leds->begin();
-
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
-	//String2CurrentConfig(ReadEEPROM(StorageAdress_Start_Configuration));
 	String2CurrentConfig(ReadFile(FileConfig));
 	if (CurrentMode == NULL)
 	{
@@ -46,7 +31,6 @@ void LedFunctions::SetupLeds()
 //Function is called by the timer multiple times a second
 LOCAL void ICACHE_FLASH_ATTR RefreshLeds(void* pArg) //LOCAL und FLASH ist neu
 {
-	//If adding areas, here is the rigth place for the area-switch (a whileloop)
 	LedFunctions::CurrentMode->NextState();
 	LedFunctions::leds->show();
 }
@@ -160,20 +144,7 @@ bool LedFunctions::UpdateSpeed(int newValue)
 	}
 	return false;
 }
-
-bool LedFunctions::UpdateNumOfLeds(int newValue)
-{
-	newValue = CropAtBounds(newValue, MinNumberOfLeds, MaxNumberOfLeds);
-	if (CurrentNumberOfLeds != newValue)
-	{
-		CurrentNumberOfLeds = newValue;
-		leds->fill(0, CurrentNumberOfLeds+1, 1023);
-		leds->updateLength(CurrentNumberOfLeds);
-		return true;
-	}
-	return false;
-}
-
+//TODO remove if just onece called
 bool LedFunctions::UpdateBri(int newValue)
 {
 	newValue = CropAtBounds(newValue, MinBrigthnes, MaxBrigthnes);
@@ -195,16 +166,30 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 		{
 			UpdateBri(argVal.toInt());
 		}
-		result += "n=" + String(CurrentBrigthnes) + "&";
+		result += "b=" + String(CurrentBrigthnes) + "&";
 	}
 	else if (argName == "n" || argName == "number")
 	{
-		//TODO Save like hostname
 		if (!argVal.isEmpty())
 		{
-			UpdateNumOfLeds(argVal.toInt());
+			auto newValue = CropAtBounds(argVal.toInt(), MinNumberOfLeds, MaxNumberOfLeds);
+			if (ReadFile(FileLEDNo).compareTo(argVal) != 0)
+			{
+				if (WriteFile(FileLEDNo, argVal))
+				{
+					result += "SUCCESS storing n&";
+
+				}
+				else
+				{
+					result += "ERROR storing n&";
+				}
+				leds->fill(0, newValue, 1023);
+				leds->show();
+				leds->updateLength(newValue);
+			}
 		}
-		result += "n=" + String(CurrentNumberOfLeds) + "&";
+		result += "n=" + ReadFile(FileLEDNo) + "&";
 	}
 	else if (argName == "v" || argName == "speed")
 	{
@@ -224,12 +209,23 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	}
 	else if (argName == "datapin")
 	{
+		SERIALWRITELINE("0");
 		if (!argVal.isEmpty())
 		{
-			LEDsPin = argVal.toInt(); //TODO maybe boundry checks
-			//TODO permanent store like hostname
+			auto newValue = argVal.toInt(); //TODO boundry checks, just allow some pins
+			if (ReadFile(FileDatapin).compareTo(argVal) != 0)
+			{
+				if (WriteFile(FileDatapin, argVal))
+				{
+					result += "SUCCESS storing datapin&";
+				}
+				else
+				{
+					result += "ERROR storing datapin&";
+				}
+			}
 		}
-		result += "datapin=" + String(LEDsPin) + "&";
+		result += "datapin=" + ReadFile(FileDatapin) + "&";
 	}
 	else
 	{
@@ -245,7 +241,6 @@ String LedFunctions::CurrentConfig2String()
 {
 	String Return;
 	Return += "b=" + String(CurrentBrigthnes) + "&";
-	Return += "n=" + String(CurrentNumberOfLeds) + "&"; //TODO n hier entfernen
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
 	Return += "m=" + String(CurrentMode->GetID()) + "&";
 	auto names = CurrentMode->ParameterNames();

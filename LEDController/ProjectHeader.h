@@ -46,6 +46,8 @@ constexpr auto HomeLEDTitle = "HomeLED-";
 //constexpr auto StorageAdress_EEPROMMax = 1024;
 constexpr auto FileHostName = "/hostnm.txt";
 constexpr auto FileConfig = "/lastconf.txt";
+constexpr auto FileDatapin = "/datapin.txt";
+constexpr auto FileLEDNo = "/ledno.txt";
 
 //LedFunctions
 

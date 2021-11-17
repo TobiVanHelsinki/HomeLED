@@ -29,10 +29,8 @@ class LedFunctions
 	static bool IsLEDStarted;
 
 public:
-	static int CurrentNumberOfLeds;
 	static int CurrentLEDRefreshTime; //in Hz
 	static int CurrentBrigthnes;
-	static int LEDsPin;
 
 	static ILEDProvider* leds;
 	static ModeBase* CurrentMode;
@@ -47,8 +45,6 @@ public:
 	static int CropAtBounds(int newVal, int minVal, int maxVal);
 	// Hz Value from 1 to 50
 	static bool UpdateSpeed(int newValue);
-
-	static bool UpdateNumOfLeds(int newValue);
 
 	static bool UpdateBri(int newValue);
 
