@@ -1,4 +1,4 @@
-#include "PulseMode.h"
+#include "Mode_Pulse.h"
 
 PulseMode::PulseMode(ILEDProvider* leds) : SinMode(leds) 
 {

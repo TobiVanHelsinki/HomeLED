@@ -1,5 +1,5 @@
 #pragma once
-#include "TwoColorMode.h"
+#include "Mode_TwoColor.h"
 class KnightRiderMode :
 	public TwoColorMode
 {

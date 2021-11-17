@@ -1,4 +1,4 @@
-#include "TwoColorMode.h"
+#include "Mode_TwoColor.h"
 
 #include "math.h"
 TwoColorMode::TwoColorMode(ILEDProvider* leds) : ColorMode(leds)

@@ -14,13 +14,13 @@
 #include "LEDProvider_Analog.h"
 #endif
 //Modes:
-#include "RainbowMode.h"
-#include "PulseMode.h"
+#include "Mode_Rainbow.h"
+#include "Mode_Pulse.h"
 #include "Mode_Demo.h"
-#include "SinMode.h"
-#include "ColorMode.h"
-#include "KnightRiderMode.h"
-#include "TykeMode.h"
+#include "Mode_Sin.h"
+#include "Mode_Color.h"
+#include "Mode_KnightRider.h"
+#include "Mode_Tyke.h"
 
 class LedFunctions
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "SinMode.h"
+#include "Mode_Sin.h"
 class PulseMode :
 	public SinMode
 {

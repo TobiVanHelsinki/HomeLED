@@ -1,4 +1,4 @@
-#include "SinMode.h"
+#include "Mode_Sin.h"
 #include <math.h>
 SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 {

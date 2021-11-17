@@ -118,41 +118,41 @@
   <ItemGroup>
     <ClInclude Include="ConfigIO.h" />
     <ClInclude Include="HWReset.h" />
-    <ClInclude Include="KnightRiderMode.h" />
     <ClInclude Include="LedFunctions.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
-    <ClInclude Include="ColorMode.h" />
     <ClInclude Include="EEPROMHelper.h" />
     <ClInclude Include="ILEDProvider.h" />
     <ClInclude Include="LEDProvider_NeoPixel.h" />
     <ClInclude Include="ModeBase.h" />
+    <ClInclude Include="Mode_Color.h" />
     <ClInclude Include="Mode_Demo.h" />
+    <ClInclude Include="Mode_KnightRider.h" />
+    <ClInclude Include="Mode_Pulse.h" />
+    <ClInclude Include="Mode_Rainbow.h" />
+    <ClInclude Include="Mode_Sin.h" />
+    <ClInclude Include="Mode_TwoColor.h" />
+    <ClInclude Include="Mode_Tyke.h" />
     <ClInclude Include="NetworkCommunication.h" />
     <ClInclude Include="ProjectHeader.h" />
-    <ClInclude Include="PulseMode.h" />
-    <ClInclude Include="RainbowMode.h" />
-    <ClInclude Include="SinMode.h" />
-    <ClInclude Include="TwoColorMode.h" />
-    <ClInclude Include="TykeMode.h" />
     <ClInclude Include="__vm\.LEDController.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigIO.cpp" />
     <ClCompile Include="HWReset.cpp" />
-    <ClCompile Include="KnightRiderMode.cpp" />
     <ClCompile Include="LedFunctions.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />
-    <ClCompile Include="ColorMode.cpp" />
     <ClCompile Include="EEPROMHelper.cpp" />
     <ClCompile Include="LEDProvider_NeoPixel.cpp" />
     <ClCompile Include="ModeBase.cpp" />
+    <ClCompile Include="Mode_Color.cpp" />
     <ClCompile Include="Mode_Demo.cpp" />
+    <ClCompile Include="Mode_KnightRider.cpp" />
+    <ClCompile Include="Mode_Pulse.cpp" />
+    <ClCompile Include="Mode_Rainbow.cpp" />
+    <ClCompile Include="Mode_Sin.cpp" />
+    <ClCompile Include="Mode_TwoColor.cpp" />
+    <ClCompile Include="Mode_Tyke.cpp" />
     <ClCompile Include="NetworkCommunication.cpp" />
-    <ClCompile Include="PulseMode.cpp" />
-    <ClCompile Include="RainbowMode.cpp" />
-    <ClCompile Include="SinMode.cpp" />
-    <ClCompile Include="TwoColorMode.cpp" />
-    <ClCompile Include="TykeMode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

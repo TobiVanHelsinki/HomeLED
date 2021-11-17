@@ -1,4 +1,4 @@
-#include "RainbowMode.h"
+#include "Mode_Rainbow.h"
 
 RainbowMode::RainbowMode(ILEDProvider* leds) : ModeBase(leds)
 {

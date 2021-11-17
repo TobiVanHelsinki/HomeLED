@@ -1,4 +1,4 @@
-#include "KnightRiderMode.h"
+#include "Mode_KnightRider.h"
 #include "math.h"
 KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : TwoColorMode(leds)
 {

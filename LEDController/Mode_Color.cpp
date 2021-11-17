@@ -1,4 +1,4 @@
-#include "ColorMode.h"
+#include "Mode_Color.h"
 
 ColorMode::ColorMode(ILEDProvider* leds) : ModeBase(leds)
 {
