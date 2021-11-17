@@ -33,11 +33,6 @@ std::vector<String> ColorMode::ParameterNames()
 	return names;
 }
 
-String ColorMode::Get(String Name)
-{
-	return HandleProperty(Name, "");
-}
-
 String ColorMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "c")

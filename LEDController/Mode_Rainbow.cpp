@@ -41,19 +41,6 @@ std::vector<String> RainbowMode::ParameterNames()
 	return names;
 }
 
-String RainbowMode::Get(String Name)
-{
-	return HandleProperty(Name, "");
-	if (Name == "r")
-	{
-		return String(DisturbingMode);
-	}
-	else
-	{
-		return ModeBase::Get(Name);
-	}
-}
-
 String RainbowMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "r")

@@ -82,23 +82,6 @@ std::vector<String> KnightRiderMode::ParameterNames()
 	return names;
 }
 
-String KnightRiderMode::Get(String Name)
-{
-	return HandleProperty(Name, "");
-	if (Name == "w")
-	{
-		return String(Width);
-	}
-	else if (Name == "f")
-	{
-		return String(Fringe);
-	}
-	else
-	{
-		return TwoColorMode::Get(Name);
-	}
-}
-
 String KnightRiderMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "w")

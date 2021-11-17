@@ -11,7 +11,6 @@ public:
 	String GetID();
 	void NextState();
 	std::vector<String> ParameterNames() override;
-	String Get(String Name) override;
 	String HandleProperty(String Name, String Value) override;
 
 protected:

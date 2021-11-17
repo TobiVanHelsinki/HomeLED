@@ -16,11 +16,6 @@ std::vector<String> ModeBase::ParameterNames()
 	return names;
 }
 
-String ModeBase::Get(String Name)
-{
-	return HandleProperty(Name, "");
-}
-
 String ModeBase::HandleProperty(String Name, String Value)
 {
 	if (Name == "d")

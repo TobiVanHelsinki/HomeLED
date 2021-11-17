@@ -77,27 +77,6 @@ std::vector<String> SinMode::ParameterNames()
 	return names;
 }
 
-String SinMode::Get(String Name) //TODO später Get und handle in allen modes zusammenführen
-{
-	return HandleProperty(Name, "");
-	if (Name == "t")
-	{
-		return String(SinTabelSize);
-	}
-	else if (Name == "mu")
-	{
-		return String(Multi);
-	}
-	else if (Name == "s")
-	{
-		return String(Scaling);
-	}
-	else
-	{
-		return ColorMode::Get(Name);
-	}
-}
-
 String SinMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "t")

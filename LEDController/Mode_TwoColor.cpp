@@ -41,19 +41,6 @@ std::vector<String> TwoColorMode::ParameterNames()
 	return names;
 }
 
-String TwoColorMode::Get(String Name)
-{
-	return HandleProperty(Name, "");
-	if (Name == "c2")
-	{
-		return String(SecondColor);
-	}
-	else
-	{
-		return ColorMode::Get(Name);
-	}
-}
-
 String TwoColorMode::HandleProperty(String Name, String Value)
 {
 	if (Name == "c2")

@@ -86,7 +86,7 @@ bool LedFunctions::SetMode(String s)
 		leds->show();
 		return true;
 	}
-	/*else*/ if (CurrentMode != NULL && s == CurrentMode->GetID())
+	else if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;
 	}
@@ -245,7 +245,7 @@ String LedFunctions::CurrentConfig2String()
 {
 	String Return;
 	Return += "b=" + String(CurrentBrigthnes) + "&";
-	Return += "n=" + String(CurrentNumberOfLeds) + "&";
+	Return += "n=" + String(CurrentNumberOfLeds) + "&"; //TODO n hier entfernen
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
 	Return += "m=" + String(CurrentMode->GetID()) + "&";
 	auto names = CurrentMode->ParameterNames();
