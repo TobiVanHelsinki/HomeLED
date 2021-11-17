@@ -116,7 +116,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigIO.h" />
     <ClInclude Include="HWReset.h" />
     <ClInclude Include="LedFunctions.h" />
     <ClInclude Include="LEDProvider_Analog.h" />
@@ -137,7 +136,6 @@
     <ClInclude Include="__vm\.LEDController.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigIO.cpp" />
     <ClCompile Include="HWReset.cpp" />
     <ClCompile Include="LedFunctions.cpp" />
     <ClCompile Include="LEDProvider_Analog.cpp" />

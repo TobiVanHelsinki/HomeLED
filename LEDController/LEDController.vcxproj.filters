@@ -33,9 +33,6 @@
     <ClInclude Include="ProjectHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HWReset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LEDProvider_NeoPixel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConfigIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HWReset.cpp">

@@ -207,7 +207,7 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 		SERIALWRITELINE("0");
 		if (!argVal.isEmpty())
 		{
-			auto newValue = argVal.toInt(); //TODO boundry checks, just allow some pins
+			auto newValue = argVal.toInt(); //TODO boundry checks, just allow some pins, use also at the top
 			if (ReadFile(FileDatapin).compareTo(argVal) != 0)
 			{
 				if (WriteFile(FileDatapin, argVal))
