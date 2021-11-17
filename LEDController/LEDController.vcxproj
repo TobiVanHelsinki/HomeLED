@@ -131,6 +131,7 @@
     <ClInclude Include="Mode_Sin.h" />
     <ClInclude Include="Mode_TwoColor.h" />
     <ClInclude Include="Mode_Tyke.h" />
+    <ClInclude Include="Mode_Water.h" />
     <ClInclude Include="NetworkCommunication.h" />
     <ClInclude Include="ProjectHeader.h" />
     <ClInclude Include="__vm\.LEDController.vsarduino.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Mode_Sin.cpp" />
     <ClCompile Include="Mode_TwoColor.cpp" />
     <ClCompile Include="Mode_Tyke.cpp" />
+    <ClCompile Include="Mode_Water.cpp" />
     <ClCompile Include="NetworkCommunication.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

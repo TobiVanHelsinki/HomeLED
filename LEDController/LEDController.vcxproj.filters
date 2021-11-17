@@ -69,6 +69,9 @@
     <ClInclude Include="Mode_Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mode_Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModeBase.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mode_Color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mode_Water.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

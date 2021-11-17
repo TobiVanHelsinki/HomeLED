@@ -14,6 +14,9 @@ t	tablesize
 w	Width of bar
 sk	skip out each led
 off	black out
+a	areas
+
+
 get			return current config string
 config		save, load, clear stored config for startup
 hostname	network name of device
