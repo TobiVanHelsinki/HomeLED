@@ -8,7 +8,6 @@
 #include <AutoConnectCredential.h>
 #include "ProjectHeader.h"
 #include "LedFunctions.h"
-#include "ConfigIO.h"
 
 class NetworkCommunication
 {
