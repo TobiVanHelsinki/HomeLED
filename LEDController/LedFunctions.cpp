@@ -132,31 +132,6 @@ int LedFunctions::CropAtBounds(int newVal, int minVal, int maxVal)
 	return newVal;
 }
 
-bool LedFunctions::UpdateSpeed(int newValue)
-{
-	newValue = CropAtBounds(newValue, MinLEDRefreshTime, MaxLEDRefreshTime);
-	if (newValue != CurrentLEDRefreshTime)
-	{
-		CurrentLEDRefreshTime = newValue;
-		LEDsStop();
-		LEDsStart();
-		return true;
-	}
-	return false;
-}
-//TODO remove if just onece called
-bool LedFunctions::UpdateBri(int newValue)
-{
-	newValue = CropAtBounds(newValue, MinBrigthnes, MaxBrigthnes);
-	if (CurrentBrigthnes != newValue)
-	{
-		CurrentBrigthnes = newValue;
-		leds->setBrightness(newValue);
-		return true;
-	}
-	return false;
-}
-
 String LedFunctions::HandleProperty(String argName, String argVal)
 {
 	String result;
@@ -164,7 +139,12 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	{
 		if (!argVal.isEmpty())
 		{
-			UpdateBri(argVal.toInt());
+			auto newValue = CropAtBounds(argVal.toInt(), MinBrigthnes, MaxBrigthnes);
+			if (CurrentBrigthnes != newValue)
+			{
+				CurrentBrigthnes = newValue;
+				leds->setBrightness(newValue);
+			}
 		}
 		result += "b=" + String(CurrentBrigthnes) + "&";
 	}
@@ -195,7 +175,13 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	{
 		if (!argVal.isEmpty())
 		{
-			UpdateSpeed(argVal.toInt());
+			auto newValue = CropAtBounds(argVal.toInt(), MinLEDRefreshTime, MaxLEDRefreshTime);
+			if (newValue != CurrentLEDRefreshTime)
+			{
+				CurrentLEDRefreshTime = newValue;
+				LEDsStop();
+				LEDsStart();
+			}
 		}
 		result += "v=" + String(CurrentLEDRefreshTime) + "&";
 	}

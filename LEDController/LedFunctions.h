@@ -43,10 +43,6 @@ public:
 	static bool SetMode(String s);
 
 	static int CropAtBounds(int newVal, int minVal, int maxVal);
-	// Hz Value from 1 to 50
-	static bool UpdateSpeed(int newValue);
-
-	static bool UpdateBri(int newValue);
 
 	static String HandleProperty(String argName, String argVal);
 
