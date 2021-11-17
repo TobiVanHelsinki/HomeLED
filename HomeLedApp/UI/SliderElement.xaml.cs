@@ -47,8 +47,8 @@ namespace HomeLedApp.UI
                 {
                     _Property = value; NotifyPropertyChanged();
                     ValueSlider.SetBinding(Slider.ValueProperty, _Property, BindingMode.TwoWay); //TODO Verursacht löschen der std werte
-                    ValueSlider.SetBinding(Slider.MaximumProperty, _Property + "_Max"); //Test: Max vor min.
-                    ValueSlider.SetBinding(Slider.MinimumProperty, _Property + "_Min");
+                    ValueSlider.SetBinding(Slider.MaximumProperty, _Property + "_Max", BindingMode.OneWay); //Test: Max vor min.
+                    ValueSlider.SetBinding(Slider.MinimumProperty, _Property + "_Min", BindingMode.OneWay);
                     ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, "{0:0}");
                 }
             }

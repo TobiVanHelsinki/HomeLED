@@ -36,20 +36,6 @@ namespace HomeLedApp.Model
 
         #region Params
 
-        internal async Task<(int dataPin, int numberLED, string hostname)> GetSettings()
-        {
-            var result = await Send("hostname&datapin&n");
-            var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
-            int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
-            int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
-            string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
-            return ( dataPin,  numberLED,  hostname);
-        }
-
-        internal async void SetSettings(int dataPin, int numberLED, string hostname)
-        {
-            await Send("setHostname=" + hostname+ "&setDataPin=" + dataPin+ "&n="+ numberLED);
-        }
 
         private int _CurrentModeIndex;
         public int CurrentModeIndex
@@ -226,8 +212,20 @@ namespace HomeLedApp.Model
             set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
 
-        public double Sin_VerticalOffset_Min => 1;
-        public double Sin_VerticalOffset_Max => 1024; //die 1024 max auf das aktuelle n verstellen. dafür auch diese bindable machen
+        private double _Sin_VerticalOffset_Min = 1;
+        public double Sin_VerticalOffset_Min
+        {
+            get => _Sin_VerticalOffset_Min;
+            set { if (_Sin_VerticalOffset_Min != value) { _Sin_VerticalOffset_Min = value; NotifyPropertyChanged(); } }
+        }
+
+        private double _Sin_VerticalOffset_Max = 1024;
+        public double Sin_VerticalOffset_Max
+        {
+            get => _Sin_VerticalOffset_Max;
+            set { if (_Sin_VerticalOffset_Max != value) { _Sin_VerticalOffset_Max = value; NotifyPropertyChanged(); } }
+        }
+
         private int _Sin_VerticalOffset;
         [LedServerRelevant("mu", 1)]
         public int Sin_VerticalOffset
@@ -237,7 +235,13 @@ namespace HomeLedApp.Model
         }
 
         public double Sin_HorizontalOffset_Min => 2;
-        public double Sin_HorizontalOffset_Max => 1024;
+        private double _Sin_HorizontalOffset_Max = 1024;
+        public double Sin_HorizontalOffset_Max
+        {
+            get => _Sin_HorizontalOffset_Max;
+            set { if (_Sin_HorizontalOffset_Max != value) { _Sin_HorizontalOffset_Max = value; NotifyPropertyChanged(); } }
+        }
+
         public int _Sin_HorizontalOffset;
 
         [LedServerRelevant("t", 256)]
@@ -277,7 +281,13 @@ namespace HomeLedApp.Model
 
 
         public double Width_Min => 1;
-        public double Width_Max => 1024;
+        private double _Width_Max = 1024;
+        public double Width_Max
+        {
+            get => _Width_Max;
+            set { if (_Width_Max != value) { _Width_Max = value; NotifyPropertyChanged(); } }
+        }
+
         private double _Width;
         [LedServerRelevant("w", 50d)]
         public double Width
@@ -287,7 +297,13 @@ namespace HomeLedApp.Model
         }
 
         public double Fringe_Min => 0;
-        public double Fringe_Max => Width_Max;
+        private double _Fringe_Max = 1024;
+        public double Fringe_Max
+        {
+            get => _Fringe_Max;
+            set { if (_Fringe_Max != value) { _Fringe_Max = value; NotifyPropertyChanged(); } }
+        }
+
 
         private double _Fringe;
         [LedServerRelevant("f", 10d)]
@@ -429,8 +445,28 @@ namespace HomeLedApp.Model
             NetworkCommunicationInProgress = false;
         }
 
+
+        internal async Task<(int dataPin, int numberLED, string hostname)> GetSettings()
+        {
+            var result = await Send("hostname&datapin&n");
+            var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
+            int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
+            int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
+            Width_Max = numberLED;
+            Fringe_Max = numberLED;
+            Sin_HorizontalOffset_Max = numberLED;
+            Sin_VerticalOffset_Max = numberLED;
+            string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
+            return (dataPin, numberLED, hostname);
+        }
+
+        internal async void SetSettings(int dataPin, int numberLED, string hostname)
+        {
+            await Send("setHostname=" + hostname + "&setDataPin=" + dataPin + "&n=" + numberLED);
+        }
         public async void ReadParameterFromDevice()
         {
+            await GetSettings();
             var result = await Send("get");
             var pairs = result.Split('&')
                 .Select(x => x.Split('='));
