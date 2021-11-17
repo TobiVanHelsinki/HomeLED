@@ -28,7 +28,6 @@ void LedFunctions::SetupLeds()
 {
 	SERIALWRITELINE("SetupLeds");
 	leds->begin();
-	//leds->clear();
 
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
@@ -168,9 +167,8 @@ bool LedFunctions::UpdateNumOfLeds(int newValue)
 	if (CurrentNumberOfLeds != newValue)
 	{
 		CurrentNumberOfLeds = newValue;
-		leds->clear();
+		leds->fill(0, CurrentNumberOfLeds+1, 1023);
 		leds->updateLength(CurrentNumberOfLeds);
-		//leds->updateLength(10); //TODO DEBUG
 		return true;
 	}
 	return false;
