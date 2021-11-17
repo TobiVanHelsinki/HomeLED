@@ -12,9 +12,14 @@ void PulseMode::NextState()
 		(int)(CurrentColor_g * scale),
 		(int)(CurrentColor_b * scale)
 	);
-	leds->fill(color, 0, leds->numPixels());
+	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += Skip)
+	{
+		leds->setPixelColor(ledpos, color);
+	}
 	timepos = positive_modulo(timepos + 1, SinTabelSize);
 }
+
+
 
 String PulseMode::ID = "pulse";
 

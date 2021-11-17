@@ -12,6 +12,7 @@ r	activate randomness
 s	scale
 t	tablesize
 w	Width of bar
+sk	skip out each led
 off	black out
 get			return current config string
 config		save, load, clear stored config for startup

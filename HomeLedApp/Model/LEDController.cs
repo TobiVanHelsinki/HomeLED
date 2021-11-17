@@ -211,6 +211,16 @@ namespace HomeLedApp.Model
             get => _Speed;
             set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
+        public double Skip_Min => 1;
+        public double Skip_Max => 20;
+        private int _Skip;
+        [LedServerRelevant("sk", 1)]
+        public int Skip
+        {
+            get => _Skip;
+            set { if (_Skip != value) { _Skip = value; NotifyPropertyChanged(); } }
+        }
+
 
         private double _Sin_VerticalOffset_Min = 1;
         public double Sin_VerticalOffset_Min
@@ -251,8 +261,8 @@ namespace HomeLedApp.Model
             set { if (_Sin_HorizontalOffset != value) { _Sin_HorizontalOffset = value; NotifyPropertyChanged(); } }
         }
 
-        public double Sin_Scale_Min => 0;
-        public double Sin_Scale_Max => 100;
+        public double Sin_Scale_Min => 1;
+        public double Sin_Scale_Max => 50;
         
         public int _Sin_Scale;
         public int Sin_Scale

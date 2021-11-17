@@ -14,7 +14,6 @@ using Xamarin.Forms;
 
 namespace HomeLedApp.UI
 {
-    //TODO input field for number of leds and the data pin in the settings
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
@@ -94,7 +93,7 @@ namespace HomeLedApp.UI
                     case Modes.c2:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
-                        SpeedSlider.IsVisible = false;
+                        SpeedSlider.IsVisible = true;
                         Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.demo:

@@ -13,7 +13,7 @@ void KnightRiderMode::NextState()
 		CurrentDirection = !CurrentDirection;
 		CurrentPosition = 0;
 	}
-	for (size_t i = 0; i < leds->numPixels(); i++)
+	for (size_t i = 0; i < leds->numPixels(); i += Skip)
 	{
 		leds->setPixelColor(i, SecondColor);
 	}

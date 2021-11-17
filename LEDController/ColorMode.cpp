@@ -8,7 +8,7 @@ ColorMode::ColorMode(ILEDProvider* leds) : ModeBase(leds)
 
 void ColorMode::NextState()
 {
-	for (uint16_t i = 0; i < leds->numPixels(); i++)
+	for (uint16_t i = 0; i < leds->numPixels();  i += Skip)
 	{
 		leds->setPixelColor(i, CurrentColor);
 	}

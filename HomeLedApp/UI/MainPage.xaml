@@ -129,6 +129,7 @@
                 </Grid>
                 <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider" DetailSteps="true"/>
                 <ui:SliderElement Grid.Row="5" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider" DetailSteps="true"/>
+                <ui:SliderElement Grid.Row="6" TitleResource="Skip" Property="Model.Skip" x:Name="SkipSlider" DetailSteps="true"/>
                 <!--<ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds" DetailSteps="true"/>-->
                 <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider" DetailSteps="true"/>
                 <ui:SliderElement TitleResource="Fringe" Property="Model.Fringe" x:Name="FringeSlider" DetailSteps="true"/>

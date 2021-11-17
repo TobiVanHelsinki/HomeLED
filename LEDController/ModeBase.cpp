@@ -12,6 +12,7 @@ std::vector<String> ModeBase::ParameterNames()
 {
 	std::vector<String> names;
 	names.push_back("d");
+	names.push_back("sk");
 	return names;
 }
 
@@ -29,6 +30,15 @@ String ModeBase::HandleProperty(String Name, String Value)
 			SetinBoundsAndReport(&DebugOutput, "d", Value);
 		}
 		return "d=" + String(DebugOutput) + "&";
+	}
+	if (Name == "sk")
+	{
+		if (!Value.isEmpty())
+		{
+			SetinBoundsAndReport(&Skip, "sk", Value, 0, 10);
+			leds->clear();
+		}
+		return "sk=" + String(Skip) + "&";
 	}
 	else
 	{

@@ -13,7 +13,7 @@ String RainbowMode::GetID()
 
 void RainbowMode::NextState()
 {
-	for (int i = 0; i < leds->numPixels(); i++)
+	for (int i = 0; i < leds->numPixels(); i += Skip)
 	{
 		int x;
 		if (DisturbingMode)

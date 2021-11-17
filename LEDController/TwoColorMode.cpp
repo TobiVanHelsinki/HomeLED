@@ -9,7 +9,7 @@ TwoColorMode::TwoColorMode(ILEDProvider* leds) : ColorMode(leds)
 
 void TwoColorMode::NextState()
 {
-	for (uint16_t i = 0; i < leds->numPixels(); i++)
+	for (uint16_t i = 0; i < leds->numPixels(); i += Skip)
 	{
 		if (rand() % 2 == 0)
 		{
