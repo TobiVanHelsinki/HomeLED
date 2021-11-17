@@ -13,6 +13,7 @@ void LedFunctions::SetupLeds()
 	SERIALWRITELINE("SetupLeds");
 	auto ledno = ReadFile(FileLEDNo).toInt();
 	auto pin = ReadFile(FileDatapin).toInt();
+	pin = 5; //TODO better sanitychecks
 	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRB + NEO_KHZ800));
 	leds->begin();
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));

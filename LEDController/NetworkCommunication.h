@@ -34,4 +34,8 @@ public:
 	static void SetupSSDP();
 
 	static void handleRoot();
+
+	static String GenerateDefaultHostname();
+
+	static String ReadValidHostname();
 };

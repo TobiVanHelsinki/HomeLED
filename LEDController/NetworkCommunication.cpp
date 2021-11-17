@@ -12,7 +12,7 @@ void NetworkCommunication::SetupWiFi()
 	AutoConnectConfig acConfig;
 	//acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
-	acConfig.apid = ConfigIO::GenerateDefaultHostname();
+	acConfig.apid = NetworkCommunication::GenerateDefaultHostname();
 	acConfig.psk = DEFAULTPASSW;
 	//acConfig.autoReconnect = false;
 	//acConfig.autoReset = false;
@@ -20,7 +20,7 @@ void NetworkCommunication::SetupWiFi()
 	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
 	acConfig.ota = AC_OTA_BUILTIN;
 	acConfig.portalTimeout = 0; //0=endless
-	acConfig.hostName = ConfigIO::ReadValidHostname();
+	acConfig.hostName = NetworkCommunication::ReadValidHostname();
 	acConfig.apip = IPAddress(192, 168, 10, 1);
 	acConfig.ticker = true;
 	Portal.config(acConfig);
@@ -96,7 +96,7 @@ void NetworkCommunication::SetupSSDP()
 	SSDP.setModelNumber(ModelNumber);
 	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
 	SSDP.setSerialNumber(serialNo);
-	auto name = ConfigIO::ReadValidHostname();
+	auto name = NetworkCommunication::ReadValidHostname();
 	SSDP.setName(name);
 	SERIALWRITE("\t");
 	SERIALWRITE("Model: ");
@@ -142,7 +142,14 @@ void NetworkCommunication::handleRoot()
 		{
 			if (argVal == "save")
 			{
-				result += ConfigIO::StoreConfig(LedFunctions::CurrentConfig2String());
+				if (WriteFile(FileConfig, LedFunctions::CurrentConfig2String()))
+				{
+					result += "SUCCESS storing Config&";
+				}
+				else
+				{
+					result += "ERROR storing Config&";
+				}
 			}
 			else if (argVal == "load")
 			{
@@ -150,20 +157,34 @@ void NetworkCommunication::handleRoot()
 			}
 			else if (argVal == "clear")
 			{
-				result += ConfigIO::ClearConfigMemory();
+				if (TruncateFile(FileConfig))
+				{
+					result += "SUCCESS cleaning Config&";
+				}
+				else
+				{
+					result += "ERROR cleaning Config&";
+				}
 			}
 		}
 		else if (argName == "hostname")
 		{
 			if (!argVal.isEmpty())
 			{
-				ConfigIO::StoreHostname(argVal); //TODO make easier
+				if (WriteFile(FileHostName, argVal))
+				{
+					result += "SUCCESS storing Hostname&";
+				}
+				else
+				{
+					result += "ERROR storing Hostname&";
+				}
 				SSDP.end();
-				SSDP.setName(ConfigIO::ReadValidHostname());
+				SSDP.setName(NetworkCommunication::ReadValidHostname());
 				SSDP.begin();
 				result += "restarted SSDP Server&";
 			}
-			result += "hostname=" + ConfigIO::ReadValidHostname() + "&";
+			result += "hostname=" + NetworkCommunication::ReadValidHostname() + "&";
 		}
 		else if (argName == "restart")
 		{
@@ -190,4 +211,26 @@ void NetworkCommunication::handleRoot()
 		SERIALWRITELINE("Restarting now");
 		ESP.restart();
 	}
+}
+
+String NetworkCommunication::GenerateDefaultHostname()
+{
+	return HomeLEDTitle + String(ESP.getChipId(), HEX);
+}
+
+String NetworkCommunication::ReadValidHostname()
+{
+	auto hostname = ReadFile(FileHostName);
+	//auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
+	if (hostname.isEmpty())
+	{
+		SERIALWRITELINE("Stored Hostname was empty, return new generative hostname");
+		hostname = GenerateDefaultHostname();
+	}
+	else
+	{
+		SERIALWRITE("Your Hostname is: ");
+		SERIALWRITELINE(hostname);
+	}
+	return hostname;
 }
