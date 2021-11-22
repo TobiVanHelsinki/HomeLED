@@ -67,7 +67,6 @@ std::vector<String> SinMode::ParameterNames()
 	names.push_back("t");
 	names.push_back("mu");
 	names.push_back("s");
-	names.push_back("st");
 	names.push_back("build");
 	auto baseNames = ColorMode::ParameterNames();
 	for (size_t i = 0; i < baseNames.size(); i++)
@@ -105,14 +104,6 @@ String SinMode::HandleProperty(String Name, String Value)
 			BuildTable(false);
 		}
 		return "s=" + String(Scaling) + "&";
-	}
-	else if (Name == "st")
-	{
-		if (!Value.isEmpty())
-		{
-			SetinBoundsAndReport(&StepSize, "", Value, 1, 1024);
-		}
-		return "st=" + String(StepSize) + "&";
 	}
 	else if (Name == "build")
 	{

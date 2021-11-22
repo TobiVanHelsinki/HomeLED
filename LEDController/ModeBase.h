@@ -17,6 +17,7 @@ public:
 
 protected:
 	bool DebugOutput = false;
+	uint8_t StepSize = 1;
 	uint8_t Skip = 1;
 	ILEDProvider* leds;
 	static String SetinBoundsAndReport(int* savePlace, String name, String parameter, int min = 0, int max = std::numeric_limits<int>::max());

@@ -79,6 +79,11 @@ bool LedFunctions::SetMode(String s)
 		leds->show();
 		return true;
 	}
+	if (s == "on")
+	{
+		LEDsStart();
+		return true;
+	}
 	else if (CurrentMode != NULL && s == CurrentMode->GetID())
 	{
 		return false;
