@@ -13,18 +13,21 @@ String RainbowMode::GetID()
 
 void RainbowMode::NextState()
 {
-	for (int i = 0; i < leds->numPixels(); i += Skip)
+	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += StepSize + Skip)
 	{
 		int x;
 		if (DisturbingMode)
 		{
-			x = (i * 256 / leds->numPixels());
+			x = (ledpos * 256 / leds->numPixels());
 		}
 		else
 		{
-			x = i;
+			x = ledpos;
 		}
-		leds->setPixelColor(i, Wheel((x + j) & 255));
+		for (size_t s = 0; s < StepSize; s++)
+		{
+			leds->setPixelColor(ledpos + s, Wheel((x + j) & 255));
+		}
 	}
 	j = (j + 1) % 256;
 }

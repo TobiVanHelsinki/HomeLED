@@ -9,15 +9,12 @@ TwoColorMode::TwoColorMode(ILEDProvider* leds) : ColorMode(leds)
 
 void TwoColorMode::NextState()
 {
-	for (uint16_t i = 0; i < leds->numPixels(); i += Skip)
+	for (uint16_t ledpos = 0; ledpos < leds->numPixels(); ledpos += StepSize + Skip)
 	{
-		if (rand() % 2 == 0)
+		auto color = rand() % 2 == 0 ? CurrentColor : SecondColor;
+		for (size_t s = 0; s < StepSize; s++)
 		{
-			leds->setPixelColor(i, CurrentColor);
-		}
-		else
-		{
-			leds->setPixelColor(i, SecondColor);
+			leds->setPixelColor(ledpos + s, color);
 		}
 	}
 }

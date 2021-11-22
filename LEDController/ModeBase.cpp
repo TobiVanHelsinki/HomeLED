@@ -40,7 +40,7 @@ String ModeBase::HandleProperty(String Name, String Value)
 	{
 		if (!Value.isEmpty())
 		{
-			SetinBoundsAndReport(&StepSize, "", Value, 1, 1024);
+			SetinBoundsAndReport(&StepSize, "st", Value, 1);
 		}
 		return "st=" + String(StepSize) + "&";
 	}
@@ -71,7 +71,6 @@ String ModeBase::SetinBoundsAndReport(int* savePlace, String name, String parame
 		return String();
 	}
 }
-
 String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String parameter, uint8_t min, uint8_t max)
 {
 	auto newVal = parameter.toInt();
@@ -86,7 +85,6 @@ String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String pa
 			newVal = min;
 		}
 		(*savePlace) = newVal;
-		SERIALWRITELINE("Set " + name + " to " + String((*savePlace)) + "\n");
 		return "Set " + name + " to " + String((*savePlace)) + "\n";
 	}
 	else

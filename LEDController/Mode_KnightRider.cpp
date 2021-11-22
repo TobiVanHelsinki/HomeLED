@@ -8,17 +8,18 @@ KnightRiderMode::KnightRiderMode(ILEDProvider* leds) : TwoColorMode(leds)
 
 void KnightRiderMode::NextState()
 {
+	leds->clear();
 	if (CurrentPosition >= leds->numPixels())
 	{
 		CurrentDirection = !CurrentDirection;
 		CurrentPosition = 0;
 	}
-	for (size_t i = 0; i < leds->numPixels(); i += Skip)
+	for (size_t i = 0; i < leds->numPixels(); i += StepSize)
 	{
 		leds->setPixelColor(i, SecondColor);
 	}
 	PrintTail(CurrentPosition);
-	CurrentPosition++;
+	CurrentPosition += StepSize /*+ Skip*/; //skip hier zu kompliziert
 }
 
 void KnightRiderMode::PrintTail(size_t startPos)

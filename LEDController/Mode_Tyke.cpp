@@ -7,15 +7,18 @@ TykeMode::TykeMode(ILEDProvider* leds) : TwoColorMode(leds)
 
 void TykeMode::NextState()
 {
-	leds->setPixelColor(Position, CurrentColor);
-	leds->setPixelColor(leds->numPixels() - Position, SecondColor);
+	for (size_t s = 0; s < StepSize; s++)
+	{
+		leds->setPixelColor(Position + s, CurrentColor);
+		leds->setPixelColor(leds->numPixels() - Position - s, SecondColor); 
+	}
 	if (Position > leds->numPixels())
 	{
 		Position = 0;
 	}
 	else
 	{
-		Position++;
+		Position += StepSize + Skip; //TODO je nach startpos hat es komische effekte
 	}
 }
 
