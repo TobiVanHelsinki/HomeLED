@@ -101,7 +101,7 @@ void NetworkCommunication::SetupSSDP()
 	SSDP.setName(name);
 	SERIALWRITE("\t");
 	SERIALWRITE("Model: ");
-	SERIALWRITELINE(ModelName);
+	SERIALWRITELINE(DeviceType);
 	SERIALWRITE("Serial: ");
 	SERIALWRITELINE(serialNo);
 	SERIALWRITE("Name: ");

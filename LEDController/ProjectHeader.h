@@ -3,7 +3,7 @@
 //Important build-settings
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
-//#define _DEBUG
+#define _DEBUG
 
 //Notes
 //	For OTA : set FS to none
