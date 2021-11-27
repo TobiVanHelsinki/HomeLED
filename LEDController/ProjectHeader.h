@@ -1,9 +1,8 @@
 #pragma once
 
-//#define CustomSettings
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
-#define _DEBUG
+//#define _DEBUG
 
 #ifdef _DEBUG
 #define SERIALWRITELINE(x) Serial.println(x);
@@ -61,12 +60,7 @@ constexpr auto MinNumberOfLeds = 1;
 constexpr auto MinLEDRefreshTime = 40;
 constexpr auto MinBrigthnes = 0;
 
-#ifdef CustomSettings
-constexpr auto MaxNumberOfLeds = 252;
-#else
 constexpr auto MaxNumberOfLeds = 1024;
-#endif
-
 constexpr auto MaxLEDRefreshTime = 10000;
 constexpr auto MaxBrigthnes = 255;
 
