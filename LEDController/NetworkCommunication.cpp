@@ -199,7 +199,9 @@ void NetworkCommunication::handleRoot()
 	if (Server.args() == 0)
 	{
 		digitalWrite(BuiltInLed, LOW); //Led port einschlaten
-		result = "Welcome to the server";
+		result = "Welcome to the HomeLED server of \"" + NetworkCommunication::ReadValidHostname() + "\" \n";
+		result += "This IP is " + WiFi.localIP().toString() + "\n";
+		result += "HOMELed Version " + String(Version) + "\n";
 		delay(100);
 		digitalWrite(BuiltInLed, HIGH); //Led port ausschalten
 	}

@@ -3,7 +3,6 @@
 #include "LedFunctions.h"
 #include "NetworkCommunication.h"
 #include "HWReset.h"
-#include "ConfigIO.h"
 #include "EEPROMHelper.h"
 #include "ILEDProvider.h"
 

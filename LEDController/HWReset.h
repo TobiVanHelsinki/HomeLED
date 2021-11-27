@@ -1,6 +1,5 @@
 #pragma once
 #include "ProjectHeader.h"
-#include "ConfigIO.h"
 #include <AutoConnect.h>
 
 //void ICACHE_RAM_ATTR HWReset::ProcessResetInterrupt();
