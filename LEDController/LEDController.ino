@@ -19,9 +19,9 @@ void setup()
 	delay(2000);
 	HWReset::SetupResetProcedures();
 	//HWReset::ResetSystem();
+	LedFunctions::SetupLeds();
 	NetworkCommunication::SetupWiFi();
 	NetworkCommunication::SetupSSDP();
-	LedFunctions::SetupLeds();
 	SERIALWRITELINE("INIT complete");
 }
 
