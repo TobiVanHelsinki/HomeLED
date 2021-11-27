@@ -1,9 +1,15 @@
 #pragma once
 
+//Important build-settings
 //#define HARDWARE_IS_ANALOG
 #define HARDWARE_IS_NEOPIXEL
 //#define _DEBUG
 
+//Notes
+//	For OTA : set FS to none
+
+
+//Start of program
 #ifdef _DEBUG
 #define SERIALWRITELINE(x) Serial.println(x);
 #define SERIALWRITE(x) Serial.print(x);
@@ -12,31 +18,26 @@
 #define SERIALWRITE(x)
 #endif // _DEBUG
 
-/*
-For OTA: set FS to none
-*/
 #include <Arduino.h>
-constexpr auto BuiltInLed = D4;
 
-//NetworkCommunication
+//App Informaion
 constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
 constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
 constexpr auto DeviceType = "ImperialHomeLED";
-constexpr auto ModelName = "ImperialHomeLED.V1";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
-constexpr auto ModelNumber = "100";
-constexpr auto Version = "1.8.1";
+constexpr auto Version = "1.8.4";
 constexpr auto DEFAULTPASSW = "12345678";
 
+//Technical Information
+constexpr auto BuiltInLed = D4;
 constexpr auto HTTPPort = 80;
 
-//HW Reset
+//Settings - HW Reset
 constexpr auto interruptPinReset = D7;
 constexpr auto ResetPressedTime = 4000;
 
-constexpr auto HomeLEDTitle = "HomeLED-";
 
-//Config
+//Settings - Config
 //constexpr auto StorageAdress_Start_Hostname = 0;
 //constexpr auto StorageAdress_End_Hostname = 17;
 //constexpr auto StorageAdress_Start_Configuration = 100;
@@ -47,21 +48,3 @@ constexpr auto FileHostName = "/hostnm.txt";
 constexpr auto FileConfig = "/lastconf.txt";
 constexpr auto FileDatapin = "/datapin.txt";
 constexpr auto FileLEDNo = "/ledno.txt";
-
-//LedFunctions
-
-#ifdef HARDWARE_IS_ANALOG
-constexpr auto AnalogPin_R = D1;
-constexpr auto AnalogPin_G = D3;
-constexpr auto AnalogPin_B = D2;
-#endif
-
-constexpr auto MinNumberOfLeds = 1;
-constexpr auto MinLEDRefreshTime = 40;
-constexpr auto MinBrigthnes = 0;
-
-constexpr auto MaxNumberOfLeds = 1024;
-constexpr auto MaxLEDRefreshTime = 10000;
-constexpr auto MaxBrigthnes = 255;
-
-constexpr auto StartMode = "sin";

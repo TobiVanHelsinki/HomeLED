@@ -12,7 +12,7 @@ void LedFunctions::SetupLeds()
 {
 	SERIALWRITELINE("SetupLeds");
 	auto ledno = ReadFile(FileLEDNo).toInt();
-	auto pin = ReadFile(FileDatapin).toInt();
+	auto pin = ReadFile(FileDatapin).toInt(); //TODO auch für r,g,b einführen
 	//TODO better sanitychecks
 	if (pin < 12)
 	{
@@ -22,7 +22,12 @@ void LedFunctions::SetupLeds()
 	{
 		pin = 12; //tk
 	}
+#ifdef HARDWARE_IS_NEOPIXEL
 	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRB + NEO_KHZ800));
+#endif
+#ifdef HARDWARE_IS_ANALOG
+	leds = new LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B);
+#endif
 	leds->begin();
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();

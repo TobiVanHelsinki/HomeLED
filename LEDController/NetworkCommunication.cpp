@@ -9,10 +9,11 @@ void NetworkCommunication::SetupWiFi()
 	SERIALWRITELINE("SetupWiFi");
 	Server.on("/", handleRoot);
 	Server.on("", handleRoot);
+	auto customname = NetworkCommunication::ReadValidHostname();
 	AutoConnectConfig acConfig;
 	//acConfig.boundaryOffset = StorageAdress_AutoConnect;
-	acConfig.title = HomeLEDTitle + String("MenuV") + Version;
-	acConfig.apid = NetworkCommunication::GenerateDefaultHostname();
+	acConfig.title = DeviceType + String(" \"") + customname +"\" V" + Version;
+	//acConfig.apid = NetworkCommunication::GenerateDefaultHostname();
 	acConfig.psk = DEFAULTPASSW;
 	//acConfig.autoReconnect = false;
 	//acConfig.autoReset = false;
@@ -20,7 +21,7 @@ void NetworkCommunication::SetupWiFi()
 	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
 	acConfig.ota = AC_OTA_BUILTIN;
 	acConfig.portalTimeout = 0; //0=endless
-	acConfig.hostName = NetworkCommunication::ReadValidHostname();
+	acConfig.hostName = customname;
 	acConfig.apip = IPAddress(192, 168, 10, 1);
 	acConfig.ticker = true;
 	Portal.config(acConfig);
@@ -91,10 +92,10 @@ void NetworkCommunication::SetupSSDP()
 	SSDP.setManufacturer(Manufactor);
 	SSDP.setManufacturerURL(ManufacturerURL);
 	SSDP.setDeviceType(DeviceType);
-	SSDP.setModelName(ModelName);
+	SSDP.setModelName(String(DeviceType)+ "-" +String(Version));
 	SSDP.setModelURL(ModelURL);
-	SSDP.setModelNumber(ModelNumber);
-	auto serialNo = ModelNumber + String("_") + String(ESP.getChipId(), HEX);
+	SSDP.setModelNumber(Version);
+	auto serialNo = Version + String("_") + String(ESP.getChipId(), HEX);
 	SSDP.setSerialNumber(serialNo);
 	auto name = NetworkCommunication::ReadValidHostname();
 	SSDP.setName(name);
@@ -217,7 +218,7 @@ void NetworkCommunication::handleRoot()
 
 String NetworkCommunication::GenerateDefaultHostname()
 {
-	return HomeLEDTitle + String(ESP.getChipId(), HEX);
+	return DeviceType + String("-") + String(ESP.getChipId(), HEX);
 }
 
 String NetworkCommunication::ReadValidHostname()

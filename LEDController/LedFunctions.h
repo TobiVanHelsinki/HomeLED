@@ -52,3 +52,21 @@ public:
 
 	static String GetValue(String data, char separator, int index);
 };
+
+
+//LedFunctions
+#ifdef HARDWARE_IS_ANALOG
+constexpr auto AnalogPin_R = D1;
+constexpr auto AnalogPin_G = D3;
+constexpr auto AnalogPin_B = D2;
+#endif
+
+constexpr auto MinNumberOfLeds = 1;
+constexpr auto MinLEDRefreshTime = 20;
+constexpr auto MinBrigthnes = 0;
+
+constexpr auto MaxNumberOfLeds = 1024;
+constexpr auto MaxLEDRefreshTime = 10000;
+constexpr auto MaxBrigthnes = 255;
+
+constexpr auto StartMode = "sin";
