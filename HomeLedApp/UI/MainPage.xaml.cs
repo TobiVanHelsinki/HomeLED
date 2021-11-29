@@ -65,7 +65,7 @@ namespace HomeLedApp.UI
                 Panel_Color1.IsVisible = true;
                 Panel_Color2.IsVisible = false;
                 SpeedSlider.IsVisible = true;
-                BriSlider.IsVisible = false;
+                BriSlider.IsVisible = true;
                 WidthSlider.IsVisible = false;
                 FringeSlider.IsVisible = false;
                 Panel_SinParameter.IsVisible = false;
@@ -76,7 +76,7 @@ namespace HomeLedApp.UI
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         Panel_SinParameter.IsVisible = true;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.rainbow:
                         Panel_Color1.IsVisible = false;
@@ -88,13 +88,13 @@ namespace HomeLedApp.UI
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         SpeedSlider.IsVisible = false;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.c2:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
                         SpeedSlider.IsVisible = true;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.demo:
                         BriSlider.IsVisible = true;
@@ -103,19 +103,19 @@ namespace HomeLedApp.UI
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = false;
                         Panel_SinParameter.IsVisible = true;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.tyke:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.knightrider:
                         Panel_Color1.IsVisible = true;
                         Panel_Color2.IsVisible = true;
                         WidthSlider.IsVisible = true;
                         FringeSlider.IsVisible = true;
-                        Model.Brigthnes = (int)Model.Brigthnes_Max;
+                        ////Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     default:
                         break;
