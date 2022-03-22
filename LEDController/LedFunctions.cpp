@@ -23,7 +23,7 @@ void LedFunctions::SetupLeds()
 		pin = 12; //tk
 	}
 #ifdef HARDWARE_IS_NEOPIXEL
-	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRB + NEO_KHZ800));
+	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRBW + NEO_KHZ800));
 #endif
 #ifdef HARDWARE_IS_ANALOG
 	leds = new LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B);
@@ -244,7 +244,7 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 
 String LedFunctions::CurrentConfig2String()
 {
-	String Return;
+	String Return; 
 	Return += "b=" + String(CurrentBrigthnes) + "&";
 	Return += "v=" + String(CurrentLEDRefreshTime) + "&";
 	Return += "m=" + String(CurrentMode->GetID()) + "&";

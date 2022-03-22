@@ -8,6 +8,8 @@
     </OnPlatform>
     <ui:IO_ModesToString x:Key="IO_ModesToString"/>
     <ui:IO_BoolInvert x:Key="IO_BoolInvert"/>
+    <ui:IO_RemoveWhite x:Key="IO_RemoveWhite"/>
+    <ui:IO_JustWhite x:Key="IO_JustWhite"/>
 
     <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="MinimumTrackColor" Value="Accent"/>

@@ -33,7 +33,8 @@ namespace HomeLedApp.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Rg.Plugins.Popup.Popup.Init();
-                assembliesToInclude.Add(typeof(Rg.Plugins.Popup.Popup).GetTypeInfo().Assembly);
+                //assembliesToInclude.Add(typeof(Rg.Plugins.Popup.Popup).GetTypeInfo().Assembly);
+                assembliesToInclude.AddRange(Rg.Plugins.Popup.Popup.GetExtraAssemblies());
                 Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

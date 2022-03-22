@@ -68,8 +68,8 @@ namespace HomeLedApp.Model
                 }
             }
         }
-
-        private Color _Color = new Color(0, 0, 0, 0);
+        
+        private Color _Color = new(0, 0, 0, 0);
         public Color CurrentColor
         {
             get => _Color;
@@ -81,6 +81,7 @@ namespace HomeLedApp.Model
                 {
                     _Color = value;
                     NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(White));
                     NotifyPropertyChanged(nameof(Hue));
                     NotifyPropertyChanged(nameof(Saturation));
                     NotifyPropertyChanged(nameof(Luminosity));
@@ -89,14 +90,20 @@ namespace HomeLedApp.Model
                 }
             }
         }
-
-
-
+     
         [LedServerRelevant("c", 0xE58200)]
         public int CurrentColorInt
         {
-            get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0;
-            set => CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue);
+            get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0 | (int)(CurrentColor.A * byte.MaxValue) << 24;
+            set => CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue, (byte)(value >> 24) / (double)byte.MaxValue);
+        }
+
+        public double White_Min => 0;
+        public double White_Max => 100;
+        public double White
+        {
+            get => CurrentColor.A * 100.0;
+            set => CurrentColor = new Color(CurrentColor.R, CurrentColor.G, CurrentColor.B, value / 100.0);
         }
 
         public double Hue_Min => 0;
@@ -135,6 +142,7 @@ namespace HomeLedApp.Model
                 {
                     _Color2 = value;
                     NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(White2));
                     NotifyPropertyChanged(nameof(Hue2));
                     NotifyPropertyChanged(nameof(Saturation2));
                     NotifyPropertyChanged(nameof(Luminosity2));
@@ -162,10 +170,16 @@ namespace HomeLedApp.Model
         [LedServerRelevant("c2", 0xE58200)]
         public int CurrentColor2Int
         {
-            get => (int)(CurrentColor2.R * byte.MaxValue) << 16 | (int)(CurrentColor2.G * byte.MaxValue) << 8 | (int)(CurrentColor2.B * byte.MaxValue) << 0;
-            set => CurrentColor2 = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue);
+            get => (int)(CurrentColor2.R * byte.MaxValue) << 16 | (int)(CurrentColor2.G * byte.MaxValue) << 8 | (int)(CurrentColor2.B * byte.MaxValue) << 0 | (int)(CurrentColor2.A * byte.MaxValue) << 24;
+            set => CurrentColor2 = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue, (byte)(value >> 24) / (double)byte.MaxValue);
         }
-
+        public double White2_Min => 0;
+        public double White2_Max => 100;
+        public double White2
+        {
+            get => CurrentColor2.A * 100.0;
+            set => CurrentColor2 = new Color(CurrentColor2.R, CurrentColor2.G, CurrentColor2.B, value / 100.0);
+        }
         public double Hue2_Min => 0;
         public double Hue2_Max => 360;
         public double Hue2
