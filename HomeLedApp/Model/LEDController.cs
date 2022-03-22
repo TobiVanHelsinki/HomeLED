@@ -92,9 +92,9 @@ namespace HomeLedApp.Model
         }
      
         [LedServerRelevant("c", 0xE58200)]
-        public int CurrentColorInt
+        public uint CurrentColorInt
         {
-            get => (int)(CurrentColor.R * byte.MaxValue) << 16 | (int)(CurrentColor.G * byte.MaxValue) << 8 | (int)(CurrentColor.B * byte.MaxValue) << 0 | (int)(CurrentColor.A * byte.MaxValue) << 24;
+            get => (uint)(CurrentColor.R * byte.MaxValue) << 16 | (uint)(CurrentColor.G * byte.MaxValue) << 8 | (uint)(CurrentColor.B * byte.MaxValue) << 0 | (uint)(CurrentColor.A * byte.MaxValue) << 24;
             set => CurrentColor = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue, (byte)(value >> 24) / (double)byte.MaxValue);
         }
 
@@ -168,9 +168,9 @@ namespace HomeLedApp.Model
         }
 
         [LedServerRelevant("c2", 0xE58200)]
-        public int CurrentColor2Int
+        public uint CurrentColor2Int
         {
-            get => (int)(CurrentColor2.R * byte.MaxValue) << 16 | (int)(CurrentColor2.G * byte.MaxValue) << 8 | (int)(CurrentColor2.B * byte.MaxValue) << 0 | (int)(CurrentColor2.A * byte.MaxValue) << 24;
+            get => (uint)(CurrentColor2.R * byte.MaxValue) << 16 | (uint)(CurrentColor2.G * byte.MaxValue) << 8 | (uint)(CurrentColor2.B * byte.MaxValue) << 0 | (uint)(CurrentColor2.A * byte.MaxValue) << 24;
             set => CurrentColor2 = new Color((byte)(value >> 16) / (double)byte.MaxValue, (byte)(value >> 8) / (double)byte.MaxValue, (byte)(value >> 0) / (double)byte.MaxValue, (byte)(value >> 24) / (double)byte.MaxValue);
         }
         public double White2_Min => 0;
@@ -209,7 +209,7 @@ namespace HomeLedApp.Model
         public double Brigthnes_Min => 0;
         public double Brigthnes_Max => 255;
         private int _Brigthnes;
-        [LedServerRelevant("b", 127)]
+        [LedServerRelevant("b", 256)]
         public int Brigthnes
         {
             get => _Brigthnes;
