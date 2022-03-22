@@ -65,7 +65,7 @@ namespace HomeLedApp.UI
                 Panel_Color1.IsVisible = true;
                 Panel_Color2.IsVisible = false;
                 SpeedSlider.IsVisible = true;
-                BriSlider.IsVisible = true;
+                //BriSlider.IsVisible = true;
                 WidthSlider.IsVisible = false;
                 FringeSlider.IsVisible = false;
                 Panel_SinParameter.IsVisible = false;
@@ -82,7 +82,7 @@ namespace HomeLedApp.UI
                         Panel_Color1.IsVisible = false;
                         Panel_Color2.IsVisible = false;
                         Panel_RainbowParameter.IsVisible = true;
-                        BriSlider.IsVisible = true;
+                        //BriSlider.IsVisible = true;
                         break;
                     case Modes.c:
                         Panel_Color1.IsVisible = true;
@@ -97,7 +97,7 @@ namespace HomeLedApp.UI
                         //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.demo:
-                        BriSlider.IsVisible = true;
+                        //BriSlider.IsVisible = true;
                         break;
                     case Modes.pulse:
                         Panel_Color1.IsVisible = true;

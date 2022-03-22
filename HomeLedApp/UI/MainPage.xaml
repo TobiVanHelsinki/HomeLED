@@ -85,12 +85,9 @@
                         </Label.GestureRecognizers>
                     </Label>
                     <Picker Grid.Row="0" Grid.ColumnSpan="1" Grid.Column="2" SelectedItem="{x:Binding Model.CurrentMode, Mode=TwoWay, Converter={StaticResource IO_ModesToString}}" ItemsSource="{x:Binding ModesList}"/>
-                    <!--IsEnabled="{x:Binding Model.ControlsEnable}"-->
                 </Grid>
                 <ui:SliderElement Grid.Row="2" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider" DetailSteps="true"/>
-                <ui:SliderElement Grid.Row="4" TitleResource="Brigthnes" Property="Model.Brigthnes" x:Name="BriSlider" DetailSteps="true"/>
                 <ui:SliderElement Grid.Row="3" TitleResource="Skip" Property="Model.Skip" x:Name="SkipSlider" DetailSteps="true"/>
-                <!--<ui:SliderElement Grid.Row="6" TitleResource="NumberOfLeds" Property="Model.NumberOfLeds" DetailSteps="true"/>-->
                 <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
