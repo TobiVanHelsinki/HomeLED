@@ -225,7 +225,7 @@ namespace HomeLedApp.Model
             get => _Speed;
             set { if (_Speed != value) { _Speed = value; NotifyPropertyChanged(); } }
         }
-        public double Skip_Min => 1;
+        public double Skip_Min => 0;
         public double Skip_Max => 20;
         private int _Skip;
         [LedServerRelevant("sk", 1)]
@@ -304,7 +304,7 @@ namespace HomeLedApp.Model
         }
 
 
-        public double Width_Min => 1;
+        public double Width_Min => 0;
         private double _Width_Max = 1024;
         public double Width_Max
         {
@@ -472,21 +472,29 @@ namespace HomeLedApp.Model
 
         internal async Task<(int dataPin, int numberLED, string hostname)> GetSettings()
         {
-            var result = await Send("hostname&datapin&n");
-            var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
-            int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
-            int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
-            Width_Max = numberLED;
-            Fringe_Max = numberLED;
-            Sin_HorizontalOffset_Max = numberLED;
-            Sin_VerticalOffset_Max = numberLED;
-            string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
-            return (dataPin, numberLED, hostname);
+            try
+            {
+                var result = await Send("hostname&datapin&n");
+                var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
+                int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
+                int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
+                Width_Max = numberLED.Max(1);
+                Fringe_Max = numberLED.Max(1);
+                Sin_HorizontalOffset_Max = numberLED.Max(3);
+                Sin_VerticalOffset_Max = numberLED.Max(3);
+                string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
+                return (dataPin, numberLED, hostname);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         internal async void SetSettings(int dataPin, int numberLED, string hostname)
         {
-            await Send("setHostname=" + hostname + "&setDataPin=" + dataPin + "&n=" + numberLED);
+            await Send("hostname=" + hostname + "&datapin=" + dataPin + "&n=" + numberLED);
         }
         public async void ReadParameterFromDevice()
         {
