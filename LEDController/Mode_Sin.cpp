@@ -18,7 +18,8 @@ void SinMode::NextState()
 		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
-			(int)(CurrentColor_b * scale)
+			(int)(CurrentColor_b * scale),
+			(int)(CurrentColor_a * scale)
 		);
 		if (DebugOutput && ledpos < 10)
 		{

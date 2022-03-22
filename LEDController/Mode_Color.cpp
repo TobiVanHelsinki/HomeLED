@@ -8,7 +8,7 @@ ColorMode::ColorMode(ILEDProvider* leds) : ModeBase(leds)
 
 void ColorMode::NextState()
 {
-	for (uint16_t ledpos = 0; ledpos < leds->numPixels();  ledpos += Skip)
+	for (uint16_t ledpos = 0; ledpos < leds->numPixels();  ledpos += StepSize + Skip)
 	{
 		leds->setPixelColor(ledpos, CurrentColor);
 	}
@@ -67,12 +67,13 @@ String ColorMode::HandleProperty(String Name, String Value)
 
 void ColorMode::RefreshCurrentColors()
 {
-	CalculateRGB(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b);
+	CalculateRGB(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b, &CurrentColor_a);
 	CalculateHSV(CurrentColor_r, CurrentColor_g, CurrentColor_b, &CurrentColor_h, &CurrentColor_s, &CurrentColor_v);
 }
 
-void ColorMode::CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb)
+void ColorMode::CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb, uint8_t* colora)
 {
+	*(colora) = color >> 24;
 	*(colorr) = color >> 16;
 	*(colorg) = color >> 8;
 	*(colorb) = color >> 0;

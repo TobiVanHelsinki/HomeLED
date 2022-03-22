@@ -12,7 +12,7 @@ void PulseMode::NextState()
 		(int)(CurrentColor_g * scale),
 		(int)(CurrentColor_b * scale)
 	);
-	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += StepSize)
+	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += ledpos += StepSize + Skip)
 	{
 		leds->setPixelColor(ledpos, color);
 	}
