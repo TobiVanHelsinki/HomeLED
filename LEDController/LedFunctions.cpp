@@ -156,16 +156,17 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	String result;
 	if (argName == "b" || argName == "br" || argName == "brightnes")
 	{
-		if (!argVal.isEmpty())
-		{
-			auto newValue = CropAtBounds(argVal.toInt(), MinBrigthnes, MaxBrigthnes);
-			if (CurrentBrigthnes != newValue)
-			{
-				CurrentBrigthnes = newValue;
-				leds->setBrightness(newValue);
-			}
-		}
-		result += "b=" + String(CurrentBrigthnes) + "&";
+		//if (!argVal.isEmpty())
+		//{
+		//	auto newValue = CropAtBounds(argVal.toInt(), MinBrigthnes, MaxBrigthnes);
+		//	if (CurrentBrigthnes != newValue)
+		//	{
+		//		CurrentBrigthnes = newValue;
+		//		leds->setBrightness(newValue);
+		//	}
+		//}
+		//result += "b=" + String(CurrentBrigthnes) + "&";
+		result += "b is now controlled by color option&";
 	}
 	else if (argName == "n" || argName == "number")
 	{
