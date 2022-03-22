@@ -13,7 +13,7 @@ void NetworkCommunication::SetupWiFi()
 	AutoConnectConfig acConfig;
 	//acConfig.boundaryOffset = StorageAdress_AutoConnect;
 	acConfig.title = DeviceType + String(" \"") + customname +"\" V" + Version;
-	//acConfig.apid = NetworkCommunication::GenerateDefaultHostname();
+	acConfig.apid = customname;
 	acConfig.psk = DEFAULTPASSW;
 	//acConfig.autoReconnect = false;
 	//acConfig.autoReset = false;
@@ -227,13 +227,13 @@ String NetworkCommunication::ReadValidHostname()
 	//auto hostname = ReadEEPROM(StorageAdress_Start_Hostname);
 	if (hostname.isEmpty())
 	{
-		SERIALWRITELINE("Stored Hostname was empty, return new generative hostname");
+		SERIALWRITE("Stored Hostname was empty, return new generative hostname:");
 		hostname = GenerateDefaultHostname();
 	}
 	else
 	{
 		SERIALWRITE("Your Hostname is: ");
-		SERIALWRITELINE(hostname);
 	}
+	SERIALWRITELINE(hostname);
 	return hostname;
 }
