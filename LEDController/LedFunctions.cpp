@@ -31,7 +31,7 @@ void LedFunctions::SetupLeds()
 	leds->begin();
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
-	String2CurrentConfig(ReadFile(FileConfig));
+	String2CurrentConfig(ReadFile(FileLastConfig));
 	if (CurrentMode == NULL)
 	{
 		if (!SetMode(StartMode))

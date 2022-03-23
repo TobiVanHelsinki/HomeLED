@@ -143,7 +143,7 @@ void NetworkCommunication::handleRoot()
 		{
 			if (argVal == "save")
 			{
-				if (WriteFile(FileConfig, LedFunctions::CurrentConfig2String()))
+				if (WriteFile(FileConfig1, LedFunctions::CurrentConfig2String()))
 				{
 					result += "SUCCESS storing Config&";
 				}
@@ -154,11 +154,11 @@ void NetworkCommunication::handleRoot()
 			}
 			else if (argVal == "load")
 			{
-				result += LedFunctions::String2CurrentConfig(ReadFile(FileConfig));
+				result += LedFunctions::String2CurrentConfig(ReadFile(FileConfig1));
 			}
 			else if (argVal == "clear")
 			{
-				if (TruncateFile(FileConfig))
+				if (TruncateFile(FileConfig1))
 				{
 					result += "SUCCESS cleaning Config&";
 				}
@@ -195,6 +195,17 @@ void NetworkCommunication::handleRoot()
 		else
 		{
 			result += LedFunctions::HandleProperty(argName, argVal);
+		}
+	}
+	if (Server.args() > 0)
+	{
+		if (WriteFile(FileLastConfig, LedFunctions::CurrentConfig2String()))
+		{
+			result += "SUCCESS storing current Config&";
+		}
+		else
+		{
+			result += "ERROR storing current CurrentConfig&";
 		}
 	}
 	if (Server.args() == 0)
