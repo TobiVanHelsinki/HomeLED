@@ -22,8 +22,9 @@ void LedFunctions::SetupLeds()
 	{
 		pin = 12; //tk
 	}
+	auto ledtype = ReadFile(FileLEDType).toInt(); //TODO auch für r,g,b einführen
 #ifdef HARDWARE_IS_NEOPIXEL
-	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, NEO_GRBW + NEO_KHZ800));
+	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, ledtype + NEO_KHZ800));
 #endif
 #ifdef HARDWARE_IS_ANALOG
 	leds = new LEDProvider_Analog(AnalogPin_R, AnalogPin_G, AnalogPin_B);
@@ -215,7 +216,6 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	}
 	else if (argName == "datapin")
 	{
-		SERIALWRITELINE("0");
 		if (!argVal.isEmpty())
 		{
 			auto newValue = argVal.toInt(); //TODO boundry checks, just allow some pins, use also at the top
@@ -232,6 +232,38 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 			}
 		}
 		result += "datapin=" + ReadFile(FileDatapin) + "&";
+	}
+	else if (argName == "ledtype")
+	{
+		if (!argVal.isEmpty())
+		{
+			int newValue = 0;
+			if (argVal.compareTo("NEO_GRBW") == 0)
+			{
+				newValue = NEO_GRBW;
+			}
+			else if (argVal.compareTo("NEO_GRB") == 0)
+			{
+				newValue = NEO_GRB;
+			} 
+			else
+			{
+				newValue = argVal.toInt();
+			}
+			auto newValueString = String(newValue);
+			if (ReadFile(FileLEDType).compareTo(newValueString) != 0)
+			{
+				if (WriteFile(FileLEDType, newValueString))
+				{
+					result += "SUCCESS storing LED Type&";
+				}
+				else
+				{
+					result += "ERROR storing LED Type&";
+				}
+			}
+		}
+		result += "ledtype=" + ReadFile(FileLEDType) + "&";
 	}
 	else
 	{

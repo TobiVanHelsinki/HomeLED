@@ -44,26 +44,30 @@ namespace HomeLedApp.UI
             set { if (_DataPin != value) { _DataPin = value; NotifyPropertyChanged(); } }
         }
 
-
-         public LedCtrlSettings(LEDController model, LEDDevice device)
+        private string _LEDType;
+        public string LEDType
         {
-            //Hostname = device.HostName;
+            get => _LEDType;
+            set { if (_LEDType != value) { _LEDType = value; NotifyPropertyChanged(); } }
+        }
+
+
+        public LedCtrlSettings(LEDController model, LEDDevice device)
+        {
             Model = model;
             InitializeComponent();
-            //Model.GetSettings().ContinueWith(x => { 
-            //    DataPin = x.Result.dataPin; NumberLED = x.Result.numberLED ; Hostname = x.Result.hostname; });
             BindingContext = this;
             Appearing += LedCtrlSettings_Appearing;
         }
 
         private async void LedCtrlSettings_Appearing(object sender, System.EventArgs e)
         {
-            (DataPin, NumberLED, Hostname) = await Model.GetSettings();
+            (DataPin, NumberLED, Hostname, LEDType) = await Model.GetSettings();
         }
 
         private void OK(object sender, System.EventArgs e)
         {
-            Model.SetSettings(DataPin, NumberLED, Hostname);
+            Model.SetSettings(DataPin, NumberLED, Hostname, LEDType);
             PopupNavigation.Instance.PopAsync();
         }
     }

@@ -33,6 +33,12 @@ namespace HomeLedApp.Model
             get => _NetworkCommunicationInProgress;
             set { if (_NetworkCommunicationInProgress != value) { _NetworkCommunicationInProgress = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(ControlsEnable)); } }
         }
+        private bool _DisplayWhite = true;
+        public bool DisplayWhite
+        {
+            get => _DisplayWhite;
+            set { if (_DisplayWhite != value) { _DisplayWhite = value; NotifyPropertyChanged(); } }
+        }
 
         #region Params
 
@@ -470,11 +476,11 @@ namespace HomeLedApp.Model
         }
 
 
-        internal async Task<(int dataPin, int numberLED, string hostname)> GetSettings()
+        internal async Task<(int dataPin, int numberLED, string hostname, string LEDType)> GetSettings()
         {
             try
             {
-                var result = await Send("hostname&datapin&n");
+                var result = await Send("hostname&datapin&n&ledtype");
                 var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
                 int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
                 int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
@@ -483,7 +489,14 @@ namespace HomeLedApp.Model
                 Sin_HorizontalOffset_Max = numberLED.Max(3);
                 Sin_VerticalOffset_Max = numberLED.Max(3);
                 string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
-                return (dataPin, numberLED, hostname);
+                string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1];
+                if (!ledtype.Contains('W'))
+                {
+                    DisplayWhite = false;
+                    White = White_Min;
+                    White2 = White2_Min;
+                }
+                return (dataPin, numberLED, hostname, ledtype);
             }
             catch (Exception ex)
             {
@@ -492,9 +505,9 @@ namespace HomeLedApp.Model
             }
         }
 
-        internal async void SetSettings(int dataPin, int numberLED, string hostname)
+        internal async void SetSettings(int dataPin, int numberLED, string hostname, string LEDType)
         {
-            await Send("hostname=" + hostname + "&datapin=" + dataPin + "&n=" + numberLED);
+            await Send("hostname=" + hostname + "&datapin=" + dataPin + "&n=" + numberLED + "&ledtype=" + LEDType);
         }
         public async void ReadParameterFromDevice()
         {

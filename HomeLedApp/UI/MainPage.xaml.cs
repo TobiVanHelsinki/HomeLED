@@ -65,7 +65,6 @@ namespace HomeLedApp.UI
                 Panel_Color1.IsVisible = true;
                 Panel_Color2.IsVisible = false;
                 SpeedSlider.IsVisible = true;
-                //BriSlider.IsVisible = true;
                 WidthSlider.IsVisible = false;
                 FringeSlider.IsVisible = false;
                 Panel_SinParameter.IsVisible = false;
@@ -120,6 +119,13 @@ namespace HomeLedApp.UI
                     default:
                         break;
                 }
+            }
+            else if (e.PropertyName == nameof(Model.DisplayWhite))
+            {
+                WhiteSlider1.IsVisible = Model.DisplayWhite;
+                WhiteSlider2.IsVisible = Model.DisplayWhite;
+                PreviewWhite1.IsVisible = Model.DisplayWhite;
+                PreviewWhite2.IsVisible = Model.DisplayWhite;
             }
         }
 

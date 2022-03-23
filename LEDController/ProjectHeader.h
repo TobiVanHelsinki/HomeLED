@@ -49,3 +49,4 @@ constexpr auto FileConfig1 = "/conf1.txt";
 constexpr auto FileLastConfig = "/lastconf.txt";
 constexpr auto FileDatapin = "/datapin.txt";
 constexpr auto FileLEDNo = "/ledno.txt";
+constexpr auto FileLEDType = "/ledtype.txt";

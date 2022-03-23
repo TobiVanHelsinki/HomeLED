@@ -106,8 +106,8 @@
                     <ui:SliderElement Grid.Row="1" TitleResource="Saturation" Property="Model.Saturation" x:Name="SatSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="Luminosity" Property="Model.Luminosity" x:Name="LumSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="White" Property="Model.White" x:Name="WhiteSlider1" ColorBindingPath="Model.CurrentColor" DetailSteps="true"/>
-                    <BoxView Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay, Converter={StaticResource IO_RemoveWhite}}" CornerRadius="15" Margin="5"/>
-                    <BoxView Grid.Row="3" Grid.RowSpan="1" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay, Converter={StaticResource IO_JustWhite}}" CornerRadius="15" Margin="5"/>
+                    <BoxView x:Name="PreviewColor1"  Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay, Converter={StaticResource IO_RemoveWhite}}" CornerRadius="15" Margin="5"/>
+                    <BoxView x:Name="PreviewWhite1" Grid.Row="3" Grid.RowSpan="1" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay, Converter={StaticResource IO_JustWhite}}" CornerRadius="15" Margin="5"/>
                 </Grid>
                 <Grid x:Name="Panel_Color2" RowSpacing="0" Grid.Row="6">
                     <Grid.RowDefinitions>
@@ -130,8 +130,8 @@
                     <ui:SliderElement Grid.Row="2" TitleResource="Saturation" Property="Model.Saturation2" x:Name="SatSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="Luminosity" Property="Model.Luminosity2" x:Name="LumSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="4" TitleResource="White" Property="Model.White2" x:Name="WhiteSlider2" ColorBindingPath="Model.CurrentColor2" DetailSteps="true"/>
-                    <BoxView Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay, Converter={StaticResource IO_RemoveWhite}}" CornerRadius="15" Margin="5"/>
-                    <BoxView Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay, Converter={StaticResource IO_JustWhite}}" CornerRadius="15" Margin="5"/>
+                    <BoxView x:Name="PreviewColor2" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay, Converter={StaticResource IO_RemoveWhite}}" CornerRadius="15" Margin="5"/>
+                    <BoxView x:Name="PreviewWhite2" Grid.Row="4" Grid.RowSpan="1" Grid.Column="1" BackgroundColor="{Binding Model.CurrentColor2, Mode=OneWay, Converter={StaticResource IO_JustWhite}}" CornerRadius="15" Margin="5"/>
                     <!--<Line Grid.Row="4" X1="0" Y1="0" X2="10000" Y2="0" Stroke="DarkBlue" StrokeDashArray="1,2" StrokeThickness="3" StrokeDashOffset="6" HeightRequest="2" />-->
                 </Grid>
                 <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider" DetailSteps="true"/>
