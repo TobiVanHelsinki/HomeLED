@@ -12,7 +12,7 @@ void NetworkCommunication::SetupWiFi()
 	auto customname = NetworkCommunication::ReadValidHostname();
 	AutoConnectConfig acConfig;
 	//acConfig.boundaryOffset = StorageAdress_AutoConnect;
-	acConfig.title = DeviceType + String(" \"") + customname +"\" V" + Version;
+	acConfig.title = customname +" V" + Version;
 	acConfig.apid = customname;
 	acConfig.psk = DEFAULTPASSW;
 	//acConfig.autoReconnect = false;
