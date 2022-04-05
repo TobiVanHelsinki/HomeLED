@@ -231,7 +231,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Regenbogen Parameter</value>
   </data>
   <data name="RainbowParameter_Info" xml:space="preserve">
-    <value>Stellen Sie hier spezielle Parameter für den Regenbogen ein.</value>
+    <value>Eine spezialform des Sinus, hier werden zyklisch Farben durchlaufen.</value>
   </data>
   <data name="Randomized" xml:space="preserve">
     <value>Verstörend</value>

@@ -92,6 +92,7 @@ namespace HomeLedApp.UI
                         Panel_RainbowParameter.IsVisible = true;
                         Panel_SinParameter.IsVisible = true;
                         SinParameter_Headline.IsVisible = false;
+                        Sin_Slider_Scale.IsVisible = false;
                         break;
                     case Modes.c:
                         Panel_Color1.IsVisible = true;
