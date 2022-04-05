@@ -1,0 +1,122 @@
+﻿@page "/"
+@using HomeLedApp.Model
+@using System.ComponentModel
+@using System.Runtime.CompilerServices
+@using TLIB
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<button class="btn btn-primary" @onclick="Send">Send</button>
+
+@code {
+    #region NotifyPropertyChanged
+    public new event PropertyChangedEventHandler PropertyChanged;
+
+    protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    #endregion NotifyPropertyChanged
+
+    public SSDP SSDPInstance => SSDP.Instance;
+
+    private LEDController _Model;
+    public LEDController Model
+    {
+        get => _Model;
+        set { if (_Model != value) { _Model = value; NotifyPropertyChanged(); } }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //Log.DisplayMessageRequested += Log_DisplayMessageRequested;
+        //ModesList = ModesExtension.GetModesDisplayNames().ToList();
+        Model = new LEDController();
+        //Model.PropertyChanged += Model_PropertyChanged;
+        Model.SetDefaultValues();
+    }
+    private int currentCount = 0;
+
+    private void Send()
+    {
+        Model.Send();
+        currentCount++;
+    }
+        //private void Log_DisplayMessageRequested(LogMessage logmessage) => DisplayAlert(logmessage.LogType.ToString(), logmessage.CombinedMessage, "OK");
+
+        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Model.CurrentMode))
+            {
+                //Panel_Color1.IsVisible = true;
+                //Panel_Color2.IsVisible = false;
+                //SpeedSlider.IsVisible = true;
+                //WidthSlider.IsVisible = false;
+                //FringeSlider.IsVisible = false;
+                //Panel_SinParameter.IsVisible = false;
+
+                //switch (Model.CurrentMode)
+                //{
+                //    case Modes.sin:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = false;
+                //        Panel_SinParameter.IsVisible = true;
+                //        //Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    case Modes.rainbow:
+                //        Panel_Color1.IsVisible = false;
+                //        Panel_Color2.IsVisible = false;
+                //        Panel_RainbowParameter.IsVisible = true;
+                //        //BriSlider.IsVisible = true;
+                //        break;
+                //    case Modes.c:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = false;
+                //        SpeedSlider.IsVisible = false;
+                //        //Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    case Modes.c2:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = true;
+                //        SpeedSlider.IsVisible = true;
+                //        //Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    case Modes.demo:
+                //        //BriSlider.IsVisible = true;
+                //        break;
+                //    case Modes.pulse:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = false;
+                //        Panel_SinParameter.IsVisible = true;
+                //        //Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    case Modes.tyke:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = true;
+                //        //Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    case Modes.knightrider:
+                //        Panel_Color1.IsVisible = true;
+                //        Panel_Color2.IsVisible = true;
+                //        WidthSlider.IsVisible = true;
+                //        FringeSlider.IsVisible = true;
+                //        ////Model.Brigthnes = (int)Model.Brigthnes_Max;
+                //        break;
+                //    default:
+                //        break;
+                //}
+            }
+            else if (e.PropertyName == nameof(Model.DisplayWhite))
+            {
+                //WhiteSlider1.IsVisible = Model.DisplayWhite;
+                //WhiteSlider2.IsVisible = Model.DisplayWhite;
+                //PreviewWhite1.IsVisible = Model.DisplayWhite;
+                //PreviewWhite2.IsVisible = Model.DisplayWhite;
+            }
+        }
+}
