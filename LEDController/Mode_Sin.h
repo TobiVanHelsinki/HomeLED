@@ -16,7 +16,7 @@ protected:
 	int Multi = 1;
 	float Scaling = 0.45;
 
-	void BuildTable(bool Verbose);
+	virtual void BuildTable(bool Verbose);
 	int positive_modulo(int i, int n);
 	float* SinTable;
 	int timepos = 0;

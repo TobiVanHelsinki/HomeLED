@@ -136,6 +136,26 @@
                 </Grid>
                 <ui:SliderElement TitleResource="Width" Property="Model.Width" x:Name="WidthSlider" DetailSteps="true"/>
                 <ui:SliderElement TitleResource="Fringe" Property="Model.Fringe" x:Name="FringeSlider" DetailSteps="true"/>
+                <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Label Text="{resx:AppResources RainbowParameter_Headline}" Style="{StaticResource HeadLineText}"/>
+                        <Label Style="{StaticResource HelpLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources RainbowParameter_Info}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <!--<Label Grid.Column="0" Grid.Row="1" Text="{resx:AppResources Randomized}"/>-->
+                    <!--<Switch Grid.Column="1" Grid.Row="1" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>-->
+                </Grid>
                 <Grid x:Name="Panel_SinParameter" IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -160,26 +180,6 @@
                     <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="4" TitleResource="Stepsize" Property="Model.Sin_StepSize" DetailSteps="true"/>
-                </Grid>
-                <Grid x:Name="Panel_RainbowParameter" IsVisible="False">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <Label Text="{resx:AppResources RainbowParameter_Headline}" Style="{StaticResource HeadLineText}"/>
-                        <Label Style="{StaticResource HelpLabel}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Info_Tapped" CommandParameter="{resx:AppResources RainbowParameter_Info}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <Label Grid.Column="0" Grid.Row="1" Text="{resx:AppResources Randomized}"/>
-                    <Switch Grid.Column="1" Grid.Row="1" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>
                 </Grid>
                 <StackLayout x:Name="Panel_Storage" Spacing="0">
                     <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">

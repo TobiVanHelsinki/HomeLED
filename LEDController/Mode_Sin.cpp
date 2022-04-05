@@ -21,7 +21,7 @@ void SinMode::NextState()
 			(int)(CurrentColor_b * scale),
 			(int)(CurrentColor_a * scale)
 		);
-		if (DebugOutput && ledpos < 10)
+		if (DebugOutput && ledpos < 1)
 		{
 			auto colorstring = new char[6];
 			sprintf(colorstring, "%06x", color);

@@ -69,6 +69,10 @@ namespace HomeLedApp.UI
                 FringeSlider.IsVisible = false;
                 Panel_SinParameter.IsVisible = false;
 
+                PreviewColor1.IsVisible = true;
+                HueFrame1.IsVisible = true;
+                HueSlider1.IsVisible = true;
+                SatSlider1.IsVisible = true;
                 switch (Model.CurrentMode)
                 {
                     case Modes.sin:
@@ -78,9 +82,15 @@ namespace HomeLedApp.UI
                         //Model.Brigthnes = (int)Model.Brigthnes_Max;
                         break;
                     case Modes.rainbow:
-                        Panel_Color1.IsVisible = false;
+                        Panel_Color1.IsVisible = true;
+
+                        HueFrame1.IsVisible = false;
+                        HueSlider1.IsVisible = false;
+                        SatSlider1.IsVisible = false;
+                        
                         Panel_Color2.IsVisible = false;
                         Panel_RainbowParameter.IsVisible = true;
+                        Panel_SinParameter.IsVisible = true;
                         //BriSlider.IsVisible = true;
                         break;
                     case Modes.c:

@@ -25,7 +25,7 @@ constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
 constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
 constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
-constexpr auto Version = "1.8.4";
+constexpr auto Version = "1.8.5";
 constexpr auto DEFAULTPASSW = "12345678";
 
 //Technical Information

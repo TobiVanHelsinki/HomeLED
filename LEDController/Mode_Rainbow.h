@@ -1,17 +1,15 @@
 #pragma once
-#include "ModeBase.h"
+#include "Mode_Sin.h"
 
 constexpr auto id = "rainbow";
 class RainbowMode :
-	public ModeBase
+	public SinMode
 {
 public:
 	RainbowMode(ILEDProvider* leds);
-	void NextState();
+	virtual void NextState();
 	static String ID;
 	String GetID();
-	std::vector<String> ParameterNames() override;
-	String HandleProperty(String Name, String Value) override;
 private:
 	bool DisturbingMode = false;
 	int j = 0;

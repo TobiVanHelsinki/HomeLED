@@ -163,18 +163,18 @@ String ModeBase::SetinBoundsAndReport(bool* savePlace, String name, String param
 
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
-uint32_t ModeBase::Wheel(byte WheelPos) //TODO introduce relative width of the wheel
+uint32_t ModeBase::Wheel(uint16_t WheelPos, byte White) //TODO introduce relative width of the wheel
 {
 	WheelPos = 255 - WheelPos;
 	if (WheelPos < 85)
 	{
-		return Adafruit_NeoPixel::Color(255 - WheelPos * 3, 0, WheelPos * 3);
+		return Adafruit_NeoPixel::Color(255 - WheelPos * 3, 0, WheelPos * 3, White);
 	}
 	if (WheelPos < 170)
 	{
 		WheelPos -= 85;
-		return Adafruit_NeoPixel::Color(0, WheelPos * 3, 255 - WheelPos * 3);
+		return Adafruit_NeoPixel::Color(0, WheelPos * 3, 255 - WheelPos * 3, White);
 	}
 	WheelPos -= 170;
-	return Adafruit_NeoPixel::Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+	return Adafruit_NeoPixel::Color(WheelPos * 3, 255 - WheelPos * 3, 0, White);
 }

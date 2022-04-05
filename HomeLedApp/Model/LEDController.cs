@@ -490,7 +490,11 @@ namespace HomeLedApp.Model
                 Sin_VerticalOffset_Max = numberLED.Max(3);
                 string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
                 string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1] ?? "0";
-                if (!ledtype.Contains('W'))
+                if (ledtype.Contains('W') || ledtype == "210")
+                {
+                    DisplayWhite = true;
+                }
+                else
                 {
                     DisplayWhite = false;
                     White = White_Min;

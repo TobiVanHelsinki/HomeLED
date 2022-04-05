@@ -33,6 +33,8 @@ void LedFunctions::SetupLeds()
 	leds->fill(1,3, Adafruit_NeoPixel::Color(20, 20, 255));
 	leds->show();
 	String2CurrentConfig(ReadFile(FileLastConfig));
+	leds->setBrightness(255);
+
 	if (CurrentMode == NULL)
 	{
 		if (!SetMode(StartMode))
@@ -155,21 +157,7 @@ int LedFunctions::CropAtBounds(int newVal, int minVal, int maxVal)
 String LedFunctions::HandleProperty(String argName, String argVal)
 {
 	String result;
-	if (argName == "b" || argName == "br" || argName == "brightnes")
-	{
-		//if (!argVal.isEmpty())
-		//{
-		//	auto newValue = CropAtBounds(argVal.toInt(), MinBrigthnes, MaxBrigthnes);
-		//	if (CurrentBrigthnes != newValue)
-		//	{
-		//		CurrentBrigthnes = newValue;
-		//		leds->setBrightness(newValue);
-		//	}
-		//}
-		//result += "b=" + String(CurrentBrigthnes) + "&";
-		result += "b is now controlled by color option&";
-	}
-	else if (argName == "n" || argName == "number")
+	if (argName == "n" || argName == "number")
 	{
 		if (!argVal.isEmpty())
 		{

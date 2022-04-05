@@ -1,7 +1,8 @@
 #include "Mode_Rainbow.h"
 
-RainbowMode::RainbowMode(ILEDProvider* leds) : ModeBase(leds)
+RainbowMode::RainbowMode(ILEDProvider* leds) : SinMode(leds)
 {
+	BuildTable(DebugOutput);
 }
 
 String RainbowMode::ID = "rainbow";
@@ -11,51 +12,26 @@ String RainbowMode::GetID()
 	return ID;
 }
 
+
 void RainbowMode::NextState()
 {
 	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += StepSize + Skip)
 	{
-		int x;
-		if (DisturbingMode)
+		// a number including between 0 and 1
+		float scale = (static_cast<float>((Multi * (int)(ledpos / (double)StepSize) + timepos) % SinTabelSize)) / SinTabelSize;
+		//float scale = SinTable[(Multi * (int)(ledpos / (double)StepSize) + timepos) % SinTabelSize];
+		auto color = Adafruit_NeoPixel::ColorHSV(scale * 65535, 255, CurrentColor_v) | CurrentColor_a << 24;
+		if (DebugOutput && ledpos < 1)
 		{
-			x = (ledpos * 256 / leds->numPixels());
+			auto colorstring = new char[6];
+			sprintf(colorstring, "%06x", color);
+			SERIALWRITELINE(String(scale) + " : " + String(colorstring));
 		}
-		else
-		{
-			x = ledpos;
-		}
+
 		for (size_t s = 0; s < StepSize; s++)
 		{
-			leds->setPixelColor(ledpos + s, Wheel((x + j) & 255));
+			leds->setPixelColor(ledpos + s, color);
 		}
 	}
-	j = (j + 1) % 256;
-}
-
-std::vector<String> RainbowMode::ParameterNames()
-{
-	std::vector<String> names;
-	names.push_back("r");
-	auto baseNames = ModeBase::ParameterNames();
-	for (size_t i = 0; i < baseNames.size(); i++)
-	{
-		names.push_back(baseNames.at(i));
-	}
-	return names;
-}
-
-String RainbowMode::HandleProperty(String Name, String Value)
-{
-	if (Name == "r")
-	{
-		if (!Value.isEmpty())
-		{
-			SetinBoundsAndReport(&DisturbingMode, "DisturbingMode", Value);
-		}
-		return "r=" + String(DisturbingMode) + "&";
-	}
-	else
-	{
-		return ModeBase::HandleProperty(Name, Value);
-	}
+	timepos = positive_modulo(timepos + 1, SinTabelSize);
 }

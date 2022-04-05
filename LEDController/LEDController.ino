@@ -13,12 +13,16 @@ void setup()
 #endif // _DEBUG
 	delay(2000);
 	SERIALWRITELINE("-------------- --------------");
-	PrintResetCause();
 	//InitEEPROM(StorageAdress_EEPROMMax);
 	InitFileSystem();
 	delay(2000);
 	HWReset::SetupResetProcedures();
 	//HWReset::ResetSystem();
+	if (PrintResetCause() == 2) // in casae of error: destroy a possible faulty config
+	{
+		SERIALWRITELINE("Truncate LastConfig due to an error");
+		TruncateFile(FileLastConfig);
+	}
 	LedFunctions::SetupLeds();
 	NetworkCommunication::SetupWiFi();
 	NetworkCommunication::SetupSSDP();
@@ -35,7 +39,7 @@ void loop(void)
 	delay(500);
 }
 
-void PrintResetCause()
+uint32 PrintResetCause()
 {
 	//https://www.espressif.com/sites/default/files/documentation/esp8266_reset_causes_and_common_fatal_exception_causes_en.pdf
 	SERIALWRITELINE("Reset Cause");
@@ -63,4 +67,5 @@ void PrintResetCause()
 		SERIALWRITE("depc=");
 		SERIALWRITELINE(rtc_info->depc);
 	}
+	return rtc_info->reason;
 }
