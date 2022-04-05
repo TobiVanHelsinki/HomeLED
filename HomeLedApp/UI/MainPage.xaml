@@ -66,7 +66,6 @@
                     <ActivityIndicator Grid.Row="0" Grid.Column="2" IsRunning="{x:Binding SSDPInstance.IsSearching}"/>
                     <Button Text="&#xf01e;" Grid.Row="0" Grid.Column="2" Clicked="Refresh" Style="{StaticResource IconButton}" IsVisible="{x:Binding SSDPInstance.IsSearching, Converter={StaticResource IO_BoolInvert}}"/>
                     <Button Text="&#xf013;" Grid.Row="0" Grid.Column="3" Clicked="LedCtrlSettings" Style="{StaticResource IconButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-                    <!---->
                 </Grid>
                 <Grid x:Name="Panel_Modes">
                     <Grid.RowDefinitions>
@@ -153,8 +152,6 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <!--<Label Grid.Column="0" Grid.Row="1" Text="{resx:AppResources Randomized}"/>-->
-                    <!--<Switch Grid.Column="1" Grid.Row="1" IsToggled="{x:Binding Model.Rainbow_Rand, Mode=TwoWay}"/>-->
                 </Grid>
                 <Grid x:Name="Panel_SinParameter" IsVisible="False">
                     <Grid.RowDefinitions>
@@ -168,7 +165,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal" x:Name="SinParameter_Headline" >
                         <Label Text="{resx:AppResources SinParameter_Headline}" Style="{StaticResource HeadLineText}"/>
                         <Label Style="{StaticResource HelpLabel}">
                             <Label.GestureRecognizers>
@@ -210,9 +207,6 @@
             <Button Text="{resx:AppResources Send}" Grid.Row="0" Grid.Column="0" Clicked="Apply" HorizontalOptions="FillAndExpand"
                         FontAttributes="Bold"
                         Style="{StaticResource STDButton}" IsEnabled="{x:Binding Model.ControlsEnable}"/>
-            <!--BackgroundColor="{Binding Model.CurrentColor, Mode=OneWay}"
-                        TextColor="{Binding Model.CurrentColorInverse, Mode=OneWay}"-->
-
             <ActivityIndicator Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" IsVisible="{x:Binding Model.NetworkCommunicationInProgress}" IsRunning="{x:Binding Model.NetworkCommunicationInProgress}"/>
             <Button Text="{resx:AppResources Edit}" Grid.Row="0" Grid.Column="1" Clicked="EditURL" Style="{StaticResource STDButton}"/>
             <Label Style="{StaticResource STDText}" Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" LineBreakMode="CharacterWrap">
