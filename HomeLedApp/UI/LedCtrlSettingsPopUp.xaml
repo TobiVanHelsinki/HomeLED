@@ -32,7 +32,7 @@
                 <Editor Text="{x:Binding NumberLED, Mode=TwoWay}" AutoSize="TextChanges" IsSpellCheckEnabled="False" MaxLength="4" Keyboard="Numeric"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="{resx:AppResources NEO_GRBW or NEO_GRB or int}"/>
+                <Label Text="{resx:AppResources SetLEDMode_Info}"/>
                 <Editor Text="{x:Binding LEDType, Mode=TwoWay}" AutoSize="TextChanges" IsSpellCheckEnabled="False"/>
             </StackLayout>
             <Button CornerRadius="5" Text="{resx:AppResources SendAndClose}" HorizontalOptions="Center" Clicked="OK"/>

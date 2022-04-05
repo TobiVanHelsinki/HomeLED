@@ -489,7 +489,7 @@ namespace HomeLedApp.Model
                 Sin_HorizontalOffset_Max = numberLED.Max(3);
                 Sin_VerticalOffset_Max = numberLED.Max(3);
                 string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
-                string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1];
+                string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1] ?? "0";
                 if (!ledtype.Contains('W'))
                 {
                     DisplayWhite = false;
@@ -500,7 +500,7 @@ namespace HomeLedApp.Model
             }
             catch (Exception ex)
             {
-
+                if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
                 throw;
             }
         }

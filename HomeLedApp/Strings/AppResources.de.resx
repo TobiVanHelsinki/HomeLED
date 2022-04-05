@@ -182,8 +182,20 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Modes_Info" xml:space="preserve">
     <value>Die Led Modi einstellen</value>
   </data>
+  <data name="Mode_c" xml:space="preserve">
+    <value>Einfarbig</value>
+  </data>
+  <data name="Mode_c2" xml:space="preserve">
+    <value>Zweifarbig</value>
+  </data>
   <data name="Mode_color" xml:space="preserve">
     <value>Einfarbig</value>
+  </data>
+  <data name="Mode_demo" xml:space="preserve">
+    <value>Demomodus</value>
+  </data>
+  <data name="Mode_knightrider" xml:space="preserve">
+    <value>Knightrider</value>
   </data>
   <data name="Mode_off" xml:space="preserve">
     <value>LED-Anzeige deaktivieren</value>
@@ -202,6 +214,9 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   </data>
   <data name="Mode_sin" xml:space="preserve">
     <value>Sinuswellen</value>
+  </data>
+  <data name="Mode_tyke" xml:space="preserve">
+    <value>Rotormodus</value>
   </data>
   <data name="NotUpToDate" xml:space="preserve">
     <value>Nicht aktuell</value>
@@ -230,11 +245,27 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="Saturation_Info" xml:space="preserve">
     <value>Die Farbsättigung ist ein Farbmerkmal. Neben dem Farbton und der Helligkeit gehört die Sättigung zu den drei vom Menschen als grundlegend empfundenen Merkmalen bzw. Eigenschaften einer Farbe. Sie beschreibt die Qualität der Farbnuance, ob sie eher den bunten oder unbunten Farben zuneigt. (Wikipedia)</value>
   </data>
+  <data name="Scale" xml:space="preserve">
+    <value>Sinushöhe</value>
+  </data>
+  <data name="Scale_Info" xml:space="preserve">
+    <value>Reduzieren um Extremstellen zu vermeiden
+Wert 50 -&gt; LEDs am Sinusboden werden schwarz</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Senden</value>
   </data>
   <data name="SendAndClose" xml:space="preserve">
     <value>Senden und schließen</value>
+  </data>
+  <data name="SetDataPin_Info" xml:space="preserve">
+    <value>Pin-Nummer der Datenleitung</value>
+  </data>
+  <data name="SetLEDMode_Info" xml:space="preserve">
+    <value>Modus (NEO_GRBW, NEO_GRB oder Modus-Zahl)</value>
+  </data>
+  <data name="SetLEDNumber_Info" xml:space="preserve">
+    <value>Anzahl genutzter LEDs</value>
   </data>
   <data name="SinParameter_Headline" xml:space="preserve">
     <value>Sinuswellen Parameter</value>
@@ -245,11 +276,24 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
   <data name="SinReverseParameter_Headline" xml:space="preserve">
     <value>Umkehren</value>
   </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Überspringen</value>
+  </data>
+  <data name="Skip_info" xml:space="preserve">
+    <value>Anzahl LEDs werden ausgelassen</value>
+  </data>
   <data name="Speed" xml:space="preserve">
     <value>Verzögerung</value>
   </data>
   <data name="Speed_Info" xml:space="preserve">
     <value>Die Rate, mit der die Leds aktualisiert werden in Hz.</value>
+  </data>
+  <data name="Stepsize" xml:space="preserve">
+    <value>Schrittweite</value>
+  </data>
+  <data name="Stepsize_Info" xml:space="preserve">
+    <value>Benachbarte LEDs werden entsprechend der Zahl gruppiert.
+Erhöhen, um den Effekt über die Länge der Kette zu strecken.</value>
   </data>
   <data name="StorageClear" xml:space="preserve">
     <value>Löschen</value>
@@ -264,7 +308,7 @@ Der Farbton bezeichnet in der Farbenlehre die Eigenschaft, nach der man Farbempf
     <value>Dauerhafter Speicher</value>
   </data>
   <data name="Storage_Info" xml:space="preserve">
-    <value>Speichert die aktuelle Konfiguration des Gerätes, sodass diese beim nächsten Start automatisch geladen wird.</value>
+    <value>Speichert die aktuelle Konfiguration des Gerätes, sodass diese durch den "Laden" Button einfach wiederhergestellt werden kann.</value>
   </data>
   <data name="VersionHistory" xml:space="preserve">
     <value>Versionen</value>
