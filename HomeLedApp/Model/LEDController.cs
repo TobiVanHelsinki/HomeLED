@@ -536,8 +536,8 @@ namespace HomeLedApp.Model
             {
                 if (CurrentMode == Modes.tyke)
                 {
-                    CurrentColor = Color.Red;
-                    CurrentColor2 = Color.Blue;
+                    CurrentColor = Color.Red.MultiplyAlpha(0);
+                    CurrentColor2 = Color.Blue.MultiplyAlpha(0);
                 }
                 //_ = Send();
             }
