@@ -15,7 +15,7 @@ void KnightRiderMode::NextState()
 		CurrentPosition = 0;
 	}
 	//fill background
-	//leds->fill(SecondColor, 0, leds->numPixels());
+	leds->fill(SecondColor, 0, leds->numPixels());
 	//for (size_t i = 0; i < leds->numPixels(); i += Skip)
 	//{
 	//	leds->setPixelColor(i, SecondColor);
