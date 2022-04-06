@@ -14,10 +14,12 @@ void KnightRiderMode::NextState()
 		CurrentDirection = !CurrentDirection;
 		CurrentPosition = 0;
 	}
-	for (size_t i = 0; i < leds->numPixels(); i += StepSize)
-	{
-		leds->setPixelColor(i, SecondColor);
-	}
+	//fill background
+	//leds->fill(SecondColor, 0, leds->numPixels());
+	//for (size_t i = 0; i < leds->numPixels(); i += Skip)
+	//{
+	//	leds->setPixelColor(i, SecondColor);
+	//}
 	PrintTail(CurrentPosition);
 	CurrentPosition += StepSize /*+ Skip*/; //skip hier zu kompliziert
 }
