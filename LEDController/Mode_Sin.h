@@ -12,8 +12,11 @@ public:
 	std::vector<String> ParameterNames() override;
 	String HandleProperty(String Name, String Value) override;
 protected:
+	//Width of a calculated curve, e.g. the width of a full sin curve TWO_PI or a complete hue round in rainbow
 	int SinTabelSize = 256;
-	float Multi = 1;
+	//represents a number between 0, 0.01 and 1.20 but is stored as numbers between 0 and 120
+	int Multi = 1;
+	//Vertical scaling of the curve to avoid dark leds in sin mode
 	float Scaling = 0.45;
 
 	virtual void BuildTable(bool Verbose);

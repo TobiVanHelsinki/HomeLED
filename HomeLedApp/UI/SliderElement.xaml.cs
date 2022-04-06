@@ -51,7 +51,7 @@ namespace HomeLedApp.UI
                     ValueSlider.SetBinding(Slider.ValueProperty, _Property, BindingMode.TwoWay); //TODO Verursacht löschen der std werte
                     ValueSlider.SetBinding(Slider.MaximumProperty, _Property + "_Max", BindingMode.OneWay); //Test: Max vor min.
                     ValueSlider.SetBinding(Slider.MinimumProperty, _Property + "_Min", BindingMode.OneWay);
-                    ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, Type == "mul" ? "{0:0.00}": "{0:0}");
+                    ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, Type == "mul" ? "{0:0.00}": Type == "percent" ? "{0:0}%" : "{0:0}");
                 }
             }
         }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Mode_Sin.h"
+#include "math.h"
 
 constexpr auto id = "rainbow";
 class RainbowMode :
@@ -11,6 +12,4 @@ public:
 	static String ID;
 	String GetID();
 private:
-	bool DisturbingMode = false;
-	int j = 0;
 };

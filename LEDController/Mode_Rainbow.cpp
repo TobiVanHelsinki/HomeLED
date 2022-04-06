@@ -24,7 +24,7 @@ void RainbowMode::NextState()
 				(
 					(int)
 					(
-						1 //(Multi * SinTabelSize == 0 ? 1 : Multi * SinTabelSize) // just why wont it work if Multi is 0
+						(Multi * SinTabelSize == 0 ? 1 : Multi * SinTabelSize / 100)
 						
 						* (float)ledpos
 						/ (float)StepSize
@@ -37,9 +37,10 @@ void RainbowMode::NextState()
 		//float scale = SinTable[(Multi * (int)(ledpos / (double)StepSize) + timepos) % SinTabelSize];
 		auto color = Adafruit_NeoPixel::ColorHSV(scale * 65535, 255, CurrentColor_v) | CurrentColor_a << 24;
 		if (DebugOutput && ledpos < 1)
-		{
+		{	
 			auto colorstring = new char[6];
 			sprintf(colorstring, "%06x", color);
+			SERIALWRITELINE(String(Multi) + " : " + String(SinTabelSize) + " : " + String((Multi * SinTabelSize == 0 ? 1 : Multi * SinTabelSize / 100)) + " $ " + String(timepos));
 			SERIALWRITELINE(String(scale) + " : " + String(colorstring));
 		}
 

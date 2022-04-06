@@ -87,6 +87,7 @@
                 </Grid>
                 <ui:SliderElement Grid.Row="2" TitleResource="Speed" Property="Model.Speed" x:Name="SpeedSlider" DetailSteps="true"/>
                 <ui:SliderElement Grid.Row="3" TitleResource="Skip" Property="Model.Skip" x:Name="SkipSlider" DetailSteps="true"/>
+                <ui:SliderElement Grid.Row="4" TitleResource="Stepsize" Property="Model.Sin_StepSize" DetailSteps="true"/>
                 <Grid x:Name="Panel_Color1" RowSpacing="0" Grid.Row="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -173,10 +174,9 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Type="mul" Property="Model.Sin_VerticalOffset" DetailSteps="true"/>
+                    <ui:SliderElement Grid.Row="1" TitleResource="VerticalOffset" Type="percent" Property="Model.Sin_VerticalOffset" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="2" TitleResource="HorizontalOffset" Property="Model.Sin_HorizontalOffset" DetailSteps="true"/>
                     <ui:SliderElement Grid.Row="3" TitleResource="Scale" Property="Model.Sin_Scale" DetailSteps="true" x:Name="Sin_Slider_Scale"/>
-                    <ui:SliderElement Grid.Row="4" TitleResource="Stepsize" Property="Model.Sin_StepSize" DetailSteps="true"/>
                 </Grid>
                 <StackLayout x:Name="Panel_Storage" Spacing="0">
                     <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">

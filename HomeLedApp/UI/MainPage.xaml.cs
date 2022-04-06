@@ -70,9 +70,17 @@ namespace HomeLedApp.UI
                 Panel_SinParameter.IsVisible = false;
 
                 PreviewColor1.IsVisible = true;
+
+                Panel_SinParameter.IsVisible = false;
+                Panel_RainbowParameter.IsVisible = false;
+                //disabled due to rainbow
                 HueFrame1.IsVisible = true;
                 HueSlider1.IsVisible = true;
                 SatSlider1.IsVisible = true;
+                Panel_Color2.IsVisible = true;
+                SinParameter_Headline.IsVisible = true;
+                Sin_Slider_Scale.IsVisible = true;
+
                 switch (Model.CurrentMode)
                 {
                     case Modes.sin:

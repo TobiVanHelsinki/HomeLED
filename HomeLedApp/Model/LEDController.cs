@@ -249,16 +249,16 @@ namespace HomeLedApp.Model
             set { if (_Sin_VerticalOffset_Min != value) { _Sin_VerticalOffset_Min = value; NotifyPropertyChanged(); } }
         }
 
-        private double _Sin_VerticalOffset_Max = 1.2;
+        private double _Sin_VerticalOffset_Max = 120;
         public double Sin_VerticalOffset_Max
         {
             get => _Sin_VerticalOffset_Max;
             set { if (_Sin_VerticalOffset_Max != value) { _Sin_VerticalOffset_Max = value; NotifyPropertyChanged(); } }
         }
 
-        private double _Sin_VerticalOffset;
+        private int _Sin_VerticalOffset;
         [LedServerRelevant("mu", 0)]
-        public double Sin_VerticalOffset
+        public int Sin_VerticalOffset
         {
             get => _Sin_VerticalOffset;
             set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value; NotifyPropertyChanged(); } }
@@ -406,6 +406,7 @@ namespace HomeLedApp.Model
             string resutlt;
             try
             {
+                //client.Timeout = TimeSpan.FromSeconds(2);
                 var mess = await client.GetAsync(CurrentDevice.Urlbase + myurlparam);
                 var time = DateTime.Now.ToString("hh:mm:ss ");
                 StatusCode = time + mess.StatusCode.ToString();

@@ -14,7 +14,7 @@ void SinMode::NextState()
 {
 	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos+=StepSize + Skip)
 	{
-		float scale = SinTable[positive_modulo((Multi * SinTabelSize <= 0 ? 1: Multi * SinTabelSize) * (int)(ledpos / (double)StepSize) + timepos, SinTabelSize)];
+		float scale = SinTable[positive_modulo((Multi * SinTabelSize <= 0 ? 1: Multi * SinTabelSize / 100) * (int)(ledpos / (double)StepSize) + timepos, SinTabelSize)];
 		auto color = Adafruit_NeoPixel::Color(
 			(int)(CurrentColor_r * scale),
 			(int)(CurrentColor_g * scale),
@@ -92,7 +92,7 @@ String SinMode::HandleProperty(String Name, String Value)
 	{
 		if (!Value.isEmpty())
 		{
-			SetinBoundsAndReport(&Multi, "Multiplikator", Value, 0.0001f, 1024.0f);
+			SetinBoundsAndReport(&Multi, "Multiplikator", Value, 0, 120);
 		}
 		return "mu=" + String(Multi) + "&";
 	}
