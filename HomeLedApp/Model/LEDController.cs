@@ -242,23 +242,23 @@ namespace HomeLedApp.Model
         }
 
 
-        private double _Sin_VerticalOffset_Min = 1;
+        private double _Sin_VerticalOffset_Min = 0;
         public double Sin_VerticalOffset_Min
         {
             get => _Sin_VerticalOffset_Min;
             set { if (_Sin_VerticalOffset_Min != value) { _Sin_VerticalOffset_Min = value; NotifyPropertyChanged(); } }
         }
 
-        private double _Sin_VerticalOffset_Max = 1024;
+        private double _Sin_VerticalOffset_Max = 1.2;
         public double Sin_VerticalOffset_Max
         {
             get => _Sin_VerticalOffset_Max;
             set { if (_Sin_VerticalOffset_Max != value) { _Sin_VerticalOffset_Max = value; NotifyPropertyChanged(); } }
         }
 
-        private int _Sin_VerticalOffset;
-        [LedServerRelevant("mu", 1)]
-        public int Sin_VerticalOffset
+        private double _Sin_VerticalOffset;
+        [LedServerRelevant("mu", 0)]
+        public double Sin_VerticalOffset
         {
             get => _Sin_VerticalOffset;
             set { if (_Sin_VerticalOffset != value) { _Sin_VerticalOffset = value; NotifyPropertyChanged(); } }
@@ -464,11 +464,11 @@ namespace HomeLedApp.Model
                     else
                     {
                         //for natives types
-                        object value = Convert.ChangeType(Attribute.value, Property.PropertyType);
+                        object value = Convert.ChangeType(Attribute.value, Property.PropertyType, new System.Globalization.CultureInfo("en-US"));
                         Property.SetValue(this, value);
                     }
                 }
-                catch (Exception )
+                catch (Exception ex)
                 {
                 }
             }
@@ -487,7 +487,7 @@ namespace HomeLedApp.Model
                 Width_Max = numberLED.Max(1);
                 Fringe_Max = numberLED.Max(1);
                 Sin_HorizontalOffset_Max = numberLED.Max(3);
-                Sin_VerticalOffset_Max = numberLED.Max(3);
+                //Sin_VerticalOffset_Max = numberLED.Max(3);
                 string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
                 string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1] ?? "0";
                 if (ledtype.Contains('W') || ledtype == "210")
@@ -558,7 +558,7 @@ namespace HomeLedApp.Model
         {
             try
             {
-                URLParam = GetParameterProperties().Aggregate("", (a, c) => a += "&" + c.Attribute.ParamName + (string.IsNullOrEmpty(c.Property.GetValue(this)?.ToString()) ? "" : ("=" + c.Property.GetValue(this)?.ToString()))).Replace("?&", "?");
+                URLParam = GetParameterProperties().Aggregate("", (a, c) => a += "&" + c.Attribute.ParamName + (string.IsNullOrEmpty(c.Property.GetValue(this)?.ToString()) ? "" : ("=" + c.Property.GetValue(this)?.ToString()))).Replace("?&", "?").Replace(",", ".");
             }
             catch (Exception)
             {

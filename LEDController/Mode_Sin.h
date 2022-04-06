@@ -13,7 +13,7 @@ public:
 	String HandleProperty(String Name, String Value) override;
 protected:
 	int SinTabelSize = 256;
-	int Multi = 1;
+	float Multi = 1;
 	float Scaling = 0.45;
 
 	virtual void BuildTable(bool Verbose);

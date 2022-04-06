@@ -18,7 +18,22 @@ void RainbowMode::NextState()
 	for (int ledpos = 0; ledpos < leds->numPixels(); ledpos += StepSize + Skip)
 	{
 		// a number including between 0 and 1
-		float scale = (static_cast<float>((Multi * (int)(ledpos / (double)StepSize) + timepos) % SinTabelSize)) / SinTabelSize;
+		float scale = 
+			(
+				static_cast<float>
+				(
+					(int)
+					(
+						1 //(Multi * SinTabelSize == 0 ? 1 : Multi * SinTabelSize) // just why wont it work if Multi is 0
+						
+						* (float)ledpos
+						/ (float)StepSize
+						+ timepos
+					) 
+					% SinTabelSize
+				)
+			)
+			/ SinTabelSize;
 		//float scale = SinTable[(Multi * (int)(ledpos / (double)StepSize) + timepos) % SinTabelSize];
 		auto color = Adafruit_NeoPixel::ColorHSV(scale * 65535, 255, CurrentColor_v) | CurrentColor_a << 24;
 		if (DebugOutput && ledpos < 1)

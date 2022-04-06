@@ -4,13 +4,13 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using HomeLedApp.Model;
 using HomeLedApp.Strings;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HomeLedApp.UI
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SliderElement : ContentView, INotifyPropertyChanged
     {
@@ -37,6 +37,8 @@ namespace HomeLedApp.UI
             }
         }
 
+        public string Type { get; set; }
+
         private string _Property;
         public string Property
         {
@@ -49,7 +51,7 @@ namespace HomeLedApp.UI
                     ValueSlider.SetBinding(Slider.ValueProperty, _Property, BindingMode.TwoWay); //TODO Verursacht löschen der std werte
                     ValueSlider.SetBinding(Slider.MaximumProperty, _Property + "_Max", BindingMode.OneWay); //Test: Max vor min.
                     ValueSlider.SetBinding(Slider.MinimumProperty, _Property + "_Min", BindingMode.OneWay);
-                    ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, "{0:0}");
+                    ValueSpan.SetBinding(Span.TextProperty, _Property, BindingMode.OneWay, null, Type == "mul" ? "{0:0.00}": "{0:0}");
                 }
             }
         }

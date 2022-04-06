@@ -51,7 +51,7 @@
                     <ColumnDefinition x:Name="PlusBtnColumn" Width="0"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" x:Name="MinusBtn" Text="&#xf068;" Style="{StaticResource IconButton}" IsVisible="false" Clicked="MinusBtn_Clicked"/>
-                <Slider Grid.Column="1" x:Name="ValueSlider"  Style="{StaticResource SliderStyle}"/>
+                <Slider Grid.Column="1" x:Name="ValueSlider"  Style="{StaticResource SliderStyle}" />
                 <Button Grid.Column="2" x:Name="PlusBtn" Text="&#xf067;" Style="{StaticResource IconButton}" IsVisible="false" Clicked="PlusBtn_Clicked"/>
             </Grid>
         </Grid>
