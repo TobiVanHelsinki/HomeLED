@@ -16,13 +16,18 @@ void LedFunctions::SetupLeds()
 	//TODO better sanitychecks
 	if (pin < 12)
 	{
-		pin = 5; //tb
+		pin = D1; //5-tb
 	}
 	else if (pin > 12)
 	{
-		pin = 12; //tk
+		pin = D6; //12-tk
 	}
 	auto ledtype = ReadFile(FileLEDType).toInt(); //TODO auch für r,g,b einführen
+	if (leds)
+	{
+		LEDsStop();
+		delete(leds);
+	}
 #ifdef HARDWARE_IS_NEOPIXEL
 	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, ledtype + NEO_KHZ800));
 #endif
@@ -156,6 +161,7 @@ int LedFunctions::CropAtBounds(int newVal, int minVal, int maxVal)
 
 String LedFunctions::HandleProperty(String argName, String argVal)
 {
+	bool reSetupLEDs = false;
 	String result;
 	if (argName == "n" || argName == "number")
 	{
@@ -212,6 +218,7 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 				if (WriteFile(FileDatapin, argVal))
 				{
 					result += "SUCCESS storing datapin&";
+					reSetupLEDs = true;
 				}
 				else
 				{
@@ -244,6 +251,7 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 				if (WriteFile(FileLEDType, newValueString))
 				{
 					result += "SUCCESS storing LED Type&";
+					reSetupLEDs = true;
 				}
 				else
 				{
@@ -259,6 +267,10 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 		{
 			result += CurrentMode->HandleProperty(argName, argVal);
 		}
+	}
+	if (reSetupLEDs)
+	{
+		SetupLeds();
 	}
 	return result;
 }
