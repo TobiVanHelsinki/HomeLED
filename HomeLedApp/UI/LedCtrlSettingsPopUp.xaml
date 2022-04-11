@@ -35,6 +35,7 @@
                 <Label Text="{resx:AppResources SetLEDMode_Info}"/>
                 <Editor Text="{x:Binding LEDType, Mode=TwoWay}" AutoSize="TextChanges" IsSpellCheckEnabled="False"/>
             </StackLayout>
+            <Button CornerRadius="5" Text="{x:Binding Model.CurrentDevice.IPString, Mode=OneWay}" HorizontalOptions="Start" Clicked="URL"/>
             <Button CornerRadius="5" Text="{resx:AppResources SendAndClose}" HorizontalOptions="Center" Clicked="OK"/>
         </StackLayout>
     </Frame>

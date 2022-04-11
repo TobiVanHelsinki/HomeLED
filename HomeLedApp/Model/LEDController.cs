@@ -50,8 +50,6 @@ namespace HomeLedApp.Model
             set { if (_CurrentModeIndex != value) { _CurrentModeIndex = value; NotifyPropertyChanged(); } }
         }
 
-
-
         private Modes _CurrentMode;
         [LedServerRelevant("m", Modes.sin)]
         public Modes CurrentMode

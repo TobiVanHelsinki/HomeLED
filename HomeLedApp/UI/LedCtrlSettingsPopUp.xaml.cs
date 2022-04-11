@@ -7,6 +7,8 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms.Xaml;
 using TLIB;
+using Xamarin.Essentials;
+using System;
 
 namespace HomeLedApp.UI
 {
@@ -22,7 +24,12 @@ namespace HomeLedApp.UI
         }
         #endregion NotifyPropertyChanged
 
-        public LEDController Model { get; set; }
+        private LEDController _Model;
+        public LEDController Model
+        {
+            get => _Model;
+            set { if (_Model != value) { _Model = value; NotifyPropertyChanged(); } }
+        }
         string _Hostname;
         public string Hostname
         {
@@ -69,6 +76,19 @@ namespace HomeLedApp.UI
         {
             Model.SetSettings(DataPin, NumberLED, Hostname, LEDType);
             PopupNavigation.Instance.PopAsync();
+        }
+
+        private void URL(object sender, System.EventArgs e)
+        {
+            try
+            {
+                Browser.OpenAsync("http://"+Model.CurrentDevice.IPString, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                TLIB.Log.Write("Open URL",ex);
+                // An unexpected error occured. No browser may be installed on the device.
+            }
         }
     }
 }

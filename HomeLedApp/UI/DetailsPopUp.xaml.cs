@@ -21,7 +21,13 @@ namespace HomeLedApp.UI
         }
         #endregion NotifyPropertyChanged
 
-        public LEDController Model { get; set; }
+        private LEDController _Model;
+        public LEDController Model
+        {
+            get => _Model;
+            set { if (_Model != value) { _Model = value; NotifyPropertyChanged(); } }
+        }
+
         string _MyURLParam;
         public string MyURLParam
         {
