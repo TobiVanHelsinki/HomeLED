@@ -49,6 +49,8 @@ String ColorMode::HandleProperty(String Name, String Value)
 				SERIALWRITELINE(CurrentColor_g);
 				SERIALWRITE("b: ");
 				SERIALWRITELINE(CurrentColor_b);
+				SERIALWRITE("a: ");
+				SERIALWRITELINE(CurrentColor_a);
 				SERIALWRITE("h: ");
 				SERIALWRITELINE(CurrentColor_h);
 				SERIALWRITE("s: ");
@@ -67,16 +69,37 @@ String ColorMode::HandleProperty(String Name, String Value)
 
 void ColorMode::RefreshCurrentColors()
 {
-	CalculateRGB(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b, &CurrentColor_a);
+	CalculateRGBA(CurrentColor, &CurrentColor_r, &CurrentColor_g, &CurrentColor_b, &CurrentColor_a);
 	CalculateHSV(CurrentColor_r, CurrentColor_g, CurrentColor_b, &CurrentColor_h, &CurrentColor_s, &CurrentColor_v);
 }
 
-void ColorMode::CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb, uint8_t* colora)
+void ColorMode::CalculateRGBA(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb, uint8_t* colora)
 {
+	//SERIALWRITE("c: ");
+	//SERIALWRITELINE(color);
+	//SERIALWRITE("r: ");
+	//SERIALWRITELINE(*colorr);
+	//SERIALWRITE("g: ");
+	//SERIALWRITELINE(*colorg);
+	//SERIALWRITE("b: ");
+	//SERIALWRITELINE(*colorb);
+	//SERIALWRITE("a: ");
+	//SERIALWRITELINE(*colora);
+
 	*(colora) = color >> 24;
 	*(colorr) = color >> 16;
 	*(colorg) = color >> 8;
 	*(colorb) = color >> 0;
+
+	//SERIALWRITELINE("after");
+	//SERIALWRITE("r: ");
+	//SERIALWRITELINE(*colorr);
+	//SERIALWRITE("g: ");
+	//SERIALWRITELINE(*colorg);
+	//SERIALWRITE("b: ");
+	//SERIALWRITELINE(*colorb);
+	//SERIALWRITE("a: ");
+	//SERIALWRITELINE(*colora);
 }
 
 void ColorMode::CalculateHSV(byte r, byte g, byte b, uint16_t* colorh, uint8_t* colors, uint8_t* colorv)

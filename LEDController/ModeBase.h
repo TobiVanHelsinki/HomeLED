@@ -2,6 +2,7 @@
 #include "ILEDProvider.h"
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
+#include <stdlib.h>
 
 class ModeBase
 {

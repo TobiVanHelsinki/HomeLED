@@ -23,6 +23,6 @@ protected:
 	uint8_t CurrentColor_s = 0;
 	uint8_t CurrentColor_v = 0;
 	void RefreshCurrentColors();
-	static void CalculateRGB(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb, uint8_t* colora);
+	static void CalculateRGBA(uint32_t color, uint8_t* colorr, uint8_t* colorg, uint8_t* colorb, uint8_t* colora);
 	static void CalculateHSV(byte r, byte g, byte b, uint16_t* colorh, uint8_t* colors, uint8_t* colorv);
 };

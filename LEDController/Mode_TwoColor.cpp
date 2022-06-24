@@ -57,6 +57,6 @@ String TwoColorMode::HandleProperty(String Name, String Value)
 
 void TwoColorMode::RefreshSecondColors()
 {
-	CalculateRGB(SecondColor, &SecondColor_r, &SecondColor_g, &SecondColor_b, &CurrentColor_a);
+	CalculateRGBA(SecondColor, &SecondColor_r, &SecondColor_g, &SecondColor_b, &CurrentColor_a);
 	CalculateHSV(SecondColor_r, SecondColor_g, SecondColor_b, &SecondColor_h, &SecondColor_s, &SecondColor_v);
 }

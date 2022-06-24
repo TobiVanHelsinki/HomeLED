@@ -94,7 +94,7 @@ String ModeBase::SetinBoundsAndReport(uint8_t* savePlace, String name, String pa
 }
 String ModeBase::SetinBoundsAndReport(uint32_t* savePlace, String name, String parameter, uint32_t min, uint32_t max)
 {
-	uint32 newVal = parameter.toInt();
+	uint32_t newVal = static_cast<uint32_t>(std::atoll(parameter.c_str())); // convert to long long, because the lib function toint does not can do 32bit unsigned
 	if (newVal != (*savePlace))
 	{
 		if (newVal > max)
