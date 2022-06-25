@@ -19,7 +19,9 @@ void NetworkCommunication::SetupWiFi()
 	//acConfig.autoReset = false;
 	//acConfig.autoRise = true;
 	//acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
+	//AutoConnectUpdate update("apps.t-imperium.de/HomeLed", 80);
 	acConfig.ota = AC_OTA_BUILTIN;
+	acConfig.otaExtraCaption = Version;
 	acConfig.portalTimeout = 0; //0=endless
 	acConfig.hostName = customname;
 	acConfig.apip = IPAddress(192, 168, 10, 1);
