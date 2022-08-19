@@ -72,7 +72,7 @@ namespace HomeLedApp.Model
                 }
             }
         }
-        
+
         private Color _Color = new(0, 0, 0, 0);
         public Color CurrentColor
         {
@@ -94,7 +94,7 @@ namespace HomeLedApp.Model
                 }
             }
         }
-     
+
         [LedServerRelevant("c", 0xE58200)]
         public uint CurrentColorInt
         {
@@ -220,7 +220,7 @@ namespace HomeLedApp.Model
             set { if (_Brigthnes != value) { _Brigthnes = value; NotifyPropertyChanged(); } }
         }
 
-        public double Speed_Min => 40; 
+        public double Speed_Min => 40;
         public double Speed_Max => 1000;
         private int _Speed;
         [LedServerRelevant("v", 50)]
@@ -281,7 +281,7 @@ namespace HomeLedApp.Model
 
         public double Sin_Scale_Min => 1;
         public double Sin_Scale_Max => 50;
-        
+
         public int _Sin_Scale;
         public int Sin_Scale
         {
@@ -454,9 +454,9 @@ namespace HomeLedApp.Model
                 try
                 {
                     if (Property.PropertyType.IsEnum && Attribute.value is string enumasstring)
-                        //if the value is a string, comming from the device
+                    //if the value is a string, comming from the device
                     {
-                        bool isdefined= Property.PropertyType.IsEnumDefined(Attribute.value);
+                        bool isdefined = Property.PropertyType.IsEnumDefined(Attribute.value);
                         var enumvalue = Enum.Parse(Property.PropertyType, enumasstring);
                         Property.SetValue(this, enumvalue);
                     }
@@ -483,10 +483,10 @@ namespace HomeLedApp.Model
                 var pairs = result.Split('&').Select(x => x.Split('=')).ToArray();
                 int.TryParse(pairs.FirstOrDefault(x => x[0] == "datapin")?[1], out int dataPin);
                 int.TryParse(pairs.FirstOrDefault(x => x[0] == "n")?[1], out int numberLED);
-                Width_Max = numberLED.Max(1);
-                Fringe_Max = numberLED.Max(1);
-                Sin_HorizontalOffset_Max = numberLED.Max(3);
-                //Sin_VerticalOffset_Max = numberLED.Max(3);
+                Width_Max = (numberLED * 3).Max(1);
+                Fringe_Max = (numberLED * 3).Max(1);
+                Sin_HorizontalOffset_Max = (numberLED * 3).Max(3);
+                //Sin_VerticalOffset_Max = (numberLED*3).Max(3);
                 string hostname = pairs.FirstOrDefault(x => x[0] == "hostname")?[1];
                 string ledtype = pairs.FirstOrDefault(x => x[0] == "ledtype")?[1] ?? "0";
                 if (ledtype.Contains('W') || ledtype == "210")
