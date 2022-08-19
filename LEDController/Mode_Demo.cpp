@@ -4,6 +4,8 @@ Mode_Demo::Mode_Demo(ILEDProvider* leds) : ColorMode(leds)
 {
 	SERIALWRITELINE("demo");
 	leds->clear();
+	//auto CurrentMode = new RainbowMode(leds);
+
 }
 
 String Mode_Demo::ID = "demo";

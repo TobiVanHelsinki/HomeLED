@@ -23,6 +23,8 @@ protected:
 	uint8_t StepSize = 1;
 	//the number of leds, that should be ignored between steps
 	uint8_t Skip = 0;
+	//to control direction of any animation
+	bool reverseDirection = false;
 	//the base object for led-operations
 	ILEDProvider* leds;
 	static String SetinBoundsAndReport(int* savePlace, String name, String parameter, int min = 0, int max = std::numeric_limits<int>::max());

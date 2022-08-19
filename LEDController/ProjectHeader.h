@@ -1,3 +1,6 @@
+//#include <avr/pgmspace.h>
+#include "index.h"
+
 #pragma once
 
 //Important build-settings
@@ -24,7 +27,7 @@ constexpr auto Manufactor = "Tobi van Helsinki, ImperiSoft";
 constexpr auto ManufacturerURL = "https://github.com/Tobivanhelsinki/";
 constexpr auto DeviceType = "ImperialHomeLED";
 constexpr auto ModelURL = "https://github.com/Tobivanhelsinki/HomeLED";
-constexpr auto Version = "1.11";
+constexpr auto Version = "1.15";
 constexpr auto DEFAULTPASSW = "12345678";
 
 //Technical Information

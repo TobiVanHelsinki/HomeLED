@@ -123,84 +123,93 @@ void NetworkCommunication::handleRoot()
 	String result;
 	bool shouldRestart = false;
 	SERIALWRITELINE("-------handleRoot-------");
-
-	for (auto i = 0; i < Server.args(); i++)
+	if (Server.args() == 0)
 	{
-		auto argName = Server.argName(i);
-		if (argName.isEmpty())
-		{
-			continue;
-		}
-		auto argVal = Server.arg(i);
-		SERIALWRITE("(");
-		SERIALWRITE(argName);
-		SERIALWRITE(")=(");
-		SERIALWRITE(argVal);
-		SERIALWRITELINE(")");
-		if (argName == "get")
-		{
-			result += LedFunctions::CurrentConfig2String()+"&";
-		}
-		else if (argName == "config")
-		{
-			if (argVal == "save")
-			{
-				if (WriteFile(FileConfig1, LedFunctions::CurrentConfig2String()))
-				{
-					result += "SUCCESS storing Config&";
-				}
-				else
-				{
-					result += "ERROR storing Config&";
-				}
-			}
-			else if (argVal == "load")
-			{
-				result += LedFunctions::String2CurrentConfig(ReadFile(FileConfig1));
-			}
-			else if (argVal == "clear")
-			{
-				if (TruncateFile(FileConfig1))
-				{
-					result += "SUCCESS cleaning Config&";
-				}
-				else
-				{
-					result += "ERROR cleaning Config&";
-				}
-			}
-		}
-		else if (argName == "hostname")
-		{
-			if (!argVal.isEmpty())
-			{
-				if (WriteFile(FileHostName, argVal))
-				{
-					result += "SUCCESS storing Hostname&";
-				}
-				else
-				{
-					result += "ERROR storing Hostname&";
-				}
-				SSDP.end();
-				SSDP.setName(NetworkCommunication::ReadValidHostname());
-				SSDP.begin();
-				result += "restarted SSDP Server&";
-			}
-			result += "hostname=" + NetworkCommunication::ReadValidHostname() + "&";
-		}
-		else if (argName == "restart")
-		{
-			shouldRestart = true;
-			result += "restarting module";
-		}
-		else
-		{
-			result += LedFunctions::HandleProperty(argName, argVal);
-		}
+		SERIALWRITELINE("   Format Main Page-");
+		char out[sizeof(Page_Main)+16+16+10];
+		snprintf(out, sizeof(Page_Main), Page_Main, 
+			NetworkCommunication::ReadValidHostname().c_str(), 
+			WiFi.localIP().toString().c_str(), 
+			Version);
+		Server.send(200, "text/html", out);
 	}
-	if (Server.args() > 0)
+	else
 	{
+		for (auto i = 0; i < Server.args(); i++)
+		{
+			auto argName = Server.argName(i);
+			if (argName.isEmpty())
+			{
+				continue;
+			}
+			auto argVal = Server.arg(i);
+			SERIALWRITE("(");
+			SERIALWRITE(argName);
+			SERIALWRITE(")=(");
+			SERIALWRITE(argVal);
+			SERIALWRITELINE(")");
+			if (argName == "get")
+			{
+				result += LedFunctions::CurrentConfig2String() + "&";
+			}
+			else if (argName == "config")
+			{
+				if (argVal == "save")
+				{
+					if (WriteFile(FileConfig1, LedFunctions::CurrentConfig2String()))
+					{
+						result += "SUCCESS storing Config&";
+					}
+					else
+					{
+						result += "ERROR storing Config&";
+					}
+				}
+				else if (argVal == "load")
+				{
+					result += LedFunctions::String2CurrentConfig(ReadFile(FileConfig1));
+				}
+				else if (argVal == "clear")
+				{
+					if (TruncateFile(FileConfig1))
+					{
+						result += "SUCCESS cleaning Config&";
+					}
+					else
+					{
+						result += "ERROR cleaning Config&";
+					}
+				}
+			}
+			else if (argName == "hostname")
+			{
+				if (!argVal.isEmpty())
+				{
+					if (WriteFile(FileHostName, argVal))
+					{
+						result += "SUCCESS storing Hostname&";
+					}
+					else
+					{
+						result += "ERROR storing Hostname&";
+					}
+					SSDP.end();
+					SSDP.setName(NetworkCommunication::ReadValidHostname());
+					SSDP.begin();
+					result += "restarted SSDP Server&";
+				}
+				result += "hostname=" + NetworkCommunication::ReadValidHostname() + "&";
+			}
+			else if (argName == "restart")
+			{
+				shouldRestart = true;
+				result += "restarting module";
+			}
+			else
+			{
+				result += LedFunctions::HandleProperty(argName, argVal);
+			}
+		}
 		if (WriteFile(FileLastConfig, LedFunctions::CurrentConfig2String()))
 		{
 			result += "SUCCESS storing current Config&";
@@ -209,17 +218,9 @@ void NetworkCommunication::handleRoot()
 		{
 			result += "ERROR storing current CurrentConfig&";
 		}
+		Server.send(200, "text/plain", result);
 	}
-	if (Server.args() == 0)
-	{
-		digitalWrite(BuiltInLed, LOW); //Led port einschlaten
-		result = "Welcome to the HomeLED server of \"" + NetworkCommunication::ReadValidHostname() + "\" \n";
-		result += "This IP is " + WiFi.localIP().toString() + "\n";
-		result += "HOMELed Version " + String(Version) + "\n";
-		delay(100);
-		digitalWrite(BuiltInLed, HIGH); //Led port ausschalten
-	}
-	Server.send(200, "text/plain", result);
+
 	SERIALWRITELINE(result);
 	SERIALWRITELINE("-------Roothandled------");
 	if (shouldRestart)

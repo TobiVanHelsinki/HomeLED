@@ -14,13 +14,44 @@ void LedFunctions::SetupLeds()
 	auto ledno = ReadFile(FileLEDNo).toInt();
 	auto pin = ReadFile(FileDatapin).toInt(); //TODO auch für r,g,b einführen
 	//TODO better sanitychecks
-	if (pin < 12)
+	switch (pin)
 	{
+	case 0:
+		pin = D0; // reserved for intern-LED I thought
+		break;
+	case 1:
 		pin = D1; //5-tb
-	}
-	else if (pin > 12)
-	{
+		break;
+	case 2:
+		pin = D2; 
+		break;
+	case 3:
+		pin = D3; 
+		break;
+	case 4:
+		pin = D4;
+		break;
+	case 5:
+		pin = D5;
+		break;
+	case 6:
 		pin = D6; //12-tk
+		break;
+	case 7:
+		pin = D7;
+		break;
+	case 8:
+		pin = D8;
+		break;
+	//case 9:
+	//	pin = D9;
+	//	break;
+	//case 10:
+	//	pin = D10;
+	//	break;
+	default:
+		pin = pin;
+		break;
 	}
 	auto ledtype = ReadFile(FileLEDType).toInt(); //TODO auch für r,g,b einführen
 	if (leds)
@@ -29,6 +60,7 @@ void LedFunctions::SetupLeds()
 		delete(leds);
 	}
 #ifdef HARDWARE_IS_NEOPIXEL
+	SERIALWRITELINE("Start NeoPixel at pin " + String(pin) +  ", number of leds: " + String(ledno));
 	leds = new LEDProvider_NeoPixel(new Adafruit_NeoPixel(ledno, pin, ledtype + NEO_KHZ800));
 #endif
 #ifdef HARDWARE_IS_ANALOG
