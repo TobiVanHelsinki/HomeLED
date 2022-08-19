@@ -97,7 +97,10 @@ void LedFunctions::LEDsStart()
 	}
 	os_timer_disarm(&ShowTimer);
 	os_timer_setfn(&ShowTimer, (os_timer_func_t*)RefreshLeds, (void*)0);
-	os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
+	if (CurrentLEDRefreshTime != 0)
+	{
+		os_timer_arm(&ShowTimer, CurrentLEDRefreshTime, true);
+	}
 	IsLEDStarted = true;
 	SERIALWRITELINE("LEDs started");
 }
@@ -144,7 +147,10 @@ bool LedFunctions::SetMode(String s)
 	}
 	else if (s == ColorMode::ID)
 	{
+		LEDsStop();
 		CurrentMode = new ColorMode(leds);
+		HandleProperty("v", "0"); // TODO Test
+		LEDsStart();
 	}
 	else if (s == TwoColorMode::ID)
 	{
@@ -222,8 +228,8 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 	{
 		if (!argVal.isEmpty())
 		{
-			auto newValue = CropAtBounds(argVal.toInt(), MinLEDRefreshTime, MaxLEDRefreshTime);
-			if (newValue != CurrentLEDRefreshTime)
+			auto newValue = CropAtBounds(argVal.toInt(), 0, MaxLEDRefreshTime);
+			if (newValue != CurrentLEDRefreshTime && CurrentMode->GetID() != ColorMode::ID) // TODO Test
 			{
 				CurrentLEDRefreshTime = newValue;
 				LEDsStop();
