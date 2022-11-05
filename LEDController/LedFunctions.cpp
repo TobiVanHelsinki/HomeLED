@@ -149,7 +149,7 @@ bool LedFunctions::SetMode(String s)
 	{
 		LEDsStop();
 		CurrentMode = new ColorMode(leds);
-		HandleProperty("v", "0"); // TODO Test
+		HandleProperty("v", "0"); // TODO Test -> geht, aver muss noch verfeinert werden. Am besten 0 zurücksenden, sodass die UI dann nicht auf den gedanken kommt und wieder 40 sendet.
 		LEDsStart();
 	}
 	else if (s == TwoColorMode::ID)
@@ -229,8 +229,9 @@ String LedFunctions::HandleProperty(String argName, String argVal)
 		if (!argVal.isEmpty())
 		{
 			auto newValue = CropAtBounds(argVal.toInt(), 0, MaxLEDRefreshTime);
-			if (newValue != CurrentLEDRefreshTime && CurrentMode->GetID() != ColorMode::ID) // TODO Test
+			if (newValue != CurrentLEDRefreshTime) 
 			{
+				SERIALWRITELINE(newValue);
 				CurrentLEDRefreshTime = newValue;
 				LEDsStop();
 				LEDsStart();

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeLedApp.UWP", "HomeLedAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeLedApp", "HomeLedApp\HomeLedApp.csproj", "{138AB86E-2666-497B-91FA-C9C2CE112AE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImperialLED-Webassembly", "ImperialLED-Webassembly\ImperialLED-Webassembly.csproj", "{96614323-640F-471A-A288-2B5C269CD9CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImperialLED-Webassembly", "ImperialLED-Webassembly\ImperialLED-Webassembly.csproj", "{96614323-640F-471A-A288-2B5C269CD9CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
