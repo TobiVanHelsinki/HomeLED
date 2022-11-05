@@ -1,3 +1,8 @@
+# This project has ended
+
+pleaase checkout aircoookies wled project https://github.com/Aircoookie/WLED
+It has all the features of this project, the same architectural approach but is waaay more advanced.
+
 # HomeLED
 Project to manage NeoPixel Leds with an ESP8266 and control them by an xamarin App.
 
