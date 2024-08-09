@@ -1,5 +1,8 @@
 #include "Mode_Sin.h"
 #include <math.h>
+
+// the original static sin table was inspired from <https://github.com/adafruit/Adafruit_NeoPixel/blob/b6ebf749760f8e0dc7bbb1c12f4d46c06ff2b058/Adafruit_NeoPixel.cpp>
+
 SinMode::SinMode(ILEDProvider* leds) : ColorMode(leds)
 {
 	BuildTable(DebugOutput);
